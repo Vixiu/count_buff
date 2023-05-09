@@ -51,7 +51,7 @@ def input_validation(text):
 
 
 def count_buff(lv, buff_amount, intellect, attack_fixed, ap_1, ap_2, ap_3, ap_4, ap_5):
-    basic_attack = BASIC_DATA['nai_ma']['san_gong'][int(lv - 1) if 0 < int(lv - 1)  < 41 else 0]
+    basic_attack = BASIC_DATA['nai_ma']['san_gong'][int(lv - 1) if 0 < int(lv - 1) < 41 else 0]
     old_buff = ((basic_attack + attack_fixed) * ((intellect / 665) + 1)) * ap_1 * ap_2 * ap_3 * ap_4 * ap_5
     new_buff = basic_attack * ((intellect + 4345) / 665 + 1) * (
             buff_amount + 3500) * 0.0000379 if buff_amount != 0 else 0
@@ -116,6 +116,7 @@ def button_count_clicked():
                                            f"<font color='#f40c0c' >{jt_zcj}<font>")
     except Exception as e:
         print(e)
+
 
 def is_contrast():
     global contrast

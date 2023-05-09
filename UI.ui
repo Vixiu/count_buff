@@ -16,10 +16,10 @@
   <widget class="QWidget" name="widget_1" native="true">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>30</y>
-     <width>781</width>
-     <height>761</height>
+     <x>80</x>
+     <y>60</y>
+     <width>771</width>
+     <height>741</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -107,7 +107,7 @@ QLineEdit:hover{
     }
 
 QLineEdit:focus{
-    border-bottom: 3px solid #E680BD;
+    border-bottom: 3px solid rgb(76, 255, 180);
     }
 
 
@@ -117,8 +117,8 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_count">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>680</y>
+      <x>580</x>
+      <y>670</y>
       <width>91</width>
       <height>51</height>
      </rect>
@@ -144,128 +144,23 @@ QLineEdit:focus{
       <rect>
        <x>10</x>
        <y>150</y>
-       <width>261</width>
+       <width>301</width>
        <height>221</height>
       </rect>
      </property>
      <property name="title">
       <string>进图</string>
      </property>
-     <widget class="QLabel" name="zj_show_sg_cj_3">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>40</y>
-        <width>50</width>
-        <height>20</height>
+        <x>22</x>
+        <y>32</y>
+        <width>251</width>
+        <height>24</height>
        </rect>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>50</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>9999</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>-9999</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="zj_show_sg_cj_4">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>80</y>
-        <width>60</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>50</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>99999</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>-99999</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_3">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>70</y>
-        <width>131</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
-       <item>
-        <widget class="QLabel" name="label_22">
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>力智:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="zj_show_sg_3">
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>999999</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_4">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>119</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_10">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QLabel" name="label_23">
          <property name="font">
@@ -279,32 +174,151 @@ QLineEdit:focus{
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="zj_show_sg_4">
+        <widget class="QLabel" name="sg_jt">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>99999</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="sg_jt_cj">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>9999</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget_5">
+     <widget class="QWidget" name="layoutWidget_2">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>130</y>
-        <width>151</width>
-        <height>41</height>
+        <x>21</x>
+        <y>70</y>
+        <width>251</width>
+        <height>24</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_11">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_22">
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>力智:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lz_jt">
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lz_jt_cj">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>99999</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>130</y>
+        <width>261</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
         <widget class="QLabel" name="label_24">
          <property name="font">
@@ -318,98 +332,72 @@ QLineEdit:focus{
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="zj_show_sg_5">
+        <widget class="QLabel" name="zsg">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>99999</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="zsg_cj">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>9999</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
-     <widget class="QLabel" name="zj_show_sg_cj_5">
+     <widget class="QWidget" name="layoutWidget_4">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>180</y>
-        <width>50</width>
-        <height>20</height>
+        <x>21</x>
+        <y>171</y>
+        <width>261</width>
+        <height>24</height>
        </rect>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>50</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>9999</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>99999</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="zj_show_sg_cj_6">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>140</y>
-        <width>50</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>50</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>9999</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>99999</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_6">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>170</y>
-        <width>161</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_12">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
         <widget class="QLabel" name="label_25">
          <property name="font">
@@ -423,19 +411,59 @@ QLineEdit:focus{
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="zj_show_sg_6">
+        <widget class="QLabel" name="zlz">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>999999</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="zlz_cj">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>9999</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -445,98 +473,20 @@ QLineEdit:focus{
       <rect>
        <x>90</x>
        <y>20</y>
-       <width>271</width>
-       <height>121</height>
+       <width>261</width>
+       <height>111</height>
       </rect>
      </property>
      <property name="title">
       <string>站街</string>
      </property>
-     <widget class="QWidget" name="layoutWidget_2">
+     <widget class="QWidget" name="layoutWidget_5">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>131</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <item>
-        <widget class="QLabel" name="label_21">
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>力智:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="zj_show_sg_2">
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>999999</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QLabel" name="zj_show_sg_cj_2">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>70</y>
-        <width>60</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>50</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>999</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>+99999</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QWidget" name="">
-      <property name="geometry">
-       <rect>
-        <x>11</x>
-        <y>21</y>
-        <width>171</width>
-        <height>41</height>
+        <x>12</x>
+        <y>22</y>
+        <width>231</width>
+        <height>24</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -559,14 +509,14 @@ QLineEdit:focus{
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="zj_show_sg">
+        <widget class="QLabel" name="sg_zj">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>99999</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -574,11 +524,11 @@ QLineEdit:focus{
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="zj_show_sg_cj">
+        <widget class="QLabel" name="sg_zj_cj">
          <property name="minimumSize">
           <size>
-           <width>50</width>
-           <height>20</height>
+           <width>0</width>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -593,12 +543,116 @@ QLineEdit:focus{
           </font>
          </property>
          <property name="text">
-          <string>1221</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>62</y>
+        <width>233</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>力智:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lz_zj">
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lz_zj_cj">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>999</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::AutoText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+         <property name="openExternalLinks">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -607,16 +661,16 @@ QLineEdit:focus{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>20</y>
-       <width>51</width>
-       <height>51</height>
+       <y>50</y>
+       <width>61</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>../png/84.PNG</pixmap>
+      <pixmap>png/84.PNG</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -626,8 +680,8 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_jc">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>680</y>
+      <x>460</x>
+      <y>670</y>
       <width>91</width>
       <height>51</height>
      </rect>
@@ -639,8 +693,8 @@ QLineEdit:focus{
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>319</x>
-      <y>30</y>
+      <x>330</x>
+      <y>20</y>
       <width>31</width>
       <height>701</height>
      </rect>
@@ -654,7 +708,7 @@ QLineEdit:focus{
      <rect>
       <x>50</x>
       <y>200</y>
-      <width>231</width>
+      <width>261</width>
       <height>141</height>
      </rect>
     </property>
@@ -785,7 +839,7 @@ QLineEdit:focus{
          </font>
         </property>
         <property name="text">
-         <string>太阳等级:</string>
+         <string>Buff等级:</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -929,13 +983,13 @@ QLineEdit:focus{
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_8">
       <item>
-       <widget class="QLineEdit" name="sg_buff_gh"/>
+       <widget class="QLineEdit" name="buff_gh"/>
       </item>
       <item>
-       <widget class="QLineEdit" name="sg_buff_cw"/>
+       <widget class="QLineEdit" name="buff_cw"/>
       </item>
       <item>
-       <widget class="QLineEdit" name="sg_buff_bxy"/>
+       <widget class="QLineEdit" name="buff_bxy"/>
       </item>
       <item>
        <widget class="QLineEdit" name="sg_guding"/>
@@ -945,7 +999,7 @@ QLineEdit:focus{
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget_7">
      <property name="geometry">
       <rect>
        <x>21</x>
@@ -971,7 +1025,7 @@ QLineEdit:focus{
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="sg_bfb">
         <property name="font">
          <font>
           <pointsize>12</pointsize>
@@ -982,13 +1036,13 @@ QLineEdit:focus{
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget_10">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>270</y>
        <width>211</width>
-       <height>58</height>
+       <height>61</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1008,7 +1062,7 @@ QLineEdit:focus{
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_2">
+       <widget class="QLineEdit" name="lz_bfb">
         <property name="font">
          <font>
           <pointsize>12</pointsize>
@@ -1019,7 +1073,7 @@ QLineEdit:focus{
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="layoutWidget_11">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -1046,7 +1100,7 @@ QLineEdit:focus{
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="zl_buff"/>
+      <widget class="QLineEdit" name="buff_liang"/>
      </item>
     </layout>
    </widget>
@@ -1077,54 +1131,21 @@ QLineEdit:focus{
      <rect>
       <x>370</x>
       <y>490</y>
-      <width>301</width>
+      <width>361</width>
       <height>91</height>
      </rect>
     </property>
     <property name="title">
      <string>圣光天启</string>
     </property>
-    <widget class="QLabel" name="jt_show_ty_cj">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>30</y>
-       <width>50</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>20</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>9999</width>
-       <height>20</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>99999</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_7">
      <property name="enabled">
       <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>20</y>
+       <x>20</x>
+       <y>30</y>
        <width>51</width>
        <height>51</height>
       </rect>
@@ -1133,22 +1154,22 @@ QLineEdit:focus{
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>../png/23.PNG</pixmap>
+      <pixmap>png/23.PNG</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget_12">
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>20</y>
-       <width>130</width>
-       <height>41</height>
+       <y>40</y>
+       <width>261</width>
+       <height>24</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_9">
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
       <item>
        <widget class="QLabel" name="label_4">
         <property name="font">
@@ -1162,19 +1183,59 @@ QLineEdit:focus{
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="jt_show_ty">
+       <widget class="QLabel" name="ty">
         <property name="font">
          <font>
           <pointsize>13</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>999999</string>
+         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="ty_cj">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>9999</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
@@ -1182,8 +1243,8 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_save">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>610</y>
+      <x>580</x>
+      <y>600</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -1200,7 +1261,7 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_load">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>460</x>
       <y>600</y>
       <width>91</width>
       <height>41</height>
@@ -1232,23 +1293,10 @@ QLineEdit:focus{
      </font>
     </property>
     <property name="text">
-     <string>数据输入错误</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>40</y>
-      <width>411</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
     </property>
    </widget>
   </widget>
