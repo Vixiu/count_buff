@@ -1,20 +1,25 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
+import traceback
+
+from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect, QLineEdit
 from Widget import RoundedWindow
 from UI import Ui_Form
 from PyQt5.QtCore import Qt, QCoreApplication
 
+ui_home = Ui_Form()
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
                      63, 65, 67, 69, 70, 71, 73, 75, 77, 79, 80, 81, 83, 85, 86, 88,
-                     89, 90, 92, 94, 95, 97, 98, 100]
-        ,
+                     89, 90, 92, 94, 95, 97, 98, 100],
         'li_zhi': [154, 164, 176, 186, 197, 206, 216, 227, 237, 249, 259, 269, 280, 290,
                    302, 311, 321, 332, 342, 353, 363, 374, 385, 395, 406, 415, 425, 437,
-                   447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563]
-
+                   447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
+        'xs': 665,
+        'attack_xyz': (4345, 3500, 0.0000379),
+        'intellect_xyz': (4345.545, 3500, 0.0000379)
     },
+
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
                      70, 72, 74, 77, 78, 80, 82, 83, 85, 87, 88, 90, 92, 93, 95, 97,
@@ -37,97 +42,191 @@ BASIC_DATA = {
                  414, 449, 487, 526, 567, 608, 651, 696, 741, 789, 838, 888, 939, 993,
                  1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668]
 }
-contrast = {}
+UI_DATA = {}
+data = {
+    'buff_amount': 0,
+    'out_intellect': 0,
+    'out_lv': 1,
+    'in_intellect': 0,
+    'in_lv': 1,
+    #  'in_ty_lv': 1,
+    'halo_amount': 0,
+    'pet_amount': 0,
+    'jade_amount': 0,
+    'fixed_attack': 0,
+    'fixed_intellect': 0,
+    'percentage_attack': [],
+    'percentage_intellect': [],
+    # 'cp_arms': True
+}
+buff = {}
+buff_copy = {}
+career = 'nai_ma'
 
 
-def input_validation(text):
-    text = text.replace(" ", "")
-    if text == "":
-        return 0.0
-    try:
-        return float(text)
-    except ValueError as e:
-        raise e
+def input_validation() -> list:
+    exception = []
 
+    def validation(key: str, default):
+        text = UI_DATA.get(key).text()
+        text = text.replace(" ", "").replace("，", ',').replace("。", '.')
+        if text == "":
+            text = UI_DATA.get(key).placeholderText()
+            text = text.replace(" ", "").replace("，", ',').replace("。", '.')
 
-def count_buff(lv, buff_amount, intellect, attack_fixed, ap_1, ap_2, ap_3, ap_4, ap_5):
-    basic_attack = BASIC_DATA['nai_ma']['san_gong'][int(lv - 1) if 0 < int(lv - 1) < 41 else 0]
-    old_buff = ((basic_attack + attack_fixed) * ((intellect / 665) + 1)) * ap_1 * ap_2 * ap_3 * ap_4 * ap_5
-    new_buff = basic_attack * ((intellect + 4345) / 665 + 1) * (
-            buff_amount + 3500) * 0.0000379 if buff_amount != 0 else 0
-    buff = (old_buff + new_buff) * (1.08 if buff_amount != 0 else 1)
-    return round(buff)
+        if text == "":
+            return False, default
+        elif ',' in text:
+            return False, [eval(i) for i in text.split(',')]
+        elif text.startswith('+') or text.startswith('-'):
+            return True, eval(text)
+        elif text.isdigit() or ('.' in text and text.count('.') == 1):
+            return False, eval(text)
+        else:
+            exception.append((key, '错误的输入'))
+            return False, default
 
+    def input_data(key: str, default):
+        bl, v = validation(key, default)
+        if bl:
+            data[key] += v
+        else:
+            data[key] = v
 
-def count_zj_buff():
-    return count_buff(
-        input_validation(ui_home.zl_lv.text()),
-        input_validation(ui_home.zl_buff.text()) * (1 + input_validation(ui_home.sg_buff_gh.text()) / 100 +
-                                                    input_validation(ui_home.sg_buff_cw.text()) / 100),
-        input_validation(ui_home.zj_zhili.text()),
-        input_validation(ui_home.sg_guding.text()),
-        1 + input_validation(ui_home.sg_bf_1.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_2.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_3.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_4.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_5.text()) / 100,
+    input_data('buff_amount', 0)
+    input_data('out_intellect', 0)
+    input_data('out_lv', 1)
 
-    )
+    input_data('in_intellect', 0)
+    input_data('in_lv', 1)
 
+    input_data('halo_amount', 0)
+    input_data('pet_amount', 0)
+    input_data('jade_amount', 0)
 
-def count_jt_buff():
-    return count_buff(
-        input_validation(ui_home.jt_lv.text()),
-        input_validation(ui_home.zl_buff.text()) * (1 + input_validation(ui_home.sg_buff_gh.text()) / 100 +
-                                                    input_validation(ui_home.sg_buff_bxy.text()) / 100 +
-                                                    input_validation(ui_home.sg_buff_cw.text()) / 100
-                                                    )
+    input_data('fixed_attack', 0)
+    input_data('fixed_intellect', 0)
 
-        ,
-        input_validation(ui_home.jt_zhili.text()),
-        input_validation(ui_home.sg_guding.text()),
-        1 + input_validation(ui_home.sg_bf_1.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_2.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_3.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_4.text()) / 100,
-        1 + input_validation(ui_home.sg_bf_5.text()) / 100,
+    input_data('percentage_attack', [])
+    input_data('percentage_intellect', [])
 
-    )
+    if type(data['percentage_attack']) is not list:
+        data['percentage_attack'] = [data['percentage_attack']]
+    if type(data['percentage_intellect']) is not list:
+        data['percentage_intellect'] = [data['percentage_intellect']]
+    if not (0 < data['in_lv'] < 41):
+        exception.append(('in_lv', '1~40之间'))
+    if not (0 < data['out_lv'] < 41):
+        exception.append(('out_lv', '1~40之间'))
+    return exception
 
 
 def button_count_clicked():
-    try:
-        global contrast
-        zj_buff = count_zj_buff()
-        jt_buff = count_jt_buff()
-        ui_home.zj_show_sg.setText(str(zj_buff))
-        ui_home.jt_show_sg.setText(str(jt_buff))
-        ui_home.jt_show_zsg.setText(str(round(jt_buff * 1.15)))
-        if contrast:
-            zj_cj = zj_buff - contrast['zj']
-            jt_cj = jt_buff - contrast['jt']
-            jt_zcj = round((jt_buff - contrast['jt']) * 1.15)
+    global buff_copy, buff
+    ls = input_validation()
+    if len(ls) == 0:
+        try:
+            buff = {
+                'zj': count_zj_buff(career),
+                'jt': count_jt_buff(career),
+            }
+            buff['z_jt'] = (str(round(int(buff['jt'][0]) * 1.15)), str(round(int(buff['jt'][1]) * 1.15)))
+            ui_home.sg_zj.setText(buff['zj'][0])
+            ui_home.lz_zj.setText(buff['zj'][1])
+            ui_home.sg_jt.setText(buff['jt'][0])
+            ui_home.lz_jt.setText(buff['jt'][1])
+            ui_home.zsg.setText(buff['z_jt'][1])
+            ui_home.zlz.setText(buff['z_jt'][1])
+            if buff_copy:
+                cj = {k: (int(v[0]) - int(buff_copy[k][0]), int(v[1]) - int(buff_copy[k][1])) for k, v in buff.items()}
+                ui_home.sg_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
+                    '#21f805' if cj['zj'][0] > 0 else '#f40c0c', cj['zj'][0]))
+                ui_home.lz_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
+                    '#21f805' if cj['zj'][1] > 0 else '#f40c0c', cj['zj'][1]))
+                ui_home.sg_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
+                    '#21f805' if cj['jt'][0] > 0 else '#f40c0c', cj['jt'][0]))
+                ui_home.lz_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
+                    '#21f805' if cj['jt'][1] > 0 else '#f40c0c', cj['jt'][1]))
+                ui_home.zsg_cj.setText("<font color='{}' >{:+d}<font>".format(
+                    '#21f805' if cj['z_jt'][0] > 0 else '#f40c0c', cj['z_jt'][0]))
+                ui_home.zlz_cj.setText("<font color='{}' >{:+d}<font>".format(
+                    '#21f805' if cj['z_jt'][1] > 0 else '#f40c0c', cj['z_jt'][1]))
+        except Exception as e:
+            print(e)
+            traceback.print_exc()
+    else:
+        for ql in ls:
+            key, tip = ql
+            UI_DATA[key].setText('')
+            UI_DATA[key].setPlaceholderText(tip)
 
-            ui_home.zj_show_sg_cj.setText(f"<font color='#21f805' >+{zj_cj}<font>" if zj_cj > 0 else
-                                          f"<font color='#f40c0c' >{zj_cj}<font>")
-            ui_home.jt_show_sg_cj.setText(f"<font color='#21f805' >+{zj_cj}<font>" if jt_cj > 0 else
-                                          f"<font color='#f40c0c' >{jt_cj}<font>")
-            ui_home.jt_show_zsg_cj.setText(f"<font color='#21f805' >+{zj_cj}<font>" if jt_zcj > 0 else
-                                           f"<font color='#f40c0c' >{jt_zcj}<font>")
-    except Exception as e:
-        print(e)
+
+def count_buff(lv, buff_amount, intellect, cp_arms=True):
+    def count(fixed, bfb, xs, xyz) -> str:
+        x, y, z = xyz
+        basic_attack = BASIC_DATA['nai_ma']['san_gong'][int(lv - 1)]
+        old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
+        for n in bfb:
+            old_buff *= (1 + n / 100)
+        new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
+        buff = (old_buff + new_buff) * (1.08 if cp_arms else 1)
+        return str(round(buff))
+
+    return count
+
+
+def count_zj_buff(cr):
+    count = count_buff(
+        data['out_lv'],
+        data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100),
+        data['out_intellect'],
+    )
+
+    return count(
+        data['fixed_attack'],
+        data['percentage_attack'],
+        BASIC_DATA[cr]['xs'],
+        BASIC_DATA[cr]['attack_xyz'],
+    ), count(
+        data['fixed_intellect'],
+        data['percentage_intellect'],
+        BASIC_DATA[cr]['xs'],
+        BASIC_DATA[cr]['intellect_xyz'],
+    )
+
+
+def count_jt_buff(cr):
+    count = count_buff(
+        data['in_lv'],
+        data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100),
+        data['in_intellect'],
+    )
+
+    return count(
+        data['fixed_attack'],
+        data['percentage_attack'],
+        BASIC_DATA[cr]['xs'],
+        BASIC_DATA[cr]['attack_xyz'],
+    ), count(
+        data['fixed_intellect'],
+        data['percentage_intellect'],
+        BASIC_DATA[cr]['xs'],
+        BASIC_DATA[cr]['intellect_xyz'],
+    )
 
 
 def is_contrast():
-    global contrast
-    contrast = {
-        'jt': count_jt_buff(),
-        'zj': count_zj_buff()
-    }
-
-    ui_home.zj_show_sg_cj.setText('')
-    ui_home.jt_show_sg_cj.setText('')
-    ui_home.jt_show_zsg_cj.setText('')
+    global buff_copy
+    for k, v in data.items():
+        UI_DATA[k].setPlaceholderText(str(v).replace('[', '').replace(']', ''))
+        UI_DATA[k].setText('')
+    buff_copy = buff.copy()
+    ui_home.sg_zj_cj.setText("")
+    ui_home.lz_zj_cj.setText("")
+    ui_home.sg_jt_cj.setText("")
+    ui_home.lz_jt_cj.setText("")
+    ui_home.zsg_cj.setText("")
+    ui_home.zlz_cj.setText("")
 
 
 def close_windows():
@@ -136,9 +235,26 @@ def close_windows():
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ui_home = Ui_Form()
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
+    UI_DATA = {
+        'buff_amount': ui_home.buff_liang,
+        'out_intellect': ui_home.zj_zhili,
+        'out_lv': ui_home.zl_lv,
+        'in_intellect': ui_home.jt_zhili,
+        'in_lv': ui_home.jt_lv,
+        #   'in_ty_lv': ui_home.jt_ty_lv,
+
+        'halo_amount': ui_home.buff_gh,
+        'pet_amount': ui_home.buff_cw,
+        'jade_amount': ui_home.buff_bxy,
+
+        'fixed_attack': ui_home.sg_guding,
+        'fixed_intellect': ui_home.lz_guding,
+
+        'percentage_attack': ui_home.sg_bfb,
+        'percentage_intellect': ui_home.lz_bfb
+    }
     ####################
     ui_home.button_count.clicked.connect(button_count_clicked)
     ui_home.button_jc.clicked.connect(is_contrast)
