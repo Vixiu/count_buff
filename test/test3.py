@@ -1,3 +1,5 @@
-j = -223233
+import os
 
-print()
+with open(rf'{os.getenv("APPDATA")}/count-buff/data.json', "r") as f:
+    data = eval(f.read())
+    print(type(data))

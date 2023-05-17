@@ -1,11 +1,13 @@
+import os
 import sys
 import traceback
 
-from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect, QLineEdit
+from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
 from Widget import RoundedWindow
 from UI import Ui_Form
 from PyQt5.QtCore import Qt, QCoreApplication
 
+file_path = rf'{os.getenv("APPDATA")}\count-buff\data.json'
 ui_home = Ui_Form()
 BASIC_DATA = {
     'nai_ma': {
@@ -17,9 +19,8 @@ BASIC_DATA = {
                    447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
         'xs': 665,
         'attack_xyz': (4345, 3500, 0.0000379),
-        'intellect_xyz': (4345.545, 3500, 0.0000379)
+        'intellect_xyz': (4345.544, 3500, 0.0000379)
     },
-
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
                      70, 72, 74, 77, 78, 80, 82, 83, 85, 87, 88, 90, 92, 93, 95, 97,
@@ -64,6 +65,17 @@ buff_copy = {}
 career = 'nai_ma'
 
 
+def put_ex(fn):
+    def ex():
+        try:
+            fn()
+        except Exception as e:
+            print(e)
+            traceback.print_exc()
+
+    return ex
+
+
 def input_validation() -> list:
     exception = []
 
@@ -83,7 +95,7 @@ def input_validation() -> list:
         elif text.isdigit() or ('.' in text and text.count('.') == 1):
             return False, eval(text)
         else:
-            exception.append((key, '错误的输入'))
+            exception.append((key, "错误的输入"))
             return False, default
 
     def input_data(key: str, default):
@@ -125,35 +137,32 @@ def button_count_clicked():
     global buff_copy, buff
     ls = input_validation()
     if len(ls) == 0:
-        try:
-            buff = {
-                'zj': count_zj_buff(career),
-                'jt': count_jt_buff(career),
-            }
-            buff['z_jt'] = (str(round(int(buff['jt'][0]) * 1.15)), str(round(int(buff['jt'][1]) * 1.15)))
-            ui_home.sg_zj.setText(buff['zj'][0])
-            ui_home.lz_zj.setText(buff['zj'][1])
-            ui_home.sg_jt.setText(buff['jt'][0])
-            ui_home.lz_jt.setText(buff['jt'][1])
-            ui_home.zsg.setText(buff['z_jt'][1])
-            ui_home.zlz.setText(buff['z_jt'][1])
-            if buff_copy:
-                cj = {k: (int(v[0]) - int(buff_copy[k][0]), int(v[1]) - int(buff_copy[k][1])) for k, v in buff.items()}
-                ui_home.sg_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
-                    '#21f805' if cj['zj'][0] > 0 else '#f40c0c', cj['zj'][0]))
-                ui_home.lz_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
-                    '#21f805' if cj['zj'][1] > 0 else '#f40c0c', cj['zj'][1]))
-                ui_home.sg_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
-                    '#21f805' if cj['jt'][0] > 0 else '#f40c0c', cj['jt'][0]))
-                ui_home.lz_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
-                    '#21f805' if cj['jt'][1] > 0 else '#f40c0c', cj['jt'][1]))
-                ui_home.zsg_cj.setText("<font color='{}' >{:+d}<font>".format(
-                    '#21f805' if cj['z_jt'][0] > 0 else '#f40c0c', cj['z_jt'][0]))
-                ui_home.zlz_cj.setText("<font color='{}' >{:+d}<font>".format(
-                    '#21f805' if cj['z_jt'][1] > 0 else '#f40c0c', cj['z_jt'][1]))
-        except Exception as e:
-            print(e)
-            traceback.print_exc()
+        buff = {
+            'zj': count_zj_buff(career),
+            'jt': count_jt_buff(career),
+        }
+        buff['z_jt'] = (str(round(int(buff['jt'][0]) * 1.15)), str(round(int(buff['jt'][1]) * 1.15)))
+        ui_home.sg_zj.setText(buff['zj'][0])
+        ui_home.lz_zj.setText(buff['zj'][1])
+        ui_home.sg_jt.setText(buff['jt'][0])
+        ui_home.lz_jt.setText(buff['jt'][1])
+        ui_home.zsg.setText(buff['z_jt'][0])
+        ui_home.zlz.setText(buff['z_jt'][1])
+        if buff_copy:
+            cj = {k: (int(v[0]) - int(buff_copy[k][0]), int(v[1]) - int(buff_copy[k][1])) for k, v in buff.items()}
+            ui_home.sg_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
+                '#21f805' if cj['zj'][0] > 0 else '#f40c0c', cj['zj'][0]))
+            ui_home.lz_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
+                '#21f805' if cj['zj'][1] > 0 else '#f40c0c', cj['zj'][1]))
+            ui_home.sg_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
+                '#21f805' if cj['jt'][0] > 0 else '#f40c0c', cj['jt'][0]))
+            ui_home.lz_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
+                '#21f805' if cj['jt'][1] > 0 else '#f40c0c', cj['jt'][1]))
+            ui_home.zsg_cj.setText("<font color='{}' >{:+d}<font>".format(
+                '#21f805' if cj['z_jt'][0] > 0 else '#f40c0c', cj['z_jt'][0]))
+            ui_home.zlz_cj.setText("<font color='{}' >{:+d}<font>".format(
+                '#21f805' if cj['z_jt'][1] > 0 else '#f40c0c', cj['z_jt'][1]))
+
     else:
         for ql in ls:
             key, tip = ql
@@ -162,15 +171,15 @@ def button_count_clicked():
 
 
 def count_buff(lv, buff_amount, intellect, cp_arms=True):
-    def count(fixed, bfb, xs, xyz) -> str:
+    def count(fixed, bfb, basic_list, xs, xyz) -> str:
         x, y, z = xyz
-        basic_attack = BASIC_DATA['nai_ma']['san_gong'][int(lv - 1)]
+        basic_attack = basic_list[int(lv - 1)]
         old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
         for n in bfb:
             old_buff *= (1 + n / 100)
         new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
-        buff = (old_buff + new_buff) * (1.08 if cp_arms else 1)
-        return str(round(buff))
+        bf = (old_buff + new_buff) * (1.08 if cp_arms else 1)
+        return str(round(bf))
 
     return count
 
@@ -178,18 +187,20 @@ def count_buff(lv, buff_amount, intellect, cp_arms=True):
 def count_zj_buff(cr):
     count = count_buff(
         data['out_lv'],
-        data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100),
+        int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100)),
         data['out_intellect'],
     )
 
     return count(
         data['fixed_attack'],
         data['percentage_attack'],
+        BASIC_DATA[cr]['san_gong'],
         BASIC_DATA[cr]['xs'],
         BASIC_DATA[cr]['attack_xyz'],
     ), count(
         data['fixed_intellect'],
         data['percentage_intellect'],
+        BASIC_DATA[cr]['li_zhi'],
         BASIC_DATA[cr]['xs'],
         BASIC_DATA[cr]['intellect_xyz'],
     )
@@ -198,18 +209,21 @@ def count_zj_buff(cr):
 def count_jt_buff(cr):
     count = count_buff(
         data['in_lv'],
-        data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100),
+        int(data['buff_amount'] * (
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
         data['in_intellect'],
     )
 
     return count(
         data['fixed_attack'],
         data['percentage_attack'],
+        BASIC_DATA[cr]['san_gong'],
         BASIC_DATA[cr]['xs'],
         BASIC_DATA[cr]['attack_xyz'],
     ), count(
         data['fixed_intellect'],
         data['percentage_intellect'],
+        BASIC_DATA[cr]['li_zhi'],
         BASIC_DATA[cr]['xs'],
         BASIC_DATA[cr]['intellect_xyz'],
     )
@@ -231,6 +245,34 @@ def is_contrast():
 
 def close_windows():
     QCoreApplication.instance().quit()
+
+
+def save_data():
+    if not os.path.exists(os.path.dirname(file_path)):
+        os.makedirs(os.path.dirname(file_path))
+    with open(file_path, "w+") as f:
+        f.write(str(data))
+
+
+def load_data():
+    global data
+    with open(rf'{os.getenv("APPDATA")}/count-buff/data.json', "r") as f:
+        data = eval(f.read())
+    for k, v in data.items():
+        UI_DATA[k].setPlaceholderText(str(v).replace('[', '').replace(']', ''))
+        UI_DATA[k].setText('')
+    button_count_clicked()
+    is_contrast()
+
+
+def lv_11():
+    text = ui_home.zl_lv.text().replace(" ", "")
+    if text.isdigit() and ui_home.jt_lv.text() == '':
+        ui_home.jt_lv.setPlaceholderText(str(int(text) + 14))
+
+
+def intellect_():
+    pass
 
 
 if __name__ == '__main__':
@@ -259,6 +301,10 @@ if __name__ == '__main__':
     ui_home.button_count.clicked.connect(button_count_clicked)
     ui_home.button_jc.clicked.connect(is_contrast)
     ui_home.button_close.clicked.connect(close_windows)
+    ui_home.button_save.clicked.connect(save_data)
+    ui_home.button_load.clicked.connect(load_data)
+    ui_home.zl_lv.textChanged.connect(lv_11)
+
     ####################
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围

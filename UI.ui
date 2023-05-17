@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>938</width>
-    <height>879</height>
+    <width>771</width>
+    <height>741</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QWidget" name="widget_1" native="true">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>60</y>
+     <x>0</x>
+     <y>0</y>
      <width>771</width>
      <height>741</height>
     </rect>
@@ -117,10 +117,10 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_count">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>640</y>
-      <width>91</width>
-      <height>51</height>
+      <x>590</x>
+      <y>630</y>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -681,9 +681,9 @@ QLineEdit:focus{
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>640</y>
-      <width>91</width>
-      <height>51</height>
+      <y>630</y>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -1111,8 +1111,8 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_save">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>540</y>
+      <x>450</x>
+      <y>530</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -1129,8 +1129,8 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_load">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>540</y>
+      <x>600</x>
+      <y>530</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -1149,8 +1149,8 @@ QLineEdit:focus{
    <widget class="QLabel" name="tips">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>710</y>
+      <x>20</x>
+      <y>700</y>
       <width>141</width>
       <height>31</height>
      </rect>
