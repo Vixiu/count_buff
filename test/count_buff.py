@@ -60,7 +60,7 @@ def count_buff(lv, buff_amount, intellect, attack_fixed, ap_1, ap_2, ap_3, ap_4,
     return round(buff)
 
 
-def count_(lv, buff_amount, intellect, attack_fixed):
+def count_lz(lv, buff_amount, intellect, attack_fixed):
     basic_attack = BASIC_DATA['nai_ma']['li_zhi'][lv - 1]
     old_buff = ((basic_attack + attack_fixed) * ((intellect / 665) + 1))
     new_buff = basic_attack * ((intellect + 4345.545) / 665 + 1) * (
@@ -78,21 +78,20 @@ def count(a, b):
 count(count_buff(35, 111806, 8845, 8, 1, 1, 1, 1, 1), 10591)
 count(count_buff(35, 111806, 8845, 8, 1, 1, 1, 1, 1), 10591)
 
-count(count_(21, 111806, 8066, 0), 58141)
+count(count_lz(21, 111806, 8066, 0), 58141)
 
-count(count_(35, 111806, 8845, 0), 58141)
+count(count_lz(35, 111806, 8845, 0), 58141)
 
 count(count_buff(35, 111806, 8840, 8, 1, 1, 1, 1, 1), 10587)
 # count(count_(35, 111806, 8840, 0), 58119)
 de_buff(33, 111806, 7935, 0, 51758)
 
-count(count_(33, 111806, 7935, 0), 51758)
+count(count_lz(33, 111806, 7935, 0), 51758)
 
 
-count(count_(21, 107883, 8061, 0), 37675)
-count(count_(19, 107883, 8061, 0), 35495)
-count(count_(12, 107883, 8061, 0), 27919)
-
+count(count_lz(21, 107883, 8061, 0), 37675)
+count(count_lz(19, 107883, 8061, 0), 35495)
+count(count_lz(12, 107883, 8061, 0), 27919)
 count(count_buff(33, 111806, 7935, 8, 1, 1, 1, 1, 1), 9532)
 count(count_buff(21, 107883, 8061, 8, 1, 1, 1, 1, 1), 7378)
 count(count_buff(18, 99319, 7624, 8, 1, 1, 1, 1, 1), 6180)

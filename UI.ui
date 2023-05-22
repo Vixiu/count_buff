@@ -661,7 +661,7 @@ QLineEdit:focus{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>40</y>
+       <y>50</y>
        <width>61</width>
        <height>61</height>
       </rect>
@@ -670,7 +670,7 @@ QLineEdit:focus{
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>png/84.PNG</pixmap>
+      <pixmap resource="images.qrc">:/png/84.PNG</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -709,7 +709,7 @@ QLineEdit:focus{
       <x>50</x>
       <y>200</y>
       <width>231</width>
-      <height>141</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
@@ -861,7 +861,7 @@ QLineEdit:focus{
       <x>50</x>
       <y>350</y>
       <width>261</width>
-      <height>341</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="title">
@@ -1169,6 +1169,8 @@ QLineEdit:focus{
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>
