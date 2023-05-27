@@ -63,7 +63,7 @@ data_now = {
     'fixed_intellect': 0,
     'percentage_attack': [],
     'percentage_intellect': [],
-    'cp_arms': True
+'cp_arms': True
 }
 # 设为基础后的数据
 data_base = {}
