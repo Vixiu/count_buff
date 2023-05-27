@@ -69,7 +69,7 @@ data_now = {
 data_base = {}
 
 career = 'nai_ma'
-
+#
 
 def put_exception(fn):
     def ex():
