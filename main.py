@@ -7,6 +7,8 @@ from PyQt5.QtCore import Qt, QCoreApplication
 
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_Form()
+
+
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
