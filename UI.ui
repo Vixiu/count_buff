@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>771</width>
-    <height>741</height>
+    <width>1136</width>
+    <height>810</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>771</width>
-     <height>741</height>
+     <width>781</width>
+     <height>791</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -694,10 +694,16 @@ QLineEdit:focus{
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>20</y>
+      <y>30</y>
       <width>31</width>
       <height>701</height>
      </rect>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="midLineWidth">
+     <number>2</number>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
@@ -706,27 +712,39 @@ QLineEdit:focus{
    <widget class="QGroupBox" name="groupBox_6">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>200</y>
-      <width>231</width>
-      <height>121</height>
+      <x>40</x>
+      <y>280</y>
+      <width>271</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="title">
      <string>进图属性</string>
     </property>
-    <widget class="QWidget" name="layoutWidget_9">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
-       <width>101</width>
-       <height>71</height>
+       <y>20</y>
+       <width>241</width>
+       <height>42</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_11">
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
       <item>
-       <widget class="QLabel" name="label_15">
+       <widget class="QLabel" name="label_17">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>12</pointsize>
@@ -741,7 +759,22 @@ QLineEdit:focus{
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_32">
+       <widget class="QLineEdit" name="jt_zhili"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_33">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>90</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>12</pointsize>
@@ -755,23 +788,21 @@ QLineEdit:focus{
         </property>
        </widget>
       </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_8">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>30</y>
-       <width>81</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12">
       <item>
-       <widget class="QLineEdit" name="jt_zhili"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="jt_lv"/>
+       <widget class="QLineEdit" name="jt_lv">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -779,30 +810,30 @@ QLineEdit:focus{
    <widget class="QGroupBox" name="groupBox_5">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>90</y>
-      <width>231</width>
-      <height>101</height>
+      <width>271</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="title">
      <string>站街属性</string>
     </property>
-    <widget class="QWidget" name="layoutWidget_8">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>30</x>
        <y>30</y>
-       <width>92</width>
-       <height>61</height>
+       <width>211</width>
+       <height>65</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9">
-      <item>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
        <widget class="QLabel" name="label_3">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>13</pointsize>
          </font>
         </property>
         <property name="text">
@@ -813,11 +844,26 @@ QLineEdit:focus{
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="zj_zhili">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QLabel" name="label_5">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>13</pointsize>
          </font>
         </property>
         <property name="text">
@@ -834,23 +880,91 @@ QLineEdit:focus{
         </property>
        </widget>
       </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="zl_lv">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_7">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>30</y>
-       <width>81</width>
-       <height>61</height>
+       <x>10</x>
+       <y>110</y>
+       <width>251</width>
+       <height>57</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_10">
-      <item>
-       <widget class="QLineEdit" name="zj_zhili"/>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>纹章:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
       </item>
-      <item>
-       <widget class="QLineEdit" name="zl_lv"/>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="zj_xz">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>附魔耳环:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="zj_eh">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>虔诚信念:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="zj_bd">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>训练教官:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="zj_gh">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -858,136 +972,22 @@ QLineEdit:focus{
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>350</y>
-      <width>261</width>
-      <height>441</height>
+      <x>40</x>
+      <y>360</y>
+      <width>271</width>
+      <height>351</height>
      </rect>
     </property>
     <property name="title">
      <string>辟邪玉&amp;&amp;宠物&amp;&amp;光环</string>
     </property>
-    <widget class="QWidget" name="verticalLayoutWidget_5">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>142</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_7">
-      <item>
-       <widget class="QLabel" name="label_16">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>光环-Buff量:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>宠物-Buff量:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_12">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>辟邪玉-Buff量:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_10">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>固定三攻:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_18">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>固定力智:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_6">
-     <property name="geometry">
-      <rect>
-       <x>160</x>
-       <y>30</y>
-       <width>71</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_8">
-      <item>
-       <widget class="QLineEdit" name="buff_gh"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="buff_cw"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="buff_bxy"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="sg_guding"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lz_guding"/>
-      </item>
-     </layout>
-    </widget>
     <widget class="QWidget" name="layoutWidget_7">
      <property name="geometry">
       <rect>
        <x>21</x>
-       <y>191</y>
+       <y>201</y>
        <width>211</width>
-       <height>61</height>
+       <height>58</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -1013,6 +1013,9 @@ QLineEdit:focus{
           <pointsize>12</pointsize>
           <underline>false</underline>
          </font>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -1050,6 +1053,131 @@ QLineEdit:focus{
           <pointsize>12</pointsize>
          </font>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>31</y>
+       <width>211</width>
+       <height>142</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_16">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>光环-Buff量:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="buff_gh">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>宠物-Buff量:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="buff_cw">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_12">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>辟邪玉-Buff量:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="buff_bxy">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>固定三攻:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="sg_guding">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_18">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>固定力智:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="lz_guding">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
        </widget>
       </item>
      </layout>
@@ -1058,9 +1186,9 @@ QLineEdit:focus{
    <widget class="QWidget" name="layoutWidget_11">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>40</y>
-      <width>221</width>
+      <x>40</x>
+      <y>30</y>
+      <width>251</width>
       <height>51</height>
      </rect>
     </property>
@@ -1070,7 +1198,7 @@ QLineEdit:focus{
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>12</pointsize>
+         <pointsize>15</pointsize>
         </font>
        </property>
        <property name="text">
@@ -1082,7 +1210,22 @@ QLineEdit:focus{
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="buff_liang"/>
+      <widget class="QLineEdit" name="buff_liang">
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="inputMask">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
