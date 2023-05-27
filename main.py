@@ -8,7 +8,6 @@ from PyQt5.QtCore import Qt, QCoreApplication
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_Form()
 
-
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
@@ -44,12 +43,11 @@ BASIC_DATA = {
                  1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668]
 }
 UI_DATA = {}
-
+####
 data_now = {
     'buff_amount': 0,
     'out_intellect': 0,
     'out_lv': 1,
-
     'out_medal': 50,
     'out_earp': 172,
     'out_passive': 554,
@@ -65,14 +63,12 @@ data_now = {
     'fixed_intellect': 0,
     'percentage_attack': [],
     'percentage_intellect': [],
+    'cp_arms': True
 }
 # 设为基础后的数据
 data_base = {}
 
 career = 'nai_ma'
-
-
-# cp_arms = True
 
 
 def put_exception(fn):
@@ -87,7 +83,6 @@ def put_exception(fn):
 
 
 def input_validation(fn):
-
     # 因为还要对输入数据在进行一次判断，所以不在输入层面就进行效验
     def validation(text: str):
         if ',' in text:
