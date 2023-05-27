@@ -42,7 +42,7 @@ BASIC_DATA = {
                  1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668]
 }
 UI_DATA = {}
-# 现在的数据
+
 data_now = {
     'buff_amount': 0,
     'out_intellect': 0,
