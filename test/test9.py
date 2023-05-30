@@ -1,18 +1,10 @@
-def put_exception(fn):
-    def ex(t):
-        print(t)
-        try:
-            fn(6)
-        except Exception as e:
-            print(e)
-        #    traceback.print_exc()
-
-    return ex
+import random
 
 
-@put_exception
-def a(text):
-    print(text)
+def enhance():
+    return random.randint(0, 1)
 
 
-a(1)
+
+
+

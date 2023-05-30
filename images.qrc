@@ -1,5 +1,12 @@
 <RCC>
   <qresource lang="yongqi">
+    <file>png/350.PNG</file>
+    <file>png/ba.png</file>
+    <file>png/gong.png</file>
+    <file>png/luo.png</file>
+    <file>png/ma.png</file>
+    <file>png/23.PNG</file>
+    <file>png/92.PNG</file>
     <file>png/84.PNG</file>
   </qresource>
 </RCC>

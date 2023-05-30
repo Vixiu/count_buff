@@ -55,7 +55,7 @@ data_now = {
 
     'in_intellect': 0,
     'in_lv': 1,
-    #  'in_ty_lv': 1,
+    'in_ty_lv': 1,
     'halo_amount': 0,
     'pet_amount': 0,
     'jade_amount': 0,
@@ -311,7 +311,7 @@ if __name__ == '__main__':
         'out_lv': ui_home.zl_lv,
         'in_intellect': ui_home.jt_zhili,
         'in_lv': ui_home.jt_lv,
-        #   'in_ty_lv': ui_home.jt_ty_lv,
+        'ty_lv': ui_home.ty_lv,
 
         'halo_amount': ui_home.buff_gh,
         'pet_amount': ui_home.buff_cw,

@@ -38,10 +38,10 @@ BASIC_DATA = {
 def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
     x = sympy.Symbol('x')
     #  basic_attack = round((1.34631476716774 * lv + 32.600) * 1.131 * 1.02)
-    basic_attack = BASIC_DATA['nai_ma']['li_zhi'][lv - 1]
+    basic_attack = BASIC_DATA['nai_ma']['san_gong'][lv - 1]
     print(sympy.solve(
-        (((basic_attack + attack_fixed) * ((intellect / 665) + 1)) +
-         (basic_attack * ((intellect + x) / 665 + 1) * (
+        (((basic_attack + attack_fixed) * ((x / 665) + 1)) +
+         (basic_attack * ((x + 4345) / 665 + 1) * (
                  buff_amount + 3500) * 0.0000379)) * 1.08 -
         buff,
         x))
@@ -49,7 +49,7 @@ def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
 
 def count_buff(lv, buff_amount, intellect, attack_fixed, ap_1, ap_2, ap_3, ap_4, ap_5):
     basic_attack = BASIC_DATA['nai_ma']['san_gong'][lv - 1]
-    # basic_attack = round((1.34 * lv + 32.600) * 1.131 * 1.02)
+    # basic_attack = (1.34 * lv + 32.600) * 1.131 * 1.02
 
     old_buff = ((basic_attack + attack_fixed) * ((intellect / 665) + 1)) * ap_1 * ap_2 * ap_3 * ap_4 * ap_5
 
@@ -57,9 +57,7 @@ def count_buff(lv, buff_amount, intellect, attack_fixed, ap_1, ap_2, ap_3, ap_4,
             buff_amount + 3500) * 0.0000379 if buff_amount != 0 else 0
 
     buff = (old_buff + new_buff) * (1.08 if buff_amount != 0 else 1)
-    print(
-        f"(buff={round(buff)},basic_attack={basic_attack},attack_fixed={attack_fixed},intellect={intellect},buff_amount={buff_amount})"
-    )
+    #   print( f"(buff={round(buff)},basic_attack={basic_attack},attack_fixed={attack_fixed},intellect={intellect},buff_amount={buff_amount})")
     return round(buff)
 
 
@@ -78,6 +76,8 @@ def count(a, b):
         print(f'应为:{b},实际:{a}，相差:{b - a}')
 
 
+de_buff(21, 108698, 7935, 0, 7002)
+
 count(count_buff(35, 111806, 8845, 8, 1, 1, 1, 1, 1), 10591)
 count(count_buff(35, 111806, 8845, 8, 1, 1, 1, 1, 1), 10591)
 
@@ -87,14 +87,13 @@ count(count_buff(35, 111806, 8845, 8, 1, 1, 1, 1, 1), 10591)
 
 count(count_buff(35, 111806, 8840, 8, 1, 1, 1, 1, 1), 10587)
 # count(count_(35, 111806, 8840, 0), 58119)
-#de_buff(33, 111806, 7935, 0, 51758)
+# de_buff(33, 111806, 7935, 0, 51758)
 
 count(count_lz(33, 111806, 7935, 0), 51758)
-
-# count(count_lz(21, 107883, 8061, 0), 37675)
-# count(count_lz(19, 107883, 8061, 0), 35495)
-# count(count_lz(12, 107883, 8061, 0), 27919)
-# count(count_buff(33, 111806, 7935, 8, 1, 1, 1, 1, 1), 9532)
+count(count_lz(21, 107883, 8061, 0), 37675)
+count(count_lz(19, 107883, 8061, 0), 35495)
+count(count_lz(12, 107883, 8061, 0), 27919)
+count(count_buff(33, 111806, 7935, 8, 1, 1, 1, 1, 1), 9532)
 count(count_buff(21, 107883, 8061, 8, 1, 1, 1, 1, 1), 7378)
 count(count_buff(18, 99319, 7624, 8, 1, 1, 1, 1, 1), 6180)
 # count(count_buff(18, 107883, 8061, 8, 1, 1, 1, 1, 1), 6860)
