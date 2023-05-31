@@ -7,7 +7,6 @@ from PyQt5.QtCore import Qt, QCoreApplication
 
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_Form()
-
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
@@ -43,8 +42,8 @@ BASIC_DATA = {
                  1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668]
 }
 UI_DATA = {}
-####
-data_now = {
+# 各项初始值
+data_base = {
     'buff_amount': 0,
     'out_intellect': 0,
     'out_lv': 1,
@@ -52,7 +51,6 @@ data_now = {
     'out_earp': 172,
     'out_passive': 554,
     'out_guild': 80,
-
     'in_intellect': 0,
     'in_lv': 1,
     'in_ty_lv': 1,
@@ -65,8 +63,6 @@ data_now = {
     'percentage_intellect': [],
     'cp_arms': True
 }
-# 设为基础后的数据
-data_base = {}
 
 career = 'nai_ma'
 
@@ -86,18 +82,19 @@ def put_exception(fn):
 
 def input_validation(fn):
     # 因为还要对输入数据在进行一次判断，所以不在输入层面就进行效验
-    def validation(text: str):
-        if ',' in text:
-            return False, [eval(i) for i in text.split(',')]
-        elif text.startswith('+') or text.startswith('-'):
-            return True, eval(text)
-        elif text.isdigit() or ('.' in text and text.count('.') == 1):
-            return False, eval(text)
-        else:
-            return False, "非法字符"
 
-    def run_fn():
-        global data_now
+    def run_fn(cr):
+        data_now = {}
+
+        def validation(text: str):
+            if ',' in text:
+                return False, [eval(i) for i in text.split(',')]
+            elif text.startswith('+') or text.startswith('-'):
+                return True, eval(text)
+            elif text.isdigit() or ('.' in text and text.count('.') == 1):
+                return False, eval(text)
+            else:
+                return False, "非法字符"
 
         def input_data(k: str):
             text = UI_DATA.get(k).text().replace(" ", "").replace("，", ',').replace("。", '.')
@@ -110,6 +107,8 @@ def input_validation(fn):
                     data_now[k] = data_base[k] + ve
                 else:
                     data_now[k] = ve
+            else:
+                data_now[k] = data_base[k]
 
         for v in UI_DATA.values():
             v.setStyleSheet("")
@@ -134,21 +133,45 @@ def input_validation(fn):
                                            "background-color: #00aaff;"
                                            "border:0px;"
                                            "border-bottom: 3px solid red;")
-
         else:
-            fn()
+            return fn(data_now, cr)
 
     return run_fn
 
 
 @input_validation
-def button_count_clicked():
-    buff = {
-        'zj': count_zj_buff(career, data_now),
-        'jt': count_jt_buff(career, data_now),
-    }
-    buff['z_jt'] = (str(round(int(buff['jt'][0]) * 1.15)), str(round(int(buff['jt'][1]) * 1.15)))
+def buff(data_now, cr):
+    return {'zj': count_zj_buff(cr, data_now),
+            'jt': count_jt_buff(cr, data_now)}, \
+        {
+            'zj': count_zj_buff(cr, data_base),
+            'jt': count_jt_buff(cr, data_base),
+        }
 
+
+def career_buff():
+    now, base = buff(career)
+    dt = {}
+    if career == 'nai_ma':
+        now['z_jt'] = {k: v * 1.15 for k, v in now['jt'].items()}
+        base['z_jt'] = {k: v * 1.15 for k, v in base['jt'].items()}
+        base['a'] = {k: v * 0.15 for k, v in base['jt'].items()}
+        now['a'] = {k: v * 0.15 for k, v in now['jt'].items()}
+
+    elif career == 'nai_ba':
+        pass
+    elif career == 'nai_luo':
+        now['z_jt'] = {k: v * 1.15 for k, v in now['jt'].items()}
+        base['z_jt'] = {k: v * 1.15 for k, v in base['jt'].items()}
+        base['a'] = {k: v * 0.15 for k, v in base['jt'].items()}
+        now['a'] = {k: v * 0.15 for k, v in now['jt'].items()}
+
+    elif career == 'nai_gong':
+        pass
+    return now, base
+
+
+def button_count_clicked():
     ui_home.sg_zj.setText(buff['zj'][0])
     ui_home.lz_zj.setText(buff['zj'][1])
     ui_home.sg_jt.setText(buff['jt'][0])
@@ -177,68 +200,65 @@ def button_count_clicked():
             '#21f805' if gap['z_jt'][1] > 0 else '#f40c0c', gap['z_jt'][1]))
 
 
-def count_buff(lv, buff_amount, intellect, cp_arms=True):
-    def count(fixed, bfb, basic_list, xs, xyz) -> str:
-        x, y, z = xyz
-        basic_attack = basic_list[lv - 1]
+def count_buff(buff_amount, intellect, xs, cp_arms=True):
+    def count(fixed, bfb: list, basic_attack, xyz) -> int:
+        x, y, z = xyz  # 如果有准确的数值，可以提到上层
         old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
         for n in bfb:
             old_buff *= (1 + n / 100)
         new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
         bf = (old_buff + new_buff) * (1.08 if cp_arms else 1)
-        return str(round(bf))
+        return round(bf)
 
     return count
 
 
-def count_zj_buff(cr, data):
+def count_zj_buff(cr: str, data) -> dict:
     count = count_buff(
-        data['out_lv'],
         int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100)),
         data['out_intellect'],
+        BASIC_DATA[cr]['xs'],
     )
 
-    return count(
-        data['fixed_attack'],
-        data['percentage_attack'],
-        BASIC_DATA[cr]['san_gong'],
-        BASIC_DATA[cr]['xs'],
-        BASIC_DATA[cr]['attack_xyz'],
-    ), count(
-        data['fixed_intellect'],
-        data['percentage_intellect'],
-        BASIC_DATA[cr]['li_zhi'],
-        BASIC_DATA[cr]['xs'],
-        BASIC_DATA[cr]['intellect_xyz'],
-    )
+    return {
+        'sg': count(
+            data['fixed_attack'],
+            data['percentage_attack'],
+            BASIC_DATA[cr]['san_gong'][data['out_lv'] - 1],
+            BASIC_DATA[cr]['attack_xyz'],
+        ),
+        'lz': count(
+            data['fixed_intellect'],
+            data['percentage_intellect'],
+            BASIC_DATA[cr]['li_zhi'][data['out_lv'] - 1],
+            BASIC_DATA[cr]['intellect_xyz'],
+        )}
 
 
-def count_jt_buff(cr, data):
+def count_jt_buff(cr, data) -> dict:
     count = count_buff(
-        data['in_lv'],
         int(data['buff_amount'] * (
                 1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
         data['in_intellect'],
-    )
-
-    return count(
-        data['fixed_attack'],
-        data['percentage_attack'],
-        BASIC_DATA[cr]['san_gong'],
         BASIC_DATA[cr]['xs'],
-        BASIC_DATA[cr]['attack_xyz'],
-    ), count(
-        data['fixed_intellect'],
-        data['percentage_intellect'],
-        BASIC_DATA[cr]['li_zhi'],
-        BASIC_DATA[cr]['xs'],
-        BASIC_DATA[cr]['intellect_xyz'],
     )
+    return {
+        'sg': count(
+            data['fixed_attack'],
+            data['percentage_attack'],
+            BASIC_DATA[cr]['san_gong'][data['out_lv'] - 1],
+            BASIC_DATA[cr]['attack_xyz'],
+        ),
+        'lz': count(
+            data['fixed_intellect'],
+            data['percentage_intellect'],
+            BASIC_DATA[cr]['li_zhi'][data['out_lv'] - 1],
+            BASIC_DATA[cr]['intellect_xyz'],
+        )}
 
 
-@input_validation
 def is_contrast():
-    global data_base, data_now
+    global data_base
     for k, v in data_now.items():
         UI_DATA[k].setPlaceholderText(str(v).replace('[', '').replace(']', ''))
         UI_DATA[k].setText('')
@@ -255,7 +275,6 @@ def close_windows():
     QCoreApplication.instance().quit()
 
 
-@input_validation
 def save_data():
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
@@ -264,7 +283,6 @@ def save_data():
 
 
 def load_data():
-    global data_now
     with open(FILE_PATH, "r") as f:
         data_now = eval(f.read())
     for k, v in data_now.items():

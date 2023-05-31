@@ -1,10 +1,3 @@
-import random
+q = 4029
 
-
-def enhance():
-    return random.randint(0, 1)
-
-
-
-
-
+print(q+q * 0.25+q*0.15)
