@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
 from Widget import RoundedWindow
 from UI import Ui_Form
 from PyQt5.QtCore import Qt, QCoreApplication
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_Form()
@@ -168,6 +169,57 @@ def set_naima():
     pass
 
 
+def set_nailuo():
+    pass
+
+
+def set_naiba():
+    pass
+
+
+def set_naigong():
+    pass
+
+
+def clear():
+    ui_home.nailuo_button.setStyleSheet('')
+    ui_home.naiba_button.setStyleSheet('')
+    ui_home.naima_button.setStyleSheet('')
+    ui_home.naigong_button.setStyleSheet('')
+    ui_home.naima.hide()
+    ui_home.nailuo.hide()
+
+
+def naima_setting():
+    clear()
+    ui_home.naima_button.setStyleSheet('border:0px; border-bottom: 5px solid rgb(5, 229, 254);')
+    ui_home.yijue.setTitle('圣光天启')
+    ui_home.sanjue.setTitle('祈愿·天使赞歌')
+    ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/23.PNG"))
+    ui_home.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/350.PNG"))
+    ui_home.naima.show()
+
+
+def nailuo_setting():
+    clear()
+    ui_home.buff_icon.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
+    ui_home.nailuo_button.setStyleSheet('border:0px; border-bottom: 5px solid rgb(5, 229, 254);')
+    ui_home.yijue.setTitle('开幕！人偶剧场')
+    ui_home.sanjue.setTitle('终幕！人偶剧场')
+    ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/757.PNG"))
+
+    ui_home.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/838.PNG"))
+    ui_home.nailuo.show()
+
+
+def naiba_setting():
+    pass
+
+
+def naigong_setting():
+    pass
+
+
 @input_validation
 def button_count_clicked(data_now):
     # career_buff(data_now)
@@ -294,6 +346,7 @@ def load_data():
             UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
     is_contrast()
 
+
 def lv_to():
     text = ui_home.zl_lv.text().replace(" ", "")
     if text.isdigit():
@@ -365,8 +418,10 @@ if __name__ == '__main__':
     ui_home.button_close.clicked.connect(close_windows)
     ui_home.button_save.clicked.connect(save_data)
     ui_home.button_load.clicked.connect(load_data)
+    ui_home.nailuo_button.clicked.connect(nailuo_setting)
+    ui_home.naima_button.clicked.connect(naima_setting)
+
     ui_home.zl_lv.textChanged.connect(lv_to)
-    # ------
     ui_home.zj_xz.textChanged.connect(intellect_to)
     ui_home.zj_zhili.textChanged.connect(intellect_to)
     ui_home.zj_gh.textChanged.connect(intellect_to)
