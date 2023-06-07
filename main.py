@@ -1,3 +1,4 @@
+import traceback
 from os import getenv, path, makedirs
 from sys import argv
 from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
@@ -44,16 +45,18 @@ BASIC_DATA = {
 UI_DATA = {}
 # 各项初始值
 data_base = {
+    'ty_lv': 1,
     'buff_amount': 0,
     'out_intellect': 0,
     'out_lv': 1,
+
     'out_medal': 50,
     'out_earp': 172,
     'out_passive': 554,
     'out_guild': 80,
+
     'in_intellect': 0,
     'in_lv': 1,
-    'in_ty_lv': 1,
     'halo_amount': 0,
     'pet_amount': 0,
     'jade_amount': 0,
@@ -61,10 +64,12 @@ data_base = {
     'fixed_intellect': 0,
     'percentage_attack': [],
     'percentage_intellect': [],
-    'cp_arms': True
-}
+    'ty_fixed': 0,
+    'ty_percentage': [],
 
-career = 'nai_ma'
+    'cp_arms': True,
+    'career': 'nai_ma'
+}
 
 
 #
@@ -75,7 +80,7 @@ def put_exception(fn):
             fn()
         except Exception as e:
             print(e)
-        #    traceback.print_exc()
+            traceback.print_exc()
 
     return ex
 
@@ -83,7 +88,7 @@ def put_exception(fn):
 def input_validation(fn):
     # 因为还要对输入数据在进行一次判断，所以不在输入层面就进行效验
 
-    def run_fn(cr):
+    def run_fn():
         data_now = {}
 
         def validation(text: str):
@@ -125,7 +130,7 @@ def input_validation(fn):
             exception.append(('in_lv', '1~40'))
         if not (0 < data_now['out_lv'] < 41):
             exception.append(('out_lv', '1~40'))
-
+        data_now['career'] = data_base['career']
         if exception:
             for key, tip in exception:
                 UI_DATA[key].setText(tip)
@@ -134,13 +139,13 @@ def input_validation(fn):
                                            "border:0px;"
                                            "border-bottom: 3px solid red;")
         else:
-            return fn(data_now, cr)
+            fn(data_now)
 
     return run_fn
 
 
-@input_validation
-def buff(data_now, cr):
+def buff(data_now):
+    cr = data_now['career']
     return {'zj': count_zj_buff(cr, data_now),
             'jt': count_jt_buff(cr, data_now)}, \
         {
@@ -149,29 +154,25 @@ def buff(data_now, cr):
         }
 
 
-def career_buff():
-    now, base = buff(career)
-    dt = {}
+def career_buff(data_now):
+    now, base = buff(data_now)
+    career = data_now['career']
     if career == 'nai_ma':
         now['z_jt'] = {k: v * 1.15 for k, v in now['jt'].items()}
         base['z_jt'] = {k: v * 1.15 for k, v in base['jt'].items()}
         base['a'] = {k: v * 0.15 for k, v in base['jt'].items()}
         now['a'] = {k: v * 0.15 for k, v in now['jt'].items()}
 
-    elif career == 'nai_ba':
-        pass
-    elif career == 'nai_luo':
-        now['z_jt'] = {k: v * 1.15 for k, v in now['jt'].items()}
-        base['z_jt'] = {k: v * 1.15 for k, v in base['jt'].items()}
-        base['a'] = {k: v * 0.15 for k, v in base['jt'].items()}
-        now['a'] = {k: v * 0.15 for k, v in now['jt'].items()}
 
-    elif career == 'nai_gong':
-        pass
-    return now, base
+def set_naima():
+    pass
 
 
-def button_count_clicked():
+@input_validation
+def button_count_clicked(data_now):
+    # career_buff(data_now)
+    ui_home.verticalLayout_8.hide()
+    '''
     ui_home.sg_zj.setText(buff['zj'][0])
     ui_home.lz_zj.setText(buff['zj'][1])
     ui_home.sg_jt.setText(buff['jt'][0])
@@ -198,6 +199,7 @@ def button_count_clicked():
             '#21f805' if gap['z_jt'][0] > 0 else '#f40c0c', gap['z_jt'][0]))
         ui_home.zlz_cj.setText("<font color='{}' >{:+d}<font>".format(
             '#21f805' if gap['z_jt'][1] > 0 else '#f40c0c', gap['z_jt'][1]))
+    '''
 
 
 def count_buff(buff_amount, intellect, xs, cp_arms=True):
@@ -257,27 +259,29 @@ def count_jt_buff(cr, data) -> dict:
         )}
 
 
-def is_contrast():
+@input_validation
+def is_contrast(data_now):
     global data_base
-    for k, v in data_now.items():
-        UI_DATA[k].setPlaceholderText(str(v).replace('[', '').replace(']', ''))
-        UI_DATA[k].setText('')
+    for k, v in UI_DATA.items():
+        v.setPlaceholderText(str(data_now[k]).replace('[', '').replace(']', ''))
+        v.setText('')
     data_base = data_now.copy()
+    '''
     ui_home.sg_zj_cj.setText("")
     ui_home.lz_zj_cj.setText("")
     ui_home.sg_jt_cj.setText("")
     ui_home.lz_jt_cj.setText("")
     ui_home.zsg_cj.setText("")
     ui_home.zlz_cj.setText("")
+    '''
 
 
 def close_windows():
     QCoreApplication.instance().quit()
 
 
-def save_data():
-    if not path.exists(path.dirname(FILE_PATH)):
-        makedirs(path.dirname(FILE_PATH))
+@input_validation
+def save_data(data_now):
     with open(FILE_PATH, "w+") as f:
         f.write(str(data_now))
 
@@ -286,10 +290,9 @@ def load_data():
     with open(FILE_PATH, "r") as f:
         data_now = eval(f.read())
     for k, v in data_now.items():
-        UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
-    button_count_clicked()
+        if k in UI_DATA:
+            UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
     is_contrast()
-
 
 def lv_to():
     text = ui_home.zl_lv.text().replace(" ", "")
@@ -327,7 +330,7 @@ if __name__ == '__main__':
         'buff_amount': ui_home.buff_liang,
         'out_intellect': ui_home.zj_zhili,
         'out_lv': ui_home.zl_lv,
-        'in_intellect': ui_home.jt_zhili,
+
         'in_lv': ui_home.jt_lv,
         'ty_lv': ui_home.ty_lv,
 
@@ -341,16 +344,21 @@ if __name__ == '__main__':
         'percentage_attack': ui_home.sg_bfb,
         'percentage_intellect': ui_home.lz_bfb,
 
+        'ty_fixed': ui_home.ty_lz,
+        'ty_percentage': ui_home.ty_bfb,
+
         'out_medal': ui_home.zj_xz,
         'out_earp': ui_home.zj_eh,
         'out_passive': ui_home.zj_bd,
         'out_guild': ui_home.zj_gh,
+        'in_intellect': ui_home.jt_zhili,  # 此项在最后
     }
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
-        with open(FILE_PATH, "w+") as f:
-            f.write(str(data_now))
+        with open(FILE_PATH, "w+") as file:
+            file.write(str(data_base))
     load_data()
+
     ####################
     ui_home.button_count.clicked.connect(button_count_clicked)
     ui_home.button_jc.clicked.connect(is_contrast)
@@ -358,7 +366,7 @@ if __name__ == '__main__':
     ui_home.button_save.clicked.connect(save_data)
     ui_home.button_load.clicked.connect(load_data)
     ui_home.zl_lv.textChanged.connect(lv_to)
-    # -
+    # ------
     ui_home.zj_xz.textChanged.connect(intellect_to)
     ui_home.zj_zhili.textChanged.connect(intellect_to)
     ui_home.zj_gh.textChanged.connect(intellect_to)
