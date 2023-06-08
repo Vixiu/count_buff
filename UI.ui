@@ -31,10 +31,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
+     <x>10</x>
+     <y>120</y>
      <width>1881</width>
-     <height>791</height>
+     <height>801</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -68,7 +68,12 @@ QPushButton:default {
     color: #f8f9fa;
     background: #0081db;
 }
-QPushButton:hover,
+QPushButton:pressed
+{ 
+    padding-right :5px;
+	padding-bottom:1px
+
+}
 QPushButton:flat:hover {
     background: rgba(181.000, 202.000, 244.000, 0.333);
 }
@@ -108,7 +113,7 @@ QLineEdit{
     border:0px;    
 		
     border-bottom: 1px solid #B3B3B3; 	
-	background-color:#f8f9fa;
+	background-color:rgb(0, 0, 0,0);
 	border-color:rgb(190, 190, 195)
     }
 QLineEdit:hover{
@@ -168,7 +173,7 @@ QLineEdit:focus{
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>10</y>
+      <y>50</y>
       <width>4</width>
       <height>721</height>
      </rect>
@@ -207,14 +212,14 @@ background-color: rgb(213, 247, 255);</string>
    <widget class="QGroupBox" name="groupBox_6">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>280</y>
-      <width>271</width>
-      <height>71</height>
+      <x>130</x>
+      <y>230</y>
+      <width>281</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="title">
-     <string>进图属性</string>
+     <string>进图Buff属性</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -222,13 +227,13 @@ background-color: rgb(213, 247, 255);</string>
     <property name="flat">
      <bool>false</bool>
     </property>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>241</width>
-       <height>42</height>
+       <x>11</x>
+       <y>21</y>
+       <width>251</width>
+       <height>28</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -236,19 +241,19 @@ background-color: rgb(213, 247, 255);</string>
        <widget class="QLabel" name="label_17">
         <property name="minimumSize">
          <size>
-          <width>50</width>
-          <height>40</height>
+          <width>0</width>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>50</width>
-          <height>40</height>
+          <width>111111</width>
+          <height>22222</height>
          </size>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>13</pointsize>
          </font>
         </property>
         <property name="text">
@@ -260,29 +265,35 @@ background-color: rgb(213, 247, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="jt_zhili"/>
+       <widget class="QLineEdit" name="jt_zhili">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_33">
         <property name="minimumSize">
          <size>
-          <width>90</width>
-          <height>40</height>
+          <width>0</width>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>90</width>
-          <height>40</height>
+          <width>900</width>
+          <height>400</height>
          </size>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>13</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Buff等级:</string>
+         <string>等级:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -293,15 +304,20 @@ background-color: rgb(213, 247, 255);</string>
        <widget class="QLineEdit" name="jt_lv">
         <property name="minimumSize">
          <size>
-          <width>30</width>
+          <width>40</width>
           <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>30</width>
+          <width>40</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
         </property>
        </widget>
       </item>
@@ -311,10 +327,10 @@ background-color: rgb(213, 247, 255);</string>
    <widget class="QGroupBox" name="groupBox_5">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>130</x>
       <y>80</y>
-      <width>271</width>
-      <height>181</height>
+      <width>281</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="title">
@@ -330,7 +346,7 @@ background-color: rgb(213, 247, 255);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
+       <y>70</y>
        <width>251</width>
        <height>57</height>
       </rect>
@@ -400,75 +416,16 @@ background-color: rgb(213, 247, 255);</string>
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
-       <width>251</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_27">
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Buff等级:</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::AutoText</enum>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="zl_lv">
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-         </font>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_47">
-        <property name="text">
-         <string>太阳等级:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="ty_lv">
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
        <y>30</y>
-       <width>171</width>
-       <height>28</height>
+       <width>251</width>
+       <height>31</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_28">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label_3">
         <property name="font">
@@ -493,6 +450,51 @@ background-color: rgb(213, 247, 255);</string>
         </property>
         <property name="inputMask">
          <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Buff等级:</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="zl_lv">
+        <property name="minimumSize">
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -612,9 +614,9 @@ background-color: rgb(213, 247, 255);</string>
     <property name="geometry">
      <rect>
       <x>460</x>
-      <y>170</y>
+      <y>180</y>
       <width>351</width>
-      <height>601</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="font">
@@ -623,11 +625,9 @@ background-color: rgb(213, 247, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QGroupBox#groupBox{
-    border: 2px solid rgb(188, 188, 188); /* 设置边框厚度为2像素，颜色为红色 */
-}
+     <string notr="true">
 QGroupBox{
-    border: 1px solid rgb(188, 188, 188); /* 设置边框厚度为2像素，颜色为红色 */
+    border: 2px solid rgb(188, 188, 188);
 }</string>
     </property>
     <property name="title">
@@ -637,9 +637,9 @@ QGroupBox{
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>36</y>
+       <y>40</y>
        <width>311</width>
-       <height>541</height>
+       <height>401</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -897,9 +897,9 @@ QGroupBox{
         <widget class="QWidget" name="layoutWidget_26">
          <property name="geometry">
           <rect>
-           <x>84</x>
+           <x>80</x>
            <y>30</y>
-           <width>221</width>
+           <width>231</width>
            <height>27</height>
           </rect>
          </property>
@@ -973,16 +973,16 @@ QGroupBox{
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="layoutWidget_27">
+        <widget class="QWidget" name="">
          <property name="geometry">
           <rect>
-           <x>84</x>
+           <x>80</x>
            <y>60</y>
-           <width>221</width>
-           <height>27</height>
+           <width>231</width>
+           <height>24</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_26">
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
           <item>
            <widget class="QLabel" name="label_57">
             <property name="font">
@@ -1038,7 +1038,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_25">
+           <spacer name="horizontalSpacer_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1109,7 +1109,7 @@ QGroupBox{
              </font>
             </property>
             <property name="text">
-             <string/>
+             <string>9999999</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -1136,7 +1136,7 @@ QGroupBox{
              </font>
             </property>
             <property name="text">
-             <string/>
+             <string>-999999</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1188,7 +1188,7 @@ QGroupBox{
              </font>
             </property>
             <property name="text">
-             <string/>
+             <string>999999</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -1215,7 +1215,7 @@ QGroupBox{
              </font>
             </property>
             <property name="text">
-             <string/>
+             <string>-99999</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1248,7 +1248,7 @@ QGroupBox{
       <x>20</x>
       <y>380</y>
       <width>401</width>
-      <height>391</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="font">
@@ -1257,11 +1257,9 @@ QGroupBox{
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QGroupBox#groupBox_4{
-    border: 2px solid rgb(188, 188, 188); /* 设置边框厚度为2像素，颜色为红色 */
-}
-QGroupBox{
-    border: 1px solid rgb(188, 188, 188); /* 设置边框厚度为2像素，颜色为红色 */
+     <string notr="true">QGroupBox#groupBox_{
+    border: 3px solid rgb(188, 188, 188);
+
 }</string>
     </property>
     <property name="title">
@@ -1271,7 +1269,10 @@ QGroupBox{
      <set>Qt::AlignHCenter|Qt::AlignTop</set>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
     <widget class="QGroupBox" name="groupBox_12">
      <property name="geometry">
@@ -1449,7 +1450,7 @@ QGroupBox{
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>40</y>
+       <y>90</y>
        <width>171</width>
        <height>271</height>
       </rect>
@@ -1457,62 +1458,6 @@ QGroupBox{
      <property name="title">
       <string>Buff加成</string>
      </property>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>151</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>固定三攻:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="sg_guding">
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_18">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>固定力智:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lz_guding">
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="layoutWidget_7">
       <property name="geometry">
        <rect>
@@ -1592,12 +1537,68 @@ QGroupBox{
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>151</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lz_guding">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>固定力智:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>固定三攻:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="sg_guding">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QCheckBox" name="cp_arm">
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>330</y>
+       <y>40</y>
        <width>171</width>
        <height>31</height>
       </rect>
@@ -1954,45 +1955,66 @@ QGroupBox{
     </property>
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>111</width>
-      <height>341</height>
+      <x>10</x>
+      <y>10</y>
+      <width>101</width>
+      <height>351</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QWidget#left_widget{
-background-color:#e4e5e6;
-border-radius: 10px 10px 0px 0px; 
-border: 5px, white;
-margin:5px;
+     <string notr="true">QPushButton:pressed
+{
+
+    /*左内边距为3像素，让按下时字向右移动3像素*/  
+    padding-left:0px;
+    /*
+background-color:rgb(217, 217, 217);
+*/  
+}QWidget#left_widget{
+
+
 }
+
 
 QPushButton{
 border:0px; 
-border-bottom: 5px solid #e4e5e6;
+border-radius: 0px; 
+padding-top:8px;
+padding-bottom:8px
 }
+
+
+
+
 QPushButton:hover {
 	border:0px; 
-	border-bottom: 5px solid rgb(5, 229, 254);
+border-radius: 0px; 
+padding-top:8px;
+padding-bottom:8px;
+	border-left: 5px solid rgb(5, 229, 254);
+	background-color:rgb(217, 217, 217);
  
 }
+
            </string>
     </property>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>86</width>
-       <height>315</height>
+       <x>0</x>
+       <y>0</y>
+       <width>101</width>
+       <height>341</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QPushButton" name="naiba_button">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="font">
          <font>
@@ -2022,8 +2044,7 @@ QPushButton:hover {
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">border:0px; 
-border-bottom: 4px solid rgb(5, 229, 254);</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string/>
@@ -2050,6 +2071,9 @@ border-bottom: 4px solid rgb(5, 229, 254);</string>
           <pointsize>20</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -2068,7 +2092,7 @@ border-bottom: 4px solid rgb(5, 229, 254);</string>
       <item>
        <widget class="QPushButton" name="naigong_button">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="font">
          <font>
@@ -2129,7 +2153,7 @@ border-bottom: 4px solid rgb(5, 229, 254);</string>
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -2303,10 +2327,13 @@ border-bottom: 4px solid rgb(5, 229, 254);</string>
     </widget>
    </widget>
    <widget class="QGroupBox" name="nailuo">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>40</y>
+      <x>1180</x>
+      <y>90</y>
       <width>351</width>
       <height>611</height>
      </rect>
@@ -3479,6 +3506,88 @@ QGroupBox{
      </layout>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>300</y>
+      <width>281</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>进图一绝属性</string>
+    </property>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>21</y>
+       <width>251</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_15">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>智力</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ty_zhili">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_47">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>等级:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ty_lv">
+        <property name="minimumSize">
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
    <zorder>left_widget</zorder>
    <zorder>button_count</zorder>
    <zorder>button_jc</zorder>
@@ -3495,6 +3604,7 @@ QGroupBox{
    <zorder>sanjue</zorder>
    <zorder>groupBox_7</zorder>
    <zorder>nailuo</zorder>
+   <zorder>groupBox</zorder>
   </widget>
  </widget>
  <resources>
