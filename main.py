@@ -262,7 +262,14 @@ def clear():
 
 def naima_setting():
     clear()
-    ui_home.naima_button.setStyleSheet('border:0px; border-bottom: 5px solid rgb(5, 229, 254);')
+    ui_home.buff_icon.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
+    ui_home.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
+                                       ' padding-top:8px;'
+                                       'padding-bottom:8px;'
+                                       'border-left: 5px solid rgb(5, 229, 254);'
+                                       'background-color:rgb(217, 217, 217);'
+                                       )
+
     ui_home.yijue.setTitle('圣光天启')
     ui_home.sanjue.setTitle('祈愿·天使赞歌')
     ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/23.PNG"))
@@ -273,7 +280,11 @@ def naima_setting():
 def nailuo_setting():
     clear()
     ui_home.buff_icon.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
-    ui_home.nailuo_button.setStyleSheet('border:0px; border-bottom: 5px solid rgb(5, 229, 254);')
+    ui_home.nailuo_button.setStyleSheet('border:0px; border-radius: 0px;'
+                                        ' padding-top:8px;'
+                                        'padding-bottom:8px;'
+                                        'border-left: 5px solid rgb(5, 229, 254);'
+                                        'background-color:rgb(217, 217, 217);')
     ui_home.yijue.setTitle('开幕！人偶剧场')
     ui_home.sanjue.setTitle('终幕！人偶剧场')
     ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/757.PNG"))
@@ -425,6 +436,8 @@ if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
+    ui_home.naima.hide()
+    ui_home.nailuo.hide()
     UI_DATA = {
         'buff_amount': ui_home.buff_liang,
         'out_intellect': ui_home.zj_zhili,
