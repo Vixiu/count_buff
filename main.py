@@ -38,10 +38,16 @@ BASIC_DATA = {
         'li_zhi': [131, 140, 149, 158, 167, 175, 184, 193, 202, 211, 220, 229, 238, 247,
                    256, 264, 273, 282, 291, 300, 309, 318, 327, 336, 345, 353, 362, 371,
                    380, 389, 398, 407, 416, 425, 434, 442, 451, 460, 469, 478],
+        'xs': 665,
+        'attack_xyz': (4345, 3500, 0.0000379),
+        'intellect_xyz': (4345.544, 3500, 0.0000379)
     },
-    "tai_yang": [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
-                 414, 449, 487, 526, 567, 608, 651, 696, 741, 789, 838, 888, 939, 993,
-                 1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668]
+    "tai_yang": {'li_zhi': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
+                            414, 449, 487, 526, 567, 608, 651, 696, 741, 789, 838, 888, 939, 993,
+                            1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668],
+                 'xs': 750,
+                 'xyz': (5250, 5000, 0.000025)
+                 }
 }
 UI_DATA = {}
 # 各项初始值
@@ -132,6 +138,7 @@ def input_validation(fn):
         if not (0 < data_now['out_lv'] < 41):
             exception.append(('out_lv', '1~40'))
         data_now['career'] = data_base['career']
+        data_now['cp_arms'] = data_base['cp_arms']
         if exception:
             for key, tip in exception:
                 UI_DATA[key].setText(tip)
@@ -159,14 +166,77 @@ def career_buff(data_now):
     now, base = buff(data_now)
     career = data_now['career']
     if career == 'nai_ma':
-        now['z_jt'] = {k: v * 1.15 for k, v in now['jt'].items()}
-        base['z_jt'] = {k: v * 1.15 for k, v in base['jt'].items()}
-        base['a'] = {k: v * 0.15 for k, v in base['jt'].items()}
-        now['a'] = {k: v * 0.15 for k, v in now['jt'].items()}
+        now['z_jt'] = {k: round(v * 1.15) for k, v in now['jt'].items()}
+        base['z_jt'] = {k: round(v * 1.15) for k, v in base['jt'].items()}
+
+        base['a'] = {k: round(v * 0.15) for k, v in base['jt'].items()}
+        now['a'] = {k: round(v * 0.15) for k, v in now['jt'].items()}
+        gap = {k: {'sg': v['sg'] - base[k]['sg'], 'lz': v['lz'] - base[k]['lz']} for k, v in now.items()}
+        base = count_ty(data_base)
+        now['ty'] = count_ty(data_now)
+        now['san_one'] = round(now['ty'] * 1.12)
+        now['san_two'] = round(now['ty'] * 1.27)
+        gap['ty'] = now['ty'] - base
+        gap['san_one'] = now['san_one'] - round(base * 1.12)
+        gap['san_two'] = now['san_two'] - round(base * 1.27)
+        set_naima(value_to_str(now), gap_set(gap))
+    elif career == 'nai_luo':
+        pass
+    elif career == 'nai_ba':
+        pass
+    elif career == 'nai_gong':
+        pass
 
 
-def set_naima():
-    pass
+def value_to_str(data):
+    if isinstance(data, dict):
+        for key in data:
+            data[key] = value_to_str(data[key])
+    else:
+        data = str(data)
+    return data
+
+
+def gap_set(gap):
+    if isinstance(gap, dict):
+        for key in gap:
+            gap[key] = gap_set(gap[key])
+    else:
+        gap = "<font color='{}'>{:+d}<font>".format('#21f805' if gap > 0 else '#f40c0c', gap)
+    return gap
+
+
+# {'zj': {'sg': '42', 'lz': '166'}, 'jt': {'sg': '42', 'lz': '166'}, 'z_jt': {'sg': '48', 'lz': '191'}, 'a': {'sg':
+# '6', 'lz': '25'}, 'ty': '46', 'san_one': '52', 'san_two': '58'}
+def current(data, gap):
+    ui_home.buff_sg.setText(data['zj']['sg'])
+    ui_home.buff_lz.setText(data['zj']['lz'])
+    ui_home.buff_sg_cj.setText(gap['zj']['sg'])
+    ui_home.buff_lz_cj.setText(gap['zj']['lz'])
+    ui_home.yijue_lz.setText(data['ty'])
+    ui_home.yijue_cj.setText(gap['ty'])
+    ui_home.sanjue_lz_1.setText(data['san_one'])
+    ui_home.sanjue_lz_1_cj.setText(gap['san_one'])
+    ui_home.sanjue_lz_2.setText(data['san_two'])
+    ui_home.sanjue_lz_2_cj.setText(gap['san_two'])
+
+
+def set_naima(data, gap):
+    current(data, gap)
+    ui_home.naima_buff_sg.setText(data['jt']['sg'])
+    ui_home.naima_buff_lz.setText(data['jt']['lz'])
+    ui_home.naima_buff_sg_cj.setText(gap['jt']['sg'])
+    ui_home.naima_buff_lz_cj.setText(gap['jt']['lz'])
+    ###############################
+    ui_home.naima_a_sg.setText(data['a']['sg'])
+    ui_home.naima_a_lz.setText(data['a']['lz'])
+    ui_home.naima_a_sg_cj.setText(gap['a']['sg'])
+    ui_home.naima_a_lz_cj.setText(gap['a']['lz'])
+    ###############################
+    ui_home.naima_zsg.setText(data['z_jt']['sg'])
+    ui_home.naima_zlz.setText(data['z_jt']['lz'])
+    ui_home.naima_zsg_cj.setText(gap['z_jt']['sg'])
+    ui_home.naima_zlz_cj.setText(gap['z_jt']['lz'])
 
 
 def set_nailuo():
@@ -222,36 +292,7 @@ def naigong_setting():
 
 @input_validation
 def button_count_clicked(data_now):
-    # career_buff(data_now)
-    ui_home.verticalLayout_8.hide()
-    '''
-    ui_home.sg_zj.setText(buff['zj'][0])
-    ui_home.lz_zj.setText(buff['zj'][1])
-    ui_home.sg_jt.setText(buff['jt'][0])
-    ui_home.lz_jt.setText(buff['jt'][1])
-    ui_home.zsg.setText(buff['z_jt'][0])
-    ui_home.zlz.setText(buff['z_jt'][1])
-
-    if data_base:
-        base = {
-            'zj': count_zj_buff(career, data_base),
-            'jt': count_jt_buff(career, data_base),
-        }
-        base['z_jt'] = (str(round(int(base['jt'][0]) * 1.15)), str(round(int(base['jt'][1]) * 1.15)))
-        gap = {k: (int(v[0]) - int(base[k][0]), int(v[1]) - int(base[k][1])) for k, v in buff.items()}
-        ui_home.sg_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
-            '#21f805' if gap['zj'][0] > 0 else '#f40c0c', gap['zj'][0]))
-        ui_home.lz_zj_cj.setText("<font color='{}' >{:+d}<font>".format(
-            '#21f805' if gap['zj'][1] > 0 else '#f40c0c', gap['zj'][1]))
-        ui_home.sg_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
-            '#21f805' if gap['jt'][0] > 0 else '#f40c0c', gap['jt'][0]))
-        ui_home.lz_jt_cj.setText("<font color='{}' >{:+d}<font>".format(
-            '#21f805' if gap['jt'][1] > 0 else '#f40c0c', gap['jt'][1]))
-        ui_home.zsg_cj.setText("<font color='{}' >{:+d}<font>".format(
-            '#21f805' if gap['z_jt'][0] > 0 else '#f40c0c', gap['z_jt'][0]))
-        ui_home.zlz_cj.setText("<font color='{}' >{:+d}<font>".format(
-            '#21f805' if gap['z_jt'][1] > 0 else '#f40c0c', gap['z_jt'][1]))
-    '''
+    career_buff(data_now)
 
 
 def count_buff(buff_amount, intellect, xs, cp_arms=True):
@@ -272,6 +313,7 @@ def count_zj_buff(cr: str, data) -> dict:
         int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100)),
         data['out_intellect'],
         BASIC_DATA[cr]['xs'],
+        data['cp_arms']
     )
 
     return {
@@ -295,20 +337,35 @@ def count_jt_buff(cr, data) -> dict:
                 1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
         data['in_intellect'],
         BASIC_DATA[cr]['xs'],
+        data['cp_arms']
     )
     return {
         'sg': count(
             data['fixed_attack'],
             data['percentage_attack'],
-            BASIC_DATA[cr]['san_gong'][data['out_lv'] - 1],
+            BASIC_DATA[cr]['san_gong'][data['in_lv'] - 1],
             BASIC_DATA[cr]['attack_xyz'],
         ),
         'lz': count(
             data['fixed_intellect'],
             data['percentage_intellect'],
-            BASIC_DATA[cr]['li_zhi'][data['out_lv'] - 1],
+            BASIC_DATA[cr]['li_zhi'][data['in_lv'] - 1],
             BASIC_DATA[cr]['intellect_xyz'],
         )}
+
+
+def count_ty(data) -> int:
+    count = count_buff(
+        int(data['buff_amount'] * (
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
+        data['in_intellect'],
+        BASIC_DATA['tai_yang']['xs'],
+        False
+    )
+    return count(data['ty_fixed'],
+                 data['ty_percentage'],
+                 BASIC_DATA['tai_yang']['li_zhi'][data['ty_lv'] - 1],
+                 BASIC_DATA['tai_yang']['xyz'])
 
 
 @input_validation
@@ -361,17 +418,6 @@ def intellect_to():
                 intellect += int(UI_DATA[le].text()) if UI_DATA[le].text().isdigit() else 0
             else:
                 intellect += data_base.get(le, 0)
-        ui_home.jt_zhili.setText(str(intellect))
-
-
-def calculate_intellect():
-    intellect = 0
-    zhili_text = ui_home.jt_zhili.text()
-    if not zhili_text.startswith(('-', '+')):
-        for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
-            le_text = UI_DATA[le].text()
-            if le_text.isdigit():
-                intellect += int(le_text)
         ui_home.jt_zhili.setText(str(intellect))
 
 

@@ -31,7 +31,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>20</x>
      <y>20</y>
      <width>1881</width>
      <height>791</height>
@@ -1102,7 +1102,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="zlz">
+           <widget class="QLabel" name="naima_zlz">
             <property name="font">
              <font>
               <pointsize>13</pointsize>
@@ -1117,7 +1117,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="zlz_cj">
+           <widget class="QLabel" name="naima_zlz_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -1181,7 +1181,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="zsg">
+           <widget class="QLabel" name="naima_zsg">
             <property name="font">
              <font>
               <pointsize>13</pointsize>
@@ -1196,7 +1196,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="zsg_cj">
+           <widget class="QLabel" name="naima_zsg_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -1593,7 +1593,7 @@ QGroupBox{
       </layout>
      </widget>
     </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="cp_arm">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -1974,7 +1974,7 @@ border-bottom: 5px solid #e4e5e6;
 }
 QPushButton:hover {
 	border:0px; 
-	border-bottom: 4px solid rgb(5, 229, 254);
+	border-bottom: 5px solid rgb(5, 229, 254);
  
 }
            </string>
@@ -2023,7 +2023,7 @@ QPushButton:hover {
         </property>
         <property name="styleSheet">
          <string notr="true">border:0px; 
-	border-bottom: 4px solid rgb(5, 229, 254);</string>
+border-bottom: 4px solid rgb(5, 229, 254);</string>
         </property>
         <property name="text">
          <string/>
@@ -2407,7 +2407,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_9">
+           <widget class="QLabel" name="nailuo_lz">
             <property name="font">
              <font>
               <pointsize>13</pointsize>
@@ -2422,7 +2422,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_cj_9">
+           <widget class="QLabel" name="nailuo_lz_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -2589,7 +2589,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_10">
+             <widget class="QLabel" name="nailuo_sg_p">
               <property name="font">
                <font>
                 <pointsize>13</pointsize>
@@ -2604,7 +2604,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_cj_10">
+             <widget class="QLabel" name="nailuo_sg_p_cj">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -2660,7 +2660,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_11">
+             <widget class="QLabel" name="nailuo_lz_p">
               <property name="font">
                <font>
                 <pointsize>13</pointsize>
@@ -2675,7 +2675,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_cj_11">
+             <widget class="QLabel" name="nailuo_lz_p_cj">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -2790,7 +2790,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_2">
+           <widget class="QLabel" name="nailuo_a_lz">
             <property name="font">
              <font>
               <pointsize>13</pointsize>
@@ -2805,7 +2805,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_cj_2">
+           <widget class="QLabel" name="nailuo_a_lz_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -2869,7 +2869,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="sg_jt_2">
+           <widget class="QLabel" name="nailuo_a_sg">
             <property name="font">
              <font>
               <pointsize>13</pointsize>
@@ -2884,7 +2884,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="sg_jt_cj_2">
+           <widget class="QLabel" name="nailuo_a_sg_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -2969,7 +2969,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_3">
+             <widget class="QLabel" name="nailuo_a_sg_p">
               <property name="font">
                <font>
                 <pointsize>13</pointsize>
@@ -2984,7 +2984,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_cj_3">
+             <widget class="QLabel" name="nailuo_a_sg_p_cj">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -3040,7 +3040,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_4">
+             <widget class="QLabel" name="nailuo_a_lz_p">
               <property name="font">
                <font>
                 <pointsize>13</pointsize>
@@ -3055,7 +3055,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lz_jt_cj_4">
+             <widget class="QLabel" name="nailuo_a_lz_p_cj">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -3151,7 +3151,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_5">
+           <widget class="QLabel" name="nailuo_zlz">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -3166,7 +3166,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_cj_5">
+           <widget class="QLabel" name="nailuo_zlz_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -3230,7 +3230,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="sg_jt_3">
+           <widget class="QLabel" name="nailuo_zsg">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -3245,7 +3245,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="sg_jt_cj_3">
+           <widget class="QLabel" name="nailuo_zsg_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -3339,7 +3339,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_13">
+           <widget class="QLabel" name="nailuo_zplz">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -3354,7 +3354,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="lz_jt_cj_13">
+           <widget class="QLabel" name="nailuo_zplz_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -3418,7 +3418,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="sg_jt_7">
+           <widget class="QLabel" name="nailuo_zpsg">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -3433,7 +3433,7 @@ QGroupBox{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="sg_jt_cj_7">
+           <widget class="QLabel" name="nailuo_zpsg_cj">
             <property name="minimumSize">
              <size>
               <width>0</width>
