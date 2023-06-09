@@ -1,25 +1,20 @@
 <RCC>
   <qresource lang="yongqi">
-    <file>png/0.PNG</file>
+    <file>png/14.PNG</file>
     <file>png/23.PNG</file>
+    <file>png/34.PNG</file>
     <file>png/84.PNG</file>
-    <file>png/92.PNG</file>
+    <file>png/88.PNG</file>
+    <file>png/111.PNG</file>
     <file>png/158.PNG</file>
-    <file>png/260.PNG</file>
     <file>png/350.PNG</file>
     <file>png/548.PNG</file>
-    <file>png/708.PNG</file>
     <file>png/719.PNG</file>
-    <file>png/723.PNG</file>
     <file>png/757.PNG</file>
     <file>png/838.PNG</file>
     <file>png/ba.png</file>
     <file>png/gong.png</file>
     <file>png/luo.png</file>
     <file>png/ma.png</file>
-    <file>png/naiba.png</file>
-    <file>png/naigong.png</file>
-    <file>png/nailuo.png</file>
-    <file>png/naima.png</file>
   </qresource>
 </RCC>

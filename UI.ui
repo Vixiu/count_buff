@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>widget</class>
+ <widget class="QWidget" name="widget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1141</width>
+    <width>1131</width>
     <height>791</height>
    </rect>
   </property>
@@ -33,12 +33,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1141</width>
+     <width>1131</width>
      <height>791</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QGroupBox#b0,#b1,#b2,#b3,#yijue,#sanjue{
+    <string notr="true">QPushButton:hover {
+	background-color:#d5e3ff;
+ 
+}
+QGroupBox#b0,#b1,#b2,#b3,#yijue,#sanjue{
  	border:2px solid rgb(177, 177, 177);
    
 	border-radius:10px;
@@ -54,11 +58,7 @@ QGroupBox#b0::title, #b1::title, #b2::title, #b3::title {
 QLineEdit {
     border: 2px solid red;  
 }
-/*
-QGroupBox{
-    border-top: 1px solid rgb(190, 190, 190);
-   
-}*/
+
 QWidget#widget_1{
 background-color:#ffffff;
 border-radius:10px;
@@ -70,14 +70,7 @@ QPushButton {
     padding: 4px 8px;
     border-radius: 4px;
 }
-QPushButton:!window {
-    background: transparent;
-}
-QPushButton:flat,
-QPushButton:default {
-    border: none;
-    padding: 5px 9px;
-}
+
 QPushButton:default {
     color: #f8f9fa;
     background: #0081db;
@@ -228,7 +221,7 @@ background-color: rgb(213, 247, 255);</string>
      <rect>
       <x>130</x>
       <y>230</y>
-      <width>301</width>
+      <width>271</width>
       <height>61</height>
      </rect>
     </property>
@@ -369,7 +362,7 @@ border: 2px solid rgb(125, 125, 125);
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>70</y>
        <width>259</width>
        <height>57</height>
@@ -577,9 +570,9 @@ border: 2px solid rgb(125, 125, 125);
    <widget class="QPushButton" name="button_close">
     <property name="geometry">
      <rect>
-      <x>1080</x>
+      <x>1070</x>
       <y>20</y>
-      <width>31</width>
+      <width>41</width>
       <height>31</height>
      </rect>
     </property>
@@ -700,9 +693,9 @@ border: 2px solid rgb(125, 125, 125);
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>17</x>
+        <x>27</x>
         <y>30</y>
-        <width>281</width>
+        <width>271</width>
         <height>63</height>
        </rect>
       </property>
@@ -725,7 +718,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="nailuo_zpsg">
+          <widget class="QLabel" name="b3_sg">
            <property name="font">
             <font>
              <pointsize>14</pointsize>
@@ -740,7 +733,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="nailuo_zpsg_cj">
+          <widget class="QLabel" name="b3_sg_cj">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -783,6 +776,9 @@ border: 2px solid rgb(125, 125, 125);
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_32">
+         <property name="spacing">
+          <number>7</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_58">
            <property name="font">
@@ -796,7 +792,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="nailuo_zplz">
+          <widget class="QLabel" name="b3_lz">
            <property name="font">
             <font>
              <pointsize>14</pointsize>
@@ -811,7 +807,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="nailuo_zplz_cj">
+          <widget class="QLabel" name="b3_lz_cj">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -859,7 +855,7 @@ border: 2px solid rgb(125, 125, 125);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>230</y>
+       <y>220</y>
        <width>300</width>
        <height>110</height>
       </rect>
@@ -890,10 +886,10 @@ border: 2px solid rgb(125, 125, 125);
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>30</x>
         <y>30</y>
-        <width>273</width>
-        <height>67</height>
+        <width>261</width>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -915,7 +911,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_zsg">
+          <widget class="QLabel" name="b2_sg">
            <property name="font">
             <font>
              <pointsize>13</pointsize>
@@ -930,7 +926,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_zsg_cj">
+          <widget class="QLabel" name="b2_sg_cj">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -986,7 +982,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_zlz">
+          <widget class="QLabel" name="b2_lz">
            <property name="font">
             <font>
              <pointsize>13</pointsize>
@@ -1001,7 +997,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_zlz_cj">
+          <widget class="QLabel" name="b2_lz_cj">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -1051,7 +1047,7 @@ border: 2px solid rgb(125, 125, 125);
        <x>10</x>
        <y>60</y>
        <width>300</width>
-       <height>110</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="minimumSize">
@@ -1092,8 +1088,8 @@ border: 2px solid rgb(125, 125, 125);
        <rect>
         <x>20</x>
         <y>30</y>
-        <width>61</width>
-        <height>61</height>
+        <width>51</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -1109,10 +1105,10 @@ border: 2px solid rgb(125, 125, 125);
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>30</y>
+        <x>70</x>
+        <y>20</y>
         <width>221</width>
-        <height>61</height>
+        <height>71</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1137,7 +1133,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_buff_sg">
+          <widget class="QLabel" name="b1_sg">
            <property name="font">
             <font>
              <pointsize>13</pointsize>
@@ -1152,7 +1148,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_buff_sg_cj">
+          <widget class="QLabel" name="b1_sg_cj">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -1171,7 +1167,7 @@ border: 2px solid rgb(125, 125, 125);
             </font>
            </property>
            <property name="text">
-            <string>999999</string>
+            <string>+2323</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1208,7 +1204,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_buff_lz">
+          <widget class="QLabel" name="b1_lz">
            <property name="font">
             <font>
              <pointsize>13</pointsize>
@@ -1223,7 +1219,7 @@ border: 2px solid rgb(125, 125, 125);
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="naima_buff_lz_cj">
+          <widget class="QLabel" name="b1_lz_cj">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -1826,7 +1822,7 @@ padding-bottom:8px;
      <rect>
       <x>130</x>
       <y>300</y>
-      <width>301</width>
+      <width>271</width>
       <height>61</height>
      </rect>
     </property>
@@ -1942,7 +1938,7 @@ border: 2px solid rgb(144, 144, 144);
        <x>10</x>
        <y>50</y>
        <width>300</width>
-       <height>110</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="font">
@@ -1976,8 +1972,8 @@ border: 2px solid rgb(144, 144, 144);
        <rect>
         <x>20</x>
         <y>30</y>
-        <width>61</width>
-        <height>61</height>
+        <width>50</width>
+        <height>50</height>
        </rect>
       </property>
       <property name="text">
@@ -1993,10 +1989,10 @@ border: 2px solid rgb(144, 144, 144);
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>30</y>
+        <x>70</x>
+        <y>20</y>
         <width>221</width>
-        <height>61</height>
+        <height>71</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -2243,13 +2239,16 @@ border: 2px solid rgb(144, 144, 144);
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>80</x>
+        <x>70</x>
         <y>30</y>
-        <width>221</width>
+        <width>231</width>
         <height>51</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_30">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
        <item>
         <widget class="QLabel" name="label_49">
          <property name="font">
@@ -2375,13 +2374,16 @@ border: 2px solid rgb(144, 144, 144);
       <widget class="QWidget" name="layoutWidget_31">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>241</width>
-         <height>61</height>
+         <x>0</x>
+         <y>0</y>
+         <width>261</width>
+         <height>81</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_31">
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_52">
           <property name="font">
@@ -2461,13 +2463,16 @@ border: 2px solid rgb(144, 144, 144);
       <widget class="QWidget" name="layoutWidget_33">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>241</width>
-         <height>61</height>
+         <x>0</x>
+         <y>0</y>
+         <width>261</width>
+         <height>81</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_33">
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_60">
           <property name="font">
@@ -2522,33 +2527,6 @@ border: 2px solid rgb(144, 144, 144);
      </widget>
     </widget>
    </widget>
-   <widget class="QLabel" name="backgroud_icon">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1141</width>
-      <height>791</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QWidget{
-background-color:#ffffff;
-border-radius:10px;
-margin: 5px;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>C:/Users/lnori/Desktop/图层 1.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <zorder>backgroud_icon</zorder>
    <zorder>left_widget</zorder>
    <zorder>button_count</zorder>
    <zorder>button_jc</zorder>
