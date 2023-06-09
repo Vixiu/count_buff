@@ -439,7 +439,7 @@ if __name__ == '__main__':
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
 
-    ui_home.nailuo.hide()
+
     UI_DATA = {
         'buff_amount': ui_home.buff_liang,
         'out_intellect': ui_home.zj_zhili,
@@ -488,13 +488,16 @@ if __name__ == '__main__':
     ui_home.zj_gh.textChanged.connect(intellect_to)
     ui_home.zj_eh.textChanged.connect(intellect_to)
     ui_home.zj_bd.textChanged.connect(intellect_to)
-
     ####################
+
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
     effect.setOffset(0, 0)  # 横纵,偏移量
-    effect.setColor(Qt.black)  # 颜色
+    effect.setColor(Qt.red)  # 颜色
+
+
     ui_home.widget_1.setGraphicsEffect(effect)
+
 
     main_window.show()
     app.exec_()
