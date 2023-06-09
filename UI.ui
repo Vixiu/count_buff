@@ -32,8 +32,8 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>10</y>
-     <width>1691</width>
+     <y>0</y>
+     <width>1591</width>
      <height>791</height>
     </rect>
    </property>
@@ -131,8 +131,8 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_count">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>700</y>
+      <x>970</x>
+      <y>670</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -148,7 +148,7 @@ QLineEdit:focus{
     <property name="geometry">
      <rect>
       <x>820</x>
-      <y>700</y>
+      <y>670</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -172,7 +172,7 @@ QLineEdit:focus{
     </property>
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>450</x>
       <y>30</y>
       <width>4</width>
       <height>741</height>
@@ -553,7 +553,7 @@ background-color: rgb(213, 247, 255);</string>
    <widget class="QPushButton" name="button_close">
     <property name="geometry">
      <rect>
-      <x>1150</x>
+      <x>1080</x>
       <y>20</y>
       <width>31</width>
       <height>31</height>
@@ -575,8 +575,8 @@ background-color: rgb(213, 247, 255);</string>
    <widget class="QPushButton" name="button_save">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>710</y>
+      <x>840</x>
+      <y>540</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -593,8 +593,8 @@ background-color: rgb(213, 247, 255);</string>
    <widget class="QPushButton" name="button_load">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>710</y>
+      <x>980</x>
+      <y>540</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -613,10 +613,10 @@ background-color: rgb(213, 247, 255);</string>
    <widget class="QGroupBox" name="naima">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>50</y>
-      <width>351</width>
-      <height>471</height>
+      <x>480</x>
+      <y>170</y>
+      <width>311</width>
+      <height>541</height>
      </rect>
     </property>
     <property name="font">
@@ -636,7 +636,7 @@ QGroupBox{
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>0</x>
        <y>40</y>
        <width>311</width>
        <height>401</height>
@@ -648,7 +648,7 @@ QGroupBox{
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>0</height>
+          <height>100</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -1631,9 +1631,9 @@ QGroupBox{
    <widget class="QGroupBox" name="yijue">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>170</y>
-      <width>311</width>
+      <x>810</x>
+      <y>70</y>
+      <width>301</width>
       <height>101</height>
      </rect>
     </property>
@@ -1741,9 +1741,9 @@ QGroupBox{
    <widget class="QGroupBox" name="sanjue">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>320</y>
-      <width>311</width>
+      <x>810</x>
+      <y>190</y>
+      <width>301</width>
       <height>291</height>
      </rect>
     </property>
@@ -2115,7 +2115,7 @@ padding-bottom:8px;
    <widget class="QGroupBox" name="groupBox_7">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>480</x>
       <y>40</y>
       <width>311</width>
       <height>101</height>
@@ -2331,8 +2331,8 @@ padding-bottom:8px;
     </property>
     <property name="geometry">
      <rect>
-      <x>1190</x>
-      <y>70</y>
+      <x>1180</x>
+      <y>40</y>
       <width>351</width>
       <height>621</height>
      </rect>
@@ -2354,7 +2354,7 @@ padding-bottom:8px;
        <x>20</x>
        <y>30</y>
        <width>311</width>
-       <height>561</height>
+       <height>571</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -2363,13 +2363,13 @@ padding-bottom:8px;
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>160</height>
+          <height>100</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>999999</width>
-          <height>100000</height>
+          <height>100</height>
          </size>
         </property>
         <property name="font">
@@ -2560,562 +2560,6 @@ padding-bottom:8px;
              </size>
             </property>
            </spacer>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QLabel" name="label_6">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>100</y>
-           <width>41</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="images.qrc">:/png/708.PNG</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QWidget" name="layoutWidget_12">
-         <property name="geometry">
-          <rect>
-           <x>61</x>
-           <y>94</y>
-           <width>244</width>
-           <height>57</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
-          <property name="spacing">
-           <number>4</number>
-          </property>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_23">
-            <item>
-             <widget class="QLabel" name="label_54">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>偏爱三攻:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_sg_p">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>999999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_sg_p_cj">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>99999</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>-99999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_21">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_24">
-            <item>
-             <widget class="QLabel" name="label_55">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>偏爱力智:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_lz_p">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>999999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_lz_p_cj">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>99999</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>-99999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_22">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_14">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>999999</width>
-          <height>100000</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="title">
-         <string>疯狂召唤</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-        <widget class="QLabel" name="label_35">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>30</y>
-           <width>51</width>
-           <height>51</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="images.qrc">:/png/723.PNG</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QWidget" name="layoutWidget_13">
-         <property name="geometry">
-          <rect>
-           <x>81</x>
-           <y>63</y>
-           <width>221</width>
-           <height>24</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_11">
-          <item>
-           <widget class="QLabel" name="label_36">
-            <property name="font">
-             <font>
-              <pointsize>13</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>力智:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="nailuo_a_lz">
-            <property name="font">
-             <font>
-              <pointsize>13</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>999999</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="nailuo_a_lz_cj">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>99999</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>11</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>-99999</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="layoutWidget_14">
-         <property name="geometry">
-          <rect>
-           <x>81</x>
-           <y>31</y>
-           <width>221</width>
-           <height>24</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_12">
-          <item>
-           <widget class="QLabel" name="label_37">
-            <property name="font">
-             <font>
-              <pointsize>13</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>三攻:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="nailuo_a_sg">
-            <property name="font">
-             <font>
-              <pointsize>13</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>999999</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="nailuo_a_sg_cj">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>9999</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>11</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>999999</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_10">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QLabel" name="label_13">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>100</y>
-           <width>41</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="images.qrc">:/png/708.PNG</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QWidget" name="layoutWidget_15">
-         <property name="geometry">
-          <rect>
-           <x>61</x>
-           <y>94</y>
-           <width>244</width>
-           <height>57</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_13">
-            <item>
-             <widget class="QLabel" name="label_38">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>偏爱三攻:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_a_sg_p">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>999999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_a_sg_p_cj">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>99999</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>-99999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_11">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_14">
-            <item>
-             <widget class="QLabel" name="label_39">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>偏爱力智:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_a_lz_p">
-              <property name="font">
-               <font>
-                <pointsize>13</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>999999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="nailuo_a_lz_p_cj">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>99999</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>-99999</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_12">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
           </item>
          </layout>
         </widget>

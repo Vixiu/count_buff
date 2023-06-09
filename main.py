@@ -303,7 +303,9 @@ def naigong_setting():
 
 @input_validation
 def button_count_clicked(data_now):
-    career_buff(data_now)
+   ui_home.groupBox_9.hide()
+
+   #career_buff(data_now)
 
 
 def count_buff(buff_amount, intellect, xs, cp_arms=True):
@@ -436,7 +438,7 @@ if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
-    ui_home.naima.hide()
+
     ui_home.nailuo.hide()
     UI_DATA = {
         'buff_amount': ui_home.buff_liang,
