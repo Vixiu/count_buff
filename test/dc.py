@@ -21,6 +21,12 @@ BASIC_DATA = {
                    494, 505, 518, 529, 541, 552, 565, 575, 587, 598, 609, 622]
 
     },
+    'nai_gong':
+        {
+            'san_gong': [34, 35, 37, 38, 39, 41, 42, 43, 45, 56, 47, 49, 50, 51, 53, 54,
+                         55, 57, 58, 60, 61, 62, 64, 65, 66, 68, 69, 70, 72, 73, 74, 76,
+                         77, 78, 80, 81, 82, 84, 85, 87],
+        },
     'nai_luo': {
         'san_gong': [34, 35, 37, 38, 39, 41, 42, 43, 45, 46, 47, 49, 50, 51, 53, 54,
                      55, 57, 58, 60, 61, 62, 64, 65, 66, 68, 69, 70, 72, 73, 74, 76,
@@ -47,17 +53,18 @@ def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
         x))
 
 
-def count_buff(lv, buff_amount, intellect, attack_fixed, ap_1, ap_2, ap_3, ap_4, ap_5):
-    cr = 'nai_ma'
+def count_buff(lv, buff_amount, intellect, attack_fixed):
+    print(buff_amount)
+    cr = 'nai_gong'
     xs = 665
     x, y = (4350, 3500)
     # basic_attack = (1.34 * lv + 32.600) * 1.131 * 1.02
     basic_attack = BASIC_DATA[cr]['san_gong'][lv - 1]
+    basic_attack = 56
+    print(basic_attack)
     old_buff = ((basic_attack + attack_fixed) * ((intellect / xs) + 1))
-
     new_buff = basic_attack * ((intellect + x) / xs + 1) * (
             buff_amount + y) * z if buff_amount != 0 else 0
-
     buff = (old_buff + new_buff) * (1.08 if buff_amount != 0 else 1)
 
     return round(buff)
@@ -79,6 +86,9 @@ def count(a, b):
 
 z = 0.00003788627
 
+count(count_buff(11, 15527, 2526, 0), 785)
+
+'''
 count(count_buff(35, 111806, 8845, 8, 1, 1, 1, 1, 1), 10591)
 
 count(count_buff(35, 111806, 8840, 8, 1, 1, 1, 1, 1), 10587)
@@ -116,3 +126,4 @@ count(count_buff(5, 0, 3905, 8, 1, 1, 1, 1, 1), 364)
 
 count(count_buff(33, 111683, 7935, 8, 1, 1, 1, 1, 1), 9523)
 count(count_buff(33, 111806, 7935, 8, 1, 1, 1, 1, 1), 9532)
+'''

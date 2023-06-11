@@ -269,7 +269,7 @@ border: 2px solid rgb(125, 125, 125);
          </font>
         </property>
         <property name="text">
-         <string>智力:</string>
+         <string>智力</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -451,7 +451,7 @@ border: 2px solid rgb(125, 125, 125);
          </font>
         </property>
         <property name="text">
-         <string>智力:</string>
+         <string>智力</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1714,7 +1714,7 @@ padding-bottom:8px;
       <item>
        <widget class="QPushButton" name="naiba_button">
         <property name="enabled">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="font">
          <font>
@@ -1955,8 +1955,7 @@ border: 2px solid rgb(144, 144, 144);
       <cursorShape>ArrowCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-</string>
+      <string notr="true"/>
      </property>
      <property name="title">
       <string>勇气祝福</string>

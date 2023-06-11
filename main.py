@@ -1,6 +1,8 @@
 import traceback
 from os import getenv, path, makedirs
 from sys import argv
+
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
 from Widget import RoundedWindow
 from UI import Ui_widget
@@ -18,8 +20,8 @@ BASIC_DATA = {
                    302, 311, 321, 332, 342, 353, 363, 374, 385, 395, 406, 415, 425, 437,
                    447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
         'xs': 665,
-        'xyz': (4345, 3500, 0.00003788627),
-
+        'xyz': (4350, 3500, 0.00003788627),
+        #       'xyz': (4345, 3500, 0.0000379),
     },
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
@@ -34,19 +36,18 @@ BASIC_DATA = {
 
     },
     'nai_gong': {
-        'san_gong': [162, 173, 186, 196, 207, 217, 227, 239, 249, 262, 272, 283,
-                     295, 306, 318, 328, 338, 350, 360, 372, 382, 394, 406, 416,
-                     428, 437, 448, 460, 471, 482, 493, 503, 516, 527, 539, 548,
-                     559, 570, 581, 593],
-        'li_zhi': [40, 42, 44, 46, 47, 49, 51, 52, 54, 55, 56, 58, 60, 61, 63,
-                   64, 65, 67, 70, 72, 73, 74, 76, 78, 80, 82, 83, 84, 86, 88,
-                   89, 92, 93, 94, 96, 98, 99, 101, 102, 104]
-,
+        'san_gong': [40, 42, 44, 46, 47, 49, 51, 52, 54, 55, 56, 58, 60, 61, 63,
+                     64, 65, 67, 70, 72, 73, 74, 76, 78, 80, 82, 83, 84, 86, 88,
+                     89, 92, 93, 94, 96, 98, 99, 101, 102, 104],
+        'li_zhi': [162, 173, 186, 196, 207, 217, 227, 239, 249, 262, 272, 283,
+                   295, 306, 318, 328, 338, 350, 360, 372, 382, 394, 406, 416,
+                   428, 437, 448, 460, 471, 482, 493, 503, 516, 527, 539, 548,
+                   559, 570, 581, 593]
+        ,
         'xs': 665,
-        'xyz': (4350, 5000, 0.00003788627),
+        'xyz': (4350, 3500, 0.00003788627),
 
     },
-
     'nai_luo': {
         'san_gong': [34, 35, 37, 38, 39, 41, 42, 43, 45, 46, 47, 49, 50, 51, 53, 54,
                      55, 57, 58, 60, 61, 62, 64, 65, 66, 68, 69, 70, 72, 73, 74, 76,
@@ -55,7 +56,7 @@ BASIC_DATA = {
                    256, 264, 273, 282, 291, 300, 309, 318, 327, 336, 345, 353, 362, 371,
                    380, 389, 398, 407, 416, 425, 434, 442, 451, 460, 469, 478],
         'xs': 665,
-        'xyz': (4350, 5000, 0.00003788627),
+        'xyz': (4350, 3500, 0.00003788627),
 
     },
     "tai_yang": {'li_zhi': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -111,19 +112,18 @@ def put_exception(fn):
 
 def input_validation(fn):
     # 因为还要对输入数据在进行一次判断，所以不在输入层面就进行效验
-
     def run_fn():
         data_now = {}
 
         def validation(text: str):
             if ',' in text:
-                return False, [eval(i) for i in text.split(',')]
+                return False, [eval(i) for i in text.split(',') if i.isdigit()]
             elif text.startswith('+') or text.startswith('-'):
                 return True, eval(text)
             elif text.isdigit() or ('.' in text and text.count('.') == 1):
                 return False, eval(text)
             else:
-                return False, "非法字符"
+                return False, text
 
         def input_data(k: str):
             text = UI_DATA.get(k).text().replace(" ", "").replace("，", ',').replace("。", '.')
@@ -145,25 +145,29 @@ def input_validation(fn):
         for keys in UI_DATA:
             input_data(keys)
 
-        if type(data_now['percentage_attack']) is not list:
-            data_now['percentage_attack'] = [data_now['percentage_attack']]
-        if type(data_now['percentage_intellect']) is not list:
-            data_now['percentage_intellect'] = [data_now['percentage_intellect']]
-
-        if not (0 < data_now['in_lv'] < 41):
-            exception.append(('in_lv', '1~40'))
-        if not (0 < data_now['out_lv'] < 41):
+        if not (0 < data_now.get('in_lv', 1) < 41):
+            exception.append(('in_lv', "1~40"))
+        if not (0 < data_now.get('out_lv', 1) < 41):
             exception.append(('out_lv', '1~40'))
-        data_now['career'] = data_base['career']
-        data_now['cp_arms'] = data_base['cp_arms']
+        if not (0 < data_now.get('ty_lv', 1) < 41):
+            exception.append(('ty_lv', '1~40'))
+
         if exception:
             for key, tip in exception:
                 UI_DATA[key].setText(tip)
-                UI_DATA[key].setStyleSheet("font-size: 12px;"
-                                           "background-color: #00aaff;"
-                                           "border:0px;"
-                                           "border-bottom: 3px solid red;")
+                UI_DATA[key].setStyleSheet(
+                    "background-color: #00aaff;"
+                    "border:0px;"
+                    "border-bottom: 3px solid red;")
         else:
+            if type(data_now['percentage_attack']) is not list:
+                data_now['percentage_attack'] = [data_now['percentage_attack']]
+            if type(data_now['percentage_intellect']) is not list:
+                data_now['percentage_intellect'] = [data_now['percentage_intellect']]
+            if type(data_now['ty_percentage']) is not list:
+                data_now['ty_percentage'] = [data_now['ty_percentage']]
+            data_now['career'] = data_base['career']
+            data_now['cp_arms'] = data_base['cp_arms']
             fn(data_now)
 
     return run_fn
@@ -172,10 +176,13 @@ def input_validation(fn):
 def buff(data_now):
     cr = data_now['career']
     return {'zj': count_zj_buff(cr, data_now),
-            'jt': count_jt_buff(cr, data_now)}, \
+            'jt': count_jt_buff(cr, data_now),
+            'ty': count_ty(data_now)
+            }, \
         {
             'zj': count_zj_buff(cr, data_base),
             'jt': count_jt_buff(cr, data_base),
+            'ty': count_ty(data_base)
         }
 
 
@@ -195,7 +202,6 @@ def gap_set(gap):
     else:
         gap = "<font color='{}'>{:+d}<font>".format('#21f805' if gap >= 0 else '#f40c0c', gap)
     return gap
-
 
 
 def current(data, gap):
@@ -225,6 +231,10 @@ def set_naima(data, gap):
 
 def set_nailuo(data, gap):
     current(data, gap)
+    ui_home.b3_sg.setText(data['p_jt']['sg'])
+    ui_home.b3_lz.setText(data['p_jt']['lz'])
+    ui_home.b3_lz_cj.setText(gap['p_jt']['lz'])
+    ui_home.b3_sg_cj.setText(gap['p_jt']['sg'])
 
 
 def set_naiba(data, gap):
@@ -246,7 +256,11 @@ def clear():
 
 def naima_setting():
     clear()
-
+    main_window.setWindowIcon(QIcon(":/png/84.PNG"))
+    ui_home.label_3.setText('智力')
+    ui_home.label_17.setText('智力')
+    ui_home.label_15.setText('智力')
+    data_base['career'] = 'nai_ma'
     ui_home.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
                                        ' padding-top:8px;'
                                        'padding-bottom:8px;'
@@ -266,7 +280,11 @@ def naima_setting():
 
 def nailuo_setting():
     clear()
-
+    main_window.setWindowIcon(QIcon(":/png/719.PNG"))
+    ui_home.label_3.setText('智力')
+    ui_home.label_17.setText('智力')
+    ui_home.label_15.setText('智力')
+    data_base['career'] = 'nai_luo'
     ui_home.yijue.setTitle('开幕！人偶剧场')
     ui_home.sanjue.setTitle('终幕！人偶剧场')
     ui_home.nailuo_button.setStyleSheet('border:0px; border-radius: 0px;'
@@ -278,6 +296,7 @@ def nailuo_setting():
     ui_home.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/838.PNG"))
     ui_home.b0.setTitle('禁忌诅咒')
     ui_home.b1.setTitle('禁忌诅咒')
+
     ui_home.label_35.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
     ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
     ui_home.b2.setTitle('禁忌诅咒+疯狂召唤')
@@ -286,6 +305,11 @@ def nailuo_setting():
 
 def naiba_setting():
     clear()
+    main_window.setWindowIcon(QIcon(":/png/111.PNG"))
+    ui_home.label_3.setText('精神')
+    ui_home.label_17.setText('精神')
+    ui_home.label_15.setText('精神')
+    data_base['career'] = 'nai_ba'
     ui_home.naiba_button.setStyleSheet('border:0px; border-radius: 0px;'
                                        ' padding-top:8px;'
                                        'padding-bottom:8px;'
@@ -305,6 +329,10 @@ def naiba_setting():
 
 def naigong_setting():
     clear()
+    main_window.setWindowIcon(QIcon(":/png/14.PNG"))
+    ui_home.label_3.setText('精神')
+    ui_home.label_17.setText('精神')
+    ui_home.label_15.setText('精神')
     ui_home.naigong_button.setStyleSheet('border:0px; border-radius: 0px;'
                                          ' padding-top:8px;'
                                          'padding-bottom:8px;'
@@ -321,29 +349,69 @@ def naigong_setting():
     ui_home.b2.setTitle('可爱节拍+燃情狂想曲')
     ui_home.b3.hide()
 
+    data_base['career'] = 'nai_gong'
+
+
+# {'zj': {'sg': '42', 'lz': '166'}, 'jt': {'sg': '42', 'lz': '166'}, 'z_jt': {'sg': '48', 'lz': '191'}, 'a': {'sg':
+# '6', 'lz': '25'}, 'ty': '46', 'san_one': '52', 'san_two': '58'}
 
 @input_validation
 def button_count_clicked(data_now):
     now, base = buff(data_now)
     career = data_now['career']
+    # 下面是 向下取整,还是四舍五入 有待研究
     if career == 'nai_ma':
         now['z_jt'] = {k: round(v * 1.15) for k, v in now['jt'].items()}
         base['z_jt'] = {k: round(v * 1.15) for k, v in base['jt'].items()}
-        gap = {k: {'sg': v['sg'] - base[k]['sg'], 'lz': v['lz'] - base[k]['lz']} for k, v in now.items()}
-        base = count_ty(data_base)
-        now['ty'] = count_ty(data_now)
         now['san_one'] = round(now['ty'] * 1.12)
         now['san_two'] = round(now['ty'] * 1.27)
-        gap['ty'] = now['ty'] - base
-        gap['san_one'] = now['san_one'] - round(base * 1.12)
-        gap['san_two'] = now['san_two'] - round(base * 1.27)
+        base['san_one'] = round(base['ty'] * 1.12)
+        base['san_two'] = round(base['ty'] * 1.27)
+        gap = diff_dict(base, now)
         set_naima(value_to_str(now), gap_set(gap))
     elif career == 'nai_luo':
-        pass
+        now['z_jt'] = {k: round(v * 1.25) for k, v in now['jt'].items()}
+        now['p_jt'] = {k: round(v * 1.4375) for k, v in now['jt'].items()}
+        now['san_one'] = round(now['ty'] * 1.11)
+        now['san_two'] = round(now['ty'] * 1.26)
+        base['z_jt'] = {k: round(v * 1.25) for k, v in base['jt'].items()}
+        base['p_jt'] = {k: round(v * 1.4375) for k, v in base['jt'].items()}
+        base['san_one'] = round(base['ty'] * 1.11)
+        base['san_two'] = round(base['ty'] * 1.26)
+        gap = diff_dict(base, now)
+        set_nailuo(value_to_str(now), gap_set(gap))
+
     elif career == 'nai_ba':
-        pass
+
+        now['z_jt'] = {'sg': 0, 'lz': 0}
+        base['z_jt'] = {'sg': 0, 'lz': 0}
+        ######################################################################
+        now['san_one'] = round(now['ty'] * 1.11)
+        now['san_two'] = round(now['ty'] * 1.26)
+        base['san_one'] = round(base['ty'] * 1.11)
+        base['san_two'] = round(base['ty'] * 1.26)
+        gap = diff_dict(base, now)
+        set_naiba(value_to_str(now), gap_set(gap))
     elif career == 'nai_gong':
-        pass
+        now['z_jt'] = {k: round(v * 1.1) for k, v in now['jt'].items()}
+        base['z_jt'] = {k: round(v * 1.1) for k, v in base['jt'].items()}
+        now['san_one'] = round(now['ty'] * 1.11)
+        now['san_two'] = round(now['ty'] * 1.26)
+        base['san_one'] = round(base['ty'] * 1.11)
+        base['san_two'] = round(base['ty'] * 1.26)
+        gap = diff_dict(base, now)
+        set_naigong(value_to_str(now), gap_set(gap))
+
+
+def diff_dict(dict1, dict2):
+    """计算两个嵌套字典的差值"""
+    diff = {}
+    for key in dict1:
+        if isinstance(dict1[key], dict):
+            diff[key] = diff_dict(dict1[key], dict2[key])
+        else:
+            diff[key] = dict2[key] - dict1[key]
+    return diff
 
 
 def count_buff(buff_amount, intellect, xs, xyz, cp_arms):
@@ -355,6 +423,7 @@ def count_buff(buff_amount, intellect, xs, xyz, cp_arms):
             old_buff *= (1 + n / 100)
         new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
         bf = (old_buff + new_buff) * (1.08 if cp_arms else 1)
+
         return round(bf)
 
     return count
@@ -465,19 +534,34 @@ def close_windows():
 def save_data(data_now):
     with open(FILE_PATH, "w+") as f:
         f.write(str(data_now))
+    is_contrast()
 
 
 def load_data():
+
     with open(FILE_PATH, "r") as f:
-        data_now = eval(f.read())
+        try:
+            data_now = eval(f.read())
+        except:
+            data_now = {}
     for k, v in data_now.items():
         if k in UI_DATA:
             UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
+    career = data_now.get('career', 'nai_ma')
+    if career == 'nai_ma':
+        naima_setting()
+    elif career == 'nai_ba':
+        naiba_setting()
+    elif career == 'nai_luo':
+        nailuo_setting()
+    elif career == 'nai_gong':
+        naigong_setting()
     is_contrast()
 
 
 def lv_to():
     text = ui_home.zl_lv.text().replace(" ", "")
+
     if text.isdigit():
         ui_home.jt_lv.setText(str(int(text) + 14))
 
@@ -494,10 +578,15 @@ def intellect_to():
         ui_home.ty_zhili.setText(str(intellect - text))
 
 
+def cp_arm_stated():
+    data_base['cp_arms'] = ui_home.cp_arm.isChecked()
+
+
 if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
+    main_window.setWindowTitle(' 奶量计算器')
     UI_DATA = {
         'buff_amount': ui_home.buff_liang,
         'out_intellect': ui_home.zj_zhili,
@@ -531,8 +620,10 @@ if __name__ == '__main__':
         makedirs(path.dirname(FILE_PATH))
         with open(FILE_PATH, "w+") as file:
             file.write(str(data_base))
+
     load_data()
-    naima_setting()
+    button_count_clicked()
+
     ####################
     ui_home.button_count.clicked.connect(button_count_clicked)
     ui_home.button_jc.clicked.connect(is_contrast)
@@ -551,6 +642,7 @@ if __name__ == '__main__':
     ui_home.zj_gh.textChanged.connect(intellect_to)
     ui_home.zj_eh.textChanged.connect(intellect_to)
     ui_home.zj_bd.textChanged.connect(intellect_to)
+    ui_home.cp_arm.stateChanged.connect(cp_arm_stated)
     ####################
 
     effect = QGraphicsDropShadowEffect()
