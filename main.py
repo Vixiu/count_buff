@@ -1,13 +1,14 @@
+import time
 import traceback
 from os import getenv, path, makedirs
 from sys import argv
-
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
+
 from Widget import RoundedWindow
 from UI import Ui_widget
 from PyQt5.QtCore import Qt, QCoreApplication
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtGui
 
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_widget()
@@ -69,7 +70,7 @@ BASIC_DATA = {
 UI_DATA = {}
 # 各项初始值
 data_base = {
-    'ty_lv': 1,
+    'ty_lv': 37,
     'ty_intellect': 0,
     'buff_amount': 0,
     'out_intellect': 0,
@@ -91,23 +92,17 @@ data_base = {
     'percentage_intellect': [],
     'ty_fixed': 0,
     'ty_percentage': [],
-
     'cp_arms': True,
-    'career': 'nai_ma'
+    'career': 'nai_ma',
+
+    'nai_ba_guardian': 0,
+    'nai_ba_ssp': 0,
+    'add': 0
+
 }
 
 
 #
-
-def put_exception(fn):
-    def ex():
-        try:
-            fn()
-        except Exception as e:
-            print(e)
-            traceback.print_exc()
-
-    return ex
 
 
 def input_validation(fn):
@@ -151,15 +146,35 @@ def input_validation(fn):
             exception.append(('out_lv', '1~40'))
         if not (0 < data_now.get('ty_lv', 1) < 41):
             exception.append(('ty_lv', '1~40'))
-
+        add = ui_home.add.text()
+        try:
+            add = int(add) if add else 0
+        except ValueError:
+            ui_home.add.setStyleSheet(
+                "background-color: #00aaff;"
+                "border:0px;"
+                "border-bottom: 3px solid red;")
+            exception.append(('add', add))
         if exception:
             for key, tip in exception:
+                if key == 'add':
+                    break
+                if key in ('in_intellect', 'in_lv'):
+                    ui_home.tabWidget.setCurrentIndex(0)
+                elif key in ('out_medal', 'out_earp', 'out_passive', 'out_guild'):
+                    ui_home.tabWidget.setCurrentIndex(1)
+                elif key in ('nai_ba_guardian', 'nai_ba_ssp'):
+                    naiba_setting()
+                    ui_home.tabWidget.setCurrentIndex(2)
                 UI_DATA[key].setText(tip)
                 UI_DATA[key].setStyleSheet(
                     "background-color: #00aaff;"
                     "border:0px;"
                     "border-bottom: 3px solid red;")
         else:
+            data_now['in_intellect'] += add
+            data_now['out_intellect'] += add
+            data_now['ty_intellect'] += add
             if type(data_now['percentage_attack']) is not list:
                 data_now['percentage_attack'] = [data_now['percentage_attack']]
             if type(data_now['percentage_intellect']) is not list:
@@ -256,10 +271,12 @@ def clear():
 
 def naima_setting():
     clear()
+    ui_home.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/84.PNG"))
-    ui_home.label_3.setText('智力')
-    ui_home.label_17.setText('智力')
-    ui_home.label_15.setText('智力')
+    ui_home.label_6.setText('智力增减:')
+    ui_home.label_3.setText('智力:')
+    ui_home.label_17.setText('智力:')
+    ui_home.label_15.setText('智力:')
     data_base['career'] = 'nai_ma'
     ui_home.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
                                        ' padding-top:8px;'
@@ -280,10 +297,13 @@ def naima_setting():
 
 def nailuo_setting():
     clear()
+    # ui_home.tabWidget.tabBar().setTabVisible(2, False)
+    ui_home.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/719.PNG"))
-    ui_home.label_3.setText('智力')
-    ui_home.label_17.setText('智力')
-    ui_home.label_15.setText('智力')
+    ui_home.label_6.setText('智力增减:')
+    ui_home.label_3.setText('智力:')
+    ui_home.label_17.setText('智力:')
+    ui_home.label_15.setText('智力:')
     data_base['career'] = 'nai_luo'
     ui_home.yijue.setTitle('开幕！人偶剧场')
     ui_home.sanjue.setTitle('终幕！人偶剧场')
@@ -305,10 +325,13 @@ def nailuo_setting():
 
 def naiba_setting():
     clear()
+    # ui_home.tabWidget.tabBar().setTabVisible(2, True)
+    ui_home.tabWidget.insertTab(2, ui_home.tab3, '奶爸')
     main_window.setWindowIcon(QIcon(":/png/111.PNG"))
-    ui_home.label_3.setText('精神')
-    ui_home.label_17.setText('精神')
-    ui_home.label_15.setText('精神')
+    ui_home.label_6.setText('体精增减:')
+    ui_home.label_3.setText('体精:')
+    ui_home.label_17.setText('体精:')
+    ui_home.label_15.setText('体精:')
     data_base['career'] = 'nai_ba'
     ui_home.naiba_button.setStyleSheet('border:0px; border-radius: 0px;'
                                        ' padding-top:8px;'
@@ -329,10 +352,12 @@ def naiba_setting():
 
 def naigong_setting():
     clear()
+    ui_home.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/14.PNG"))
-    ui_home.label_3.setText('精神')
-    ui_home.label_17.setText('精神')
-    ui_home.label_15.setText('精神')
+    ui_home.label_6.setText('精神增减:')
+    ui_home.label_3.setText('精神:')
+    ui_home.label_17.setText('精神:')
+    ui_home.label_15.setText('精神:')
     ui_home.naigong_button.setStyleSheet('border:0px; border-radius: 0px;'
                                          ' padding-top:8px;'
                                          'padding-bottom:8px;'
@@ -382,9 +407,11 @@ def button_count_clicked(data_now):
         set_nailuo(value_to_str(now), gap_set(gap))
 
     elif career == 'nai_ba':
-
-        now['z_jt'] = {'sg': 0, 'lz': 0}
-        base['z_jt'] = {'sg': 0, 'lz': 0}
+        _ = data_base.copy()
+        _['in_intellect'] = data_base['nai_ba_guardian'] + data_base['nai_ba_ssp'] * 24
+        data_now['in_intellect'] = data_now['nai_ba_guardian'] + data_now['nai_ba_ssp'] * 24
+        now['z_jt'] = count_jt_buff(career, data_now)
+        base['z_jt'] = count_jt_buff(career, _)
         ######################################################################
         now['san_one'] = round(now['ty'] * 1.11)
         now['san_two'] = round(now['ty'] * 1.26)
@@ -538,7 +565,6 @@ def save_data(data_now):
 
 
 def load_data():
-
     with open(FILE_PATH, "r") as f:
         try:
             data_now = eval(f.read())
@@ -548,6 +574,7 @@ def load_data():
         if k in UI_DATA:
             UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
     career = data_now.get('career', 'nai_ma')
+    is_contrast()
     if career == 'nai_ma':
         naima_setting()
     elif career == 'nai_ba':
@@ -556,7 +583,6 @@ def load_data():
         nailuo_setting()
     elif career == 'nai_gong':
         naigong_setting()
-    is_contrast()
 
 
 def lv_to():
@@ -587,6 +613,7 @@ if __name__ == '__main__':
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
     main_window.setWindowTitle(' 奶量计算器')
+    # 要检查的输入框
     UI_DATA = {
         'buff_amount': ui_home.buff_liang,
         'out_intellect': ui_home.zj_zhili,
@@ -614,16 +641,22 @@ if __name__ == '__main__':
         'out_guild': ui_home.zj_gh,
 
         'ty_intellect': ui_home.ty_zhili,
+
+        'nai_ba_guardian': ui_home.naiba_sh,
+        'nai_ba_ssp': ui_home.naiba_ej,
+
         'in_intellect': ui_home.jt_zhili,  # 此项在最后
+
     }
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
         with open(FILE_PATH, "w+") as file:
             file.write(str(data_base))
+    #  ui_home.naiba_button.setEnabled(False)
 
     load_data()
-    button_count_clicked()
 
+    button_count_clicked()
     ####################
     ui_home.button_count.clicked.connect(button_count_clicked)
     ui_home.button_jc.clicked.connect(is_contrast)
@@ -644,12 +677,12 @@ if __name__ == '__main__':
     ui_home.zj_bd.textChanged.connect(intellect_to)
     ui_home.cp_arm.stateChanged.connect(cp_arm_stated)
     ####################
-
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
     effect.setOffset(0, 0)  # 横纵,偏移量
     effect.setColor(Qt.black)  # 颜色
-
     ui_home.widget_1.setGraphicsEffect(effect)
+    ######################
+
     main_window.show()
     app.exec_()

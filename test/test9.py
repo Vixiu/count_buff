@@ -1,54 +1,35 @@
-from PyQt5.QtCore import QPropertyAnimation, QPoint
-from PyQt5.QtWidgets import QApplication, QLineEdit, QWidget, QPushButton, QVBoxLayout
+'''
+PyQt5 中有多种方法可以刷新组件，下面介绍其中一些常用的方法：
 
+1. update()：可以用于强制重新绘制组件
 
-class ShakeInput(QLineEdit):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+```python
+widget.update()  # 刷新组件
+```
 
-    def shake(self):
-        # 创建动画
-        animation = QPropertyAnimation(self, b"pos")
-        animation.setDuration(100)
+2. repaint()：与 update() 类似，也可以用于重新绘制组件
 
-        # 设置动画路径
-        pos1 = QPoint(self.pos().x() - 5, self.pos().y())
-        pos2 = QPoint(self.pos().x() + 5, self.pos().y())
-        animation.setKeyValueAt(0.1, pos1)
-        animation.setKeyValueAt(0.2, pos2)
-        animation.setKeyValueAt(0.3, pos1)
-        animation.setKeyValueAt(0.4, pos2)
-        animation.setKeyValueAt(0.5, pos1)
-        animation.setKeyValueAt(0.6, pos2)
-        animation.setKeyValueAt(0.7, pos1)
-        animation.setKeyValueAt(0.8, pos2)
-        animation.setKeyValueAt(0.9, pos1)
-        animation.setEndValue(self.pos())
+```python
+widget.repaint()  # 刷新组件
+```
 
-        # 开始动画
-        animation.start(animation.DeleteWhenStopped)
+3. setWindowTitle()：可以用于修改窗口的标题，从而实现刷新效果
 
+```python
+widget.setWindowTitle("New Title")  # 修改窗口的标题
+```
 
-if __name__ == '__main__':
-    app = QApplication([])
+4. setText()：可以用于修改标签等组件的文本内容，从而实现刷新效果
 
-    widget = QWidget()
-    input = ShakeInput(widget)
-    input.setPlaceholderText("请输入内容")
+```python
+label.setText("New Text")  # 修改标签的文本内容
+```
 
+5. clear()：可以用于清空文本框等组件的内容
 
-    # 按钮点击事件
-    def on_button_clicked():
-            input.shake()
+```python
+textEdit.clear()  # 清空文本框的内容
+```
 
-
-    button = QPushButton("提交", widget)
-    button.clicked.connect(on_button_clicked)
-
-    # 设置布局
-    layout = QVBoxLayout(widget)
-    layout.addWidget(input)
-    layout.addWidget(button)
-    widget.show()
-
-    app.exec_()
+6. updateGeometry()：可以用于更新组件的几何信息，从而实现
+'''
