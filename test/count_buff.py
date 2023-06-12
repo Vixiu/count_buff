@@ -1,8 +1,6 @@
 import decimal
 
-import sympy
 import sys  # 导入sys模块
-
 
 BASIC_DATA = {
     'nai_ma': {
@@ -52,17 +50,17 @@ def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
 
 
 def count_buff(lv, buff_amount, intellect, attack_fixed):
-    basic_attack = BASIC_DATA['nai_ma']['san_gong'][lv - 1]
+    basic_attack = BASIC_DATA['nai_ma']['li_zhi'][lv - 1]
     # basic_attack = (1.34 * lv + 32.600) * 1.131 * 1.02
     xs = 665
-    x, y = (4350, 3500,)
+    x, y, z = (4350, 3500, 0.00003788627)
     old_buff = (basic_attack + attack_fixed) * ((intellect / xs) + 1)
 
     new_buff = basic_attack * ((intellect + x) / xs + 1) * (
             buff_amount + y) * z if buff_amount != 0 else 0
 
     buff = (old_buff + new_buff) * (1.08 if buff_amount != 0 else 1)
-    return round(buff)
+    return int(buff)
 
 
 def count_lz(lv, buff_amount, intellect, attack_fixed):
@@ -74,7 +72,9 @@ def count_lz(lv, buff_amount, intellect, attack_fixed):
     return round(buff)
 
 
-z = 0.000037
+print(count_buff(21, 62887, 5667, 0))
+
+# z = 0.000037
 n = 0.00000000001
 # 3.788629000002003e-05
 lz = [
@@ -87,7 +87,6 @@ lz = [
     [19, 107883, 8061, 0, 35495],
     [12, 107883, 8061, 0, 27919],
 ]
-
 
 sg = [
     [35, 111806, 8845, 8, 10591],
@@ -117,7 +116,7 @@ sg = [
     [33, 111806, 7935, 8, 9532],
 
 ]
-
+'''
 
 flag = True
 while flag:
@@ -134,7 +133,7 @@ while flag:
         elif c == 0:
             flag = False
 print(z)
-
+'''
 '''
 while flag:
     for ls in sg:
@@ -155,4 +154,3 @@ print(z)
 # 3.788627 >y >3.788527
 
 # 3.7887  3.788651
-

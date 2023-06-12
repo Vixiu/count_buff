@@ -2371,15 +2371,15 @@ border-top-right-radius:10px;  */
 /*设置控件下选择页的颜色*/
 QTabBar::tab
 {
+color:rgb(0, 170, 255);
 background-color: rgb(255,255,255);
-
 border:2px solid rgb(141, 141, 141);
 font: bold 9pt ;
 min-width: 80px;
 min-height: 20px;
 border-bottom:0px;
-border-top-left-radius: 6px
-;border-top-right-radius: 6px;
+border-top-left-radius: 6px;
+border-top-right-radius: 6px;
 }
 QTabBar::tab:hover {
         background-color: #f0f0f0;
@@ -2387,7 +2387,7 @@ QTabBar::tab:hover {
 
 /*background-color:rgb(4,138,224);*/
 QTabBar::tab:selected{
-color:rgb(0, 170, 255);
+color:rgb(0, 0, 0);
 
 border: 2px solid gray; 
 border-bottom:0px;
@@ -2400,7 +2400,7 @@ border-bottom:0px;
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideRight</enum>

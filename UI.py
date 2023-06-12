@@ -1034,15 +1034,15 @@ class Ui_widget(object):
 "/*设置控件下选择页的颜色*/\n"
 "QTabBar::tab\n"
 "{\n"
+"color:rgb(0, 170, 255);\n"
 "background-color: rgb(255,255,255);\n"
-"\n"
 "border:2px solid rgb(141, 141, 141);\n"
 "font: bold 9pt ;\n"
 "min-width: 80px;\n"
 "min-height: 20px;\n"
 "border-bottom:0px;\n"
-"border-top-left-radius: 6px\n"
-";border-top-right-radius: 6px;\n"
+"border-top-left-radius: 6px;\n"
+"border-top-right-radius: 6px;\n"
 "}\n"
 "QTabBar::tab:hover {\n"
 "        background-color: #f0f0f0;\n"
@@ -1050,7 +1050,7 @@ class Ui_widget(object):
 "\n"
 "/*background-color:rgb(4,138,224);*/\n"
 "QTabBar::tab:selected{\n"
-"color:rgb(0, 170, 255);\n"
+"color:rgb(0, 0, 0);\n"
 "\n"
 "border: 2px solid gray; \n"
 "border-bottom:0px;\n"
@@ -1214,7 +1214,7 @@ class Ui_widget(object):
         self.tabWidget.raise_()
 
         self.retranslateUi(widget)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(widget)
 
     def retranslateUi(self, widget):

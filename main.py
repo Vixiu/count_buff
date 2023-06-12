@@ -182,7 +182,7 @@ def input_validation(fn):
             if type(data_now['ty_percentage']) is not list:
                 data_now['ty_percentage'] = [data_now['ty_percentage']]
             data_now['career'] = data_base['career']
-            data_now['cp_arms'] = data_base['cp_arms']
+            data_now['cp_arms'] = ui_home.cp_arm.isChecked()
             fn(data_now)
 
     return run_fn
@@ -326,7 +326,7 @@ def nailuo_setting():
 def naiba_setting():
     clear()
     # ui_home.tabWidget.tabBar().setTabVisible(2, True)
-    ui_home.tabWidget.insertTab(2, ui_home.tab3, '奶爸')
+    ui_home.tabWidget.insertTab(2, ui_home.tab3, '奶爸补正')
     main_window.setWindowIcon(QIcon(":/png/111.PNG"))
     ui_home.label_6.setText('体精增减:')
     ui_home.label_3.setText('体精:')
@@ -383,6 +383,7 @@ def naigong_setting():
 @input_validation
 def button_count_clicked(data_now):
     now, base = buff(data_now)
+
     career = data_now['career']
     # 下面是 向下取整,还是四舍五入 有待研究
     if career == 'nai_ma':
@@ -464,7 +465,7 @@ def count_zj_buff(cr: str, data) -> dict:
         BASIC_DATA[cr]['xyz'],
         data['cp_arms']
     )
-
+    print()
     return {
         'sg': count(
             data['fixed_attack'],
@@ -472,6 +473,7 @@ def count_zj_buff(cr: str, data) -> dict:
             BASIC_DATA[cr]['san_gong'][data['out_lv'] - 1],
 
         ),
+
         'lz': count(
             data['fixed_intellect'],
             data['percentage_intellect'],
@@ -518,6 +520,7 @@ def count_ty(data) -> int:
 @input_validation
 def is_contrast(data_now):
     global data_base
+    data_base['cp_arms'] = ui_home.cp_arm.isChecked()
     for k, v in UI_DATA.items():
         v.setPlaceholderText(str(data_now[k]).replace('[', '').replace(']', ''))
         v.setText('')
@@ -559,12 +562,18 @@ def close_windows():
 
 @input_validation
 def save_data(data_now):
+    if not path.exists(path.dirname(FILE_PATH)):
+        makedirs(path.dirname(FILE_PATH))
     with open(FILE_PATH, "w+") as f:
         f.write(str(data_now))
     is_contrast()
 
 
 def load_data():
+    if not path.exists(path.dirname(FILE_PATH)):
+        makedirs(path.dirname(FILE_PATH))
+        with open(FILE_PATH, "w+") as file:
+            file.write(str(data_base))
     with open(FILE_PATH, "r") as f:
         try:
             data_now = eval(f.read())
@@ -602,10 +611,6 @@ def intellect_to():
         text = int(text) if text.isdigit() else data_base.get('out_earp', 0)
         ui_home.jt_zhili.setText(str(intellect))
         ui_home.ty_zhili.setText(str(intellect - text))
-
-
-def cp_arm_stated():
-    data_base['cp_arms'] = ui_home.cp_arm.isChecked()
 
 
 if __name__ == '__main__':
@@ -648,14 +653,16 @@ if __name__ == '__main__':
         'in_intellect': ui_home.jt_zhili,  # 此项在最后
 
     }
+    '''
+    # 此代码可能会触发杀毒软件机制
+    # 原因:https://nuitka-cn.com/nuitka-packaged-exe-is-blocked-or-reported-by-antivirus-software/
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
         with open(FILE_PATH, "w+") as file:
             file.write(str(data_base))
-    #  ui_home.naiba_button.setEnabled(False)
-
+    '''
+    ui_home.naiba_button.setEnabled(False)
     load_data()
-
     button_count_clicked()
     ####################
     ui_home.button_count.clicked.connect(button_count_clicked)
@@ -675,7 +682,7 @@ if __name__ == '__main__':
     ui_home.zj_gh.textChanged.connect(intellect_to)
     ui_home.zj_eh.textChanged.connect(intellect_to)
     ui_home.zj_bd.textChanged.connect(intellect_to)
-    ui_home.cp_arm.stateChanged.connect(cp_arm_stated)
+
     ####################
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
