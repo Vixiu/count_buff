@@ -390,7 +390,6 @@ def button_count_clicked(data_now):
         base['san_two'] = round(base['ty'] * 1.26)
         gap = diff_dict(base, now)
         set_nailuo(value_to_str(now), gap_set(gap))
-
     elif career == 'nai_ba':
         _ = data_base.copy()
         _['in_intellect'] = _['in_intellect'] + data_base['nai_ba_guardian'] + data_base['nai_ba_ssp'] * 24
@@ -644,7 +643,7 @@ if __name__ == '__main__':
         with open(FILE_PATH, "w+") as file:
             file.write(str(data_base))
     '''
-    # ui_home.naiba_button.setEnabled(False)
+    ui_home.naiba_button.setEnabled(False)
     load_data()
     button_count_clicked()
     ####################
