@@ -181,6 +181,7 @@ def buff(data_now):
     data_now['in_intellect'] += data_now["add"]
     data_now['out_intellect'] += data_now["add"]
     data_now['ty_intellect'] += data_now["add"]
+
     return {'zj': count_zj_buff(cr, data_now),
             'jt': count_jt_buff(cr, data_now),
             'ty': count_ty(data_now)
@@ -425,7 +426,7 @@ def diff_dict(dict1, dict2):
     return diff
 
 
-def count_buff(buff_amount, intellect, xs, xyz, cp_arms):
+def count_buff(buff_amount, intellect, xs, xyz, cp_arms, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
     x, y, z = xyz
 
     def count(fixed, bfb: list, basic_attack) -> int:
@@ -433,7 +434,7 @@ def count_buff(buff_amount, intellect, xs, xyz, cp_arms):
         for n in bfb:
             old_buff *= (1 + n / 100)
         new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
-        bf = (old_buff + new_buff) * (1.08 if cp_arms else 1)
+        bf = (old_buff + new_buff) * (arm if cp_arms else 1)
 
         return round(bf)
 
@@ -441,12 +442,14 @@ def count_buff(buff_amount, intellect, xs, xyz, cp_arms):
 
 
 def count_zj_buff(cr: str, data) -> dict:
+    arm = 1.008 if cr == 'nai_ba' else 1.08  # 奶爸武器bug
     count = count_buff(
         int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100)),
         data['out_intellect'],
         BASIC_DATA[cr]['xs'],
         BASIC_DATA[cr]['xyz'],
-        data['cp_arms']
+        data['cp_arms'],
+        arm  # 奶爸武器bug
     )
     return {
         'sg': count(
@@ -643,7 +646,7 @@ if __name__ == '__main__':
         with open(FILE_PATH, "w+") as file:
             file.write(str(data_base))
     '''
-    ui_home.naiba_button.setEnabled(False)
+    # ui_home.naiba_button.setEnabled(False)
     load_data()
     button_count_clicked()
     ####################

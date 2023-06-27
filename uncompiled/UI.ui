@@ -220,7 +220,7 @@ background-color: rgb(213, 247, 255);</string>
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>230</y>
+      <y>170</y>
       <width>271</width>
       <height>61</height>
      </rect>
@@ -355,7 +355,7 @@ border: 2px solid rgb(125, 125, 125);
         </font>
        </property>
        <property name="text">
-        <string>基础Buff量:</string>
+        <string>Buff量:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1518,7 +1518,7 @@ padding-bottom:8px;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>111</width>
+       <width>101</width>
        <height>341</height>
       </rect>
      </property>
@@ -1636,7 +1636,7 @@ padding-bottom:8px;
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>300</y>
+      <y>240</y>
       <width>271</width>
       <height>61</height>
      </rect>
@@ -2345,7 +2345,7 @@ border: 2px solid rgb(144, 144, 144);
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>110</y>
+      <y>60</y>
       <width>311</width>
       <height>101</height>
      </rect>
@@ -2400,7 +2400,7 @@ border-bottom:0px;
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideRight</enum>
@@ -2662,7 +2662,7 @@ border-bottom:0px;
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>61</y>
+      <y>310</y>
       <width>251</width>
       <height>41</height>
      </rect>
