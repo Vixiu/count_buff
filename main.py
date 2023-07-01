@@ -592,8 +592,8 @@ def intellect_to():
         for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
             text = UI_DATA[le].text()
             intellect += int(text) if text.isdigit() else data_base.get(le, 0)
-        text = UI_DATA['out_earp'].text()
-        text = int(text) if text.isdigit() else data_base.get('out_earp', 0)
+        text = UI_DATA['out_passive'].text()
+        text = int(text) if text.isdigit() else data_base.get('out_passive', 0)
         ui_home.jt_zhili.setText(str(intellect))
         ui_home.ty_zhili.setText(str(intellect - text))
 
@@ -638,14 +638,6 @@ if __name__ == '__main__':
         'in_intellect': ui_home.jt_zhili,  # 此项在最后
 
     }
-    '''
-    # 此代码可能会触发杀毒软件机制
-    # 原因:https://nuitka-cn.com/nuitka-packaged-exe-is-blocked-or-reported-by-antivirus-software/
-    if not path.exists(path.dirname(FILE_PATH)):
-        makedirs(path.dirname(FILE_PATH))
-        with open(FILE_PATH, "w+") as file:
-            file.write(str(data_base))
-    '''
     # ui_home.naiba_button.setEnabled(False)
     load_data()
     button_count_clicked()

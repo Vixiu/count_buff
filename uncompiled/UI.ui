@@ -911,7 +911,7 @@ border: 2px solid rgb(125, 125, 125);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="images.qrc">:/png/84.PNG</pixmap>
+       <pixmap>:/png/84.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -1540,7 +1540,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset>
           <normaloff>:/png/ba.png</normaloff>:/png/ba.png</iconset>
         </property>
         <property name="iconSize">
@@ -1565,7 +1565,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset>
           <normaloff>:/png/ma.png</normaloff>:/png/ma.png</iconset>
         </property>
         <property name="iconSize">
@@ -1593,7 +1593,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset>
           <normaloff>:/png/luo.png</normaloff>:/png/luo.png</iconset>
         </property>
         <property name="iconSize">
@@ -1618,7 +1618,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset>
           <normaloff>:/png/gong.png</normaloff>:/png/gong.png</iconset>
         </property>
         <property name="iconSize">
@@ -1794,7 +1794,7 @@ border: 2px solid rgb(144, 144, 144);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="images.qrc">:/png/84.PNG</pixmap>
+       <pixmap>:/png/84.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2044,7 +2044,7 @@ border: 2px solid rgb(144, 144, 144);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="images.qrc">:/png/23.PNG</pixmap>
+       <pixmap>:/png/23.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2155,7 +2155,7 @@ border: 2px solid rgb(144, 144, 144);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="images.qrc">:/png/350.PNG</pixmap>
+       <pixmap>:/png/350.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2400,7 +2400,7 @@ border-bottom:0px;
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideRight</enum>
@@ -2676,7 +2676,7 @@ border-bottom:0px;
         </font>
        </property>
        <property name="text">
-        <string>智力增减:</string>
+        <string>智力加减:</string>
        </property>
       </widget>
      </item>
