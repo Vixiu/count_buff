@@ -265,7 +265,7 @@ def naima_setting():
     clear()
     ui_home.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/84.PNG"))
-    ui_home.label_6.setText('智力增减:')
+    ui_home.label_6.setText('智力加减:')
     ui_home.label_3.setText('智力:')
     ui_home.label_17.setText('智力:')
     ui_home.label_15.setText('智力:')
@@ -291,7 +291,7 @@ def nailuo_setting():
     clear()
     ui_home.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/719.PNG"))
-    ui_home.label_6.setText('智力增减:')
+    ui_home.label_6.setText('智力加减:')
     ui_home.label_3.setText('智力:')
     ui_home.label_17.setText('智力:')
     ui_home.label_15.setText('智力:')
@@ -318,7 +318,7 @@ def naiba_setting():
     clear()
     ui_home.tabWidget.insertTab(2, ui_home.tab3, '奶爸二觉')
     main_window.setWindowIcon(QIcon(":/png/111.PNG"))
-    ui_home.label_6.setText('体精增减:')
+    ui_home.label_6.setText('体精加减:')
     ui_home.label_3.setText('体精:')
     ui_home.label_17.setText('体精:')
     ui_home.label_15.setText('体精:')
@@ -344,7 +344,7 @@ def naigong_setting():
     clear()
     ui_home.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/14.PNG"))
-    ui_home.label_6.setText('精神增减:')
+    ui_home.label_6.setText('精神加减:')
     ui_home.label_3.setText('精神:')
     ui_home.label_17.setText('精神:')
     ui_home.label_15.setText('精神:')
@@ -629,16 +629,13 @@ if __name__ == '__main__':
         'out_earp': ui_home.zj_eh,
         'out_passive': ui_home.zj_bd,
         'out_guild': ui_home.zj_gh,
-
-        'ty_intellect': ui_home.ty_zhili,
-
         'nai_ba_guardian': ui_home.naiba_sh,
         'nai_ba_ssp': ui_home.naiba_ej,
 
+        'ty_intellect': ui_home.ty_zhili,
         'in_intellect': ui_home.jt_zhili,  # 此项在最后
 
     }
-    # ui_home.naiba_button.setEnabled(False)
     load_data()
     button_count_clicked()
     ####################

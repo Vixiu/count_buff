@@ -50,17 +50,16 @@ def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
 
 
 def count_buff(lv, buff_amount, intellect, attack_fixed):
-    basic_attack = BASIC_DATA['nai_ma']['li_zhi'][lv - 1]
-    # basic_attack = (1.34 * lv + 32.600) * 1.131 * 1.02
+    basic_attack = BASIC_DATA['nai_ma']['san_gong'][lv - 1]
     xs = 665
-    x, y, z = (4350, 3500, 0.00003788627)
+    x, y = (4350, 3500)
     old_buff = (basic_attack + attack_fixed) * ((intellect / xs) + 1)
 
     new_buff = basic_attack * ((intellect + x) / xs + 1) * (
             buff_amount + y) * z if buff_amount != 0 else 0
 
     buff = (old_buff + new_buff) * (1.08 if buff_amount != 0 else 1)
-    return int(buff)
+    return round(buff)
 
 
 def count_lz(lv, buff_amount, intellect, attack_fixed):
@@ -72,10 +71,33 @@ def count_lz(lv, buff_amount, intellect, attack_fixed):
     return round(buff)
 
 
-print(count_buff(21, 62887, 5667, 0))
+def count_z():
+    pass
 
 
-n = 0.00000000001
+def de_sg():
+    global z
+    flag = True
+    while flag:
+        for ls in sg:
+            c = count_buff(*ls[:-1]) - ls[-1]
+            if c < 0:
+                z += n
+                flag = True
+                break
+            elif c > 0:
+                z -= n
+                flag = True
+                break
+            elif c == 0:
+                flag = False
+
+    print(z)
+
+
+# print(count_buff(21, 62887, 5667, 0))
+z = 0.000037
+n = 0.000000001
 # 3.788629000002003e-05
 lz = [
     [33, 111806, 7935, 0, 51758],
@@ -87,9 +109,8 @@ lz = [
     [19, 107883, 8061, 0, 35495],
     [12, 107883, 8061, 0, 27919],
 ]
-
 sg = [
-    [35, 111806, 8845, 8, 10591],
+
     [35, 111806, 8845, 8, 10591],
     [35, 111806, 8840, 8, 10587],
     [33, 111806, 7935, 8, 9532],
@@ -116,10 +137,12 @@ sg = [
     [33, 111806, 7935, 8, 9532],
 
 ]
-# z = 0.000037
+
+de_sg()
+
 '''
 
-flag = True
+
 while flag:
     for ls in lz:
         c = count_lz(*ls[:-1]) - ls[-1]
@@ -135,23 +158,5 @@ while flag:
             flag = False
 print(z)
 '''
-'''
-while flag:
-    for ls in sg:
-        c = count_buff(*ls[:-1]) - ls[-1]
-        if c < 0:
-            z += n
-            flag = True
-            break
-        elif c > 0:
-            z -= n
-            flag = True
-            break
-        elif c == 0:
-            flag = False
-flag = True
-print(z)
-'''
+
 # 3.788627 >y >3.788527
-
-
