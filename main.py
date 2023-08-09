@@ -176,6 +176,8 @@ def input_validation(fn):
     return run_fn
 
 
+
+
 def buff(data_now):
     cr = data_now['career']
     data_now['in_intellect'] += data_now["add"]
