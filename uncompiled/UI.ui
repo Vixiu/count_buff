@@ -382,28 +382,6 @@ border: 2px solid rgb(125, 125, 125);
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="button_close">
-    <property name="geometry">
-     <rect>
-      <x>1070</x>
-      <y>20</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>X</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="button_save">
     <property name="geometry">
      <rect>
@@ -911,7 +889,7 @@ border: 2px solid rgb(125, 125, 125);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>:/png/84.PNG</pixmap>
+       <pixmap resource="images.qrc">:/png/84.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -1091,6 +1069,8 @@ border: 2px solid rgb(125, 125, 125);
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -1119,8 +1099,14 @@ border: 2px solid rgb(144, 144, 144);
        <height>141</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
      <property name="title">
-      <string>Buff增益量</string>
+      <string>增益量</string>
      </property>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
@@ -1210,8 +1196,17 @@ border: 2px solid rgb(144, 144, 144);
        <height>161</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+       <underline>false</underline>
+      </font>
+     </property>
      <property name="title">
-      <string>太阳加成</string>
+      <string>太阳</string>
      </property>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
@@ -1291,8 +1286,16 @@ border: 2px solid rgb(144, 144, 144);
        <height>271</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>14</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="title">
-      <string>Buff加成</string>
+      <string>Buff</string>
      </property>
      <widget class="QWidget" name="layoutWidget_7">
       <property name="geometry">
@@ -1540,7 +1543,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="images.qrc">
           <normaloff>:/png/ba.png</normaloff>:/png/ba.png</iconset>
         </property>
         <property name="iconSize">
@@ -1565,7 +1568,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="images.qrc">
           <normaloff>:/png/ma.png</normaloff>:/png/ma.png</iconset>
         </property>
         <property name="iconSize">
@@ -1593,7 +1596,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="images.qrc">
           <normaloff>:/png/luo.png</normaloff>:/png/luo.png</iconset>
         </property>
         <property name="iconSize">
@@ -1618,7 +1621,7 @@ padding-bottom:8px;
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="images.qrc">
           <normaloff>:/png/gong.png</normaloff>:/png/gong.png</iconset>
         </property>
         <property name="iconSize">
@@ -1794,7 +1797,7 @@ border: 2px solid rgb(144, 144, 144);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>:/png/84.PNG</pixmap>
+       <pixmap resource="images.qrc">:/png/84.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2044,7 +2047,7 @@ border: 2px solid rgb(144, 144, 144);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>:/png/23.PNG</pixmap>
+       <pixmap resource="images.qrc">:/png/23.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2155,7 +2158,7 @@ border: 2px solid rgb(144, 144, 144);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>:/png/350.PNG</pixmap>
+       <pixmap resource="images.qrc">:/png/350.PNG</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2691,6 +2694,82 @@ border-bottom:0px;
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>20</y>
+      <width>136</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_13">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="button_close_3">
+       <property name="font">
+        <font>
+         <family>Bahnschrift Light Condensed</family>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/png/-.png</normaloff>:/png/-.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_close_2">
+       <property name="font">
+        <font>
+         <family>Bahnschrift Light Condensed</family>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/png/t.png</normaloff>:/png/t.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_close">
+       <property name="font">
+        <font>
+         <family>Bahnschrift Light Condensed</family>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/png/X.png</normaloff>:/png/X.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>left_widget</zorder>
    <zorder>button_count</zorder>
@@ -2698,7 +2777,6 @@ border-bottom:0px;
    <zorder>line</zorder>
    <zorder>groupBox_6</zorder>
    <zorder>layoutWidget_11</zorder>
-   <zorder>button_close</zorder>
    <zorder>button_save</zorder>
    <zorder>button_load</zorder>
    <zorder>naima</zorder>

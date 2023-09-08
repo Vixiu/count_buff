@@ -1,3 +1,4 @@
+
 from os import getenv, path, makedirs
 from sys import argv
 
@@ -8,7 +9,7 @@ from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
 
 from UI import Ui_widget
 from Widget import RoundedWindow
-
+from ast import literal_eval
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_widget()
 BASIC_DATA = {
@@ -560,7 +561,7 @@ def load_data():
             file.write(str(data_base))
     with open(FILE_PATH, "r") as f:
         try:
-            data_now = eval(f.read())
+            data_now = literal_eval(f.read())
         except:
             data_now = {}
     for k, v in data_now.items():
@@ -602,6 +603,7 @@ if __name__ == '__main__':
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
     main_window.setWindowTitle(' 奶量计算器')
+
     # 要检查的输入框
     UI_DATA = {
         'buff_amount': ui_home.buff_liang,

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QWidget
 class RoundedWindow(QWidget):
     def __init__(self):
         super(QWidget, self).__init__()
+        self.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
 
