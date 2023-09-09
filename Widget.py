@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget
 class RoundedWindow(QWidget):
     def __init__(self):
         super(QWidget, self).__init__()
-        self.setWindowFlags(Qt.WindowStaysOnTopHint)
+        self.setWindowFlag(Qt.WindowStaysOnTopHint, True)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
 
@@ -24,3 +24,13 @@ class RoundedWindow(QWidget):
         if event.buttons() == Qt.LeftButton and self.mPos:
             self.move(self.mapToGlobal(event.pos() - self.mPos))
         event.accept()
+
+    def window_top(self, flag: bool):
+        # 没有这行代码会使窗口的标题栏消失
+        if flag:
+            self.windowHandle().setFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
+
+        else:
+            self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+
+        self.repaint()

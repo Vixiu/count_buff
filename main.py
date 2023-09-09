@@ -1,4 +1,4 @@
-
+import traceback
 from os import getenv, path, makedirs
 from sys import argv
 
@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
 from UI import Ui_widget
 from Widget import RoundedWindow
 from ast import literal_eval
+
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_widget()
 BASIC_DATA = {
@@ -98,6 +99,17 @@ data_base = {
     'nai_ba_ssp': 0,
 
 }
+
+
+def throw_ex(fn):
+    def run():
+        try:
+            fn()
+        except Exception as e:
+            traceback.print_exc()
+            print(e)
+
+    return run
 
 
 def input_validation(fn):
@@ -285,6 +297,7 @@ def naima_setting():
     ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
     ui_home.b2.setTitle('勇气+颂歌')
     ui_home.b3.hide()
+    button_count_clicked()
 
 
 def nailuo_setting():
@@ -312,6 +325,7 @@ def nailuo_setting():
     ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
     ui_home.b2.setTitle('禁忌诅咒+疯狂召唤')
     ui_home.b3.show()
+    button_count_clicked()
 
 
 def naiba_setting():
@@ -338,6 +352,7 @@ def naiba_setting():
     ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/111.PNG"))
     ui_home.b2.setTitle('守护+荣誉祝福(24层)')
     ui_home.b3.hide()
+    button_count_clicked()
 
 
 def naigong_setting():
@@ -364,6 +379,7 @@ def naigong_setting():
     ui_home.b2.setTitle('可爱节拍+燃情狂想曲')
     ui_home.b3.hide()
     data_base['career'] = 'nai_gong'
+    button_count_clicked()
 
 
 @input_validation
@@ -598,18 +614,35 @@ def intellect_to():
         ui_home.ty_zhili.setText(str(intellect - text))
 
 
+def minimize_window():
+    main_window.showMinimized()
+
+
+def top_window():
+    if bool(main_window.windowHandle().flags() & Qt.WindowStaysOnTopHint):
+        main_window.window_top(False)
+        ui_home.button_top.setStyleSheet("")
+    else:
+        main_window.window_top(True)
+        ui_home.button_top.setStyleSheet("background:rgb(212, 218, 230);")
+
+
+
+# main_window.show()
+# m_flags = self.windowFlags()  # 没有这行代码会使窗口的标题栏消失
+
+
 if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
     ui_home.setupUi(main_window)
     main_window.setWindowTitle(' 奶量计算器')
-
     # 要检查的输入框
     UI_DATA = {
         'buff_amount': ui_home.buff_liang,
         'out_intellect': ui_home.zj_zhili,
         'out_lv': ui_home.zl_lv,
-
+        'add': ui_home.add,
         'in_lv': ui_home.jt_lv,
         'ty_lv': ui_home.ty_lv,
 
@@ -645,11 +678,14 @@ if __name__ == '__main__':
     ui_home.button_close.clicked.connect(close_windows)
     ui_home.button_save.clicked.connect(save_data)
     ui_home.button_load.clicked.connect(load_data)
+    ui_home.button_min.clicked.connect(minimize_window)
+    ui_home.button_top.clicked.connect(top_window)
     ####################
     ui_home.nailuo_button.clicked.connect(nailuo_setting)
     ui_home.naima_button.clicked.connect(naima_setting)
     ui_home.naiba_button.clicked.connect(naiba_setting)
     ui_home.naigong_button.clicked.connect(naigong_setting)
+
     ####################
     ui_home.zl_lv.textChanged.connect(lv_to)
     ui_home.zj_xz.textChanged.connect(intellect_to)

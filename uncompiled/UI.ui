@@ -37,6 +37,12 @@
      <height>791</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton:hover {
 	background-color:#d5e3ff;
@@ -1103,6 +1109,8 @@ border: 2px solid rgb(144, 144, 144);
       <font>
        <family>Arial</family>
        <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="title">
@@ -1199,9 +1207,9 @@ border: 2px solid rgb(144, 144, 144);
      <property name="font">
       <font>
        <pointsize>14</pointsize>
-       <weight>50</weight>
+       <weight>75</weight>
        <italic>false</italic>
-       <bold>false</bold>
+       <bold>true</bold>
        <underline>false</underline>
       </font>
      </property>
@@ -1445,6 +1453,8 @@ border: 2px solid rgb(144, 144, 144);
      <property name="font">
       <font>
        <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
@@ -2676,6 +2686,8 @@ border-bottom:0px;
        <property name="font">
         <font>
          <pointsize>15</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
        </property>
        <property name="text">
@@ -2697,9 +2709,9 @@ border-bottom:0px;
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>980</x>
+      <x>960</x>
       <y>20</y>
-      <width>136</width>
+      <width>144</width>
       <height>41</height>
      </rect>
     </property>
@@ -2708,7 +2720,7 @@ border-bottom:0px;
       <number>10</number>
      </property>
      <item>
-      <widget class="QPushButton" name="button_close_3">
+      <widget class="QPushButton" name="button_min">
        <property name="font">
         <font>
          <family>Bahnschrift Light Condensed</family>
@@ -2728,7 +2740,7 @@ border-bottom:0px;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="button_close_2">
+      <widget class="QPushButton" name="button_top">
        <property name="font">
         <font>
          <family>Bahnschrift Light Condensed</family>
@@ -2736,7 +2748,10 @@ border-bottom:0px;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">QPushButton
+{ 
+	background:rgb(212, 218, 230);
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -2763,7 +2778,7 @@ border-bottom:0px;
        </property>
        <property name="icon">
         <iconset resource="images.qrc">
-         <normaloff>:/png/X.png</normaloff>:/png/X.png</iconset>
+         <normaloff>:/png/x.png</normaloff>:/png/x.png</iconset>
        </property>
       </widget>
      </item>
