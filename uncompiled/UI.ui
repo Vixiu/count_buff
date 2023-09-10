@@ -1140,7 +1140,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>辟邪玉:</string>
+          <string>辟邪玉%:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1155,7 +1155,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>宠物:</string>
+          <string>宠物%:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1191,7 +1191,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>光环:</string>
+          <string>光环%:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2419,7 +2419,7 @@ border-bottom:0px;
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideRight</enum>
