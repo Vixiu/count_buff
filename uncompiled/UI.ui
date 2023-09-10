@@ -206,6 +206,8 @@ QLineEdit:focus{
     <property name="font">
      <font>
       <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -358,10 +360,12 @@ border: 2px solid rgb(125, 125, 125);
         <font>
          <family>Arial</family>
          <pointsize>15</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Buff量:</string>
+        <string>增益量:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -400,6 +404,8 @@ border: 2px solid rgb(125, 125, 125);
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">
@@ -1114,7 +1120,7 @@ border: 2px solid rgb(144, 144, 144);
       </font>
      </property>
      <property name="title">
-      <string>增益量</string>
+      <string>增益量%</string>
      </property>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">

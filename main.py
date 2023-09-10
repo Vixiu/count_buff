@@ -146,7 +146,8 @@ def input_validation(fn):
         ui_home.add.setStyleSheet('')
         exception = []
         for keys in UI_DATA:
-            input_data(keys)
+            if keys != 'add':
+                input_data(keys)
 
         if not (0 < data_now.get('in_lv', 1) < 41):
             exception.append(('in_lv', "1~40"))
@@ -155,6 +156,8 @@ def input_validation(fn):
         if not (0 < data_now.get('ty_lv', 1) < 41):
             exception.append(('ty_lv', '1~40'))
         add = ui_home.add.text()
+        if add in ('-', '+'):
+            add = 0
         try:
             data_now['add'] = int(add) if add else 0
         except ValueError:
@@ -168,6 +171,7 @@ def input_validation(fn):
                 elif key in ('nai_ba_guardian', 'nai_ba_ssp'):
                     naiba_setting()
                     ui_home.tabWidget.setCurrentIndex(2)
+
                 UI_DATA[key].setText(tip)
                 UI_DATA[key].setStyleSheet(
                     "background-color: #00aaff;"
@@ -522,9 +526,11 @@ def count_ty(data) -> int:
 def is_contrast(data_now):
     global data_base
     data_base['cp_arms'] = ui_home.cp_arm.isChecked()
+
     for k, v in UI_DATA.items():
         v.setPlaceholderText(str(data_now[k]).replace('[', '').replace(']', ''))
         v.setText('')
+    ui_home.add.setPlaceholderText('')
     data_base = data_now.copy()
     clear_cj()
 
@@ -555,6 +561,7 @@ def clear_text():
     ui_home.yijue_lz.setText('')
     ui_home.sanjue_lz_1.setText('')
     ui_home.sanjue_lz_2.setText('')
+    ui_home.add.setText('')
 
 
 def close_windows():
@@ -585,6 +592,7 @@ def load_data():
             UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
     career = data_now.get('career', 'nai_ma')
     is_contrast()
+
     if career == 'nai_ma':
         naima_setting()
     elif career == 'nai_ba':
@@ -593,6 +601,7 @@ def load_data():
         nailuo_setting()
     elif career == 'nai_gong':
         naigong_setting()
+    clear_cj()
 
 
 def lv_to():
@@ -608,10 +617,8 @@ def intellect_to():
         for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
             text = UI_DATA[le].text()
             intellect += int(text) if text.isdigit() else data_base.get(le, 0)
-        text = UI_DATA['out_passive'].text()
-        text = int(text) if text.isdigit() else data_base.get('out_passive', 0)
         ui_home.jt_zhili.setText(str(intellect))
-        ui_home.ty_zhili.setText(str(intellect - text))
+        ui_home.ty_zhili.setText(str(intellect))
 
 
 def minimize_window():
@@ -625,11 +632,6 @@ def top_window():
     else:
         main_window.window_top(True)
         ui_home.button_top.setStyleSheet("background:rgb(212, 218, 230);")
-
-
-
-# main_window.show()
-# m_flags = self.windowFlags()  # 没有这行代码会使窗口的标题栏消失
 
 
 if __name__ == '__main__':
@@ -670,8 +672,7 @@ if __name__ == '__main__':
         'in_intellect': ui_home.jt_zhili,  # 此项在最后
 
     }
-    load_data()
-    button_count_clicked()
+
     ####################
     ui_home.button_count.clicked.connect(button_count_clicked)
     ui_home.button_jc.clicked.connect(is_contrast)
@@ -693,7 +694,7 @@ if __name__ == '__main__':
     ui_home.zj_gh.textChanged.connect(intellect_to)
     ui_home.zj_eh.textChanged.connect(intellect_to)
     ui_home.zj_bd.textChanged.connect(intellect_to)
-
+    ui_home.add.textChanged.connect(button_count_clicked)
     ####################
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
@@ -701,5 +702,7 @@ if __name__ == '__main__':
     effect.setColor(Qt.black)  # 颜色
     ui_home.widget_1.setGraphicsEffect(effect)
     ######################
+    load_data()
+    button_count_clicked()
     main_window.show()
     app.exec_()
