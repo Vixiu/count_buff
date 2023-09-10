@@ -17,7 +17,8 @@
 <h2 id="-">三.示例</h2>
 <h3 id="-">下面以奶妈为例,进行简单计算</h3>
 <h4 id="-">123</h4>
-<img width="85" src="https://github.com/ultralytics/yolov5/releases/download/v1.0/splash.jpg">
+
+<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/ui.png">
 
 
 
