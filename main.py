@@ -1,4 +1,5 @@
 import traceback
+from ast import literal_eval
 from os import getenv, path, makedirs
 from sys import argv
 
@@ -9,7 +10,6 @@ from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
 
 from UI import Ui_widget
 from Widget import RoundedWindow
-from ast import literal_eval
 
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_widget()
@@ -667,7 +667,6 @@ if __name__ == '__main__':
         'out_guild': ui_home.zj_gh,
         'nai_ba_guardian': ui_home.naiba_sh,
         'nai_ba_ssp': ui_home.naiba_ej,
-
         'ty_intellect': ui_home.ty_zhili,
         'in_intellect': ui_home.jt_zhili,  # 此项在最后
 
