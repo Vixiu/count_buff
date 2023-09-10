@@ -621,6 +621,8 @@ def intellect_to():
         ui_home.ty_zhili.setText(str(intellect))
 
 
+
+
 def minimize_window():
     main_window.showMinimized()
 
