@@ -24,9 +24,13 @@
 <h4 id="-">2.填写</h4>
 <img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/9.png">
 <h4 id="-">2.计算结果</h4>
-<img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/10.png" ><img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/11.png">
-
+<p><img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/10.png" ><img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/11.png"></p>
 <h4 id="-">4.实际结果</h4>
+<p><img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/6.png">
+  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/7.png">
+  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/4.png">
+  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/2.png">
+</p>
 
 
 
