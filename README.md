@@ -1,5 +1,6 @@
 <h1 id="-div-align-center-dnf-div-"><div align="center"> DNF 奶量计算器 </div></h1>
 <h2 id="-">一.预览</h2>
+<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/ui.png">
 <h2 id="-">二.使用</h2>
 <h3 id="-buff-">
 <font color=#FF0000> 使用前需注意,如果站街穿的是太阳装要换成 Buff 装 ! ! !</font>
@@ -16,9 +17,9 @@
 </ol>
 <h2 id="-">三.示例</h2>
 <h3 id="-">下面以奶妈为例,进行简单计算</h3>
-<h4 id="-">123</h4>
+<h4 id="-">面板如下</h4>
+<img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/5.png">
 
-<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/ui.png">
 
 
 
