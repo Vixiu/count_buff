@@ -16,3 +16,5 @@
 </ol>
 <h2 id="-">三.示例</h2>
 <h4 id="-">下面以奶妈为例</h4>
+![image](https://github.com/Vixiu/count_buff/blob/Buff/png_wait/19.PNG)
+
