@@ -17,7 +17,7 @@
 </ol>
 <h2 id="-">三.示例</h2>
 <h3 id="-">下面以奶妈为例,进行简单计算</h3>
-<h4 id="-">1.面板(未穿项链)</h4>
+<h4 id="-">1.1面板(未穿项链)</h4>
 <p>
 <img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/5.png">
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/辟邪玉2.png">
@@ -25,10 +25,10 @@
   <h6 id="-">宠物Buff量:5%</h6>
   <h6 id="-">光环Buff量:5%</h6>
 </p>
-<h4 id="-">2.填写</h4>
+<h4 id="-">1.2填写</h4>
 <img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/9.png">
 
-<h4 id="-">3.结果&实际</h4>
+<h4 id="-">1.3结果&实际</h4>
 <p>
   <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/10.png" >
   <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/11.png">
@@ -39,7 +39,7 @@
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/2.png">
 <h6 id="-">误差为0</h6>
 </p>
-<h4 id="-">4.穿上项链&填写</h4>
+<h4 id="-">2.1穿上项链&填写</h4>
 <p>
 <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/12.png">
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/a2.png">
@@ -47,18 +47,18 @@
 <h6 id="-">智力:15+15+150+107+90=377</h6>
 <h6 id="-">增益量:295(基础)+5575(成长)+1518(贴膜)=7388</h6>
 <h6 id="-">进图Buff+1,一绝+1</h6>
-<h4 id="-">5.结果&实际</h4>
+<h4 id="-">2.2结果&实际</h4>
 <p><img width="450" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/a1.png"><br>
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/14.png">
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/3.png">
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/1.png">
 </p>
-<h4 id="-">6.更换辟邪玉&填写</h4>
+<h4 id="-">3.1更换辟邪玉&填写</h4>
 <P>
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/13.png">
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b1.png">
 </P>
-<h4 id="-">7.结果&实际</h4>
+<h4 id="-">3.2结果&实际</h4>
 <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b2.png">
 <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b3.png">
 
