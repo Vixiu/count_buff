@@ -1295,7 +1295,7 @@ border: 2px solid rgb(144, 144, 144);
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>90</y>
+       <y>40</y>
        <width>171</width>
        <height>271</height>
       </rect>
@@ -1450,10 +1450,10 @@ border: 2px solid rgb(144, 144, 144);
     <widget class="QCheckBox" name="cp_arm">
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>40</y>
+       <x>220</x>
+       <y>320</y>
        <width>171</width>
-       <height>31</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -1511,7 +1511,8 @@ background-color:rgb(217, 217, 217);
 
 
 QPushButton{
-border:0px; 
+border: none;
+background: transparent;
 border-radius: 0px; 
 padding-top:8px;
 padding-bottom:8px
@@ -1521,7 +1522,7 @@ padding-bottom:8px
 
 
 QPushButton:hover {
-	border:0px; 
+border:rgb(0, 170, 127); 
 border-radius: 0px; 
 padding-top:8px;
 padding-bottom:8px;
@@ -2390,7 +2391,7 @@ border-top-right-radius:10px;  */
 /*设置控件下选择页的颜色*/
 QTabBar::tab
 {
-color:rgb(0, 170, 255);
+color:rgb(29, 29, 29);
 background-color: rgb(255,255,255);
 border:2px solid rgb(141, 141, 141);
 font: bold 9pt ;
@@ -2406,7 +2407,7 @@ QTabBar::tab:hover {
 
 /*background-color:rgb(4,138,224);*/
 QTabBar::tab:selected{
-color:rgb(0, 0, 0);
+color:rgb(130, 130, 130);
 
 border: 2px solid gray; 
 border-bottom:0px;
@@ -2419,7 +2420,7 @@ border-bottom:0px;
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideRight</enum>

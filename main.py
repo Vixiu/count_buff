@@ -2,7 +2,6 @@ import traceback
 from ast import literal_eval
 from os import getenv, path, makedirs
 from sys import argv
-
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QCoreApplication
 from PyQt5.QtGui import QIcon
