@@ -1,9 +1,9 @@
 <h1 id="-div-align-center-dnf-div-"><div align="center"> DNF 奶量计算器 </div></h1>
 <h2 id="-">一.预览</h2>
 <img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/ui.png">
-<h2 id="-">二.使用</h2>
+<h2 id="-">二.使用及说明</h2>
 <h3 id="-buff-">
-<font color=#FF0000> 使用前需注意,如果站街穿的是太阳装要换成 Buff 装 ! ! !</font>
+<font color=#FF0000> 使用前需注意,如果站街穿的不是BUff换装上的装备要穿上,否则站街Buff会算不准!</font>
 </h3>
 <ol>
 <li><strong>增益量:</strong> 照填即可<font color=#6495ED> (位置:按键(M)-&gt;详细信息-&gt;增益量)</font></li>
@@ -21,12 +21,14 @@
 <p>
 <img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/5.png">
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/辟邪玉2.png">
-  <h6 id="-">护士为:8%,4%,4%</h6>
+  <h6 id="-">护士:8%,4%,4%</h6>
+  <h6 id="-">宠物Buff量:5%</h6>
+  <h6 id="-">光环Buff量:5%</h6>
 </p>
 <h4 id="-">2.填写</h4>
 <img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/9.png">
 
-<h4 id="-">3.结果与实际</h4>
+<h4 id="-">3.结果&实际</h4>
 <p>
   <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/10.png" >
   <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/11.png">
@@ -37,7 +39,7 @@
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/2.png">
 <h6 id="-">误差为0</h6>
 </p>
-<h4 id="-">4.项链属性与填写</h4>
+<h4 id="-">4.项链计算&填写</h4>
 <p>
 <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/12.png">
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/a2.png">
@@ -45,21 +47,22 @@
 <h6 id="-">智力:15+15+150+107+90=377</h6>
 <h6 id="-">增益量:295(基础)+5575(成长)+1518(贴膜)=7388</h6>
 <h6 id="-">Buff+1,一绝+1</h6>
-<h4 id="-">5.结果与实际</h4>
+<h4 id="-">5.结果&实际</h4>
 <p><img width="450" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/a1.png"><br>
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/14.png">
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/3.png">
   <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/1.png">
 </p>
-<h4 id="-">6.更换辟邪玉与填写</h4>
+<h6 id="-">误差为0</h6>
+<h4 id="-">6.更换辟邪玉&填写</h4>
 <P>
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/13.png">
 <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b1.png">
 </P>
-<h4 id="-">7.结果与实际</h4>
+<h4 id="-">7.结果&实际</h4>
 <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b2.png">
 <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b3.png">
-
+<h6 id="-">误差为0</h6>
 
 
 
