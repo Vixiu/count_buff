@@ -402,12 +402,12 @@ def button_count_clicked(data_now):
     elif career == 'nai_luo':
         now['z_jt'] = {k: round(v * 1.25) for k, v in now['jt'].items()}
         now['p_jt'] = {k: round(v * 1.4375) for k, v in now['jt'].items()}
-        now['san_one'] = round(now['ty'] * 1.11)
-        now['san_two'] = round(now['ty'] * 1.26)
+        now['san_one'] = round(now['ty'] * 1.12)
+        now['san_two'] = round(now['ty'] * 1.27)
         base['z_jt'] = {k: round(v * 1.25) for k, v in base['jt'].items()}
         base['p_jt'] = {k: round(v * 1.4375) for k, v in base['jt'].items()}
-        base['san_one'] = round(base['ty'] * 1.11)
-        base['san_two'] = round(base['ty'] * 1.26)
+        base['san_one'] = round(base['ty'] * 1.12)
+        base['san_two'] = round(base['ty'] * 1.27)
         gap = diff_dict(base, now)
         set_nailuo(value_to_str(now), gap_set(gap))
     elif career == 'nai_ba':
@@ -417,19 +417,19 @@ def button_count_clicked(data_now):
         now['z_jt'] = count_jt_buff(career, data_now)
         base['z_jt'] = count_jt_buff(career, _)
         #######################################
-        now['san_one'] = round(now['ty'] * 1.11)
-        now['san_two'] = round(now['ty'] * 1.26)
-        base['san_one'] = round(base['ty'] * 1.11)
-        base['san_two'] = round(base['ty'] * 1.26)
+        now['san_one'] = round(now['ty'] * 1.12)
+        now['san_two'] = round(now['ty'] * 1.27)
+        base['san_one'] = round(base['ty'] * 1.12)
+        base['san_two'] = round(base['ty'] * 1.27)
         gap = diff_dict(base, now)
         set_naiba(value_to_str(now), gap_set(gap))
     elif career == 'nai_gong':
         now['z_jt'] = {k: round(v * 1.1) for k, v in now['jt'].items()}
         base['z_jt'] = {k: round(v * 1.1) for k, v in base['jt'].items()}
-        now['san_one'] = round(now['ty'] * 1.11)
-        now['san_two'] = round(now['ty'] * 1.26)
-        base['san_one'] = round(base['ty'] * 1.11)
-        base['san_two'] = round(base['ty'] * 1.26)
+        now['san_one'] = round(now['ty'] * 1.12)
+        now['san_two'] = round(now['ty'] * 1.27)
+        base['san_one'] = round(base['ty'] * 1.12)
+        base['san_two'] = round(base['ty'] * 1.27 )
         gap = diff_dict(base, now)
         set_naigong(value_to_str(now), gap_set(gap))
 
