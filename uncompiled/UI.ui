@@ -31,8 +31,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
+     <x>10</x>
+     <y>10</y>
      <width>1131</width>
      <height>791</height>
     </rect>
@@ -144,11 +144,18 @@ QLineEdit:focus{
    <widget class="QPushButton" name="button_count">
     <property name="geometry">
      <rect>
-      <x>980</x>
-      <y>670</y>
+      <x>970</x>
+      <y>690</y>
       <width>121</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="text">
      <string>计算</string>
@@ -160,11 +167,18 @@ QLineEdit:focus{
     </property>
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>670</y>
+      <x>830</x>
+      <y>690</y>
       <width>121</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="text">
      <string>设为基础</string>
@@ -395,10 +409,10 @@ border: 2px solid rgb(125, 125, 125);
    <widget class="QPushButton" name="button_save">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>580</y>
-      <width>91</width>
-      <height>41</height>
+      <x>1007</x>
+      <y>622</y>
+      <width>50</width>
+      <height>26</height>
      </rect>
     </property>
     <property name="font">
@@ -412,13 +426,13 @@ border: 2px solid rgb(125, 125, 125);
      <string>保存</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_load">
+   <widget class="QPushButton" name="button_del">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>580</y>
-      <width>91</width>
-      <height>41</height>
+      <x>934</x>
+      <y>622</y>
+      <width>50</width>
+      <height>26</height>
      </rect>
     </property>
     <property name="font">
@@ -429,7 +443,7 @@ border: 2px solid rgb(125, 125, 125);
      </font>
     </property>
     <property name="text">
-     <string>读取</string>
+     <string>删除</string>
     </property>
    </widget>
    <widget class="QGroupBox" name="naima">
@@ -2791,6 +2805,109 @@ border-bottom:0px;
      </item>
     </layout>
    </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>540</y>
+      <width>291</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget{
+background-color:#ffffff;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>291</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="widget_23" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>281</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget#widget_23{
+border-bottom: 1px solid #dadce0;
+margin: 5px
+}</string>
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>71</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_14">
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{ 
+	background:rgb(212, 218, 230);
+}</string>
+          </property>
+          <property name="text">
+           <string>配置1</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="button_add">
+    <property name="geometry">
+     <rect>
+      <x>861</x>
+      <y>622</y>
+      <width>50</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>新增</string>
+    </property>
+   </widget>
    <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>left_widget</zorder>
@@ -2800,13 +2917,15 @@ border-bottom:0px;
    <zorder>groupBox_6</zorder>
    <zorder>layoutWidget_11</zorder>
    <zorder>button_save</zorder>
-   <zorder>button_load</zorder>
+   <zorder>button_del</zorder>
    <zorder>naima</zorder>
    <zorder>groupBox_4</zorder>
    <zorder>groupBox</zorder>
    <zorder>groupBox_9</zorder>
    <zorder>groupBox_3</zorder>
    <zorder>tabWidget</zorder>
+   <zorder>scrollArea</zorder>
+   <zorder>button_add</zorder>
   </widget>
  </widget>
  <resources>

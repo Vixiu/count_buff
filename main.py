@@ -1,14 +1,16 @@
+import json
 import traceback
-from ast import literal_eval
 from os import getenv, path, makedirs
 from sys import argv
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QCoreApplication
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect, QHBoxLayout, QWidget, QInputDialog, QLineEdit, \
+    QMessageBox
 
 from UI import Ui_widget
 from Widget import RoundedWindow
+from PyQt5.QtWidgets import QPushButton
 
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
 ui_home = Ui_widget()
@@ -68,6 +70,7 @@ BASIC_DATA = {
 }
 UI_DATA = {}
 # 各项初始值
+
 data_base = {
     'ty_lv': 37,
     'ty_intellect': 0,
@@ -92,11 +95,41 @@ data_base = {
     'ty_fixed': 0,
     'ty_percentage': [],
     'cp_arms': True,
-    'career': 'nai_ma',
-
     'nai_ba_guardian': 0,
     'nai_ba_ssp': 0,
 
+}
+save_data = {
+    "nai_ma": {
+        "pz_1": {
+            "name": "默认配置",
+            "data": data_base.copy()
+        },
+
+    },
+    "nai_ba": {
+        "pz_1": {
+            "name": "默认配置",
+            "data": data_base.copy()
+        },
+
+    },
+    "nai_luo": {
+        "pz_1": {
+            "name": "默认配置",
+            "data": data_base.copy()
+        },
+
+    },
+    "nai_gong": {
+        "pz_1": {
+            "name": "默认配置",
+            "data": data_base.copy()
+        },
+
+    },
+    'pz': 'pz_1',
+    'career': 'nai_ma',
 }
 
 
@@ -184,7 +217,7 @@ def input_validation(fn):
                 data_now['percentage_intellect'] = [data_now['percentage_intellect']]
             if type(data_now['ty_percentage']) is not list:
                 data_now['ty_percentage'] = [data_now['ty_percentage']]
-            data_now['career'] = data_base['career']
+            data_now['career'] = save_data['career']
             data_now['cp_arms'] = ui_home.cp_arm.isChecked()
             fn(data_now)
 
@@ -284,7 +317,7 @@ def naima_setting():
     ui_home.label_3.setText('智力:')
     ui_home.label_17.setText('智力:')
     ui_home.label_15.setText('智力:')
-    data_base['career'] = 'nai_ma'
+    save_data['career'] = 'nai_ma'
     ui_home.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
                                        ' padding-top:8px;'
                                        'padding-bottom:8px;'
@@ -311,7 +344,7 @@ def nailuo_setting():
     ui_home.label_3.setText('智力:')
     ui_home.label_17.setText('智力:')
     ui_home.label_15.setText('智力:')
-    data_base['career'] = 'nai_luo'
+    save_data['career'] = 'nai_luo'
     ui_home.yijue.setTitle('开幕！人偶剧场')
     ui_home.sanjue.setTitle('终幕！人偶剧场')
     ui_home.nailuo_button.setStyleSheet('border:0px; border-radius: 0px;'
@@ -339,7 +372,7 @@ def naiba_setting():
     ui_home.label_3.setText('体精:')
     ui_home.label_17.setText('体精:')
     ui_home.label_15.setText('体精:')
-    data_base['career'] = 'nai_ba'
+    save_data['career'] = 'nai_ba'
     ui_home.naiba_button.setStyleSheet('border:0px; border-radius: 0px;'
                                        ' padding-top:8px;'
                                        'padding-bottom:8px;'
@@ -381,7 +414,7 @@ def naigong_setting():
     ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/14.PNG"))
     ui_home.b2.setTitle('可爱节拍+燃情狂想曲')
     ui_home.b3.hide()
-    data_base['career'] = 'nai_gong'
+    save_data['career'] = 'nai_gong'
     button_count_clicked()
 
 
@@ -429,7 +462,7 @@ def button_count_clicked(data_now):
         now['san_one'] = round(now['ty'] * 1.12)
         now['san_two'] = round(now['ty'] * 1.27)
         base['san_one'] = round(base['ty'] * 1.12)
-        base['san_two'] = round(base['ty'] * 1.27 )
+        base['san_two'] = round(base['ty'] * 1.27)
         gap = diff_dict(base, now)
         set_naigong(value_to_str(now), gap_set(gap))
 
@@ -568,7 +601,7 @@ def close_windows():
 
 
 @input_validation
-def save_data(data_now):
+def save(data_now):
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
     with open(FILE_PATH, "w+") as f:
@@ -576,20 +609,26 @@ def save_data(data_now):
     is_contrast()
 
 
-def load_data():
-    if not path.exists(path.dirname(FILE_PATH)):
-        makedirs(path.dirname(FILE_PATH))
-        with open(FILE_PATH, "w+") as file:
-            file.write(str(data_base))
-    with open(FILE_PATH, "r") as f:
-        try:
-            data_now = literal_eval(f.read())
-        except:
-            data_now = {}
-    for k, v in data_now.items():
-        if k in UI_DATA:
-            UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
-    career = data_now.get('career', 'nai_ma')
+def pz_setting():
+    for i in reversed(range(h_layout.count())):
+        h_layout.itemAt(i).widget().deleteLater()
+    for k, v in save_data[save_data['career']].items():
+        add_layout_widget(v['name'], k)
+
+
+def load():
+    # 首次运行创建文件夹及文件步骤写到save_data里不要写在这.否则可能会报读
+    global save_data
+
+    try:
+        with open(FILE_PATH, "r") as f:
+            save_data = json.load(f)
+    except:
+        pass
+        # 如果读取不到或者读取错则用默认数据
+    career = save_data['career']
+    pz_setting()
+    pz_clicked(career, save_data['pz'])
     is_contrast()
 
     if career == 'nai_ma':
@@ -631,6 +670,45 @@ def top_window():
     else:
         main_window.window_top(True)
         ui_home.button_top.setStyleSheet("background:rgb(212, 218, 230);")
+
+
+def add_layout_widget(name: str, btn_id: str):
+    button = QPushButton(name)
+    font = QtGui.QFont()
+    font.setPointSize(13)
+    button.setFont(font)
+    button.setObjectName(btn_id)
+    h_layout.addWidget(button)
+    print(btn_id)
+
+
+def pz_clicked(career, pz_id):
+    data_now = save_data[career][pz_id]['data']
+    for k, v in data_now.items():
+        if k in UI_DATA:
+            UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
+
+    button_count_clicked()
+
+
+def add_button():
+    message, ok = QInputDialog.getText(main_window, "", "请输入配置名")
+    if ok:
+        keys = save_data[save_data['career']].keys()
+        pz_id = f'pz_{max([int(k[3:]) + 1 for k in keys])}'
+        add_layout_widget(message, pz_id)
+        save_data[save_data['career']][pz_id] = {
+            'name': message,
+            'data': data_base.copy()
+        }
+
+
+def del_button():
+    # 后两项分别为按钮(以|隔开，共有7种按钮类型，见示例后)、默认按钮(省略则默认为第一个按钮)
+    reply = QMessageBox.question(main_window, "消息框标题", "确实删除吗？", QMessageBox.Yes | QMessageBox.No,
+                                 QMessageBox.Yes)
+    if reply == QMessageBox.Yes:
+        pass
 
 
 if __name__ == '__main__':
@@ -675,10 +753,11 @@ if __name__ == '__main__':
     ui_home.button_count.clicked.connect(button_count_clicked)
     ui_home.button_jc.clicked.connect(is_contrast)
     ui_home.button_close.clicked.connect(close_windows)
-    ui_home.button_save.clicked.connect(save_data)
-    ui_home.button_load.clicked.connect(load_data)
+    ui_home.button_save.clicked.connect(save)
     ui_home.button_min.clicked.connect(minimize_window)
     ui_home.button_top.clicked.connect(top_window)
+    ui_home.button_add.clicked.connect(add_button)
+    ui_home.button_del.clicked.connect(del_button)
     ####################
     ui_home.nailuo_button.clicked.connect(nailuo_setting)
     ui_home.naima_button.clicked.connect(naima_setting)
@@ -700,7 +779,14 @@ if __name__ == '__main__':
     effect.setColor(Qt.black)  # 颜色
     ui_home.widget_1.setGraphicsEffect(effect)
     ######################
-    load_data()
+    scrollArea_widget = QWidget()
+    scrollArea_widget.setStyleSheet("border-bottom: 1px solid #dadce0")
+    h_layout = QHBoxLayout()
+    scrollArea_widget.setLayout(h_layout)
+    ui_home.scrollArea.setWidget(scrollArea_widget)
+    ui_home.scrollArea.setStyleSheet("QScrollBar:vertical { height: 10px; }")
+    ######################
+    load()
     button_count_clicked()
     main_window.show()
     app.exec_()

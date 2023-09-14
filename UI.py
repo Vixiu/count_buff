@@ -14,12 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_widget(object):
     def setupUi(self, widget):
         widget.setObjectName("widget")
-        widget.resize(1131, 791)
+        widget.resize(1198, 838)
         widget.setMinimumSize(QtCore.QSize(0, 0))
         widget.setMaximumSize(QtCore.QSize(16777215, 999999))
         self.widget_1 = QtWidgets.QWidget(widget)
         self.widget_1.setEnabled(True)
-        self.widget_1.setGeometry(QtCore.QRect(0, 0, 1131, 791))
+        self.widget_1.setGeometry(QtCore.QRect(10, 10, 1171, 811))
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
@@ -118,15 +118,54 @@ class Ui_widget(object):
 "    }\n"
 "\n"
 "\n"
+"QScrollBar{\n"
+"                         \n"
+"padding-top:10px;\n"
+"                   }\n"
+"QScrollBar:horizontal {\n"
+"                background: transparent;\n"
+"                height: 20px;\n"
+"                margin: 0px 20px 0px 20px;\n"
+"            }\n"
+"            QScrollBar::handle:horizontal {\n"
+"                background: rgb(205, 205, 205);\n"
+"                min-width: 30px; /* 将滑块的宽度减小为10px */\n"
+"                border-radius: 4px; /* 圆角效果 */\n"
+"                \n"
+"                    \n"
+"            }\n"
+"            QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
+"                width: 20px;\n"
+"                subcontrol-origin: margin;\n"
+"                background: transparent;\n"
+"            }\n"
+"            QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
+"                background: transparent;\n"
+"            }\n"
 "\n"
-"")
+"     QScrollBar::handle:horizontal:hover{\n"
+"                background: rgb(58, 58, 58);\n"
+"       \n"
+"                    \n"
+"            }\n"
+"            ")
         self.widget_1.setObjectName("widget_1")
         self.button_count = QtWidgets.QPushButton(self.widget_1)
-        self.button_count.setGeometry(QtCore.QRect(980, 670, 121, 61))
+        self.button_count.setGeometry(QtCore.QRect(970, 690, 121, 61))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setWeight(50)
+        self.button_count.setFont(font)
         self.button_count.setObjectName("button_count")
         self.button_jc = QtWidgets.QPushButton(self.widget_1)
         self.button_jc.setEnabled(True)
-        self.button_jc.setGeometry(QtCore.QRect(820, 670, 121, 61))
+        self.button_jc.setGeometry(QtCore.QRect(830, 690, 121, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.button_jc.setFont(font)
         self.button_jc.setCheckable(False)
         self.button_jc.setAutoDefault(False)
         self.button_jc.setDefault(False)
@@ -219,22 +258,6 @@ class Ui_widget(object):
         self.buff_liang.setAlignment(QtCore.Qt.AlignCenter)
         self.buff_liang.setObjectName("buff_liang")
         self.horizontalLayout_7.addWidget(self.buff_liang)
-        self.button_save = QtWidgets.QPushButton(self.widget_1)
-        self.button_save.setGeometry(QtCore.QRect(840, 580, 91, 41))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.button_save.setFont(font)
-        self.button_save.setObjectName("button_save")
-        self.button_load = QtWidgets.QPushButton(self.widget_1)
-        self.button_load.setGeometry(QtCore.QRect(990, 580, 91, 41))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.button_load.setFont(font)
-        self.button_load.setObjectName("button_load")
         self.naima = QtWidgets.QGroupBox(self.widget_1)
         self.naima.setGeometry(QtCore.QRect(470, 220, 311, 511))
         font = QtGui.QFont()
@@ -689,7 +712,8 @@ class Ui_widget(object):
 "\n"
 "\n"
 "QPushButton{\n"
-"border:0px; \n"
+"border: none;\n"
+"background: transparent;\n"
 "border-radius: 0px; \n"
 "padding-top:8px;\n"
 "padding-bottom:8px\n"
@@ -699,7 +723,7 @@ class Ui_widget(object):
 "\n"
 "\n"
 "QPushButton:hover {\n"
-"    border:0px; \n"
+"border:rgb(0, 170, 127); \n"
 "border-radius: 0px; \n"
 "padding-top:8px;\n"
 "padding-bottom:8px;\n"
@@ -1269,6 +1293,60 @@ class Ui_widget(object):
         self.button_close.setIcon(icon6)
         self.button_close.setObjectName("button_close")
         self.horizontalLayout_13.addWidget(self.button_close)
+        self.scrollArea = QtWidgets.QScrollArea(self.widget_1)
+        self.scrollArea.setGeometry(QtCore.QRect(810, 540, 291, 71))
+        self.scrollArea.setStyleSheet("QWidget{\n"
+"background-color:#ffffff;\n"
+"}")
+        self.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.scrollArea.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName("scrollArea")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 291, 71))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.horizontalScrollBar = QtWidgets.QScrollBar(self.widget_1)
+        self.horizontalScrollBar.setGeometry(QtCore.QRect(650, 760, 421, 20))
+        self.horizontalScrollBar.setStyleSheet("\n"
+"QScrollBar::handle:vertical\n"
+"{\n"
+"    background:darkgray;  \n"
+"    border-radius:6px;  \n"
+"    margin-left:2px; \n"
+"    margin-right:2px; \n"
+"\n"
+"}")
+        self.horizontalScrollBar.setOrientation(QtCore.Qt.Horizontal)
+        self.horizontalScrollBar.setObjectName("horizontalScrollBar")
+        self.button_add = QtWidgets.QPushButton(self.widget_1)
+        self.button_add.setGeometry(QtCore.QRect(851, 622, 50, 26))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.button_add.setFont(font)
+        self.button_add.setObjectName("button_add")
+        self.button_del = QtWidgets.QPushButton(self.widget_1)
+        self.button_del.setGeometry(QtCore.QRect(924, 622, 50, 26))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.button_del.setFont(font)
+        self.button_del.setObjectName("button_del")
+        self.button_save = QtWidgets.QPushButton(self.widget_1)
+        self.button_save.setGeometry(QtCore.QRect(997, 622, 50, 26))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.button_save.setFont(font)
+        self.button_save.setObjectName("button_save")
+        self.button_add.raise_()
+        self.button_del.raise_()
+        self.button_save.raise_()
         self.layoutWidget.raise_()
         self.layoutWidget.raise_()
         self.left_widget.raise_()
@@ -1277,14 +1355,14 @@ class Ui_widget(object):
         self.line.raise_()
         self.groupBox_6.raise_()
         self.layoutWidget_11.raise_()
-        self.button_save.raise_()
-        self.button_load.raise_()
         self.naima.raise_()
         self.groupBox_4.raise_()
         self.groupBox.raise_()
         self.groupBox_9.raise_()
         self.groupBox_3.raise_()
         self.tabWidget.raise_()
+        self.scrollArea.raise_()
+        self.horizontalScrollBar.raise_()
 
         self.retranslateUi(widget)
         self.tabWidget.setCurrentIndex(0)
@@ -1299,8 +1377,6 @@ class Ui_widget(object):
         self.label_17.setText(_translate("widget", "智力"))
         self.label_33.setText(_translate("widget", "等级:"))
         self.label_31.setText(_translate("widget", "增益量:"))
-        self.button_save.setText(_translate("widget", "保存"))
-        self.button_load.setText(_translate("widget", "读取"))
         self.naima.setTitle(_translate("widget", "进图"))
         self.b3.setTitle(_translate("widget", "偏爱(禁忌诅咒+疯狂召唤)"))
         self.label_59.setText(_translate("widget", "三攻:"))
@@ -1374,4 +1450,7 @@ class Ui_widget(object):
         self.label_13.setText(_translate("widget", "二觉(单层)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), _translate("widget", "奶爸"))
         self.label_6.setText(_translate("widget", "智力加减:"))
+        self.button_add.setText(_translate("widget", "新增"))
+        self.button_del.setText(_translate("widget", "删除"))
+        self.button_save.setText(_translate("widget", "保存"))
 import images_rc
