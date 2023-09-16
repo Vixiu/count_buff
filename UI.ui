@@ -140,7 +140,7 @@ QLineEdit:focus{
 
 QScrollBar{
                          
-padding-top:10px;
+padding-top:12px;
                    }
 QScrollBar:horizontal {
                 background: transparent;
@@ -2831,30 +2831,6 @@ background-color:#ffffff;
      </property>
     </widget>
    </widget>
-   <widget class="QScrollBar" name="horizontalScrollBar">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>760</y>
-      <width>421</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-QScrollBar::handle:vertical
-{
-    background:darkgray;  
-    border-radius:6px;  
-    margin-left:2px; 
-    margin-right:2px; 
-
-}</string>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="button_add">
     <property name="geometry">
      <rect>
@@ -2933,7 +2909,6 @@ QScrollBar::handle:vertical
    <zorder>groupBox_3</zorder>
    <zorder>tabWidget</zorder>
    <zorder>scrollArea</zorder>
-   <zorder>horizontalScrollBar</zorder>
   </widget>
  </widget>
  <resources>

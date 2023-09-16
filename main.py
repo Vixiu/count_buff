@@ -13,7 +13,7 @@ from Widget import RoundedWindow
 from PyQt5.QtWidgets import QPushButton
 
 FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
-ui_home = Ui_widget()
+UI = Ui_widget()
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
@@ -68,14 +68,14 @@ BASIC_DATA = {
                  'xyz': (5250, 5000, 0.000025)
                  }
 }
-UI_DATA = {}
+now_career = 'nai_ma'
 # 各项初始值
-
 data_base = {
     'ty_lv': 37,
     'ty_intellect': 0,
     'buff_amount': 0,
     'out_intellect': 0,
+
     'out_lv': 1,
 
     'out_medal': 50,
@@ -97,6 +97,13 @@ data_base = {
     'cp_arms': True,
     'nai_ba_guardian': 0,
     'nai_ba_ssp': 0,
+
+}
+now_data = {
+    "nai_ma": {},
+    "nai_ba": {},
+    "nai_luo": {},
+    "nai_gong": {},
 
 }
 save_data = {
@@ -128,8 +135,14 @@ save_data = {
         },
 
     },
-    'pz': 'pz_1',
-    'career': 'nai_ma',
+
+    "record": {
+        "nai_ma": 'pz_1',
+        "nai_ba": 'pz_1',
+        "nai_luo": 'pz_1',
+        "nai_gong": 'pz_1'
+    },
+    "career": now_career
 }
 
 
@@ -175,7 +188,7 @@ def input_validation(fn):
 
         for v in UI_DATA.values():
             v.setStyleSheet("")
-        ui_home.add.setStyleSheet('')
+        UI.add.setStyleSheet('')
         exception = []
         for keys in UI_DATA:
             if keys != 'add':
@@ -187,7 +200,7 @@ def input_validation(fn):
             exception.append(('out_lv', '1~40'))
         if not (0 < data_now.get('ty_lv', 1) < 41):
             exception.append(('ty_lv', '1~40'))
-        add = ui_home.add.text()
+        add = UI.add.text()
         if add in ('-', '+'):
             add = 0
         try:
@@ -197,12 +210,12 @@ def input_validation(fn):
         if exception:
             for key, tip in exception:
                 if key in ('in_intellect', 'in_lv'):
-                    ui_home.tabWidget.setCurrentIndex(0)
+                    UI.tabWidget.setCurrentIndex(0)
                 elif key in ('out_medal', 'out_earp', 'out_passive', 'out_guild'):
-                    ui_home.tabWidget.setCurrentIndex(1)
+                    UI.tabWidget.setCurrentIndex(1)
                 elif key in ('nai_ba_guardian', 'nai_ba_ssp'):
                     naiba_setting()
-                    ui_home.tabWidget.setCurrentIndex(2)
+                    UI.tabWidget.setCurrentIndex(2)
 
                 UI_DATA[key].setText(tip)
                 UI_DATA[key].setStyleSheet(
@@ -217,15 +230,14 @@ def input_validation(fn):
                 data_now['percentage_intellect'] = [data_now['percentage_intellect']]
             if type(data_now['ty_percentage']) is not list:
                 data_now['ty_percentage'] = [data_now['ty_percentage']]
-            data_now['career'] = save_data['career']
-            data_now['cp_arms'] = ui_home.cp_arm.isChecked()
+            data_now['cp_arms'] = UI.cp_arm.isChecked()
             fn(data_now)
 
     return run_fn
 
 
 def buff(data_now):
-    cr = data_now['career']
+    cr = now_career
     data_now['in_intellect'] += data_now["add"]
     data_now['out_intellect'] += data_now["add"]
     data_now['ty_intellect'] += data_now["add"]
@@ -260,24 +272,24 @@ def gap_set(gap):
 
 
 def current(data, gap):
-    ui_home.buff_sg.setText(data['zj']['sg'])
-    ui_home.buff_lz.setText(data['zj']['lz'])
-    ui_home.buff_sg_cj.setText(gap['zj']['sg'])
-    ui_home.buff_lz_cj.setText(gap['zj']['lz'])
-    ui_home.yijue_lz.setText(data['ty'])
-    ui_home.yijue_cj.setText(gap['ty'])
-    ui_home.sanjue_lz_1.setText(data['san_one'])
-    ui_home.sanjue_lz_1_cj.setText(gap['san_one'])
-    ui_home.sanjue_lz_2.setText(data['san_two'])
-    ui_home.sanjue_lz_2_cj.setText(gap['san_two'])
-    ui_home.b1_sg.setText(data['jt']['sg'])
-    ui_home.b1_lz.setText(data['jt']['lz'])
-    ui_home.b1_sg_cj.setText(gap['jt']['sg'])
-    ui_home.b1_lz_cj.setText(gap['jt']['lz'])
-    ui_home.b2_sg.setText(data['z_jt']['sg'])
-    ui_home.b2_lz.setText(data['z_jt']['lz'])
-    ui_home.b2_sg_cj.setText(gap['z_jt']['sg'])
-    ui_home.b2_lz_cj.setText(gap['z_jt']['lz'])
+    UI.buff_sg.setText(data['zj']['sg'])
+    UI.buff_lz.setText(data['zj']['lz'])
+    UI.buff_sg_cj.setText(gap['zj']['sg'])
+    UI.buff_lz_cj.setText(gap['zj']['lz'])
+    UI.yijue_lz.setText(data['ty'])
+    UI.yijue_cj.setText(gap['ty'])
+    UI.sanjue_lz_1.setText(data['san_one'])
+    UI.sanjue_lz_1_cj.setText(gap['san_one'])
+    UI.sanjue_lz_2.setText(data['san_two'])
+    UI.sanjue_lz_2_cj.setText(gap['san_two'])
+    UI.b1_sg.setText(data['jt']['sg'])
+    UI.b1_lz.setText(data['jt']['lz'])
+    UI.b1_sg_cj.setText(gap['jt']['sg'])
+    UI.b1_lz_cj.setText(gap['jt']['lz'])
+    UI.b2_sg.setText(data['z_jt']['sg'])
+    UI.b2_lz.setText(data['z_jt']['lz'])
+    UI.b2_sg_cj.setText(gap['z_jt']['sg'])
+    UI.b2_lz_cj.setText(gap['z_jt']['lz'])
 
 
 def set_naima(data, gap):
@@ -286,10 +298,10 @@ def set_naima(data, gap):
 
 def set_nailuo(data, gap):
     current(data, gap)
-    ui_home.b3_sg.setText(data['p_jt']['sg'])
-    ui_home.b3_lz.setText(data['p_jt']['lz'])
-    ui_home.b3_lz_cj.setText(gap['p_jt']['lz'])
-    ui_home.b3_sg_cj.setText(gap['p_jt']['sg'])
+    UI.b3_sg.setText(data['p_jt']['sg'])
+    UI.b3_lz.setText(data['p_jt']['lz'])
+    UI.b3_lz_cj.setText(gap['p_jt']['lz'])
+    UI.b3_sg_cj.setText(gap['p_jt']['sg'])
 
 
 def set_naiba(data, gap):
@@ -303,125 +315,141 @@ def set_naigong(data, gap):
 def clear():
     clear_text()
     clear_cj()
-    ui_home.nailuo_button.setStyleSheet('')
-    ui_home.naiba_button.setStyleSheet('')
-    ui_home.naima_button.setStyleSheet('')
-    ui_home.naigong_button.setStyleSheet('')
+    UI.nailuo_button.setStyleSheet('')
+    UI.naiba_button.setStyleSheet('')
+    UI.naima_button.setStyleSheet('')
+    UI.naigong_button.setStyleSheet('')
 
 
 def naima_setting():
+    global now_career
     clear()
-    ui_home.tabWidget.removeTab(2)
+    UI.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/84.PNG"))
-    ui_home.label_6.setText('智力加减:')
-    ui_home.label_3.setText('智力:')
-    ui_home.label_17.setText('智力:')
-    ui_home.label_15.setText('智力:')
-    save_data['career'] = 'nai_ma'
-    ui_home.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                       ' padding-top:8px;'
-                                       'padding-bottom:8px;'
-                                       'border-left: 5px solid rgb(5, 229, 254);'
-                                       'background-color:rgb(217, 217, 217);')
-    ui_home.yijue.setTitle('圣光天启')
-    ui_home.sanjue.setTitle('祈愿·天使赞歌')
-    ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/23.PNG"))
-    ui_home.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/350.PNG"))
-    ui_home.b0.setTitle('勇气祝福')
-    ui_home.label_35.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
-    ui_home.b1.setTitle('勇气祝福')
-    ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
-    ui_home.b2.setTitle('勇气+颂歌')
-    ui_home.b3.hide()
+    UI.label_6.setText('智力加减:')
+    UI.label_3.setText('智力:')
+    UI.label_17.setText('智力:')
+    UI.label_15.setText('智力:')
+    now_career = 'nai_ma'
+    UI.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
+                                  ' padding-top:8px;'
+                                  'padding-bottom:8px;'
+                                  'border-left: 5px solid rgb(5, 229, 254);'
+                                  'background-color:rgb(217, 217, 217);')
+    UI.yijue.setTitle('圣光天启')
+    UI.sanjue.setTitle('祈愿·天使赞歌')
+    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/23.PNG"))
+    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/350.PNG"))
+    UI.b0.setTitle('勇气祝福')
+    UI.label_35.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
+    UI.b1.setTitle('勇气祝福')
+    UI.label_30.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
+    UI.b2.setTitle('勇气+颂歌')
+    UI.b3.hide()
+
+    pz_setting(now_career)
+    pz_clicked(save_data['record'][now_career])
+
     button_count_clicked()
 
 
 def nailuo_setting():
-    clear()
-    ui_home.tabWidget.removeTab(2)
-    main_window.setWindowIcon(QIcon(":/png/719.PNG"))
-    ui_home.label_6.setText('智力加减:')
-    ui_home.label_3.setText('智力:')
-    ui_home.label_17.setText('智力:')
-    ui_home.label_15.setText('智力:')
-    save_data['career'] = 'nai_luo'
-    ui_home.yijue.setTitle('开幕！人偶剧场')
-    ui_home.sanjue.setTitle('终幕！人偶剧场')
-    ui_home.nailuo_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                        ' padding-top:8px;'
-                                        'padding-bottom:8px;'
-                                        'border-left: 5px solid rgb(5, 229, 254);'
-                                        'background-color:rgb(217, 217, 217);')
-    ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/757.PNG"))
-    ui_home.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/838.PNG"))
-    ui_home.b0.setTitle('禁忌诅咒')
-    ui_home.b1.setTitle('禁忌诅咒')
+    global now_career
 
-    ui_home.label_35.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
-    ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
-    ui_home.b2.setTitle('禁忌诅咒+疯狂召唤')
-    ui_home.b3.show()
+    clear()
+    UI.tabWidget.removeTab(2)
+    main_window.setWindowIcon(QIcon(":/png/719.PNG"))
+    UI.label_6.setText('智力加减:')
+    UI.label_3.setText('智力:')
+    UI.label_17.setText('智力:')
+    UI.label_15.setText('智力:')
+    now_career = 'nai_luo'
+    UI.yijue.setTitle('开幕！人偶剧场')
+    UI.sanjue.setTitle('终幕！人偶剧场')
+    UI.nailuo_button.setStyleSheet('border:0px; border-radius: 0px;'
+                                   ' padding-top:8px;'
+                                   'padding-bottom:8px;'
+                                   'border-left: 5px solid rgb(5, 229, 254);'
+                                   'background-color:rgb(217, 217, 217);')
+    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/757.PNG"))
+    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/838.PNG"))
+    UI.b0.setTitle('禁忌诅咒')
+    UI.b1.setTitle('禁忌诅咒')
+
+    UI.label_35.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
+    UI.label_30.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
+    UI.b2.setTitle('禁忌诅咒+疯狂召唤')
+    UI.b3.show()
+    pz_setting(now_career)
+    pz_clicked(save_data['record'][now_career])
     button_count_clicked()
 
 
 def naiba_setting():
+    global now_career
     clear()
-    ui_home.tabWidget.insertTab(2, ui_home.tab3, '奶爸二觉')
+    UI.tabWidget.insertTab(2, UI.tab3, '奶爸二觉')
     main_window.setWindowIcon(QIcon(":/png/111.PNG"))
-    ui_home.label_6.setText('体精加减:')
-    ui_home.label_3.setText('体精:')
-    ui_home.label_17.setText('体精:')
-    ui_home.label_15.setText('体精:')
-    save_data['career'] = 'nai_ba'
-    ui_home.naiba_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                       ' padding-top:8px;'
-                                       'padding-bottom:8px;'
-                                       'border-left: 5px solid rgb(5, 229, 254);'
-                                       'background-color:rgb(217, 217, 217);')
-    ui_home.yijue.setTitle('天启之珠')
-    ui_home.sanjue.setTitle('生命礼赞:神威')
-    ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/158.PNG"))
-    ui_home.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/548.PNG"))
-    ui_home.b0.setTitle('荣誉祝福')
-    ui_home.label_35.setPixmap(QtGui.QPixmap(":/png/111.PNG"))
-    ui_home.b1.setTitle('荣誉祝福')
-    ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/111.PNG"))
-    ui_home.b2.setTitle('守护+荣誉祝福(24层)')
-    ui_home.b3.hide()
+    UI.label_6.setText('体精加减:')
+    UI.label_3.setText('体精:')
+    UI.label_17.setText('体精:')
+    UI.label_15.setText('体精:')
+    now_career = 'nai_ba'
+    UI.naiba_button.setStyleSheet('border:0px; border-radius: 0px;'
+                                  ' padding-top:8px;'
+                                  'padding-bottom:8px;'
+                                  'border-left: 5px solid rgb(5, 229, 254);'
+                                  'background-color:rgb(217, 217, 217);')
+    UI.yijue.setTitle('天启之珠')
+    UI.sanjue.setTitle('生命礼赞:神威')
+    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/158.PNG"))
+    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/548.PNG"))
+    UI.b0.setTitle('荣誉祝福')
+    UI.label_35.setPixmap(QtGui.QPixmap(":/png/111.PNG"))
+    UI.b1.setTitle('荣誉祝福')
+    UI.label_30.setPixmap(QtGui.QPixmap(":/png/111.PNG"))
+    UI.b2.setTitle('守护+荣誉祝福(24层)')
+    UI.b3.hide()
+    pz_setting(now_career)
+    pz_clicked(save_data['record'][now_career])
     button_count_clicked()
 
 
 def naigong_setting():
+    global now_career
     clear()
-    ui_home.tabWidget.removeTab(2)
+    UI.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/14.PNG"))
-    ui_home.label_6.setText('精神加减:')
-    ui_home.label_3.setText('精神:')
-    ui_home.label_17.setText('精神:')
-    ui_home.label_15.setText('精神:')
-    ui_home.naigong_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                         ' padding-top:8px;'
-                                         'padding-bottom:8px;'
-                                         'border-left: 5px solid rgb(5, 229, 254);'
-                                         'background-color:rgb(217, 217, 217);')
-    ui_home.yijue.setTitle('梦想的舞台')
-    ui_home.sanjue.setTitle('终曲:霓虹蝶梦')
-    ui_home.yijue_icon.setPixmap(QtGui.QPixmap(":/png/88.PNG"))
-    ui_home.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/34.PNG"))
-    ui_home.b0.setTitle('可爱节拍')
-    ui_home.label_35.setPixmap(QtGui.QPixmap(":/png/14.PNG"))
-    ui_home.b1.setTitle('可爱节拍')
-    ui_home.label_30.setPixmap(QtGui.QPixmap(":/png/14.PNG"))
-    ui_home.b2.setTitle('可爱节拍+燃情狂想曲')
-    ui_home.b3.hide()
-    save_data['career'] = 'nai_gong'
+    UI.label_6.setText('精神加减:')
+    UI.label_3.setText('精神:')
+    UI.label_17.setText('精神:')
+    UI.label_15.setText('精神:')
+    UI.naigong_button.setStyleSheet('border:0px; border-radius: 0px;'
+                                    ' padding-top:8px;'
+                                    'padding-bottom:8px;'
+                                    'border-left: 5px solid rgb(5, 229, 254);'
+                                    'background-color:rgb(217, 217, 217);')
+    UI.yijue.setTitle('梦想的舞台')
+    UI.sanjue.setTitle('终曲:霓虹蝶梦')
+    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/88.PNG"))
+    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/34.PNG"))
+    UI.b0.setTitle('可爱节拍')
+    UI.label_35.setPixmap(QtGui.QPixmap(":/png/14.PNG"))
+    UI.b1.setTitle('可爱节拍')
+    UI.label_30.setPixmap(QtGui.QPixmap(":/png/14.PNG"))
+    UI.b2.setTitle('可爱节拍+燃情狂想曲')
+    UI.b3.hide()
+    now_career = 'nai_gong'
+    pz_setting(now_career)
+    pz_clicked(save_data['record'][now_career])
     button_count_clicked()
 
 
 @input_validation
 def button_count_clicked(data_now):
     now, base = buff(data_now)
-    career = data_now['career']
+
+    career = now_career
     # 下面是 向下取整,还是四舍五入 有待研究
     if career == 'nai_ma':
         now['z_jt'] = {k: round(v * 1.15) for k, v in now['jt'].items()}
@@ -557,46 +585,48 @@ def count_ty(data) -> int:
 @input_validation
 def is_contrast(data_now):
     global data_base
-    data_base['cp_arms'] = ui_home.cp_arm.isChecked()
+    data_base['cp_arms'] = UI.cp_arm.isChecked()
 
     for k, v in UI_DATA.items():
         v.setPlaceholderText(str(data_now[k]).replace('[', '').replace(']', ''))
         v.setText('')
-    ui_home.add.setPlaceholderText('')
+    UI.add.setPlaceholderText('')
     data_base = data_now.copy()
     clear_cj()
 
 
 def clear_cj():
-    ui_home.buff_sg_cj.setText('')
-    ui_home.buff_lz_cj.setText('')
-    ui_home.b1_lz_cj.setText('')
-    ui_home.b1_sg_cj.setText('')
-    ui_home.b2_lz_cj.setText('')
-    ui_home.b2_sg_cj.setText('')
-    ui_home.b3_sg_cj.setText('')
-    ui_home.b3_lz_cj.setText('')
-    ui_home.yijue_cj.setText('')
-    ui_home.sanjue_lz_1_cj.setText('')
-    ui_home.sanjue_lz_2_cj.setText('')
+    UI.buff_sg_cj.setText('')
+    UI.buff_lz_cj.setText('')
+    UI.b1_lz_cj.setText('')
+    UI.b1_sg_cj.setText('')
+    UI.b2_lz_cj.setText('')
+    UI.b2_sg_cj.setText('')
+    UI.b3_sg_cj.setText('')
+    UI.b3_lz_cj.setText('')
+    UI.yijue_cj.setText('')
+    UI.sanjue_lz_1_cj.setText('')
+    UI.sanjue_lz_2_cj.setText('')
 
 
 def clear_text():
-    ui_home.buff_sg.setText('')
-    ui_home.buff_lz.setText('')
-    ui_home.b1_lz.setText('')
-    ui_home.b1_sg.setText('')
-    ui_home.b2_lz.setText('')
-    ui_home.b2_sg.setText('')
-    ui_home.b3_sg.setText('')
-    ui_home.b3_lz.setText('')
-    ui_home.yijue_lz.setText('')
-    ui_home.sanjue_lz_1.setText('')
-    ui_home.sanjue_lz_2.setText('')
-    ui_home.add.setText('')
+    UI.buff_sg.setText('')
+    UI.buff_lz.setText('')
+    UI.b1_lz.setText('')
+    UI.b1_sg.setText('')
+    UI.b2_lz.setText('')
+    UI.b2_sg.setText('')
+    UI.b3_sg.setText('')
+    UI.b3_lz.setText('')
+    UI.yijue_lz.setText('')
+    UI.sanjue_lz_1.setText('')
+    UI.sanjue_lz_2.setText('')
+    UI.add.setText('')
 
 
 def close_windows():
+    global save_data
+    save_data['career'] = now_career
     QCoreApplication.instance().quit()
 
 
@@ -604,33 +634,33 @@ def close_windows():
 def save(data_now):
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
+
+    save_data[now_career][save_data['record'][now_career]]["data"] = data_now
     with open(FILE_PATH, "w+") as f:
-        f.write(str(data_now))
-    is_contrast()
+        json.dump(save_data, f)
 
 
-def pz_setting():
+def pz_setting(cr):
     for i in reversed(range(h_layout.count())):
         h_layout.itemAt(i).widget().deleteLater()
-    for k, v in save_data[save_data['career']].items():
+    for k, v in save_data[cr].items():
         add_layout_widget(v['name'], k)
 
 
 def load():
     # 首次运行创建文件夹及文件步骤写到save_data里不要写在这.否则可能会报读
-    global save_data
-
     try:
+        global save_data
         with open(FILE_PATH, "r") as f:
             save_data = json.load(f)
     except:
         pass
         # 如果读取不到或者读取错则用默认数据
     career = save_data['career']
-    pz_setting()
-    pz_clicked(career, save_data['pz'])
+    pz_setting(career)
+    pz_clicked(save_data['record'][career], career)
+    button_count_clicked()
     is_contrast()
-
     if career == 'nai_ma':
         naima_setting()
     elif career == 'nai_ba':
@@ -643,20 +673,20 @@ def load():
 
 
 def lv_to():
-    text = ui_home.zl_lv.text().replace(" ", "")
+    text = UI.zl_lv.text().replace(" ", "")
 
     if text.isdigit():
-        ui_home.jt_lv.setText(str(int(text) + 14))
+        UI.jt_lv.setText(str(int(text) + 14))
 
 
 def intellect_to():
-    if not ui_home.jt_zhili.text().startswith(('-', '+')):
+    if not UI.jt_zhili.text().startswith(('-', '+')):
         intellect = 0
         for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
             text = UI_DATA[le].text()
             intellect += int(text) if text.isdigit() else data_base.get(le, 0)
-        ui_home.jt_zhili.setText(str(intellect))
-        ui_home.ty_zhili.setText(str(intellect))
+        UI.jt_zhili.setText(str(intellect))
+        UI.ty_zhili.setText(str(intellect))
 
 
 def minimize_window():
@@ -666,10 +696,10 @@ def minimize_window():
 def top_window():
     if bool(main_window.windowHandle().flags() & Qt.WindowStaysOnTopHint):
         main_window.window_top(False)
-        ui_home.button_top.setStyleSheet("")
+        UI.button_top.setStyleSheet("")
     else:
         main_window.window_top(True)
-        ui_home.button_top.setStyleSheet("background:rgb(212, 218, 230);")
+        UI.button_top.setStyleSheet("background:rgb(212, 218, 230);")
 
 
 def add_layout_widget(name: str, btn_id: str):
@@ -679,114 +709,146 @@ def add_layout_widget(name: str, btn_id: str):
     button.setFont(font)
     button.setObjectName(btn_id)
     h_layout.addWidget(button)
-    print(btn_id)
+    button.clicked.connect(lambda: pz_clicked(btn_id))
 
 
-def pz_clicked(career, pz_id):
-    data_now = save_data[career][pz_id]['data']
-    for k, v in data_now.items():
+def pz_clicked(pz_id, cr=None):
+    cr = cr if cr else now_career
+    datas = save_data[cr][pz_id]['data']
+    clear_text()
+    clear_cj()
+    for k, v in datas.items():
         if k in UI_DATA:
             UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
+    '''        
+    btn = scrollArea_widget.findChild(QPushButton, pz_id)
+    btn.setStyleSheet("background:rgb(212, 218, 230);")
 
+    '''
+
+    for btn in scrollArea_widget.findChildren(QWidget):
+        if btn.objectName() == pz_id:
+            btn.setStyleSheet("background:rgb(212, 218, 230);")
+        else:
+            btn.setStyleSheet("")
+    save_data['record'][cr] = pz_id
     button_count_clicked()
+    is_contrast()
 
 
 def add_button():
     message, ok = QInputDialog.getText(main_window, "", "请输入配置名")
     if ok:
-        keys = save_data[save_data['career']].keys()
-        pz_id = f'pz_{max([int(k[3:]) + 1 for k in keys])}'
+        keys = save_data[now_career].keys()
+        ls = [int(k[3:]) for k in keys]
+        pz_id = 1
+        for i in range(len(ls) + 1):
+            if i + 1 not in ls:
+                pz_id = f'pz_{i + 1}'
+
+                break
+
         add_layout_widget(message, pz_id)
-        save_data[save_data['career']][pz_id] = {
+        save_data[now_career][pz_id] = {
             'name': message,
             'data': data_base.copy()
         }
 
+        pz_clicked(pz_id)
+    save()
+
 
 def del_button():
-    # 后两项分别为按钮(以|隔开，共有7种按钮类型，见示例后)、默认按钮(省略则默认为第一个按钮)
-    reply = QMessageBox.question(main_window, "消息框标题", "确实删除吗？", QMessageBox.Yes | QMessageBox.No,
-                                 QMessageBox.Yes)
-    if reply == QMessageBox.Yes:
-        pass
+    if len(save_data[now_career]) == 1:
+        QMessageBox.critical(main_window, '错误', '至少保留一个吧！')
+
+    elif QMessageBox.question(main_window, "消息框标题", "确实删除吗？", QMessageBox.Yes | QMessageBox.No,
+                              QMessageBox.Yes) == QMessageBox.Yes:
+        pz_id = save_data['record'][now_career]
+        for btn in scrollArea_widget.findChildren(QWidget):
+            if btn.objectName() == pz_id:
+                btn.deleteLater()
+                del save_data[now_career][pz_id]
+        pz_clicked(list(save_data[now_career].keys())[0])
+        save()
 
 
 if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
-    ui_home.setupUi(main_window)
+    UI.setupUi(main_window)
     main_window.setWindowTitle(' 奶量计算器')
     # 要检查的输入框
     UI_DATA = {
-        'buff_amount': ui_home.buff_liang,
-        'out_intellect': ui_home.zj_zhili,
-        'out_lv': ui_home.zl_lv,
-        'add': ui_home.add,
-        'in_lv': ui_home.jt_lv,
-        'ty_lv': ui_home.ty_lv,
+        'ty_intellect': UI.ty_zhili,
+        'in_intellect': UI.jt_zhili,  # 此项在最后
 
-        'halo_amount': ui_home.buff_gh,
-        'pet_amount': ui_home.buff_cw,
-        'jade_amount': ui_home.buff_bxy,
+        'buff_amount': UI.buff_liang,
+        'out_intellect': UI.zj_zhili,
+        'out_lv': UI.zl_lv,
+        'add': UI.add,
+        'in_lv': UI.jt_lv,
+        'ty_lv': UI.ty_lv,
 
-        'fixed_attack': ui_home.sg_guding,
-        'fixed_intellect': ui_home.lz_guding,
+        'halo_amount': UI.buff_gh,
+        'pet_amount': UI.buff_cw,
+        'jade_amount': UI.buff_bxy,
 
-        'percentage_attack': ui_home.sg_bfb,
-        'percentage_intellect': ui_home.lz_bfb,
+        'fixed_attack': UI.sg_guding,
+        'fixed_intellect': UI.lz_guding,
 
-        'ty_fixed': ui_home.ty_lz,
-        'ty_percentage': ui_home.ty_bfb,
+        'percentage_attack': UI.sg_bfb,
+        'percentage_intellect': UI.lz_bfb,
 
-        'out_medal': ui_home.zj_xz,
-        'out_earp': ui_home.zj_eh,
-        'out_passive': ui_home.zj_bd,
-        'out_guild': ui_home.zj_gh,
-        'nai_ba_guardian': ui_home.naiba_sh,
-        'nai_ba_ssp': ui_home.naiba_ej,
-        'ty_intellect': ui_home.ty_zhili,
-        'in_intellect': ui_home.jt_zhili,  # 此项在最后
+        'ty_fixed': UI.ty_lz,
+        'ty_percentage': UI.ty_bfb,
+
+        'out_medal': UI.zj_xz,
+        'out_earp': UI.zj_eh,
+        'out_passive': UI.zj_bd,
+        'out_guild': UI.zj_gh,
+        'nai_ba_guardian': UI.naiba_sh,
+        'nai_ba_ssp': UI.naiba_ej,
 
     }
+    ####################
+    UI.button_count.clicked.connect(button_count_clicked)
+    UI.button_jc.clicked.connect(is_contrast)
+    UI.button_close.clicked.connect(close_windows)
+    UI.button_save.clicked.connect(save)
+    UI.button_min.clicked.connect(minimize_window)
+    UI.button_top.clicked.connect(top_window)
+    UI.button_add.clicked.connect(add_button)
+    UI.button_del.clicked.connect(del_button)
+    ####################
+    UI.nailuo_button.clicked.connect(nailuo_setting)
+    UI.naima_button.clicked.connect(naima_setting)
+    UI.naiba_button.clicked.connect(naiba_setting)
+    UI.naigong_button.clicked.connect(naigong_setting)
 
     ####################
-    ui_home.button_count.clicked.connect(button_count_clicked)
-    ui_home.button_jc.clicked.connect(is_contrast)
-    ui_home.button_close.clicked.connect(close_windows)
-    ui_home.button_save.clicked.connect(save)
-    ui_home.button_min.clicked.connect(minimize_window)
-    ui_home.button_top.clicked.connect(top_window)
-    ui_home.button_add.clicked.connect(add_button)
-    ui_home.button_del.clicked.connect(del_button)
-    ####################
-    ui_home.nailuo_button.clicked.connect(nailuo_setting)
-    ui_home.naima_button.clicked.connect(naima_setting)
-    ui_home.naiba_button.clicked.connect(naiba_setting)
-    ui_home.naigong_button.clicked.connect(naigong_setting)
-
-    ####################
-    ui_home.zl_lv.textChanged.connect(lv_to)
-    ui_home.zj_xz.textChanged.connect(intellect_to)
-    ui_home.zj_zhili.textChanged.connect(intellect_to)
-    ui_home.zj_gh.textChanged.connect(intellect_to)
-    ui_home.zj_eh.textChanged.connect(intellect_to)
-    ui_home.zj_bd.textChanged.connect(intellect_to)
-    ui_home.add.textChanged.connect(button_count_clicked)
+    UI.zl_lv.textEdited.connect(lv_to)
+    UI.zj_xz.textEdited.connect(intellect_to)
+    UI.zj_zhili.textEdited.connect(intellect_to)
+    UI.zj_gh.textEdited.connect(intellect_to)
+    UI.zj_eh.textEdited.connect(intellect_to)
+    UI.zj_bd.textEdited.connect(intellect_to)
+    UI.add.textEdited.connect(button_count_clicked)
     ####################
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
     effect.setOffset(0, 0)  # 横纵,偏移量
     effect.setColor(Qt.black)  # 颜色
-    ui_home.widget_1.setGraphicsEffect(effect)
+    UI.widget_1.setGraphicsEffect(effect)
     ######################
     scrollArea_widget = QWidget()
     scrollArea_widget.setStyleSheet("border-bottom: 1px solid #dadce0")
     h_layout = QHBoxLayout()
     scrollArea_widget.setLayout(h_layout)
-    ui_home.scrollArea.setWidget(scrollArea_widget)
-    ui_home.scrollArea.setStyleSheet("QScrollBar:vertical { height: 10px; }")
+    UI.scrollArea.setWidget(scrollArea_widget)
+    UI.scrollArea.setStyleSheet("QScrollBar:vertical { height: 10px; }")
     ######################
     load()
-    button_count_clicked()
+
     main_window.show()
     app.exec_()
