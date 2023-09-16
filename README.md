@@ -1,6 +1,6 @@
 <h1 id="-div-align-center-dnf-div-"><div align="center"> DNF 奶量计算器 </div></h1>
 <h2 id="-">一.预览</h2>
-<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/ui.png">
+<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/V1.2.png">
 <h2 id="-">二.使用及说明</h2>
 <h3 id="-buff-">
 <font color=#FF0000> 使用前需注意,如果站街穿的不是BUff换装上的装备要穿上,否则站街Buff会算不准!</font>
