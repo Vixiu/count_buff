@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1198</width>
-    <height>838</height>
+    <width>1141</width>
+    <height>781</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -31,10 +31,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>1171</width>
-     <height>811</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1141</width>
+     <height>781</height>
     </rect>
    </property>
    <property name="font">
@@ -229,9 +229,9 @@ QScrollBar:horizontal {
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>30</y>
+      <y>40</y>
       <width>4</width>
-      <height>741</height>
+      <height>700</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -2831,65 +2831,87 @@ background-color:#ffffff;
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="button_add">
+   <widget class="QWidget" name="widget_2" native="true">
     <property name="geometry">
      <rect>
-      <x>851</x>
-      <y>622</y>
-      <width>50</width>
-      <height>26</height>
+      <x>870</x>
+      <y>610</y>
+      <width>201</width>
+      <height>61</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>新增</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_del">
-    <property name="geometry">
-     <rect>
-      <x>924</x>
-      <y>622</y>
-      <width>50</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>删除</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_save">
-    <property name="geometry">
-     <rect>
-      <x>997</x>
-      <y>622</y>
-      <width>50</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>保存</string>
-    </property>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>201</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_14">
+      <item>
+       <widget class="QPushButton" name="button_add">
+        <property name="maximumSize">
+         <size>
+          <width>60</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>新增</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_del">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>删除</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_save">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>60</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>保存</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <zorder>button_add</zorder>
    <zorder>button_del</zorder>
@@ -2909,11 +2931,12 @@ background-color:#ffffff;
    <zorder>groupBox_3</zorder>
    <zorder>tabWidget</zorder>
    <zorder>scrollArea</zorder>
+   <zorder>widget_2</zorder>
   </widget>
  </widget>
  <resources>
   <include location="uncompiled/images.qrc"/>
-  <include location="images.qrc"/>
+  <include location="uncompiled/images.qrc"/>
  </resources>
  <connections/>
 </ui>

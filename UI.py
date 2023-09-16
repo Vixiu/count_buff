@@ -14,12 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_widget(object):
     def setupUi(self, widget):
         widget.setObjectName("widget")
-        widget.resize(1198, 838)
+        widget.resize(1141, 781)
         widget.setMinimumSize(QtCore.QSize(0, 0))
         widget.setMaximumSize(QtCore.QSize(16777215, 999999))
         self.widget_1 = QtWidgets.QWidget(widget)
         self.widget_1.setEnabled(True)
-        self.widget_1.setGeometry(QtCore.QRect(10, 10, 1171, 811))
+        self.widget_1.setGeometry(QtCore.QRect(0, 0, 1141, 781))
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
@@ -120,7 +120,7 @@ class Ui_widget(object):
 "\n"
 "QScrollBar{\n"
 "                         \n"
-"padding-top:10px;\n"
+"padding-top:12px;\n"
 "                   }\n"
 "QScrollBar:horizontal {\n"
 "                background: transparent;\n"
@@ -129,7 +129,7 @@ class Ui_widget(object):
 "            }\n"
 "            QScrollBar::handle:horizontal {\n"
 "                background: rgb(205, 205, 205);\n"
-"                min-width: 30px; /* 将滑块的宽度减小为10px */\n"
+"          \n"
 "                border-radius: 4px; /* 圆角效果 */\n"
 "                \n"
 "                    \n"
@@ -144,7 +144,7 @@ class Ui_widget(object):
 "            }\n"
 "\n"
 "     QScrollBar::handle:horizontal:hover{\n"
-"                background: rgb(58, 58, 58);\n"
+"                background: rgb(122, 122, 122);\n"
 "       \n"
 "                    \n"
 "            }\n"
@@ -172,7 +172,7 @@ class Ui_widget(object):
         self.button_jc.setObjectName("button_jc")
         self.line = QtWidgets.QFrame(self.widget_1)
         self.line.setEnabled(True)
-        self.line.setGeometry(QtCore.QRect(450, 30, 4, 741))
+        self.line.setGeometry(QtCore.QRect(450, 40, 4, 700))
         self.line.setMinimumSize(QtCore.QSize(4, 0))
         self.line.setMaximumSize(QtCore.QSize(4, 999999))
         font = QtGui.QFont()
@@ -1307,43 +1307,42 @@ class Ui_widget(object):
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 291, 71))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.horizontalScrollBar = QtWidgets.QScrollBar(self.widget_1)
-        self.horizontalScrollBar.setGeometry(QtCore.QRect(650, 760, 421, 20))
-        self.horizontalScrollBar.setStyleSheet("\n"
-"QScrollBar::handle:vertical\n"
-"{\n"
-"    background:darkgray;  \n"
-"    border-radius:6px;  \n"
-"    margin-left:2px; \n"
-"    margin-right:2px; \n"
-"\n"
-"}")
-        self.horizontalScrollBar.setOrientation(QtCore.Qt.Horizontal)
-        self.horizontalScrollBar.setObjectName("horizontalScrollBar")
-        self.button_add = QtWidgets.QPushButton(self.widget_1)
-        self.button_add.setGeometry(QtCore.QRect(851, 622, 50, 26))
+        self.widget_2 = QtWidgets.QWidget(self.widget_1)
+        self.widget_2.setGeometry(QtCore.QRect(870, 610, 201, 61))
+        self.widget_2.setObjectName("widget_2")
+        self.widget = QtWidgets.QWidget(self.widget_2)
+        self.widget.resize(201, 51)
+        self.widget.setObjectName("widget")
+        self.horizontalLayout_14 = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        self.button_add = QtWidgets.QPushButton(self.widget)
+        self.button_add.setMaximumSize(QtCore.QSize(60, 30))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
         self.button_add.setFont(font)
         self.button_add.setObjectName("button_add")
-        self.button_del = QtWidgets.QPushButton(self.widget_1)
-        self.button_del.setGeometry(QtCore.QRect(924, 622, 50, 26))
+        self.horizontalLayout_14.addWidget(self.button_add)
+        self.button_del = QtWidgets.QPushButton(self.widget)
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
         self.button_del.setFont(font)
         self.button_del.setObjectName("button_del")
-        self.button_save = QtWidgets.QPushButton(self.widget_1)
-        self.button_save.setGeometry(QtCore.QRect(997, 622, 50, 26))
+        self.horizontalLayout_14.addWidget(self.button_del)
+        self.button_save = QtWidgets.QPushButton(self.widget)
+        self.button_save.setMinimumSize(QtCore.QSize(0, 0))
+        self.button_save.setMaximumSize(QtCore.QSize(60, 30))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
         self.button_save.setFont(font)
         self.button_save.setObjectName("button_save")
+        self.horizontalLayout_14.addWidget(self.button_save)
         self.button_add.raise_()
         self.button_del.raise_()
         self.button_save.raise_()
@@ -1362,7 +1361,7 @@ class Ui_widget(object):
         self.groupBox_3.raise_()
         self.tabWidget.raise_()
         self.scrollArea.raise_()
-        self.horizontalScrollBar.raise_()
+        self.widget_2.raise_()
 
         self.retranslateUi(widget)
         self.tabWidget.setCurrentIndex(0)

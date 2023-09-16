@@ -99,13 +99,7 @@ data_base = {
     'nai_ba_ssp': 0,
 
 }
-now_data = {
-    "nai_ma": {},
-    "nai_ba": {},
-    "nai_luo": {},
-    "nai_gong": {},
 
-}
 save_data = {
     "nai_ma": {
         "pz_1": {
@@ -627,6 +621,12 @@ def clear_text():
 def close_windows():
     global save_data
     save_data['career'] = now_career
+
+    if not path.exists(path.dirname(FILE_PATH)):
+        makedirs(path.dirname(FILE_PATH))
+
+    with open(FILE_PATH, "w+") as f:
+        json.dump(save_data, f)
     QCoreApplication.instance().quit()
 
 
