@@ -159,6 +159,7 @@ def input_validation(fn):
         data_now = {}
 
         def validation(text: str):
+            # 待修改,输入0开头字符会报错,且最好替换eval
             if ',' in text:
                 return False, [eval(i) for i in text.split(',') if i.isdigit()]
             elif text.startswith('+') or text.startswith('-'):
