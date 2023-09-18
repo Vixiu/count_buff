@@ -504,11 +504,11 @@ def button_count_clicked(data_now):
 
 
 def diff_dict(dict1, dict2):
-    """计算两个嵌套字典的差值"""
+    # 计算两个相同结构字典的差值
     diff = {}
     for key in dict1:
         if isinstance(dict1[key], dict):
-            diff[key] = diff_dict(dict1[key], dict2[key])
+            diff[key] = diff_dict(dict1[key], dict2[key])  # 递归
         else:
             diff[key] = dict2[key] - dict1[key]
     return diff
