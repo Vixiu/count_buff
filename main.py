@@ -66,13 +66,15 @@ BASIC_DATA = {
                             1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668],
                  'xs': 750,
                  'xyz': (5250, 5000, 0.000025)
-                 }
+                 },
+
 }
 now_career = 'nai_ma'
 # 各项初始值
 data_base = {
     'ty_lv': 37,
     'ty_intellect': 0,
+    'ty3_lv': 3,
     'buff_amount': 0,
     'out_intellect': 0,
 
@@ -84,7 +86,7 @@ data_base = {
     'out_guild': 80,
 
     'in_intellect': 0,
-    'in_lv': 1,
+    'in_lv': 21,
     'halo_amount': 0,
     'pet_amount': 0,
     'jade_amount': 0,
@@ -193,7 +195,7 @@ def input_validation(fn):
         if not (0 < data_now.get('out_lv', 1) < 41):
             exception.append(('out_lv', '1~40'))
         if not (0 < data_now.get('ty_lv', 1) < 41):
-            exception.append(('ty_lv', '1~40'))
+            exception.append(('ty_lv', '过大'))
         add = UI.add.text()
         if add in ('-', '+'):
             add = 0
@@ -202,6 +204,7 @@ def input_validation(fn):
         except ValueError:
             exception.append(('add', add))
         if exception:
+            print('输入错误：', exception)
             for key, tip in exception:
                 if key in ('in_intellect', 'in_lv'):
                     UI.tabWidget.setCurrentIndex(0)
@@ -216,6 +219,7 @@ def input_validation(fn):
                     "background-color: #00aaff;"
                     "border:0px;"
                     "border-bottom: 3px solid red;")
+            return data_now
         else:
 
             if type(data_now['percentage_attack']) is not list:
@@ -225,7 +229,7 @@ def input_validation(fn):
             if type(data_now['ty_percentage']) is not list:
                 data_now['ty_percentage'] = [data_now['ty_percentage']]
             data_now['cp_arms'] = UI.cp_arm.isChecked()
-            fn(data_now)
+            return fn(data_now)
 
     return run_fn
 
@@ -235,16 +239,25 @@ def buff(data_now):
     data_now['in_intellect'] += data_now["add"]
     data_now['out_intellect'] += data_now["add"]
     data_now['ty_intellect'] += data_now["add"]
+    now = {'zj': count_zj_buff(cr, data_now),
+           'jt': count_jt_buff(cr, data_now),
+           'ty': count_ty(data_now),
+           }
+    base = {
+        'zj': count_zj_buff(cr, data_base),
+        'jt': count_jt_buff(cr, data_base),
+        'ty': count_ty(data_base)
+    }
+    now.update(count_ty3(now['ty'], data_now['ty3_lv']))
+    base.update(count_ty3(base['ty'], data_base['ty3_lv']))
+    return now, base
 
-    return {'zj': count_zj_buff(cr, data_now),
-            'jt': count_jt_buff(cr, data_now),
-            'ty': count_ty(data_now)
-            }, \
-        {
-            'zj': count_zj_buff(cr, data_base),
-            'jt': count_jt_buff(cr, data_base),
-            'ty': count_ty(data_base)
-        }
+
+def count_ty3(intellect, lv):
+    return {
+        'san_one': round(intellect * (1.08 + lv * 0.01)),
+        'san_two': round(intellect * (1.23 + lv * 0.01)),
+    }
 
 
 def value_to_str(data):
@@ -317,6 +330,9 @@ def clear():
 
 def naima_setting():
     global now_career
+
+    is_save()
+
     clear()
     UI.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/84.PNG"))
@@ -349,7 +365,7 @@ def naima_setting():
 
 def nailuo_setting():
     global now_career
-
+    is_save()
     clear()
     UI.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/719.PNG"))
@@ -381,6 +397,7 @@ def nailuo_setting():
 
 def naiba_setting():
     global now_career
+    is_save()
     clear()
     UI.tabWidget.insertTab(2, UI.tab3, '奶爸二觉')
     main_window.setWindowIcon(QIcon(":/png/111.PNG"))
@@ -411,6 +428,7 @@ def naiba_setting():
 
 def naigong_setting():
     global now_career
+    is_save()
     clear()
     UI.tabWidget.removeTab(2)
     main_window.setWindowIcon(QIcon(":/png/14.PNG"))
@@ -448,10 +466,6 @@ def button_count_clicked(data_now):
     if career == 'nai_ma':
         now['z_jt'] = {k: round(v * 1.15) for k, v in now['jt'].items()}
         base['z_jt'] = {k: round(v * 1.15) for k, v in base['jt'].items()}
-        now['san_one'] = round(now['ty'] * 1.12)
-        now['san_two'] = round(now['ty'] * 1.27)
-        base['san_one'] = round(base['ty'] * 1.12)
-        base['san_two'] = round(base['ty'] * 1.27)
         gap = diff_dict(base, now)
         set_naima(value_to_str(now), gap_set(gap))
     elif career == 'nai_luo':
@@ -586,6 +600,8 @@ def is_contrast(data_now):
         v.setText('')
     UI.add.setPlaceholderText('')
     data_base = data_now.copy()
+
+    button_count_clicked()
     clear_cj()
 
 
@@ -639,6 +655,8 @@ def save(data_now):
     with open(FILE_PATH, "w+") as f:
         json.dump(save_data, f)
 
+    is_contrast()
+
 
 def pz_setting(cr):
     for i in reversed(range(h_layout.count())):
@@ -648,19 +666,19 @@ def pz_setting(cr):
 
 
 def load():
+    global save_data, now_career
     # 首次运行创建文件夹及文件步骤写到save_data里不要写在这.否则可能会报读
     try:
-        global save_data
+
         with open(FILE_PATH, "r") as f:
             save_data = json.load(f)
     except:
         pass
         # 如果读取不到或者读取错则用默认数据
     career = save_data['career']
+    now_career = save_data['career']
     pz_setting(career)
     pz_clicked(save_data['record'][career], career)
-    button_count_clicked()
-    is_contrast()
     if career == 'nai_ma':
         naima_setting()
     elif career == 'nai_ba':
@@ -669,6 +687,9 @@ def load():
         nailuo_setting()
     elif career == 'nai_gong':
         naigong_setting()
+
+    button_count_clicked()
+    is_contrast()
     clear_cj()
 
 
@@ -733,7 +754,9 @@ def pz_clicked(pz_id, cr=None):
             btn.setStyleSheet("")
     save_data['record'][cr] = pz_id
     button_count_clicked()
-    is_contrast()
+
+
+# is_contrast()
 
 
 def add_button():
@@ -773,6 +796,24 @@ def del_button():
         save()
 
 
+@input_validation
+def get_data_now(data_now):
+    return data_now
+
+
+def is_save():
+    data_now = get_data_now()
+    db = save_data[now_career][save_data['record'][now_career]]['data'].copy()
+    print(data_now, db)
+    data_now.pop('add', 1)
+    db.pop("add", 1)
+
+    if not data_now == db:
+        if QMessageBox.question(main_window, "消息框标题", "是否保存数据？",
+                                QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
+            print(1)
+
+
 if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
@@ -789,7 +830,7 @@ if __name__ == '__main__':
         'add': UI.add,
         'in_lv': UI.jt_lv,
         'ty_lv': UI.ty_lv,
-
+        'ty3_lv': UI.ty3_lv,
         'halo_amount': UI.buff_gh,
         'pet_amount': UI.buff_cw,
         'jade_amount': UI.buff_bxy,
