@@ -12,7 +12,7 @@ from UI import Ui_widget
 from Widget import RoundedWindow
 from PyQt5.QtWidgets import QPushButton
 
-FILE_PATH = rf'{getenv("APPDATA")}\count_buff\data.json'
+FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
 UI = Ui_widget()
 BASIC_DATA = {
     'nai_ma': {
@@ -817,6 +817,7 @@ def is_save():
 if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
+    main_window.setStyleSheet("color: rgb(0, 0, 0);\n")
     UI.setupUi(main_window)
     main_window.setWindowTitle(' 奶量计算器')
     # 要检查的输入框
