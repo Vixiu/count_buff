@@ -471,12 +471,8 @@ def button_count_clicked(data_now):
     elif career == 'nai_luo':
         now['z_jt'] = {k: round(v * 1.25) for k, v in now['jt'].items()}
         now['p_jt'] = {k: round(v * 1.4375) for k, v in now['jt'].items()}
-        now['san_one'] = round(now['ty'] * 1.12)
-        now['san_two'] = round(now['ty'] * 1.27)
         base['z_jt'] = {k: round(v * 1.25) for k, v in base['jt'].items()}
         base['p_jt'] = {k: round(v * 1.4375) for k, v in base['jt'].items()}
-        base['san_one'] = round(base['ty'] * 1.12)
-        base['san_two'] = round(base['ty'] * 1.27)
         gap = diff_dict(base, now)
         set_nailuo(value_to_str(now), gap_set(gap))
     elif career == 'nai_ba':
@@ -486,19 +482,12 @@ def button_count_clicked(data_now):
         now['z_jt'] = count_jt_buff(career, data_now)
         base['z_jt'] = count_jt_buff(career, _)
         #######################################
-        now['san_one'] = round(now['ty'] * 1.12)
-        now['san_two'] = round(now['ty'] * 1.27)
-        base['san_one'] = round(base['ty'] * 1.12)
-        base['san_two'] = round(base['ty'] * 1.27)
+
         gap = diff_dict(base, now)
         set_naiba(value_to_str(now), gap_set(gap))
     elif career == 'nai_gong':
         now['z_jt'] = {k: round(v * 1.1) for k, v in now['jt'].items()}
         base['z_jt'] = {k: round(v * 1.1) for k, v in base['jt'].items()}
-        now['san_one'] = round(now['ty'] * 1.12)
-        now['san_two'] = round(now['ty'] * 1.27)
-        base['san_one'] = round(base['ty'] * 1.12)
-        base['san_two'] = round(base['ty'] * 1.27)
         gap = diff_dict(base, now)
         set_naigong(value_to_str(now), gap_set(gap))
 
@@ -636,13 +625,14 @@ def clear_text():
 
 def close_windows():
     global save_data
+    is_save()
     save_data['career'] = now_career
-
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
 
     with open(FILE_PATH, "w+") as f:
         json.dump(save_data, f)
+
     QCoreApplication.instance().quit()
 
 
@@ -654,7 +644,6 @@ def save(data_now):
     save_data[now_career][save_data['record'][now_career]]["data"] = data_now
     with open(FILE_PATH, "w+") as f:
         json.dump(save_data, f)
-
     is_contrast()
 
 
@@ -667,9 +656,8 @@ def pz_setting(cr):
 
 def load():
     global save_data, now_career
-    # 首次运行创建文件夹及文件步骤写到save_data里不要写在这.否则可能会报读
+    # 首次运行创建文件夹及文件步骤写到save_data里不要写在这.否则可能会报毒
     try:
-
         with open(FILE_PATH, "r") as f:
             save_data = json.load(f)
     except:
@@ -804,14 +792,13 @@ def get_data_now(data_now):
 def is_save():
     data_now = get_data_now()
     db = save_data[now_career][save_data['record'][now_career]]['data'].copy()
-    print(data_now, db)
     data_now.pop('add', 1)
     db.pop("add", 1)
 
     if not data_now == db:
         if QMessageBox.question(main_window, "消息框标题", "是否保存数据？",
                                 QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
-            print(1)
+            save()
 
 
 if __name__ == '__main__':
