@@ -25,3 +25,12 @@ class RoundedWindow(QWidget):
             self.move(self.mapToGlobal(event.pos() - self.mPos))
         event.accept()
 
+    def window_top(self, flag: bool):
+        # 没有这行代码会使窗口的标题栏消失
+        if flag:
+            self.windowHandle().setFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
+
+        else:
+            self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+
+        self.repaint()
