@@ -470,7 +470,7 @@ border: 2px solid rgb(125, 125, 125);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>390</y>
+       <y>380</y>
        <width>300</width>
        <height>110</height>
       </rect>
@@ -506,7 +506,7 @@ border: 2px solid rgb(125, 125, 125);
        <rect>
         <x>27</x>
         <y>30</y>
-        <width>271</width>
+        <width>261</width>
         <height>63</height>
        </rect>
       </property>
@@ -516,6 +516,9 @@ border: 2px solid rgb(125, 125, 125);
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_34">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_59">
            <property name="font">
@@ -588,10 +591,10 @@ border: 2px solid rgb(125, 125, 125);
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_32">
          <property name="spacing">
-          <number>7</number>
+          <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label_58">
+          <widget class="QLabel" name="label_26">
            <property name="font">
             <font>
              <pointsize>15</pointsize>
@@ -613,7 +616,7 @@ border: 2px solid rgb(125, 125, 125);
             <string>999999</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -637,7 +640,7 @@ border: 2px solid rgb(125, 125, 125);
             </font>
            </property>
            <property name="text">
-            <string>-99999</string>
+            <string>999999</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -709,6 +712,9 @@ border: 2px solid rgb(125, 125, 125);
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_24">
            <property name="font">
@@ -780,6 +786,9 @@ border: 2px solid rgb(125, 125, 125);
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_25">
            <property name="font">
@@ -931,6 +940,9 @@ border: 2px solid rgb(125, 125, 125);
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_34">
            <property name="font">
@@ -1002,6 +1014,9 @@ border: 2px solid rgb(125, 125, 125);
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_32">
            <property name="font">
@@ -1883,6 +1898,9 @@ border: 2px solid rgb(144, 144, 144);
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_19">
            <property name="maximumSize">
@@ -1960,6 +1978,9 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_8">
            <property name="maximumSize">
@@ -2125,6 +2146,9 @@ border: 2px solid rgb(144, 144, 144);
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_30">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <property name="leftMargin">
         <number>10</number>
        </property>
@@ -2260,6 +2284,9 @@ border: 2px solid rgb(144, 144, 144);
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_31">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <property name="leftMargin">
          <number>20</number>
         </property>
@@ -2349,6 +2376,9 @@ border: 2px solid rgb(144, 144, 144);
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_33">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <property name="leftMargin">
          <number>20</number>
         </property>
