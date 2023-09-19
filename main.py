@@ -131,7 +131,6 @@ save_data = {
         },
 
     },
-
     "record": {
         "nai_ma": 'pz_1',
         "nai_ba": 'pz_1',
@@ -795,7 +794,6 @@ def is_save():
     db = save_data[now_career][save_data['record'][now_career]]['data'].copy()
     data_now.pop('add', 1)
     db.pop("add", 1)
-
     if not data_now == db:
         if QMessageBox.question(main_window, "消息框标题", "是否保存数据？",
                                 QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
@@ -811,7 +809,7 @@ if __name__ == '__main__':
     # 要检查的输入框
     UI_DATA = {
         'ty_intellect': UI.ty_zhili,
-        'in_intellect': UI.jt_zhili,  # 此项在最后
+        'in_intellect': UI.jt_zhili,
 
         'buff_amount': UI.buff_liang,
         'out_intellect': UI.zj_zhili,
