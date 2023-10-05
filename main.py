@@ -158,7 +158,7 @@ def input_validation(fn):
         data_now = {}
 
         def validation(text: str):
-            # 待修改,输入0开头字符会报错,且最好替换eval
+            # 待修改,输入0开头字符会报错,且最好替换掉eval
             if ',' in text:
                 return False, [eval(i) for i in text.split(',') if i.isdigit()]
             elif text.startswith('+') or text.startswith('-'):
@@ -503,10 +503,27 @@ def diff_dict(dict1, dict2):
     return diff
 
 
-def count_buff(buff_amount, intellect, xs, xyz, cp_arms, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
+def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arms: bool, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
+    """
+
+    :param buff_amount: 增益量
+    :param intellect: 四维
+    :param xs: 系数
+    :param xyz: x,y,z
+    :param cp_arms: cp武器
+    :param arm:
+    :return: 函数
+    """
     x, y, z = xyz
 
     def count(fixed, bfb: list, basic_attack) -> int:
+        """
+
+        :param fixed: 固定加成
+        :param bfb: 百分比加成
+        :param basic_attack: 基础数值
+        :return:
+        """
         old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
         for n in bfb:
             old_buff *= (1 + n / 100)
@@ -853,7 +870,6 @@ if __name__ == '__main__':
     UI.naima_button.clicked.connect(naima_setting)
     UI.naiba_button.clicked.connect(naiba_setting)
     UI.naigong_button.clicked.connect(naigong_setting)
-
     ####################
     UI.zl_lv.textEdited.connect(lv_to)
     UI.zj_xz.textEdited.connect(intellect_to)
