@@ -15,6 +15,12 @@
 <li><strong>针对辟邪玉:</strong>不要看辟邪玉的<font color=#FF7F50>内部词条</font><img width="100" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/辟邪玉1.png">,请按下图对应填写<img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/辟邪玉2.png"></li>
 <li><strong>其他:</strong> 在点击 <strong>设为基础</strong><font color=#A9A9A9> 数据变灰</font>后，如果 <font color=#FF7F50>输入(+,-)号加数字</font>,那么软件会以变灰的数据为基础进行计算,理论三攻误差±1,力智误差±10.</li>
 </ol>
+<strong>可能会有的更新(备忘)</strong>
+1.添加一个对于C的相对提百分比提升显示,但不知道如何计算C的伤害提升,也缺少数据模板,无限期搁置
+2.类似光环宠物等1~95技能等级加+1,对于此类加等级的装备如果手动计算非常麻烦.
+思路:增加一个弹出面板,计算出增加的四维,然后再加到计算器里去.
+需要考虑到技能的成长曲线包括(是否线性成长，是否有上限),四个奶加起来的工程量极大,无限期搁置.
+3.Bug-1.输入0开头的数计算会直接退出.
 <h2 id="-">三.示例</h2>
 <h3 id="-">下面以奶妈为例,进行简单计算</h3>
 <h4 id="-">1.1面板(未穿项链)</h4>
@@ -27,7 +33,6 @@
 </p>
 <h4 id="-">1.2填写</h4>
 <img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/9.png">
-
 <h4 id="-">1.3结果&实际</h4>
 <p>
   <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/10.png" >
