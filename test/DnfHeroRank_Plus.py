@@ -626,7 +626,7 @@ async def get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_na
              ...
             ]
     """
-    rangks = []
+    rank_data = []
     try:
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=1),
                                          connector=aiohttp.TCPConnector(limit=64, ssl=False, )) as session:
@@ -643,7 +643,7 @@ async def get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_na
                 dt = json.loads(await resp.text())
 
         for dta in dt['data']['list']:
-            rangks.append(
+            rank_data.append(
                 [
                     dta['rank'],
                     dta['roleName'],
@@ -654,20 +654,15 @@ async def get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_na
                     name,
                 ]
             )
+        csvwriter.writerows(rank_data)
+        pbar1.update(len(rank_data))
         pbar3.set_description_str(f'{hero_name} | {word_name} | {name}')
-    except:
+    except :
         global n
         n += 1
         pbar2.total = n
-        rangks = await get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_name)
+        await get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_name)
         pbar2.update(1)
-    return rangks
-
-
-def save_data(rank_data):
-    rank_data = rank_data.result()
-    csvwriter.writerows(rank_data)
-    pbar1.update(len(rank_data))
 
 
 if __name__ == '__main__':
@@ -694,7 +689,6 @@ if __name__ == '__main__':
                 }
                 for cr in _curRank:
                     _ = loop.create_task(get_rank(curRank=cr, **keys))
-                    _.add_done_callback(save_data)
                     task.append(_)
                 if len(task) >= max_post:
                     loop.run_until_complete(asyncio.wait(task))
