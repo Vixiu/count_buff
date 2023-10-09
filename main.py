@@ -70,7 +70,6 @@ BASIC_DATA = {
 
 }
 now_career = 'nai_ma'
-# 各项初始值
 data_base = {
     'ty_lv': 37,
     'ty_intellect': 0,
@@ -101,7 +100,6 @@ data_base = {
     'nai_ba_ssp': 0,
 
 }
-
 save_data = {
     "nai_ma": {
         "pz_1": {
@@ -817,13 +815,39 @@ def is_save():
             save()
 
 
+def start():
+    ####################
+    UI.button_count.clicked.connect(button_count_clicked)
+    UI.button_jc.clicked.connect(is_contrast)
+    UI.button_close.clicked.connect(close_windows)
+    UI.button_save.clicked.connect(save)
+    UI.button_min.clicked.connect(minimize_window)
+    UI.button_top.clicked.connect(top_window)
+    UI.button_add.clicked.connect(add_button)
+    UI.button_del.clicked.connect(del_button)
+    ####################
+    UI.nailuo_button.clicked.connect(nailuo_setting)
+    UI.naima_button.clicked.connect(naima_setting)
+    UI.naiba_button.clicked.connect(naiba_setting)
+    UI.naigong_button.clicked.connect(naigong_setting)
+    ####################
+    UI.zl_lv.textEdited.connect(lv_to)
+    UI.zj_xz.textEdited.connect(intellect_to)
+    UI.zj_zhili.textEdited.connect(intellect_to)
+    UI.zj_gh.textEdited.connect(intellect_to)
+    UI.zj_eh.textEdited.connect(intellect_to)
+    UI.zj_bd.textEdited.connect(intellect_to)
+    UI.add.textEdited.connect(button_count_clicked)
+
+    load()
+
+
 if __name__ == '__main__':
     app = QApplication(argv)
     main_window = RoundedWindow()
     main_window.setStyleSheet("color: rgb(0, 0, 0);\n")
-    UI.setupUi(main_window)
     main_window.setWindowTitle(' 奶量计算器')
-    # 要检查的输入框
+    UI.setupUi(main_window)
     UI_DATA = {
         'ty_intellect': UI.ty_zhili,
         'in_intellect': UI.jt_zhili,
@@ -856,43 +880,20 @@ if __name__ == '__main__':
         'nai_ba_ssp': UI.naiba_ej,
 
     }
-    ####################
-    UI.button_count.clicked.connect(button_count_clicked)
-    UI.button_jc.clicked.connect(is_contrast)
-    UI.button_close.clicked.connect(close_windows)
-    UI.button_save.clicked.connect(save)
-    UI.button_min.clicked.connect(minimize_window)
-    UI.button_top.clicked.connect(top_window)
-    UI.button_add.clicked.connect(add_button)
-    UI.button_del.clicked.connect(del_button)
-    ####################
-    UI.nailuo_button.clicked.connect(nailuo_setting)
-    UI.naima_button.clicked.connect(naima_setting)
-    UI.naiba_button.clicked.connect(naiba_setting)
-    UI.naigong_button.clicked.connect(naigong_setting)
-    ####################
-    UI.zl_lv.textEdited.connect(lv_to)
-    UI.zj_xz.textEdited.connect(intellect_to)
-    UI.zj_zhili.textEdited.connect(intellect_to)
-    UI.zj_gh.textEdited.connect(intellect_to)
-    UI.zj_eh.textEdited.connect(intellect_to)
-    UI.zj_bd.textEdited.connect(intellect_to)
-    UI.add.textEdited.connect(button_count_clicked)
-    ####################
+    # ----
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
     effect.setOffset(0, 0)  # 横纵,偏移量
     effect.setColor(Qt.black)  # 颜色
     UI.widget_1.setGraphicsEffect(effect)
-    ######################
+    ###
     scrollArea_widget = QWidget()
     scrollArea_widget.setStyleSheet("border-bottom: 1px solid #dadce0")
     h_layout = QHBoxLayout()
     scrollArea_widget.setLayout(h_layout)
     UI.scrollArea.setWidget(scrollArea_widget)
     UI.scrollArea.setStyleSheet("QScrollBar:vertical { height: 10px; }")
-    ######################
-    load()
-
+    # ----这里后续移动到UI.py里去
+    start()
     main_window.show()
     app.exec_()
