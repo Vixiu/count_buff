@@ -139,17 +139,6 @@ save_data = {
 }
 
 
-def throw_ex(fn):
-    def run():
-        try:
-            fn()
-        except Exception as e:
-            traceback.print_exc()
-            print(e)
-
-    return run
-
-
 def input_validation(fn):
     # 因为还要对输入数据在进行一次判断，所以不在输入层面就进行效验
     def run_fn():
@@ -676,8 +665,7 @@ def load():
         with open(FILE_PATH, "r") as f:
             save_data = json.load(f)
     except:
-        pass
-        # 如果读取不到或者读取错则用默认数据
+        pass  # 如果读取不到或者读取错则用默认数据
     career = save_data['career']
     now_career = save_data['career']
     pz_setting(career)
@@ -741,6 +729,7 @@ def pz_clicked(pz_id, cr=None):
     datas = save_data[cr][pz_id]['data']
     clear_text()
     clear_cj()
+    # 设置对应配置数据
     for k, v in datas.items():
         if k in UI_DATA:
             UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
@@ -749,7 +738,7 @@ def pz_clicked(pz_id, cr=None):
     btn.setStyleSheet("background:rgb(212, 218, 230);")
 
     '''
-
+    # 设置对应按钮状态
     for btn in scrollArea_widget.findChildren(QWidget):
         if btn.objectName() == pz_id:
             btn.setStyleSheet("background:rgb(212, 218, 230);")

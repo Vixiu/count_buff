@@ -547,45 +547,45 @@ HERO_LIST = [{'jobId': '16', 'transferId': '49', 'hero_name': '聆风·缪斯'},
              {'jobId': '11', 'transferId': '51', 'hero_name': '极诣·契魔者'},
              {'jobId': '11', 'transferId': '52', 'hero_name': '极诣·流浪武士'},
              {'jobId': '11', 'transferId': '53', 'hero_name': '极诣·刃影'},
-             {'jobId': '7', 'transferId': '9', 'hero_name': '归元·气功师(男)'},
-             {'jobId': '7', 'transferId': '0', 'hero_name': '归元·散打(男)'},
-             {'jobId': '7', 'transferId': '1', 'hero_name': '归元·街霸(男)'},
-             {'jobId': '7', 'transferId': '2', 'hero_name': '归元·柔道家(男)'},
-             {'jobId': '1', 'transferId': '9', 'hero_name': '归元·气功师(女)'},
-             {'jobId': '1', 'transferId': '0', 'hero_name': '归元·散打(女)'},
-             {'jobId': '1', 'transferId': '2', 'hero_name': '归元·柔道家(女)'},
-             {'jobId': '1', 'transferId': '1', 'hero_name': '归元·街霸(女)'},
-             {'jobId': '2', 'transferId': '9', 'hero_name': '重霄·漫游枪手(男)'},
-             {'jobId': '2', 'transferId': '0', 'hero_name': '重霄·枪炮师(男)'},
-             {'jobId': '2', 'transferId': '1', 'hero_name': '重霄·机械师(男)'},
-             {'jobId': '2', 'transferId': '2', 'hero_name': '重霄·弹药专家(男)'},
-             {'jobId': '2', 'transferId': '3', 'hero_name': '重霄·合金战士'},
-             {'jobId': '5', 'transferId': '9', 'hero_name': '重霄·漫游枪手(女)'},
-             {'jobId': '5', 'transferId': '0', 'hero_name': '重霄·枪炮师(女)'},
-             {'jobId': '5', 'transferId': '1', 'hero_name': '重霄·机械师(女)'},
-             {'jobId': '5', 'transferId': '2', 'hero_name': '重霄·弹药专家(女)'},
-             {'jobId': '8', 'transferId': '9', 'hero_name': '知源·元素爆破师'},
-             {'jobId': '8', 'transferId': '0', 'hero_name': '知源·冰结师'},
-             {'jobId': '8', 'transferId': '1', 'hero_name': '知源·猩红法师'},
-             {'jobId': '8', 'transferId': '2', 'hero_name': '知源·逐风者'},
-             {'jobId': '8', 'transferId': '3', 'hero_name': '知源·次元行者'},
-             {'jobId': '3', 'transferId': '9', 'hero_name': '知源·元素师'},
-             {'jobId': '3', 'transferId': '0', 'hero_name': '知源·召唤师'},
-             {'jobId': '3', 'transferId': '1', 'hero_name': '知源·战斗法师'},
-             {'jobId': '3', 'transferId': '2', 'hero_name': '知源·魔道学者'},
-             {'jobId': '3', 'transferId': '3', 'hero_name': '知源·小魔女'},
-             {'jobId': '4', 'transferId': '9', 'hero_name': '光启·光明骑士(男)'},
-             {'jobId': '4', 'transferId': '0', 'hero_name': '光启·蓝拳使者'},
-             {'jobId': '4', 'transferId': '1', 'hero_name': '光启·驱魔师'},
-             {'jobId': '4', 'transferId': '2', 'hero_name': '光启·惩戒者'},
+             {'jobId': '7', 'transferId': '49', 'hero_name': '归元·气功师(男)'},
+             {'jobId': '7', 'transferId': '50', 'hero_name': '归元·散打(男)'},
+             {'jobId': '7', 'transferId': '51', 'hero_name': '归元·街霸(男)'},
+             {'jobId': '7', 'transferId': '52', 'hero_name': '归元·柔道家(男)'},
+             {'jobId': '1', 'transferId': '49', 'hero_name': '归元·气功师(女)'},
+             {'jobId': '1', 'transferId': '50', 'hero_name': '归元·散打(女)'},
+             {'jobId': '1', 'transferId': '52', 'hero_name': '归元·柔道家(女)'},
+             {'jobId': '1', 'transferId': '51', 'hero_name': '归元·街霸(女)'},
+             {'jobId': '2', 'transferId': '49', 'hero_name': '重霄·漫游枪手(男)'},
+             {'jobId': '2', 'transferId': '50', 'hero_name': '重霄·枪炮师(男)'},
+             {'jobId': '2', 'transferId': '51', 'hero_name': '重霄·机械师(男)'},
+             {'jobId': '2', 'transferId': '52', 'hero_name': '重霄·弹药专家(男)'},
+             {'jobId': '2', 'transferId': '53', 'hero_name': '重霄·合金战士'},
+             {'jobId': '5', 'transferId': '49', 'hero_name': '重霄·漫游枪手(女)'},
+             {'jobId': '5', 'transferId': '50', 'hero_name': '重霄·枪炮师(女)'},
+             {'jobId': '5', 'transferId': '51', 'hero_name': '重霄·机械师(女)'},
+             {'jobId': '5', 'transferId': '52', 'hero_name': '重霄·弹药专家(女)'},
+             {'jobId': '8', 'transferId': '49', 'hero_name': '知源·元素爆破师'},
+             {'jobId': '8', 'transferId': '50', 'hero_name': '知源·冰结师'},
+             {'jobId': '8', 'transferId': '51', 'hero_name': '知源·猩红法师'},
+             {'jobId': '8', 'transferId': '52', 'hero_name': '知源·逐风者'},
+             {'jobId': '8', 'transferId': '53', 'hero_name': '知源·次元行者'},
+             {'jobId': '3', 'transferId': '49', 'hero_name': '知源·元素师'},
+             {'jobId': '3', 'transferId': '50', 'hero_name': '知源·召唤师'},
+             {'jobId': '3', 'transferId': '51', 'hero_name': '知源·战斗法师'},
+             {'jobId': '3', 'transferId': '52', 'hero_name': '知源·魔道学者'},
+             {'jobId': '3', 'transferId': '53', 'hero_name': '知源·小魔女'},
+             {'jobId': '4', 'transferId': '49', 'hero_name': '光启·光明骑士(男)'},
+             {'jobId': '4', 'transferId': '50', 'hero_name': '光启·蓝拳使者'},
+             {'jobId': '4', 'transferId': '51', 'hero_name': '光启·驱魔师'},
+             {'jobId': '4', 'transferId': '52', 'hero_name': '光启·惩戒者'},
              {'jobId': '14', 'transferId': '49', 'hero_name': '光启·光明骑士(女)'},
              {'jobId': '14', 'transferId': '50', 'hero_name': '光启·正义审判者'},
              {'jobId': '14', 'transferId': '51', 'hero_name': '光启·驱魔师'},
              {'jobId': '14', 'transferId': '52', 'hero_name': '光启·除恶者'},
-             {'jobId': '6', 'transferId': '9', 'hero_name': '隐夜·暗星'},
-             {'jobId': '6', 'transferId': '0', 'hero_name': '隐夜·黑夜术士'},
-             {'jobId': '6', 'transferId': '1', 'hero_name': '隐夜·忍者'},
-             {'jobId': '6', 'transferId': '2', 'hero_name': '隐夜·影舞者'},
+             {'jobId': '6', 'transferId': '49', 'hero_name': '隐夜·暗星'},
+             {'jobId': '6', 'transferId': '50', 'hero_name': '隐夜·黑夜术士'},
+             {'jobId': '6', 'transferId': '51', 'hero_name': '隐夜·忍者'},
+             {'jobId': '6', 'transferId': '52', 'hero_name': '隐夜·影舞者'},
              {'jobId': '12', 'transferId': '52', 'hero_name': '皓曦·龙骑士'},
              {'jobId': '12', 'transferId': '49', 'hero_name': '皓曦·精灵骑士'},
              {'jobId': '12', 'transferId': '51', 'hero_name': '皓曦·帕拉丁'},
@@ -598,21 +598,17 @@ HERO_LIST = [{'jobId': '16', 'transferId': '49', 'hero_name': '聆风·缪斯'},
              {'jobId': '15', 'transferId': '50', 'hero_name': '苍暮·特工'},
              {'jobId': '15', 'transferId': '51', 'hero_name': '苍暮·战线佣兵'},
              {'jobId': '15', 'transferId': '52', 'hero_name': '苍暮·源能专家'},
-             {'jobId': '9', 'transferId': '8', 'hero_name': '极诣·黑暗武士'},
+             {'jobId': '9', 'transferId': '48', 'hero_name': '极诣·黑暗武士'},
              {'jobId': '10', 'transferId': '48', 'hero_name': '知源·缔造者'}]
 
-URL = "https://mwegame.qq.com/yoyo/dnf/getrenownrank"
-
 pbar1 = tqdm(desc='已写入', total=0, leave=True, position=0, unit='条')
-pbar2 = tqdm(desc='重新发送失败请求', total=0, leave=False, position=5, bar_format='{l_bar}{bar} | {n}/{total}')
 pbar3 = tqdm(leave=False, position=4, bar_format='正在处理: {desc}', total=1, miniters=0)
 
-n = 0
 
-
-async def get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_name):
+async def get_rank(session, curRank, transferId, jobId, worldId, name, hero_name, word_name):
     """
    获取排名
+    :param session:
     :param name: 小区
     :param word_name:跨区
     :param hero_name: 职业名
@@ -628,20 +624,17 @@ async def get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_na
     """
     rank_data = []
     try:
-        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=1),
-                                         connector=aiohttp.TCPConnector(limit=64, ssl=False, )) as session:
-            async with await session.post(
-                    url=URL,
-                    data={
-                        'curRank': curRank,
-                        'transferId': transferId,
-                        'jobId': jobId,
-                        'worldId': worldId,
-                        'token': token,
-                        'userId': userId,
-                    }) as resp:
-                dt = json.loads(await resp.text())
-
+        async with await session.post(
+                url="https://mwegame.qq.com/yoyo/dnf/getrenownrank",
+                data={
+                    'curRank': curRank,
+                    'transferId': transferId,
+                    'jobId': jobId,
+                    'worldId': worldId,
+                    'token': token,
+                    'userId': userId,
+                }) as resp:
+            dt = json.loads(await resp.text())
         for dta in dt['data']['list']:
             rank_data.append(
                 [
@@ -657,41 +650,45 @@ async def get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_na
         csvwriter.writerows(rank_data)
         pbar1.update(len(rank_data))
         pbar3.set_description_str(f'{hero_name} | {word_name} | {name}')
-    except :
-        global n
-        n += 1
-        pbar2.total = n
-        await get_rank(curRank, transferId, jobId, worldId, name, hero_name, word_name)
-        pbar2.update(1)
+    except:
+        await get_rank(session, curRank, transferId, jobId, worldId, name, hero_name, word_name)
+
+
+async def run():
+    task = []
+    _curRank = [i for i in range(1, 488, 50)]
+    async with aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=3),
+            connector=aiohttp.TCPConnector(limit=0, ssl=False, ),
+    ) as session:
+        for hero in tqdm(HERO_LIST, desc='职业', position=1, bar_format='{l_bar}{bar} | {n}/{total}'):
+            for wn, v in tqdm(WORD_DICT.items(), leave=False, desc=f"跨区", position=2,
+                              bar_format='{l_bar}{bar} | {n}/{total}'):
+                for _ in tqdm(v, leave=False, desc='小区', position=3, bar_format='{l_bar}{bar} | {n}/{total}'):
+                    keys = {
+                        'word_name': wn,
+                        **hero, **_
+                    }
+                    for cr in _curRank:
+                        task.append(get_rank(session=session, curRank=cr, **keys))
+                    if len(task) >= max_post:
+                        await asyncio.gather(*task)
+                        task = []
+        await asyncio.gather(*task)
 
 
 if __name__ == '__main__':
     save_path = r'C:\Users\lnori\Desktop\dnf.csv'  # 保存位置
-    token = 'rCBfwB4P',  # 抓包获得 有时效
+    token = 'VGhn7MZA',  # 抓包获得 有时效
     userId = '235025306',  # 抓包获得
-    max_post = 30  # 并发数,最好不要大于100,否则可能会有大量需要重新发送的失败请求
+    max_post = 250  # 并发数
     ###########################
-    csvfile = open(save_path, 'w', newline='', encoding='utf-8')
+    csvfile = open(save_path, 'w+', newline='', encoding='utf-8')
     csvwriter = csv.writer(csvfile)
     csvwriter.writerows([['排名', '名字', '名望', '用户ID', '职业', '跨区', '小区']])
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    _curRank = [i for i in range(1, 488, 50)]
-    task = []
-
-    for hero in tqdm(HERO_LIST, desc='职业', position=1, bar_format='{l_bar}{bar} | {n}/{total}'):
-        for wn, v in tqdm(WORD_DICT.items(), leave=False, desc=f"跨区", position=2,
-                          bar_format='{l_bar}{bar} | {n}/{total}'):
-            for _ in tqdm(v, leave=False, desc='小区', position=3, bar_format='{l_bar}{bar} | {n}/{total}'):
-                keys = {
-                    'word_name': wn,
-                    **hero, **_
-                }
-                for cr in _curRank:
-                    _ = loop.create_task(get_rank(curRank=cr, **keys))
-                    task.append(_)
-                if len(task) >= max_post:
-                    loop.run_until_complete(asyncio.wait(task))
-                    task = []
-
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(run())
     csvfile.close()
+    csvfile = open(save_path, 'r', newline='', encoding='utf-8')
+    csv_reader = csv.reader(csvfile)
+    print(f"预计行数:4095000,实际行数:{sum(1 for row in csv_reader) - 1}")
