@@ -53,15 +53,13 @@ def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
         x))
 
 
-def count_buff(lv, buff_amount, intellect, attack_fixed):
-    print(buff_amount)
-    cr = 'nai_gong'
+def count_buff(lv, buff_amount, intellect, attack_fixed, *k):
+    cr = 'nai_ma'
     xs = 665
     x, y = (4350, 3500)
     # basic_attack = (1.34 * lv + 32.600) * 1.131 * 1.02
     basic_attack = BASIC_DATA[cr]['san_gong'][lv - 1]
-    basic_attack = 56
-    print(basic_attack)
+
     old_buff = ((basic_attack + attack_fixed) * ((intellect / xs) + 1))
     new_buff = basic_attack * ((intellect + x) / xs + 1) * (
             buff_amount + y) * z if buff_amount != 0 else 0
@@ -86,27 +84,24 @@ def count(a, b):
 
 z = 0.00003788627
 
-count(count_buff(11, 15527, 2526, 0), 785)
+count(count_buff(35, 111806, 8845, 8), 10591)
+
+count(count_buff(35, 111806, 8840, 8), 10587)
 
 '''
-count(count_buff(35, 111806, 8845, 8, 1, 1, 1, 1, 1), 10591)
-
-count(count_buff(35, 111806, 8840, 8, 1, 1, 1, 1, 1), 10587)
-
-
 count(count_lz(21, 111806, 8066, 0), 58141)
 count(count_lz(35, 111806, 8845, 0), 58141)
 count(count_lz(33, 111806, 7935, 0), 51758)
 count(count_lz(21, 107883, 8061, 0), 37675)
 count(count_lz(19, 107883, 8061, 0), 35495)
 count(count_lz(12, 107883, 8061, 0), 27919)
+'''
+count(count_buff(33, 111806, 7935, 8), 9532)
+count(count_buff(21, 107883, 8061, 8), 7378)
+count(count_buff(18, 99319, 7624, 8), 6180)
 
-count(count_buff(33, 111806, 7935, 8, 1, 1, 1, 1, 1), 9532)
-count(count_buff(21, 107883, 8061, 8, 1, 1, 1, 1, 1), 7378)
-count(count_buff(18, 99319, 7624, 8, 1, 1, 1, 1, 1), 6180)
-count(count_buff(18, 107883, 8061, 8, 1, 1, 1, 1, 1), 6860)
-count(count_buff(35, 106741, 8729, 8, 1, 1, 1, 1, 1), 10102)
-count(count_buff(35, 111683, 8840, 8, 1, 1, 1, 1, 1), 10577)
+count(count_buff(35, 106741, 8729, 8), 10102)
+count(count_buff(35, 111683, 8840, 8), 10577)
 count(count_buff(10, 89060, 7209, 8, 1, 1, 1, 1, 1), 4470)
 count(count_buff(10, 16960, 3272, 8, 1, 1, 1, 1, 1), 943)
 count(count_buff(21, 91322, 7265, 0, 1, 1, 1, 1, 1), 5917)
@@ -126,4 +121,3 @@ count(count_buff(5, 0, 3905, 8, 1, 1, 1, 1, 1), 364)
 
 count(count_buff(33, 111683, 7935, 8, 1, 1, 1, 1, 1), 9523)
 count(count_buff(33, 111806, 7935, 8, 1, 1, 1, 1, 1), 9532)
-'''

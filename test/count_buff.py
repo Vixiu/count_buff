@@ -2,6 +2,8 @@ import decimal
 
 import sys  # 导入sys模块
 
+import sympy as sympy
+
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
@@ -37,6 +39,7 @@ BASIC_DATA = {
 }
 
 
+# 反推z的值
 def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
     x = sympy.Symbol('x')
     #  basic_attack = round((1.34631476716774 * lv + 32.600) * 1.131 * 1.02)
@@ -49,6 +52,7 @@ def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
         x))
 
 
+# 计算buff
 def count_buff(lv, buff_amount, intellect, attack_fixed):
     basic_attack = BASIC_DATA['nai_ma']['san_gong'][lv - 1]
     xs = 665
@@ -60,19 +64,6 @@ def count_buff(lv, buff_amount, intellect, attack_fixed):
 
     buff = (old_buff + new_buff) * (1.08 if buff_amount != 0 else 1)
     return round(buff)
-
-
-def count_lz(lv, buff_amount, intellect, attack_fixed):
-    basic_attack = BASIC_DATA['nai_ma']['li_zhi'][lv - 1]
-    old_buff = ((basic_attack + attack_fixed) * ((intellect / 665) + 1))
-    new_buff = basic_attack * ((intellect + 4350) / 665 + 1) * (
-            buff_amount + 3500) * z if buff_amount != 0 else 0
-    buff = (old_buff + new_buff) * (1.08 if buff_amount != 0 else 1)
-    return round(buff)
-
-
-def count_z():
-    pass
 
 
 def de_sg():
@@ -95,22 +86,7 @@ def de_sg():
     print(z)
 
 
-# print(count_buff(21, 62887, 5667, 0))
-z = 0.000037
-n = 0.000000001
-# 3.788629000002003e-05
-lz = [
-    [33, 111806, 7935, 0, 51758],
-    [21, 107883, 8061, 0, 37675],
-    [19, 107883, 8061, 0, 35495],
-    [12, 107883, 8061, 0, 27919],
-    [33, 111806, 7935, 0, 51758],
-    [21, 107883, 8061, 0, 37675],
-    [19, 107883, 8061, 0, 35495],
-    [12, 107883, 8061, 0, 27919],
-]
 sg = [
-
     [35, 111806, 8845, 8, 10591],
     [35, 111806, 8840, 8, 10587],
     [33, 111806, 7935, 8, 9532],
@@ -128,35 +104,23 @@ sg = [
     [15, 107764, 8061, 0, 6325],
     [33, 106741, 7897, 8, 9144],
     [6, 17808, 3654, 8, 920],
-    [1, 0, 2324, 0, 175],
-    [14, 0, 3905, 8, 460],
-    [12, 0, 3905, 8, 440],
-    [10, 0, 3905, 8, 419],
-    [5, 0, 3905, 8, 364],
     [33, 111683, 7935, 8, 9523],
     [33, 111806, 7935, 8, 9532],
 
 ]
+"""
+[
+    [等级, 增益量, 力智, 固定玉, 实际结果],
+     ...
+    ]
+"""
+
+# 3.788619999999975e-05 >y >3.788530000000194e-05
+z = 0.000037
+max_num = 0.000038
+min_num = 0.000037
+n =       0.00000000000001
+# z = 0.00003788627
+
 
 de_sg()
-
-'''
-
-
-while flag:
-    for ls in lz:
-        c = count_lz(*ls[:-1]) - ls[-1]
-        if c < 0:
-            z += n
-            flag = True
-            break
-        elif c > 0:
-            z -= n
-            flag = True
-            break
-        elif c == 0:
-            flag = False
-print(z)
-'''
-
-# 3.788627 >y >3.788527

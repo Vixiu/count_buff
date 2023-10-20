@@ -609,20 +609,23 @@ async def get_rank(session, curRank, transferId, jobId, worldId, name, hero_name
     """
    获取排名
     :param session:
-    :param name: 小区
-    :param word_name:跨区
+    :param name: 小区名
+    :param word_name:跨区名
     :param hero_name: 职业名
-    :param curRank:获取排名起始开头
-    :param transferId:转职id
+    :param curRank:起始排名,默认增加50，貌似固定值[1, 51, 101,···,451]
+    :param transferId:转职id,49开始,外传职业48
     :param jobId:职业ID
     :param worldId:跨区id
-    :return:[
+
+    """
+    rank_data = []
+    """
+    [
              ['排名','名字','名望','用户ID','职业名','大区','小区'],
              ['排名','名字','名望','用户ID','职业名','大区','小区'],
              ...
             ]
     """
-    rank_data = []
     try:
         async with await session.post(
                 url="https://mwegame.qq.com/yoyo/dnf/getrenownrank",
@@ -654,6 +657,7 @@ async def get_rank(session, curRank, transferId, jobId, worldId, name, hero_name
         await get_rank(session, curRank, transferId, jobId, worldId, name, hero_name, word_name)
 
 
+
 async def run():
     task = []
     _curRank = [i for i in range(1, 488, 50)]
@@ -677,11 +681,13 @@ async def run():
         await asyncio.gather(*task)
 
 
+
 if __name__ == '__main__':
     save_path = r'C:\Users\lnori\Desktop\dnf.csv'  # 保存位置
     token = 'VGhn7MZA',  # 抓包获得 有时效
     userId = '235025306',  # 抓包获得
     max_post = 250  # 并发数
+
     ###########################
     csvfile = open(save_path, 'w+', newline='', encoding='utf-8')
     csvwriter = csv.writer(csvfile)
@@ -689,6 +695,6 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run())
     csvfile.close()
-    csvfile = open(save_path, 'r', newline='', encoding='utf-8')
-    csv_reader = csv.reader(csvfile)
-    print(f"预计行数:4095000,实际行数:{sum(1 for row in csv_reader) - 1}")
+    with open(save_path, 'r', newline='', encoding='utf-8') as f:
+        csv_reader = csv.reader(f)
+        print(f"预计行数:4095000,实际行数:{sum(1 for row in csv_reader) - 1}")

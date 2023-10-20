@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import QPushButton
 
 FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
 UI = Ui_widget()
+
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
@@ -23,8 +24,7 @@ BASIC_DATA = {
                    302, 311, 321, 332, 342, 353, 363, 374, 385, 395, 406, 415, 425, 437,
                    447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
         'xs': 665,
-        'xyz': (4350, 3500, 0.00003788627),
-        #       'xyz': (4345, 3500, 0.0000379),
+        'xyz': (4350, 3500, 3.788577500107263e-05),
     },
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
@@ -713,7 +713,7 @@ def top_window():
         main_window.window_top(True)
         UI.button_top.setStyleSheet("background:rgb(212, 218, 230);")
 
-
+#
 def add_layout_widget(name: str, btn_id: str):
     button = QPushButton(name)
     font = QtGui.QFont()
@@ -723,7 +723,7 @@ def add_layout_widget(name: str, btn_id: str):
     h_layout.addWidget(button)
     button.clicked.connect(lambda: pz_clicked(btn_id))
 
-
+#
 def pz_clicked(pz_id, cr=None):
     cr = cr if cr else now_career
     datas = save_data[cr][pz_id]['data']
@@ -772,7 +772,7 @@ def add_button():
         pz_clicked(pz_id)
     save()
 
-
+#  删除按钮
 def del_button():
     if len(save_data[now_career]) == 1:
         QMessageBox.critical(main_window, '错误', '至少保留一个吧！')
