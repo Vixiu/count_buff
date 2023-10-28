@@ -657,7 +657,6 @@ async def get_rank(session, curRank, transferId, jobId, worldId, name, hero_name
         await get_rank(session, curRank, transferId, jobId, worldId, name, hero_name, word_name)
 
 
-
 async def run():
     task = []
     _curRank = [i for i in range(1, 488, 50)]
@@ -679,7 +678,6 @@ async def run():
                         await asyncio.gather(*task)
                         task = []
         await asyncio.gather(*task)
-
 
 
 if __name__ == '__main__':

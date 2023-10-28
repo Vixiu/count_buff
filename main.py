@@ -24,7 +24,7 @@ BASIC_DATA = {
                    302, 311, 321, 332, 342, 353, 363, 374, 385, 395, 406, 415, 425, 437,
                    447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
         'xs': 665,
-        'xyz': (4350, 3500, 3.788577500107263e-05),
+        'xyz': (4350, 3500, 3.788574217978515e-05),
     },
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
@@ -47,7 +47,7 @@ BASIC_DATA = {
                    559, 570, 581, 593]
         ,
         'xs': 665,
-        'xyz': (4350, 3500, 0.00003788627),
+        'xyz': (4350, 3500, 3.7886202335357666e-05),
 
     },
     'nai_luo': {
@@ -58,7 +58,7 @@ BASIC_DATA = {
                    256, 264, 273, 282, 291, 300, 309, 318, 327, 336, 345, 353, 362, 371,
                    380, 389, 398, 407, 416, 425, 434, 442, 451, 460, 469, 478],
         'xs': 665,
-        'xyz': (4350, 3500, 0.00003788627),
+        'xyz': (4350, 3500, 3.7886202335357666e-05),
 
     },
     "tai_yang": {'li_zhi': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -139,6 +139,7 @@ save_data = {
 }
 
 
+# 输入效验
 def input_validation(fn):
     # 因为还要对输入数据在进行一次判断，所以不在输入层面就进行效验
     def run_fn():
@@ -221,6 +222,7 @@ def input_validation(fn):
     return run_fn
 
 
+# buff最顶层
 def buff(data_now):
     cr = now_career
     data_now['in_intellect'] += data_now["add"]
@@ -240,6 +242,7 @@ def buff(data_now):
     return now, base
 
 
+# 计算三觉力智
 def count_ty3(intellect, lv):
     return {
         'san_one': round(intellect * (1.08 + lv * 0.01)),
@@ -247,6 +250,7 @@ def count_ty3(intellect, lv):
     }
 
 
+# 递归将字典的值转换为字符串
 def value_to_str(data):
     if isinstance(data, dict):
         for key in data:
@@ -256,6 +260,7 @@ def value_to_str(data):
     return data
 
 
+# 递归设置差距文本样式
 def gap_set(gap):
     if isinstance(gap, dict):
         for key in gap:
@@ -265,6 +270,7 @@ def gap_set(gap):
     return gap
 
 
+# 设置显示数据
 def current(data, gap):
     UI.buff_sg.setText(data['zj']['sg'])
     UI.buff_lz.setText(data['zj']['lz'])
@@ -286,10 +292,12 @@ def current(data, gap):
     UI.b2_lz_cj.setText(gap['z_jt']['lz'])
 
 
+# 设置奶妈计算结果
 def set_naima(data, gap):
     current(data, gap)
 
 
+# 设置奶罗计算结果
 def set_nailuo(data, gap):
     current(data, gap)
     UI.b3_sg.setText(data['p_jt']['sg'])
@@ -298,14 +306,17 @@ def set_nailuo(data, gap):
     UI.b3_sg_cj.setText(gap['p_jt']['sg'])
 
 
+# 设置奶爸计算结果
 def set_naiba(data, gap):
     current(data, gap)
 
 
+# 设置奶公计算结果
 def set_naigong(data, gap):
     current(data, gap)
 
 
+# 清除所有显示内容
 def clear():
     clear_text()
     clear_cj()
@@ -315,6 +326,7 @@ def clear():
     UI.naigong_button.setStyleSheet('')
 
 
+# 设置奶妈显示文本
 def naima_setting():
     global now_career
 
@@ -350,6 +362,7 @@ def naima_setting():
     button_count_clicked()
 
 
+# 设置奶罗显示文本
 def nailuo_setting():
     global now_career
     is_save()
@@ -382,6 +395,7 @@ def nailuo_setting():
     button_count_clicked()
 
 
+# 设置奶爸显示文本
 def naiba_setting():
     global now_career
     is_save()
@@ -413,6 +427,7 @@ def naiba_setting():
     button_count_clicked()
 
 
+# 设置奶公显示文本
 def naigong_setting():
     global now_career
     is_save()
@@ -444,6 +459,7 @@ def naigong_setting():
     button_count_clicked()
 
 
+# 计算按钮绑定函数
 @input_validation
 def button_count_clicked(data_now):
     now, base = buff(data_now)
@@ -479,8 +495,8 @@ def button_count_clicked(data_now):
         set_naigong(value_to_str(now), gap_set(gap))
 
 
+# 计算两个相同结构字典的差值
 def diff_dict(dict1, dict2):
-    # 计算两个相同结构字典的差值
     diff = {}
     for key in dict1:
         if isinstance(dict1[key], dict):
@@ -490,6 +506,7 @@ def diff_dict(dict1, dict2):
     return diff
 
 
+# 核心计算函数
 def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arms: bool, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
     """
 
@@ -522,6 +539,7 @@ def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arms: bool, arm=1.08):
     return count
 
 
+# 计算站街buff
 def count_zj_buff(cr: str, data) -> dict:
     arm = 1.008 if cr == 'nai_ba' else 1.08  # 奶爸武器bug
     count = count_buff(
@@ -547,6 +565,7 @@ def count_zj_buff(cr: str, data) -> dict:
         )}
 
 
+# 计算进图buff
 def count_jt_buff(cr, data) -> dict:
     count = count_buff(
         int(data['buff_amount'] * (
@@ -569,6 +588,7 @@ def count_jt_buff(cr, data) -> dict:
         )}
 
 
+# 计算太阳
 def count_ty(data) -> int:
     count = count_buff(
         int(data['buff_amount'] * (
@@ -583,6 +603,7 @@ def count_ty(data) -> int:
                  )
 
 
+# 设置为基础数据
 @input_validation
 def is_contrast(data_now):
     global data_base
@@ -598,6 +619,7 @@ def is_contrast(data_now):
     clear_cj()
 
 
+# 清除所有差距文本内容
 def clear_cj():
     UI.buff_sg_cj.setText('')
     UI.buff_lz_cj.setText('')
@@ -612,6 +634,7 @@ def clear_cj():
     UI.sanjue_lz_2_cj.setText('')
 
 
+# 清除所有buff数值文本内容
 def clear_text():
     UI.buff_sg.setText('')
     UI.buff_lz.setText('')
@@ -627,6 +650,7 @@ def clear_text():
     UI.add.setText('')
 
 
+# 窗口关闭绑定函数
 def close_windows():
     global save_data
     is_save()
@@ -640,6 +664,7 @@ def close_windows():
     QCoreApplication.instance().quit()
 
 
+# 保存数据
 @input_validation
 def save(data_now):
     if not path.exists(path.dirname(FILE_PATH)):
@@ -651,6 +676,7 @@ def save(data_now):
     is_contrast()
 
 
+# 设置配置按钮
 def pz_setting(cr):
     for i in reversed(range(h_layout.count())):
         h_layout.itemAt(i).widget().deleteLater()
@@ -658,6 +684,7 @@ def pz_setting(cr):
         add_layout_widget(v['name'], k)
 
 
+# 读取数据
 def load():
     global save_data, now_career
     # 首次运行创建文件夹及文件步骤写到save_data里不要写在这.否则可能会报毒
@@ -665,18 +692,18 @@ def load():
         with open(FILE_PATH, "r") as f:
             save_data = json.load(f)
     except:
-        pass  # 如果读取不到或者读取错则用默认数据
-    career = save_data['career']
+        pass  # 如果读取不到或者读取错则什么都不做,用默认数据
+    _career = save_data['career']
     now_career = save_data['career']
-    pz_setting(career)
-    pz_clicked(save_data['record'][career], career)
-    if career == 'nai_ma':
+    pz_setting(_career)
+    pz_clicked(save_data['record'][_career], _career)
+    if _career == 'nai_ma':
         naima_setting()
-    elif career == 'nai_ba':
+    elif _career == 'nai_ba':
         naiba_setting()
-    elif career == 'nai_luo':
+    elif _career == 'nai_luo':
         nailuo_setting()
-    elif career == 'nai_gong':
+    elif _career == 'nai_gong':
         naigong_setting()
 
     button_count_clicked()
@@ -684,13 +711,14 @@ def load():
     clear_cj()
 
 
+# buff等级自动计算-绑定函数
 def lv_to():
     text = UI.zl_lv.text().replace(" ", "")
-
     if text.isdigit():
         UI.jt_lv.setText(str(int(text) + 14))
 
 
+# buff&太阳 智力自动计算-绑定函数
 def intellect_to():
     if not UI.jt_zhili.text().startswith(('-', '+')):
         intellect = 0
@@ -701,10 +729,12 @@ def intellect_to():
         UI.ty_zhili.setText(str(intellect))
 
 
+# 最小化窗口
 def minimize_window():
     main_window.showMinimized()
 
 
+# 窗口置顶
 def top_window():
     if bool(main_window.windowHandle().flags() & Qt.WindowStaysOnTopHint):
         main_window.window_top(False)
@@ -713,7 +743,8 @@ def top_window():
         main_window.window_top(True)
         UI.button_top.setStyleSheet("background:rgb(212, 218, 230);")
 
-#
+
+# 添加配置按钮
 def add_layout_widget(name: str, btn_id: str):
     button = QPushButton(name)
     font = QtGui.QFont()
@@ -723,7 +754,8 @@ def add_layout_widget(name: str, btn_id: str):
     h_layout.addWidget(button)
     button.clicked.connect(lambda: pz_clicked(btn_id))
 
-#
+
+# 配置按钮绑定函数
 def pz_clicked(pz_id, cr=None):
     cr = cr if cr else now_career
     datas = save_data[cr][pz_id]['data']
@@ -750,7 +782,7 @@ def pz_clicked(pz_id, cr=None):
 
 # is_contrast()
 
-
+# 增加配置按钮
 def add_button():
     message, ok = QInputDialog.getText(main_window, "", "请输入配置名")
     if ok:
@@ -772,7 +804,8 @@ def add_button():
         pz_clicked(pz_id)
     save()
 
-#  删除按钮
+
+#  删除配置按钮
 def del_button():
     if len(save_data[now_career]) == 1:
         QMessageBox.critical(main_window, '错误', '至少保留一个吧！')
@@ -788,11 +821,13 @@ def del_button():
         save()
 
 
+#  获取当前数据
 @input_validation
 def get_data_now(data_now):
     return data_now
 
 
+# 是否保存数据
 def is_save():
     data_now = get_data_now()
     db = save_data[now_career][save_data['record'][now_career]]['data'].copy()
@@ -804,8 +839,9 @@ def is_save():
             save()
 
 
+# 开始,绑定按钮函数
 def start():
-    ####################
+    # 单击绑定
     UI.button_count.clicked.connect(button_count_clicked)
     UI.button_jc.clicked.connect(is_contrast)
     UI.button_close.clicked.connect(close_windows)
@@ -814,12 +850,12 @@ def start():
     UI.button_top.clicked.connect(top_window)
     UI.button_add.clicked.connect(add_button)
     UI.button_del.clicked.connect(del_button)
-    ####################
+    # 职业按钮绑定
     UI.nailuo_button.clicked.connect(nailuo_setting)
     UI.naima_button.clicked.connect(naima_setting)
     UI.naiba_button.clicked.connect(naiba_setting)
     UI.naigong_button.clicked.connect(naigong_setting)
-    ####################
+    # 文本变化绑定
     UI.zl_lv.textEdited.connect(lv_to)
     UI.zj_xz.textEdited.connect(intellect_to)
     UI.zj_zhili.textEdited.connect(intellect_to)
@@ -827,7 +863,7 @@ def start():
     UI.zj_eh.textEdited.connect(intellect_to)
     UI.zj_bd.textEdited.connect(intellect_to)
     UI.add.textEdited.connect(button_count_clicked)
-
+    # 读取数据
     load()
 
 
@@ -869,20 +905,20 @@ if __name__ == '__main__':
         'nai_ba_ssp': UI.naiba_ej,
 
     }
-    # ----
+    # ----这里后续移动到UI.py里去------------------------------
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
     effect.setOffset(0, 0)  # 横纵,偏移量
     effect.setColor(Qt.black)  # 颜色
     UI.widget_1.setGraphicsEffect(effect)
-    ###
+    #
     scrollArea_widget = QWidget()
     scrollArea_widget.setStyleSheet("border-bottom: 1px solid #dadce0")
     h_layout = QHBoxLayout()
     scrollArea_widget.setLayout(h_layout)
     UI.scrollArea.setWidget(scrollArea_widget)
     UI.scrollArea.setStyleSheet("QScrollBar:vertical { height: 10px; }")
-    # ----这里后续移动到UI.py里去
+    # -----------------------------------------------------------------------
     start()
     main_window.show()
     app.exec_()

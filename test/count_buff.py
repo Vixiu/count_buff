@@ -4,6 +4,7 @@ import sys  # 导入sys模块
 
 import sympy as sympy
 
+z = 1
 BASIC_DATA = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
@@ -39,22 +40,9 @@ BASIC_DATA = {
 }
 
 
-# 反推z的值
-def de_buff(lv, buff_amount, intellect, attack_fixed, buff):
-    x = sympy.Symbol('x')
-    #  basic_attack = round((1.34631476716774 * lv + 32.600) * 1.131 * 1.02)
-    basic_attack = BASIC_DATA['nai_ma']['san_gong'][lv - 1]
-    return (sympy.solve(
-        (((basic_attack + attack_fixed) * ((intellect / 665) + 1)) +
-         (basic_attack * ((intellect + 4345) / 665 + 1) * (
-                 buff_amount + 3500) * x)) * 1.08 -
-        buff,
-        x))
-
-
-# 计算buff
 def count_buff(lv, buff_amount, intellect, attack_fixed):
     basic_attack = BASIC_DATA['nai_ma']['san_gong'][lv - 1]
+
     xs = 665
     x, y = (4350, 3500)
     old_buff = (basic_attack + attack_fixed) * ((intellect / xs) + 1)
@@ -66,23 +54,26 @@ def count_buff(lv, buff_amount, intellect, attack_fixed):
     return round(buff)
 
 
-def de_sg():
+def binary_de():
     global z
+    max_num = 1
+    min_num = 0
     flag = True
     while flag:
+        z = (max_num + min_num) / 2
+
         for ls in sg:
             c = count_buff(*ls[:-1]) - ls[-1]
             if c < 0:
-                z += n
+                min_num = z
                 flag = True
                 break
             elif c > 0:
-                z -= n
+                max_num = z
                 flag = True
                 break
             elif c == 0:
                 flag = False
-
     print(z)
 
 
@@ -106,21 +97,11 @@ sg = [
     [6, 17808, 3654, 8, 920],
     [33, 111683, 7935, 8, 9523],
     [33, 111806, 7935, 8, 9532],
+    [33, 111683, 7935, 8, 9523],
 
 ]
-"""
-[
-    [等级, 增益量, 力智, 固定玉, 实际结果],
-     ...
-    ]
-"""
+#  [等级, 增益量, 力智, 固定玉, 实际三攻]
+# 添加任何错误的值都会导致死循环
+# 不建议穿戴任何百分之加成的装备(光环,宠物,辟邪玉)填写数值
 
-# 3.788619999999975e-05 >y >3.788530000000194e-05
-z = 0.000037
-max_num = 0.000038
-min_num = 0.000037
-n =       0.00000000000001
-# z = 0.00003788627
-
-
-de_sg()
+binary_de()
