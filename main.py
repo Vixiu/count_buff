@@ -911,7 +911,7 @@ if __name__ == '__main__':
     effect.setOffset(0, 0)  # 横纵,偏移量
     effect.setColor(Qt.black)  # 颜色
     UI.widget_1.setGraphicsEffect(effect)
-    #
+    ###
     scrollArea_widget = QWidget()
     scrollArea_widget.setStyleSheet("border-bottom: 1px solid #dadce0")
     h_layout = QHBoxLayout()
