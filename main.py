@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QPushButton
 FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
 UI = Ui_widget()
 
-BASIC_DATA = {
+BUFF_BASE = {
     'nai_ma': {
         'san_gong': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
                      63, 65, 67, 69, 70, 71, 73, 75, 77, 79, 80, 81, 83, 85, 86, 88,
@@ -545,8 +545,8 @@ def count_zj_buff(cr: str, data) -> dict:
     count = count_buff(
         int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100)),
         data['out_intellect'],
-        BASIC_DATA[cr]['xs'],
-        BASIC_DATA[cr]['xyz'],
+        BUFF_BASE[cr]['xs'],
+        BUFF_BASE[cr]['xyz'],
         data['cp_arms'],
         arm  # 奶爸武器bug
     )
@@ -554,14 +554,14 @@ def count_zj_buff(cr: str, data) -> dict:
         'sg': count(
             data['fixed_attack'],
             data['percentage_attack'],
-            BASIC_DATA[cr]['san_gong'][data['out_lv'] - 1],
+            BUFF_BASE[cr]['san_gong'][data['out_lv'] - 1],
 
         ),
 
         'lz': count(
             data['fixed_intellect'],
             data['percentage_intellect'],
-            BASIC_DATA[cr]['li_zhi'][data['out_lv'] - 1],
+            BUFF_BASE[cr]['li_zhi'][data['out_lv'] - 1],
         )}
 
 
@@ -571,20 +571,20 @@ def count_jt_buff(cr, data) -> dict:
         int(data['buff_amount'] * (
                 1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
         data['in_intellect'],
-        BASIC_DATA[cr]['xs'],
-        BASIC_DATA[cr]['xyz'],
+        BUFF_BASE[cr]['xs'],
+        BUFF_BASE[cr]['xyz'],
         data['cp_arms']
     )
     return {
         'sg': count(
             data['fixed_attack'],
             data['percentage_attack'],
-            BASIC_DATA[cr]['san_gong'][data['in_lv'] - 1],
+            BUFF_BASE[cr]['san_gong'][data['in_lv'] - 1],
         ),
         'lz': count(
             data['fixed_intellect'],
             data['percentage_intellect'],
-            BASIC_DATA[cr]['li_zhi'][data['in_lv'] - 1],
+            BUFF_BASE[cr]['li_zhi'][data['in_lv'] - 1],
         )}
 
 
@@ -594,12 +594,12 @@ def count_ty(data) -> int:
         int(data['buff_amount'] * (
                 1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
         data['ty_intellect'],
-        BASIC_DATA['tai_yang']['xs'],
-        BASIC_DATA['tai_yang']['xyz'],
+        BUFF_BASE['tai_yang']['xs'],
+        BUFF_BASE['tai_yang']['xyz'],
         False)
     return count(data['ty_fixed'],
                  data['ty_percentage'],
-                 BASIC_DATA['tai_yang']['li_zhi'][data['ty_lv'] - 1],
+                 BUFF_BASE['tai_yang']['li_zhi'][data['ty_lv'] - 1],
                  )
 
 

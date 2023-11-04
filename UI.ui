@@ -422,6 +422,9 @@ border: 2px solid rgb(125, 125, 125);
          <pointsize>15</pointsize>
         </font>
        </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
        <property name="inputMask">
         <string notr="true"/>
        </property>
