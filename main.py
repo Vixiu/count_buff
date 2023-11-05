@@ -1,19 +1,17 @@
 import json
-import traceback
 from os import getenv, path, makedirs
 from sys import argv
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QCoreApplication
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect, QHBoxLayout, QWidget, QInputDialog, QLineEdit, \
-    QMessageBox
+from PyQt5.QtCore import Qt, QCoreApplication, QRegExp
+from PyQt5.QtGui import QIcon, QRegExpValidator
+from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect, QHBoxLayout, QWidget, QInputDialog, QMessageBox, \
+    QLineEdit
 
 from UI import Ui_widget
 from Widget import RoundedWindow
 from PyQt5.QtWidgets import QPushButton
 
-FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
-UI = Ui_widget()
+from UIData import UIData
 
 BUFF_BASE = {
     'nai_ma': {
@@ -69,21 +67,21 @@ BUFF_BASE = {
                  },
 
 }
-now_career = 'nai_ma'
+FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
+UI = Ui_widget()
+# now_career = 'nai_ma'
+DATA = UIData()
 data_base = {
     'ty_lv': 37,
     'ty_intellect': 0,
     'ty3_lv': 3,
     'buff_amount': 0,
     'out_intellect': 0,
-
     'out_lv': 1,
-
     'out_medal': 50,
     'out_earp': 175,
     'out_passive': 554,
     'out_guild': 80,
-
     'in_intellect': 0,
     'in_lv': 21,
     'halo_amount': 0,
@@ -95,10 +93,9 @@ data_base = {
     'percentage_intellect': [],
     'ty_fixed': 0,
     'ty_percentage': [],
-    'cp_arms': True,
+    'cp_arm': True,
     'nai_ba_guardian': 0,
     'nai_ba_ssp': 0,
-
 }
 save_data = {
     "nai_ma": {
@@ -137,89 +134,6 @@ save_data = {
     },
     "career": now_career
 }
-
-
-# 输入效验
-def input_validation(fn):
-    # 因为还要对输入数据在进行一次判断，所以不在输入层面就进行效验
-    def run_fn():
-        data_now = {}
-
-        def validation(text: str):
-            # 待修改,输入0开头字符会报错,且最好替换掉eval
-            if ',' in text:
-                return False, [eval(i) for i in text.split(',') if i.isdigit()]
-            elif text.startswith('+') or text.startswith('-'):
-                return True, eval(text)
-            elif text.isdigit() or ('.' in text and text.count('.') == 1):
-                return False, eval(text)
-            else:
-                return False, text
-
-        def input_data(k: str):
-            text = UI_DATA.get(k).text().replace(" ", "").replace("，", ',').replace("。", '.')
-            if text != '':
-                bl, ve = validation(text)
-                if type(ve) == str:
-                    exception.append((k, ve))
-                elif bl and k not in ('percentage_intellect', 'percentage_attack',
-                                      'fixed_intellect', 'fixed_attack', 'jade_amount'):
-                    data_now[k] = data_base[k] + ve
-                else:
-                    data_now[k] = ve
-            else:
-                data_now[k] = data_base[k]
-
-        for v in UI_DATA.values():
-            v.setStyleSheet("")
-        UI.add.setStyleSheet('')
-        exception = []
-        for keys in UI_DATA:
-            if keys != 'add':
-                input_data(keys)
-
-        if not (0 < data_now.get('in_lv', 1) < 41):
-            exception.append(('in_lv', "1~40"))
-        if not (0 < data_now.get('out_lv', 1) < 41):
-            exception.append(('out_lv', '1~40'))
-        if not (0 < data_now.get('ty_lv', 1) < 41):
-            exception.append(('ty_lv', '过大'))
-        add = UI.add.text()
-        if add in ('-', '+'):
-            add = 0
-        try:
-            data_now['add'] = int(add) if add else 0
-        except ValueError:
-            exception.append(('add', add))
-        if exception:
-            print('输入错误：', exception)
-            for key, tip in exception:
-                if key in ('in_intellect', 'in_lv'):
-                    UI.tabWidget.setCurrentIndex(0)
-                elif key in ('out_medal', 'out_earp', 'out_passive', 'out_guild'):
-                    UI.tabWidget.setCurrentIndex(1)
-                elif key in ('nai_ba_guardian', 'nai_ba_ssp'):
-                    naiba_setting()
-                    UI.tabWidget.setCurrentIndex(2)
-
-                UI_DATA[key].setText(tip)
-                UI_DATA[key].setStyleSheet(
-                    "background-color: #00aaff;"
-                    "border:0px;"
-                    "border-bottom: 3px solid red;")
-            return data_now
-        else:
-
-            if type(data_now['percentage_attack']) is not list:
-                data_now['percentage_attack'] = [data_now['percentage_attack']]
-            if type(data_now['percentage_intellect']) is not list:
-                data_now['percentage_intellect'] = [data_now['percentage_intellect']]
-            if type(data_now['ty_percentage']) is not list:
-                data_now['ty_percentage'] = [data_now['ty_percentage']]
-            data_now['cp_arms'] = UI.cp_arm.isChecked()
-            return fn(data_now)
-
-    return run_fn
 
 
 # buff最顶层
@@ -460,7 +374,7 @@ def naigong_setting():
 
 
 # 计算按钮绑定函数
-@input_validation
+@DATA
 def button_count_clicked(data_now):
     now, base = buff(data_now)
 
@@ -507,14 +421,14 @@ def diff_dict(dict1, dict2):
 
 
 # 核心计算函数
-def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arms: bool, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
+def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arm: bool, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
     """
 
     :param buff_amount: 增益量
     :param intellect: 四维
     :param xs: 系数
     :param xyz: x,y,z
-    :param cp_arms: cp武器
+    :param cp_arm: cp武器
     :param arm:
     :return: 函数
     """
@@ -532,7 +446,7 @@ def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arms: bool, arm=1.08):
         for n in bfb:
             old_buff *= (1 + n / 100)
         new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
-        bf = (old_buff + new_buff) * (arm if cp_arms else 1)
+        bf = (old_buff + new_buff) * (arm if cp_arm else 1)
 
         return round(bf)
 
@@ -547,7 +461,7 @@ def count_zj_buff(cr: str, data) -> dict:
         data['out_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
-        data['cp_arms'],
+        data['cp_arm'],
         arm  # 奶爸武器bug
     )
     return {
@@ -573,7 +487,7 @@ def count_jt_buff(cr, data) -> dict:
         data['in_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
-        data['cp_arms']
+        data['cp_arm']
     )
     return {
         'sg': count(
@@ -604,15 +518,11 @@ def count_ty(data) -> int:
 
 
 # 设置为基础数据
-@input_validation
+@DATA
 def is_contrast(data_now):
     global data_base
-    data_base['cp_arms'] = UI.cp_arm.isChecked()
+    DATA.set_placeholder_texts(data_now)
 
-    for k, v in UI_DATA.items():
-        v.setPlaceholderText(str(data_now[k]).replace('[', '').replace(']', ''))
-        v.setText('')
-    UI.add.setPlaceholderText('')
     data_base = data_now.copy()
 
     button_count_clicked()
@@ -665,7 +575,7 @@ def close_windows():
 
 
 # 保存数据
-@input_validation
+@DATA
 def save(data_now):
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
@@ -712,21 +622,6 @@ def load():
 
 
 # buff等级自动计算-绑定函数
-def lv_to():
-    text = UI.zl_lv.text().replace(" ", "")
-    if text.isdigit():
-        UI.jt_lv.setText(str(int(text) + 14))
-
-
-# buff&太阳 智力自动计算-绑定函数
-def intellect_to():
-    if not UI.jt_zhili.text().startswith(('-', '+')):
-        intellect = 0
-        for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
-            text = UI_DATA[le].text()
-            intellect += int(text) if text.isdigit() else data_base.get(le, 0)
-        UI.jt_zhili.setText(str(intellect))
-        UI.ty_zhili.setText(str(intellect))
 
 
 # 最小化窗口
@@ -762,9 +657,7 @@ def pz_clicked(pz_id, cr=None):
     clear_text()
     clear_cj()
     # 设置对应配置数据
-    for k, v in datas.items():
-        if k in UI_DATA:
-            UI_DATA[k].setText(str(v).replace('[', '').replace(']', ''))
+    DATA.set_values(datas)
     '''        
     btn = scrollArea_widget.findChild(QPushButton, pz_id)
     btn.setStyleSheet("background:rgb(212, 218, 230);")
@@ -821,15 +714,9 @@ def del_button():
         save()
 
 
-#  获取当前数据
-@input_validation
-def get_data_now(data_now):
-    return data_now
-
-
 # 是否保存数据
 def is_save():
-    data_now = get_data_now()
+    data_now = DATA.get_values()
     db = save_data[now_career][save_data['record'][now_career]]['data'].copy()
     data_now.pop('add', 1)
     db.pop("add", 1)
@@ -839,8 +726,73 @@ def is_save():
             save()
 
 
+def percent_sign_validator(input_box: QLineEdit):
+    text = input_box.text().replace('。', '.').replace(' ', '').replace('，', ',').replace(',,', ',')
+    for _ in text.split(','):
+        try:
+            if _:
+                float(_)
+        except ValueError:
+            input_box.setText(text[:-1])
+            return
+    input_box.setText(text)
+
+
+def float_validator(input_box: QLineEdit):
+    text = input_box.text().replace('。', '.').replace(' ', '')
+    try:
+        float(text)
+        input_box.setText(text)
+    except ValueError:
+        input_box.setText(text[:-1])
+
+
+def lv_validator(input_box: QLineEdit):
+    text = input_box.text().replace(' ', '')
+    try:
+        num = int(text)
+        if num <= 40:
+            input_box.setText(text)
+        else:
+            input_box.setText('40')
+        if num == 0:
+            input_box.setText('1')
+    except ValueError:
+        input_box.setText(text[:-1])
+
+
+def lv_to(input_box: QLineEdit):
+    lv_validator(input_box)
+    zl_lv_text = input_box.text()
+    if zl_lv_text:
+        new_value = int(zl_lv_text) + 14
+        if new_value <= 40:
+            UI.jt_lv.setText(str(new_value))
+
+
+def intellect_to():
+    intellect = 0
+
+    for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
+        text = DATA.get_value(le)
+        intellect += int(text)
+    UI.jt_zhili.setText(str(intellect))
+    UI.ty_zhili.setText(str(intellect))
+
+
+def get_now_save_data():
+    return save_data[now_career][save_data['record'][now_career]]['data']
+
+
 # 开始,绑定按钮函数
 def start():
+    # 输入验证器
+    int_validator = QRegExpValidator(QRegExp("^[0-9]*$"))
+    # 添加验证器
+    UI.buff_liang.setValidator(int_validator)
+    UI.buff_gh.textEdited.connect(lambda: float_validator(UI.buff_gh))
+    UI.lz_bfb.textEdited.connect(lambda: percent_sign_validator(UI.lz_bfb))
+    UI.zl_lv.textEdited.connect(lambda: lv_to(UI.zl_lv))
     # 单击绑定
     UI.button_count.clicked.connect(button_count_clicked)
     UI.button_jc.clicked.connect(is_contrast)
@@ -856,13 +808,15 @@ def start():
     UI.naiba_button.clicked.connect(naiba_setting)
     UI.naigong_button.clicked.connect(naigong_setting)
     # 文本变化绑定
-    UI.zl_lv.textEdited.connect(lv_to)
+    '''
+    UI.zl_lv.textEdited.connect()
     UI.zj_xz.textEdited.connect(intellect_to)
     UI.zj_zhili.textEdited.connect(intellect_to)
     UI.zj_gh.textEdited.connect(intellect_to)
     UI.zj_eh.textEdited.connect(intellect_to)
     UI.zj_bd.textEdited.connect(intellect_to)
     UI.add.textEdited.connect(button_count_clicked)
+    '''
     # 读取数据
     load()
 
@@ -873,39 +827,8 @@ if __name__ == '__main__':
     main_window.setStyleSheet("color: rgb(0, 0, 0);\n")
     main_window.setWindowTitle(' 奶量计算器')
     UI.setupUi(main_window)
-    UI_DATA = {
-        'ty_intellect': UI.ty_zhili,
-        'in_intellect': UI.jt_zhili,
-
-        'buff_amount': UI.buff_liang,
-        'out_intellect': UI.zj_zhili,
-        'out_lv': UI.zl_lv,
-        'add': UI.add,
-        'in_lv': UI.jt_lv,
-        'ty_lv': UI.ty_lv,
-        'ty3_lv': UI.ty3_lv,
-        'halo_amount': UI.buff_gh,
-        'pet_amount': UI.buff_cw,
-        'jade_amount': UI.buff_bxy,
-
-        'fixed_attack': UI.sg_guding,
-        'fixed_intellect': UI.lz_guding,
-
-        'percentage_attack': UI.sg_bfb,
-        'percentage_intellect': UI.lz_bfb,
-
-        'ty_fixed': UI.ty_lz,
-        'ty_percentage': UI.ty_bfb,
-
-        'out_medal': UI.zj_xz,
-        'out_earp': UI.zj_eh,
-        'out_passive': UI.zj_bd,
-        'out_guild': UI.zj_gh,
-        'nai_ba_guardian': UI.naiba_sh,
-        'nai_ba_ssp': UI.naiba_ej,
-
-    }
-    # ----这里后续移动到UI.py里去------------------------------
+    DATA.bind_input(UI)
+    # ----这里后续可以移动到UI.py里去------------------------------
     effect = QGraphicsDropShadowEffect()
     effect.setBlurRadius(10)  # 范围
     effect.setOffset(0, 0)  # 横纵,偏移量

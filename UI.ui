@@ -271,8 +271,8 @@ background-color: rgb(213, 247, 255);</string>
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>240</y>
-      <width>251</width>
+      <y>170</y>
+      <width>261</width>
       <height>61</height>
      </rect>
     </property>
@@ -295,7 +295,7 @@ border: 2px solid rgb(125, 125, 125);
       <rect>
        <x>11</x>
        <y>21</y>
-       <width>221</width>
+       <width>231</width>
        <height>31</height>
       </rect>
      </property>
@@ -1188,6 +1188,14 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="buff_gh">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>99.99</string>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -1195,6 +1203,14 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="buff_bxy">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>99.99</string>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -1202,6 +1218,14 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item row="1" column="1">
         <widget class="QLineEdit" name="buff_cw">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>99.99</string>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -1273,6 +1297,14 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item>
         <widget class="QLineEdit" name="ty_lz">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>999</string>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -1307,6 +1339,11 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item>
         <widget class="QLineEdit" name="ty_bfb">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -1364,9 +1401,12 @@ border: 2px solid rgb(144, 144, 144);
         <widget class="QLineEdit" name="sg_bfb">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
            <underline>false</underline>
           </font>
+         </property>
+         <property name="text">
+          <string>99.99,9.9,9.0,9</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1404,7 +1444,7 @@ border: 2px solid rgb(144, 144, 144);
         <widget class="QLineEdit" name="lz_bfb">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="alignment">
@@ -1426,6 +1466,17 @@ border: 2px solid rgb(144, 144, 144);
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="1" column="1">
         <widget class="QLineEdit" name="lz_guding">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>999</string>
+         </property>
+         <property name="cursorPosition">
+          <number>3</number>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -1463,8 +1514,13 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="sg_guding">
-         <property name="inputMask">
-          <string>D</string>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>999</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1486,8 +1542,8 @@ border: 2px solid rgb(144, 144, 144);
      <property name="font">
       <font>
        <pointsize>15</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
@@ -1683,8 +1739,8 @@ padding-bottom:8px;
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>170</y>
-      <width>311</width>
+      <y>240</y>
+      <width>291</width>
       <height>61</height>
      </rect>
     </property>
@@ -1704,7 +1760,7 @@ border: 2px solid rgb(144, 144, 144);
       <rect>
        <x>11</x>
        <y>21</y>
-       <width>291</width>
+       <width>271</width>
        <height>31</height>
       </rect>
      </property>
@@ -1717,12 +1773,18 @@ border: 2px solid rgb(144, 144, 144);
          </font>
         </property>
         <property name="text">
-         <string>智力</string>
+         <string>智力:</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="ty_zhili">
+        <property name="maximumSize">
+         <size>
+          <width>1222</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>12</pointsize>
@@ -1738,7 +1800,7 @@ border: 2px solid rgb(144, 144, 144);
          </font>
         </property>
         <property name="text">
-         <string>一绝等级</string>
+         <string>一绝Lv:</string>
         </property>
        </widget>
       </item>
@@ -1774,7 +1836,7 @@ border: 2px solid rgb(144, 144, 144);
          </font>
         </property>
         <property name="text">
-         <string>三觉等级</string>
+         <string>三觉Lv:</string>
         </property>
        </widget>
       </item>
@@ -2540,7 +2602,7 @@ border-bottom:0px;
           </font>
          </property>
          <property name="text">
-          <string>智力</string>
+          <string>智力:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
