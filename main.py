@@ -22,7 +22,7 @@ BUFF_BASE = {
                    302, 311, 321, 332, 342, 353, 363, 374, 385, 395, 406, 415, 425, 437,
                    447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
         'xs': 665,
-        'xyz': (4350, 3500, 3.788574217978515e-05),
+        'xyz': (4350, 3500, 3.7886202335357666e-05),
     },
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
@@ -69,7 +69,7 @@ BUFF_BASE = {
 }
 FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
 UI = Ui_widget()
-# now_career = 'nai_ma'
+now_career = 'nai_ma'
 DATA = UIData()
 data_base = {
     'ty_lv': 37,
@@ -274,7 +274,7 @@ def naima_setting():
     pz_clicked(save_data['record'][now_career])
 
     button_count_clicked()
-
+    is_contrast()
 
 # 设置奶罗显示文本
 def nailuo_setting():
@@ -307,7 +307,7 @@ def nailuo_setting():
     pz_setting(now_career)
     pz_clicked(save_data['record'][now_career])
     button_count_clicked()
-
+    is_contrast()
 
 # 设置奶爸显示文本
 def naiba_setting():
@@ -339,7 +339,7 @@ def naiba_setting():
     pz_setting(now_career)
     pz_clicked(save_data['record'][now_career])
     button_count_clicked()
-
+    is_contrast()
 
 # 设置奶公显示文本
 def naigong_setting():
@@ -371,7 +371,7 @@ def naigong_setting():
     pz_setting(now_career)
     pz_clicked(save_data['record'][now_career])
     button_count_clicked()
-
+    is_contrast()
 
 # 计算按钮绑定函数
 @DATA

@@ -682,7 +682,7 @@ async def run():
 
 if __name__ == '__main__':
     save_path = r'C:\Users\lnori\Desktop\dnf.csv'  # 保存位置
-    token = 'VGhn7MZA',  # 抓包获得 有时效
+    token = 'x4m6YafM',  # 抓包获得 有时效
     userId = '235025306',  # 抓包获得
     max_post = 250  # 并发数
 

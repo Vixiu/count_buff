@@ -229,7 +229,7 @@ QScrollBar:horizontal {
     <property name="geometry">
      <rect>
       <x>450</x>
-      <y>40</y>
+      <y>30</y>
       <width>4</width>
       <height>700</height>
      </rect>
@@ -1097,7 +1097,7 @@ border: 2px solid rgb(125, 125, 125);
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>380</y>
+      <y>360</y>
       <width>401</width>
       <height>381</height>
      </rect>
@@ -2560,7 +2560,7 @@ border-bottom:0px;
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideRight</enum>
@@ -2674,7 +2674,7 @@ border-bottom:0px;
     </widget>
     <widget class="QWidget" name="tab2">
      <attribute name="title">
-      <string>进图补正</string>
+      <string>进图推算</string>
      </attribute>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
@@ -2753,7 +2753,7 @@ border-bottom:0px;
     </widget>
     <widget class="QWidget" name="tab3">
      <attribute name="title">
-      <string>奶爸</string>
+      <string>守护和二觉</string>
      </attribute>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
