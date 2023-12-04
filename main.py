@@ -621,7 +621,7 @@ def load():
     clear_cj()
 
 
-# buff等级自动计算-绑定函数
+
 
 
 # 最小化窗口
@@ -788,7 +788,7 @@ def get_now_save_data():
 def start():
     # 输入验证器
     int_validator = QRegExpValidator(QRegExp("^[0-9]*$"))
-    # 添加验证器
+    # 验证器
     UI.buff_liang.setValidator(int_validator)
     UI.buff_gh.textEdited.connect(lambda: float_validator(UI.buff_gh))
     UI.lz_bfb.textEdited.connect(lambda: percent_sign_validator(UI.lz_bfb))

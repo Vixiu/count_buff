@@ -611,7 +611,7 @@ async def get_rank(session, curRank, transferId, jobId, worldId, name, hero_name
     :param session:
     :param name: 小区名
     :param word_name:跨区名
-    :param hero_name: 职业名
+    :param hero_name: 职业名 ,仅用于写入数据
     :param curRank:起始排名,默认增加50，貌似固定值[1, 51, 101,···,451]
     :param transferId:转职id,49开始,外传职业48
     :param jobId:职业ID
@@ -662,7 +662,7 @@ async def run():
     _curRank = [i for i in range(1, 488, 50)]
     async with aiohttp.ClientSession(
             timeout=aiohttp.ClientTimeout(total=3),
-            connector=aiohttp.TCPConnector(limit=0, ssl=False, ),
+            connector=aiohttp.TCPConnector(limit=0, ssl=False)
     ) as session:
         for hero in tqdm(HERO_LIST, desc='职业', position=1, bar_format='{l_bar}{bar} | {n}/{total}'):
             for wn, v in tqdm(WORD_DICT.items(), leave=False, desc=f"跨区", position=2,
@@ -695,4 +695,4 @@ if __name__ == '__main__':
     csvfile.close()
     with open(save_path, 'r', newline='', encoding='utf-8') as f:
         csv_reader = csv.reader(f)
-        print(f"预计行数:4095000,实际行数:{sum(1 for row in csv_reader) - 1}")
+        print(f"实际行数:{sum(1 for row in csv_reader) - 1}")

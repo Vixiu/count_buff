@@ -1,9 +1,4 @@
 import decimal
-
-import sys  # 导入sys模块
-
-import sympy as sympy
-
 z = 1
 BASIC_DATA = {
     'nai_ma': {

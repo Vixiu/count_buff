@@ -110,7 +110,7 @@ class UIData:
     def set_placeholder_texts(self, values: dict):
         for name, value in values.items():
             self.set_placeholder_text(name, value)
-
+    # 临时修复
     def __call__(self, fn):
         def run_fn():
             return fn(self.get_values())
