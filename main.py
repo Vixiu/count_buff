@@ -1,17 +1,8 @@
 import json
 from os import getenv, path, makedirs
 from sys import argv
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QCoreApplication, QRegExp
-from PyQt5.QtGui import QIcon, QRegExpValidator
-from PyQt5.QtWidgets import QApplication, QGraphicsDropShadowEffect, QHBoxLayout, QWidget, QInputDialog, QMessageBox, \
-    QLineEdit
 
-from UI import Ui_widget
-from Widget import RoundedWindow
-from PyQt5.QtWidgets import QPushButton
-
-from UIData import UIData
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QMessageBox
 
 BUFF_BASE = {
     'nai_ma': {
@@ -68,10 +59,8 @@ BUFF_BASE = {
 
 }
 FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
-UI = Ui_widget()
-now_career = 'nai_ma'
-DATA = UIData()
-data_base = {
+
+default_data = {
     'ty_lv': 37,
     'ty_intellect': 0,
     'ty3_lv': 3,
@@ -101,28 +90,28 @@ save_data = {
     "nai_ma": {
         "pz_1": {
             "name": "默认配置",
-            "data": data_base.copy()
+            "data": default_data.copy()
         },
 
     },
     "nai_ba": {
         "pz_1": {
             "name": "默认配置",
-            "data": data_base.copy()
+            "data": default_data.copy()
         },
 
     },
     "nai_luo": {
         "pz_1": {
             "name": "默认配置",
-            "data": data_base.copy()
+            "data": default_data.copy()
         },
 
     },
     "nai_gong": {
         "pz_1": {
             "name": "默认配置",
-            "data": data_base.copy()
+            "data": default_data.copy()
         },
 
     },
@@ -132,7 +121,7 @@ save_data = {
         "nai_luo": 'pz_1',
         "nai_gong": 'pz_1'
     },
-    "career": now_career
+    "career": 'nai_ma'
 }
 
 
@@ -147,12 +136,12 @@ def buff(data_now):
            'ty': count_ty(data_now),
            }
     base = {
-        'zj': count_zj_buff(cr, data_base),
-        'jt': count_jt_buff(cr, data_base),
-        'ty': count_ty(data_base)
+        'zj': count_zj_buff(cr, default_data),
+        'jt': count_jt_buff(cr, default_data),
+        'ty': count_ty(default_data)
     }
     now.update(count_ty3(now['ty'], data_now['ty3_lv']))
-    base.update(count_ty3(base['ty'], data_base['ty3_lv']))
+    base.update(count_ty3(base['ty'], default_data['ty3_lv']))
     return now, base
 
 
@@ -230,151 +219,6 @@ def set_naigong(data, gap):
     current(data, gap)
 
 
-# 清除所有显示内容
-def clear():
-    clear_text()
-    clear_cj()
-    UI.nailuo_button.setStyleSheet('')
-    UI.naiba_button.setStyleSheet('')
-    UI.naima_button.setStyleSheet('')
-    UI.naigong_button.setStyleSheet('')
-
-
-# 设置奶妈显示文本
-def naima_setting():
-    global now_career
-
-    is_save()
-
-    clear()
-    UI.tabWidget.removeTab(2)
-    main_window.setWindowIcon(QIcon(":/png/84.PNG"))
-    UI.label_6.setText('智力加减:')
-    UI.label_3.setText('智力:')
-    UI.label_17.setText('智力:')
-    UI.label_15.setText('智力:')
-    now_career = 'nai_ma'
-    UI.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                  ' padding-top:8px;'
-                                  'padding-bottom:8px;'
-                                  'border-left: 5px solid rgb(5, 229, 254);'
-                                  'background-color:rgb(217, 217, 217);')
-    UI.yijue.setTitle('圣光天启')
-    UI.sanjue.setTitle('祈愿·天使赞歌')
-    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/23.PNG"))
-    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/350.PNG"))
-    UI.b0.setTitle('勇气祝福')
-    UI.label_35.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
-    UI.b1.setTitle('勇气祝福')
-    UI.label_30.setPixmap(QtGui.QPixmap(":/png/84.PNG"))
-    UI.b2.setTitle('勇气+颂歌')
-    UI.b3.hide()
-
-    pz_setting(now_career)
-    pz_clicked(save_data['record'][now_career])
-
-    button_count_clicked()
-    is_contrast()
-
-# 设置奶罗显示文本
-def nailuo_setting():
-    global now_career
-    is_save()
-    clear()
-    UI.tabWidget.removeTab(2)
-    main_window.setWindowIcon(QIcon(":/png/719.PNG"))
-    UI.label_6.setText('智力加减:')
-    UI.label_3.setText('智力:')
-    UI.label_17.setText('智力:')
-    UI.label_15.setText('智力:')
-    now_career = 'nai_luo'
-    UI.yijue.setTitle('开幕！人偶剧场')
-    UI.sanjue.setTitle('终幕！人偶剧场')
-    UI.nailuo_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                   ' padding-top:8px;'
-                                   'padding-bottom:8px;'
-                                   'border-left: 5px solid rgb(5, 229, 254);'
-                                   'background-color:rgb(217, 217, 217);')
-    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/757.PNG"))
-    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/838.PNG"))
-    UI.b0.setTitle('禁忌诅咒')
-    UI.b1.setTitle('禁忌诅咒')
-
-    UI.label_35.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
-    UI.label_30.setPixmap(QtGui.QPixmap(":/png/719.PNG"))
-    UI.b2.setTitle('禁忌诅咒+疯狂召唤')
-    UI.b3.show()
-    pz_setting(now_career)
-    pz_clicked(save_data['record'][now_career])
-    button_count_clicked()
-    is_contrast()
-
-# 设置奶爸显示文本
-def naiba_setting():
-    global now_career
-    is_save()
-    clear()
-    UI.tabWidget.insertTab(2, UI.tab3, '奶爸二觉')
-    main_window.setWindowIcon(QIcon(":/png/111.PNG"))
-    UI.label_6.setText('体精加减:')
-    UI.label_3.setText('体精:')
-    UI.label_17.setText('体精:')
-    UI.label_15.setText('体精:')
-    now_career = 'nai_ba'
-    UI.naiba_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                  ' padding-top:8px;'
-                                  'padding-bottom:8px;'
-                                  'border-left: 5px solid rgb(5, 229, 254);'
-                                  'background-color:rgb(217, 217, 217);')
-    UI.yijue.setTitle('天启之珠')
-    UI.sanjue.setTitle('生命礼赞:神威')
-    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/158.PNG"))
-    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/548.PNG"))
-    UI.b0.setTitle('荣誉祝福')
-    UI.label_35.setPixmap(QtGui.QPixmap(":/png/111.PNG"))
-    UI.b1.setTitle('荣誉祝福')
-    UI.label_30.setPixmap(QtGui.QPixmap(":/png/111.PNG"))
-    UI.b2.setTitle('守护+荣誉祝福(24层)')
-    UI.b3.hide()
-    pz_setting(now_career)
-    pz_clicked(save_data['record'][now_career])
-    button_count_clicked()
-    is_contrast()
-
-# 设置奶公显示文本
-def naigong_setting():
-    global now_career
-    is_save()
-    clear()
-    UI.tabWidget.removeTab(2)
-    main_window.setWindowIcon(QIcon(":/png/14.PNG"))
-    UI.label_6.setText('精神加减:')
-    UI.label_3.setText('精神:')
-    UI.label_17.setText('精神:')
-    UI.label_15.setText('精神:')
-    UI.naigong_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                    ' padding-top:8px;'
-                                    'padding-bottom:8px;'
-                                    'border-left: 5px solid rgb(5, 229, 254);'
-                                    'background-color:rgb(217, 217, 217);')
-    UI.yijue.setTitle('梦想的舞台')
-    UI.sanjue.setTitle('终曲:霓虹蝶梦')
-    UI.yijue_icon.setPixmap(QtGui.QPixmap(":/png/88.PNG"))
-    UI.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/34.PNG"))
-    UI.b0.setTitle('可爱节拍')
-    UI.label_35.setPixmap(QtGui.QPixmap(":/png/14.PNG"))
-    UI.b1.setTitle('可爱节拍')
-    UI.label_30.setPixmap(QtGui.QPixmap(":/png/14.PNG"))
-    UI.b2.setTitle('可爱节拍+燃情狂想曲')
-    UI.b3.hide()
-    now_career = 'nai_gong'
-    pz_setting(now_career)
-    pz_clicked(save_data['record'][now_career])
-    button_count_clicked()
-    is_contrast()
-
-# 计算按钮绑定函数
-@DATA
 def button_count_clicked(data_now):
     now, base = buff(data_now)
 
@@ -393,8 +237,8 @@ def button_count_clicked(data_now):
         gap = diff_dict(base, now)
         set_nailuo(value_to_str(now), gap_set(gap))
     elif career == 'nai_ba':
-        _ = data_base.copy()
-        _['in_intellect'] = _['in_intellect'] + data_base['nai_ba_guardian'] + data_base['nai_ba_ssp'] * 24
+        _ = default_data.copy()
+        _['in_intellect'] = _['in_intellect'] + default_data['nai_ba_guardian'] + default_data['nai_ba_ssp'] * 24
         data_now['in_intellect'] = data_now['in_intellect'] + data_now['nai_ba_guardian'] + data_now['nai_ba_ssp'] * 24
         now['z_jt'] = count_jt_buff(career, data_now)
         base['z_jt'] = count_jt_buff(career, _)
@@ -518,64 +362,16 @@ def count_ty(data) -> int:
 
 
 # 设置为基础数据
-@DATA
+
 def is_contrast(data_now):
-    global data_base
+    global default_data
     DATA.set_placeholder_texts(data_now)
 
-    data_base = data_now.copy()
+    default_data = data_now.copy()
 
     button_count_clicked()
-    clear_cj()
 
 
-# 清除所有差距文本内容
-def clear_cj():
-    UI.buff_sg_cj.setText('')
-    UI.buff_lz_cj.setText('')
-    UI.b1_lz_cj.setText('')
-    UI.b1_sg_cj.setText('')
-    UI.b2_lz_cj.setText('')
-    UI.b2_sg_cj.setText('')
-    UI.b3_sg_cj.setText('')
-    UI.b3_lz_cj.setText('')
-    UI.yijue_cj.setText('')
-    UI.sanjue_lz_1_cj.setText('')
-    UI.sanjue_lz_2_cj.setText('')
-
-
-# 清除所有buff数值文本内容
-def clear_text():
-    UI.buff_sg.setText('')
-    UI.buff_lz.setText('')
-    UI.b1_lz.setText('')
-    UI.b1_sg.setText('')
-    UI.b2_lz.setText('')
-    UI.b2_sg.setText('')
-    UI.b3_sg.setText('')
-    UI.b3_lz.setText('')
-    UI.yijue_lz.setText('')
-    UI.sanjue_lz_1.setText('')
-    UI.sanjue_lz_2.setText('')
-    UI.add.setText('')
-
-
-# 窗口关闭绑定函数
-def close_windows():
-    global save_data
-    is_save()
-    save_data['career'] = now_career
-    if not path.exists(path.dirname(FILE_PATH)):
-        makedirs(path.dirname(FILE_PATH))
-
-    with open(FILE_PATH, "w+") as f:
-        json.dump(save_data, f)
-
-    QCoreApplication.instance().quit()
-
-
-# 保存数据
-@DATA
 def save(data_now):
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
@@ -621,35 +417,6 @@ def load():
     clear_cj()
 
 
-
-
-
-# 最小化窗口
-def minimize_window():
-    main_window.showMinimized()
-
-
-# 窗口置顶
-def top_window():
-    if bool(main_window.windowHandle().flags() & Qt.WindowStaysOnTopHint):
-        main_window.window_top(False)
-        UI.button_top.setStyleSheet("")
-    else:
-        main_window.window_top(True)
-        UI.button_top.setStyleSheet("background:rgb(212, 218, 230);")
-
-
-# 添加配置按钮
-def add_layout_widget(name: str, btn_id: str):
-    button = QPushButton(name)
-    font = QtGui.QFont()
-    font.setPointSize(13)
-    button.setFont(font)
-    button.setObjectName(btn_id)
-    h_layout.addWidget(button)
-    button.clicked.connect(lambda: pz_clicked(btn_id))
-
-
 # 配置按钮绑定函数
 def pz_clicked(pz_id, cr=None):
     cr = cr if cr else now_career
@@ -691,7 +458,7 @@ def add_button():
         add_layout_widget(message, pz_id)
         save_data[now_career][pz_id] = {
             'name': message,
-            'data': data_base.copy()
+            'data': default_data.copy()
         }
 
         pz_clicked(pz_id)
@@ -726,80 +493,13 @@ def is_save():
             save()
 
 
-def percent_sign_validator(input_box: QLineEdit):
-    text = input_box.text().replace('。', '.').replace(' ', '').replace('，', ',').replace(',,', ',')
-    for _ in text.split(','):
-        try:
-            if _:
-                float(_)
-        except ValueError:
-            input_box.setText(text[:-1])
-            return
-    input_box.setText(text)
-
-
-def float_validator(input_box: QLineEdit):
-    text = input_box.text().replace('。', '.').replace(' ', '')
-    try:
-        float(text)
-        input_box.setText(text)
-    except ValueError:
-        input_box.setText(text[:-1])
-
-
-def lv_validator(input_box: QLineEdit):
-    text = input_box.text().replace(' ', '')
-    try:
-        num = int(text)
-        if num <= 40:
-            input_box.setText(text)
-        else:
-            input_box.setText('40')
-        if num == 0:
-            input_box.setText('1')
-    except ValueError:
-        input_box.setText(text[:-1])
-
-
-def lv_to(input_box: QLineEdit):
-    lv_validator(input_box)
-    zl_lv_text = input_box.text()
-    if zl_lv_text:
-        new_value = int(zl_lv_text) + 14
-        if new_value <= 40:
-            UI.jt_lv.setText(str(new_value))
-
-
-def intellect_to():
-    intellect = 0
-
-    for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
-        text = DATA.get_value(le)
-        intellect += int(text)
-    UI.jt_zhili.setText(str(intellect))
-    UI.ty_zhili.setText(str(intellect))
-
-
-def get_now_save_data():
-    return save_data[now_career][save_data['record'][now_career]]['data']
-
-
 # 开始,绑定按钮函数
 def start():
-    # 输入验证器
-    int_validator = QRegExpValidator(QRegExp("^[0-9]*$"))
-    # 验证器
-    UI.buff_liang.setValidator(int_validator)
-    UI.buff_gh.textEdited.connect(lambda: float_validator(UI.buff_gh))
-    UI.lz_bfb.textEdited.connect(lambda: percent_sign_validator(UI.lz_bfb))
-    UI.zl_lv.textEdited.connect(lambda: lv_to(UI.zl_lv))
-    # 单击绑定
     UI.button_count.clicked.connect(button_count_clicked)
     UI.button_jc.clicked.connect(is_contrast)
-    UI.button_close.clicked.connect(close_windows)
+
     UI.button_save.clicked.connect(save)
-    UI.button_min.clicked.connect(minimize_window)
-    UI.button_top.clicked.connect(top_window)
+
     UI.button_add.clicked.connect(add_button)
     UI.button_del.clicked.connect(del_button)
     # 职业按钮绑定
@@ -807,41 +507,12 @@ def start():
     UI.naima_button.clicked.connect(naima_setting)
     UI.naiba_button.clicked.connect(naiba_setting)
     UI.naigong_button.clicked.connect(naigong_setting)
-    # 文本变化绑定
-    '''
-    UI.zl_lv.textEdited.connect()
-    UI.zj_xz.textEdited.connect(intellect_to)
-    UI.zj_zhili.textEdited.connect(intellect_to)
-    UI.zj_gh.textEdited.connect(intellect_to)
-    UI.zj_eh.textEdited.connect(intellect_to)
-    UI.zj_bd.textEdited.connect(intellect_to)
-    UI.add.textEdited.connect(button_count_clicked)
-    '''
     # 读取数据
     load()
 
 
 if __name__ == '__main__':
     app = QApplication(argv)
-    main_window = RoundedWindow()
-    main_window.setStyleSheet("color: rgb(0, 0, 0);\n")
-    main_window.setWindowTitle(' 奶量计算器')
-    UI.setupUi(main_window)
-    DATA.bind_input(UI)
-    # ----这里后续可以移动到UI.py里去------------------------------
-    effect = QGraphicsDropShadowEffect()
-    effect.setBlurRadius(10)  # 范围
-    effect.setOffset(0, 0)  # 横纵,偏移量
-    effect.setColor(Qt.black)  # 颜色
-    UI.widget_1.setGraphicsEffect(effect)
-    ###
-    scrollArea_widget = QWidget()
-    scrollArea_widget.setStyleSheet("border-bottom: 1px solid #dadce0")
-    h_layout = QHBoxLayout()
-    scrollArea_widget.setLayout(h_layout)
-    UI.scrollArea.setWidget(scrollArea_widget)
-    UI.scrollArea.setStyleSheet("QScrollBar:vertical { height: 10px; }")
-    # -----------------------------------------------------------------------
+
     start()
-    main_window.show()
     app.exec_()
