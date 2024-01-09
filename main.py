@@ -431,6 +431,7 @@ def career_button_clicked(career_name):
     UI.left_widget.update()
 
 
+
 # 开始,绑定按钮函数
 def start():
     load_data()
