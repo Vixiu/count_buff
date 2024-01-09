@@ -1,6 +1,6 @@
 <h1 id="-div-align-center-dnf-div-"><div align="center"> DNF 奶量计算器 </div></h1>
 <h2 id="-">一.预览</h2>
-<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/V1.2.png">
+<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/Buffv1.3.1.png">
 <h2 id="-">二.使用及说明</h2>
 <h3 id="-buff-">
 <font color=#FF0000> 使用前需注意,如果站街穿的不是BUff换装上的装备要穿上,否则站街Buff会算不准!</font>
@@ -15,56 +15,6 @@
 <li><strong>针对辟邪玉:</strong>不要看辟邪玉的<font color=#FF7F50>内部词条</font><img width="100" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/辟邪玉1.png">,请按下图对应填写<img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/辟邪玉2.png"></li>
 <li><strong>其他:</strong> 在点击 <strong>设为基础</strong><font color=#A9A9A9> 数据变灰</font>后，如果 <font color=#FF7F50>输入(+,-)号加数字</font>,那么软件会以变灰的数据为基础进行计算,理论三攻误差±1,力智误差±10.</li>
 </ol>
-<strong>可能会有的更新(备忘)</strong><br>
-1.添加一个对于C的相对提百分比提升显示<br>
-2.类似光环宠物等1~95技能等级加+1,对于此类加等级的装备如果手动计算非常麻烦.思路:增加一个弹出面板,计算出增加的四维,然后再加到计算器里去.需要考虑到技能的成长曲线包括(是否线性成长，是否有上限).<br>
-3.Bug-0X1.输入0开头的数计算会直接退出.<br>
-<h2 id="-">三.示例</h2>
-<h3 id="-">下面以奶妈为例,进行简单计算</h3>
-<h4 id="-">1.1面板(未穿项链)</h4>
-<p>
-<img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/5.png">
-<img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/辟邪玉2.png">
-  <h6 id="-">护士:8%,4%,4%</h6>
-  <h6 id="-">宠物Buff量:5%</h6>
-  <h6 id="-">光环Buff量:5%</h6>
-</p>
-<h4 id="-">1.2填写</h4>
-<img width="400" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/9.png">
-<h4 id="-">1.3结果&实际</h4>
-<p>
-  <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/10.png" >
-  <img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/11.png">
-  <br>
-  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/6.png">
-  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/7.png">
-  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/4.png">
-  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/2.png">
-<h6 id="-">误差为0</h6>
-</p>
-<h4 id="-">2.1穿上项链&填写</h4>
-<p>
-<img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/12.png">
-<img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/a2.png">
-</p>
-<h6 id="-">智力:15+15+150+107+90=377</h6>
-<h6 id="-">增益量:295(基础)+5575(成长)+1518(贴膜)=7388</h6>
-<h6 id="-">进图Buff+1,一绝+1</h6>
-<h4 id="-">2.2结果&实际</h4>
-<p><img width="450" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/a1.png"><br>
-  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/14.png">
-  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/3.png">
-  <img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/1.png">
-</p>
-<h4 id="-">3.1更换辟邪玉&填写</h4>
-<P>
-<img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/13.png">
-<img width="300" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b1.png">
-</P>
-<h4 id="-">3.2结果&实际</h4>
-<img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b2.png">
-<img width="200" src="https://github.com/Vixiu/count_buff/blob/Buff/uncompiled/png_readme/b3.png">
-
 
 
 
