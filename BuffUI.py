@@ -12,17 +12,17 @@ class BuffUI(Ui_widget, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setWindowFlag(Qt.WindowStaysOnTopHint, True)  # 默认置顶
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+
         self.setWindowTitle(' 奶量计算器')
         self.setStyleSheet("color: rgb(0, 0, 0);\n")
         # 无边框标题设置
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground, True)
+
         # 默认按钮绑定事件
-        self.button_close.clicked.connect(lambda: QCoreApplication.instance().quit())  # 关闭
         self.button_top.clicked.connect(self._window_top)  # 置顶
         self.button_min.clicked.connect(lambda: self.showMinimized())  # 最小化
-
         self.naima_button.clicked.connect(self.__naima_setting)
         self.naiba_button.clicked.connect(self.__naiba_setting)
         self.nailuo_button.clicked.connect(self.__nailuo_setting)
@@ -69,16 +69,13 @@ class BuffUI(Ui_widget, QWidget):
 
     def add_config(self, name, select=False):
         item = QListWidgetItem(name)
-        item.setFlags(item.flags() | Qt.ItemIsEditable)
+        #  item.setFlags(item.flags() | Qt.ItemIsEditable)
         item.setTextAlignment(Qt.AlignCenter)
         self.config_list.addItem(item)
         QApplication.processEvents()
         self.config_list.update()
         self.config_list.repaint()
         item.setSelected(select)
-
-    def del_config(self, item):
-        self.config_list.removeItemWidget(item)
 
     def get_value(self, name):
         if name not in self.input_data:
@@ -277,7 +274,7 @@ class BuffUI(Ui_widget, QWidget):
         self.naima_button.setStyleSheet('border:0px; border-radius: 0px;'
                                         ' padding-top:8px;'
                                         'padding-bottom:8px;'
-                                        'border-left: 5px solid rgb(5, 229, 254);'
+                                        'border-left: 5px solid #55ff7f;'
                                         'background-color:rgb(217, 217, 217);')
         self.yijue.setText('圣光天启')
         self.sanjue.setText('祈愿·天使赞歌')
@@ -301,7 +298,7 @@ class BuffUI(Ui_widget, QWidget):
         self.nailuo_button.setStyleSheet('border:0px; border-radius: 0px;'
                                          ' padding-top:8px;'
                                          'padding-bottom:8px;'
-                                         'border-left: 5px solid rgb(5, 229, 254);'
+                                         'border-left: 5px solid #55ff7f;'
                                          'background-color:rgb(217, 217, 217);')
         self.yijue_icon.setPixmap(QtGui.QPixmap(":/png/757.PNG"))
         self.sanjue_icon.setPixmap(QtGui.QPixmap(":/png/838.PNG"))
@@ -319,9 +316,9 @@ class BuffUI(Ui_widget, QWidget):
         self.label_17.setText('体精:')
         self.label_15.setText('体精:')
         self.naiba_button.setStyleSheet('border:0px; border-radius: 0px;'
-                                        ' padding-top:8px;'
+                                        'padding-top:8px;'
                                         'padding-bottom:8px;'
-                                        'border-left: 5px solid rgb(5, 229, 254);'
+                                        'border-left: 5px solid #55ff7f;'
                                         'background-color:rgb(217, 217, 217);')
         self.yijue.setText('天启之珠')
         self.sanjue.setText('生命礼赞:神威')
@@ -344,7 +341,7 @@ class BuffUI(Ui_widget, QWidget):
         self.naigong_button.setStyleSheet('border:0px; border-radius: 0px;'
                                           ' padding-top:8px;'
                                           'padding-bottom:8px;'
-                                          'border-left: 5px solid rgb(5, 229, 254);'
+                                          'border-left: 5px solid #55ff7f;'
                                           'background-color:rgb(217, 217, 217);')
         self.yijue.setText('梦想的舞台')
         self.sanjue.setText('终曲:霓虹蝶梦')
@@ -423,8 +420,8 @@ class BuffUI(Ui_widget, QWidget):
         # buff量与智力增加
 
     def _window_top(self):
-        QMessageBox.critical(self, '错误', '这个功能目前有Bug！取消置顶请点击最小化')
-        """
+        QMessageBox.critical(self, '错误:(', '这个功能目前有Bug！请尝试最小化')
+        '''
         if not bool(self.windowHandle().flags() & Qt.WindowStaysOnTopHint):
             self.windowHandle().setFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
             self.button_top.setStyleSheet("background:rgb(212, 218, 230);")
@@ -433,4 +430,5 @@ class BuffUI(Ui_widget, QWidget):
         else:
             self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
             self.button_top.setStyleSheet("")
-        """
+
+        '''

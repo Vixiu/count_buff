@@ -2,7 +2,8 @@ import json
 from os import getenv, path, makedirs
 from sys import argv
 
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QMessageBox, QListWidgetItem, QLineEdit
+from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt5.QtWidgets import QApplication, QMessageBox, QInputDialog, QLineEdit
 
 from BuffUI import BuffUI
 
@@ -299,12 +300,14 @@ def is_save():
     global save_data
     input_data = UI.get_values()
     input_data.pop('add', 1)
+    print(career)
     db = save_data[career][save_data['record'][career]]['data']
     for k, v in input_data.items():
         if db[k] != v:
-            # if QMessageBox.question(UI, "消息框标题", "数据未保存,是否保存数据？", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
-            cfg_id = save_data['record'][career]
-            save_data[career][cfg_id]['data'] = input_data
+            print(k, db[k], v, )
+            if QMessageBox.question(UI, "消息框标题", "数据未保存,是否保存数据？", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
+                cfg_id = save_data['record'][career]
+                save_data[career][cfg_id]['data'] = input_data
 
 
 def save(update=False):
@@ -351,11 +354,10 @@ def load_data():
     is_contrast()
 
 
-def config_clicked(config_id):
+def config_clicked(config_id, clicked=False):
     global save_data
     save_data['record'][career] = config_id
     data = save_data[career][config_id]['data']
-
     UI.set_values(data)
     UI.button_save.setText(f'保存({save_data[career][config_id]["name"]})')
     button_count_clicked()
@@ -388,7 +390,7 @@ def add_config(select=False):
         save()
 
 
-def set_config_name(item: QListWidgetItem):
+def set_config_name(item):
     global save_data
     cfg_id = UI.config_list.row(item)
     save_data[career][cfg_id]['name'] = item.text()
@@ -424,12 +426,16 @@ def del_config():
 
 
 def career_button_clicked(career_name):
-    global career
-    #  is_save()
+    global career, save_data
     career = career_name
+    save_data["career"] = career_name
     update_config()
     UI.left_widget.update()
 
+
+def close_windows():
+    save()
+    QCoreApplication.instance().quit()
 
 
 # 开始,绑定按钮函数
@@ -440,10 +446,9 @@ def start():
     UI.button_add.clicked.connect(lambda: add_config(True))
     UI.button_del.clicked.connect(del_config)
     UI.button_save.clicked.connect(lambda: save(True))
-
-    UI.config_list.itemClicked.connect(lambda _: config_clicked(UI.config_list.row(_)))
-    UI.config_list.itemChanged.connect(lambda s: set_config_name(s))
-
+    UI.button_close.clicked.connect(close_windows)
+    UI.config_list.itemClicked.connect(lambda _: config_clicked(UI.config_list.row(_), True))
+    # UI.config_list.itemChanged.connect(lambda s: set_config_name(s))
     UI.nailuo_button.clicked.connect(lambda: career_button_clicked('nai_luo'))
     UI.naima_button.clicked.connect(lambda: career_button_clicked('nai_ma'))
     UI.naiba_button.clicked.connect(lambda: career_button_clicked('nai_ba'))
@@ -455,26 +460,11 @@ def start():
     UI.radioButton_2.clicked.connect(button_count_clicked)
     UI.cp_arm.clicked.connect(button_count_clicked)
 
-    '''
-    
- 
-
-    UI.button_save.clicked.connect(save)
-
-    
-    
-    # 职业按钮绑定
-  
-    # 读取数据
-    
-    '''
-
 
 if __name__ == '__main__':
     app = QApplication(argv)
     UI = BuffUI()
     career = 'nai_ma'
-
     save_data = {
         "nai_ma": [{
             "name": "奶妈",

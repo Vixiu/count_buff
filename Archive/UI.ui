@@ -141,9 +141,9 @@ QScrollBar:horizontal {
     </property>
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>670</y>
-      <width>121</width>
+      <x>760</x>
+      <y>660</y>
+      <width>141</width>
       <height>61</height>
      </rect>
     </property>
@@ -1156,7 +1156,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>邦二加一</string>
+          <string>绑二加一</string>
          </property>
         </widget>
        </item>
@@ -1635,10 +1635,10 @@ border-bottom:0px;
    <widget class="QWidget" name="widget_11" native="true">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>740</x>
       <y>60</y>
-      <width>181</width>
-      <height>571</height>
+      <width>191</width>
+      <height>521</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -1711,6 +1711,18 @@ height: 0px;
         <property name="spacing">
          <number>6</number>
         </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>9</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>9</number>
+        </property>
         <item>
          <widget class="QPushButton" name="button_add">
           <property name="maximumSize">
@@ -1727,7 +1739,7 @@ height: 0px;
            </font>
           </property>
           <property name="text">
-           <string>新增</string>
+           <string>新增配置</string>
           </property>
          </widget>
         </item>
@@ -1782,7 +1794,7 @@ height: 0px;
       <x>450</x>
       <y>30</y>
       <width>291</width>
-      <height>743</height>
+      <height>731</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_20">
