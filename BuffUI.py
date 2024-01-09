@@ -1,23 +1,44 @@
-import random
-from sys import argv
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QApplication, QLineEdit, QListWidgetItem, QMessageBox
 
-from PyQt5.QtGui import QIcon, QRegExpValidator
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QApplication, QLineEdit, QInputDialog, QListWidgetItem
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import Qt, QCoreApplication
+from PyQt5 import QtGui
 
 from UI import Ui_widget
-from PyQt5.QtWidgets import QDialog, QWidget, QPushButton
-from PyQt5.QtCore import Qt, QCoreApplication, QRegExp
-from PyQt5 import QtGui
 
 
 class BuffUI(Ui_widget, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowFlag(Qt.WindowStaysOnTopHint, True)  # 默认置顶
+        self.setWindowTitle(' 奶量计算器')
+        self.setStyleSheet("color: rgb(0, 0, 0);\n")
+        # 无边框标题设置
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+        # 默认按钮绑定事件
+        self.button_close.clicked.connect(lambda: QCoreApplication.instance().quit())  # 关闭
+        self.button_top.clicked.connect(self._window_top)  # 置顶
+        self.button_min.clicked.connect(lambda: self.showMinimized())  # 最小化
+
+        self.naima_button.clicked.connect(self.__naima_setting)
+        self.naiba_button.clicked.connect(self.__naiba_setting)
+        self.nailuo_button.clicked.connect(self.__nailuo_setting)
+        self.naigong_button.clicked.connect(self.__naigong_setting)
+        # 绑定
+        self.zj_lv.textEdited.connect(self.__lv_to)
+        self.zj_xz.textEdited.connect(self.__intellect_to)
+        self.zj_zhili.textEdited.connect(self.__intellect_to)
+        self.zj_gh.textEdited.connect(self.__intellect_to)
+        self.zj_eh.textEdited.connect(self.__intellect_to)
+        self.zj_bd.textEdited.connect(self.__intellect_to)
         self.input_data = {
             "ty_intellect": self.ty_zhili,
             "in_intellect": self.jt_zhili,
             "buff_amount": self.buff_liang,
+
             "out_intellect": self.zj_zhili,
             "out_lv": self.zj_lv,
             "add": self.add,
@@ -39,58 +60,22 @@ class BuffUI(Ui_widget, QWidget):
             "out_guild": self.zj_gh,
             "nai_ba_guardian": self.naiba_sh,
             "nai_ba_ssp": self.naiba_ej,
-            "cp_arm": self.cp_arm,
+            "cp_arms": self.cp_arm,
             "ty3_true": self.radioButton,
             "c_attack": self.c_sg,
-            "c_intellect": self.c_lz
+            "c_intellect": self.c_lz,
         }
         self.__init()
 
-        """
-        scrollArea_widget = QWidget()
-        scrollArea_widget.setStyleSheet("border-bottom: 1px solid #dadce0")
-        h_layout = QHBoxLayout()
-        scrollArea_widget.setLayout(h_layout)
-        UI.scrollArea.setWidget(scrollArea_widget)
-        UI.scrollArea.setStyleSheet("QScrollBar:vertical { height: 10px; }")
-        """
-        #########################
-        """
-               self.cp_arm = None
-        self.fixed_attack = None
-        self.jade_amount = None
-        self.fixed_intellect = None
-        self.percentage_attack = None
-        self.percentage_intellect = None
-        self.ty_fixed = None
-        self.ty_percentage = None
-        self.out_medal = None
-        self.out_earp = None
-        self.out_passive = None
-        self.out_guild = None
-        self.nai_ba_guardian = None
-        self.nai_ba_ssp = None
-        self.pet_amount = None
-        self.halo_amount = None
-        self.ty3_lv = None
-        self.ty_lv = None
-        self.in_lv = None
-        self.add = None
-        self.out_lv = None
-        self.out_intellect = None
-        self.buff_amount = None
-        self.ty_intellect = None
-        self.in_intellect = None
-        """
-
-    def add_config(self, config_id):
-        message, ok = QInputDialog.getText(self, "", "请输入配置名")
-        if ok:
-            item = QListWidgetItem(message)
-            item.setFlags(item.flags() | Qt.ItemIsEditable)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setData(1, config_id)
-            self.config_list.addItem(item)
+    def add_config(self, name, select=False):
+        item = QListWidgetItem(name)
+        item.setFlags(item.flags() | Qt.ItemIsEditable)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.config_list.addItem(item)
+        QApplication.processEvents()
+        self.config_list.update()
+        self.config_list.repaint()
+        item.setSelected(select)
 
     def del_config(self, item):
         self.config_list.removeItemWidget(item)
@@ -100,21 +85,29 @@ class BuffUI(Ui_widget, QWidget):
             raise print(f"{name} is not in UI")
         if name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
             val = self.input_data[name].text()
-            if val == '':
+            if val == '' or val in ("-", "+"):
                 val = self.input_data[name].placeholderText()
             return [float(i) for i in val.split(",") if i] if val else []
         elif name in ("pet_amount", "halo_amount", "jade_amount"):
             val = self.input_data[name].text()
-            if val == '':
+            if val == '' or val in ("-", "+"):
                 val = self.input_data[name].placeholderText()
             return float(val) if val else 0.0
-        elif name == "cp_arm":
+        elif name == "cp_arms":
             return self.input_data[name].isChecked()
         elif name == "ty3_true":
             return self.input_data[name].isChecked()
-        else:
+        elif name == "buff_amount":
             val = self.input_data[name].text()
-            if val == '':
+            if val == '' or val in ("-", "+"):
+                val = self.input_data[name].placeholderText()
+            elif val.startswith('+') or val.startswith('-'):
+                return int(float(val)) + int(self.input_data[name].placeholderText())
+            return int(float(val)) if val else 0
+        else:
+
+            val = self.input_data[name].text()
+            if val == '' or val in ("-", "+"):
                 val = self.input_data[name].placeholderText()
             return int(float(val)) if val else 0
 
@@ -124,20 +117,23 @@ class BuffUI(Ui_widget, QWidget):
     def set_value(self, name, value):
         if name not in self.input_data:
             raise print(f"{name} is not in UI")
-        try:
-            if name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
-                self.input_data[name].setText(",".join([str(i) for i in value]))
-            elif name == "cp_arm":
-                self.input_data[name].setChecked(value)
-            elif name == 'ty3_true':
-                if value:
-                    self.radioButton.clicked()
-                else:
-                    self.radioButton_2.clicked()
+
+        if name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
+            self.input_data[name].setText(",".join([str(i) for i in value]))
+        elif name == "cp_arms":
+            self.input_data[name].setChecked(value)
+        elif name == 'ty3_true':
+            if value:
+                self.radioButton.setChecked(True)
             else:
-                self.input_data[name].setText(str(value))
-        except Exception as e:
-            print(e, name, value)
+                self.radioButton_2.setChecked(True)
+        elif name in ("c_attack", "c_intellect"):
+            self.input_data[name].setPlaceholderText(str(value))
+            self.input_data[name].setText('')
+        elif name == "add_buff_amount":
+            pass
+        else:
+            self.input_data[name].setText(str(value))
 
     def set_values(self, values: dict):
         for name, value in values.items():
@@ -149,7 +145,7 @@ class BuffUI(Ui_widget, QWidget):
         if name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
             self.input_data[name].setPlaceholderText(",".join([str(i) for i in text]))
             self.input_data[name].setText('')
-        elif name in ("cp_arm", "ty3_true"):
+        elif name in ("cp_arms", "ty3_true", "add", "add_buff_amount"):
             return
         else:
             self.input_data[name].setPlaceholderText(str(text))
@@ -158,6 +154,33 @@ class BuffUI(Ui_widget, QWidget):
     def set_placeholder_texts(self, values: dict):
         for name, value in values.items():
             self.set_placeholder_text(name, value)
+
+    def set_show_text(self, data, gap):
+        self.buff_sg.setText(data['zj']['sg'])
+        self.buff_lz.setText(data['zj']['lz'])
+        self.buff_sg_cj.setText(gap['zj']['sg'])
+        self.buff_lz_cj.setText(gap['zj']['lz'])
+        self.yijue_lz.setText(data['ty'])
+        self.yijue_cj.setText(gap['ty'])
+        self.sanjue_lz_1.setText(data['ty3'])
+        self.sanjue_lz_1_cj.setText(gap['ty3'])
+        self.b1_sg.setText(data['jt']['sg'])
+        self.b1_lz.setText(data['jt']['lz'])
+        self.b1_sg_cj.setText(gap['jt']['sg'])
+        self.b1_lz_cj.setText(gap['jt']['lz'])
+        self.b2_sg.setText(data['z_jt']['sg'])
+        self.b2_lz.setText(data['z_jt']['lz'])
+        self.b2_sg_cj.setText(gap['z_jt']['sg'])
+        self.b2_lz_cj.setText(gap['z_jt']['lz'])
+        self.label_28.setText(data['resident'])
+        self.label_43.setText(data['burst'])
+        self.label_41.setText(gap['resident'])
+        self.label_44.setText(gap['burst'])
+        if 'p_jt' in data:
+            self.b3_sg.setText(data['p_jt']['sg'])
+            self.b3_lz.setText(data['p_jt']['lz'])
+            self.b3_lz_cj.setText(gap['p_jt']['lz'])
+            self.b3_sg_cj.setText(gap['p_jt']['sg'])
 
     def mousePressEvent(self, event):
         """鼠标点击事件"""
@@ -209,6 +232,8 @@ class BuffUI(Ui_widget, QWidget):
         self.b3_lz_cj.setText('')
         self.yijue_cj.setText('')
         self.sanjue_lz_1_cj.setText('')
+        self.label_41.setText('')
+        self.label_44.setText('')
 
     def clear_all_text(self):
         self.clear_show_hold_text()
@@ -216,30 +241,6 @@ class BuffUI(Ui_widget, QWidget):
         self.clear_input_text()
 
     def __init(self):
-        self.setWindowFlag(Qt.WindowStaysOnTopHint, True)  # 默认置顶
-        self.setWindowTitle(' 奶量计算器')
-        self.setStyleSheet("color: rgb(0, 0, 0);\n")
-        # 无边框标题设置
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground, True)
-        # 默认按钮绑定事件
-        self.button_close.clicked.connect(lambda: QCoreApplication.instance().quit())  # 关闭
-        self.button_top.clicked.connect(self._window_top)  # 置顶
-        self.button_min.clicked.connect(lambda: self.showMinimized())  # 最小化
-        self.config_list.itemClicked.connect(lambda s: print(s.data(1)))
-        self.config_list.itemChanged.connect(lambda s: print(s.text()))
-        self.button_add.clicked.connect(self.add_config)
-        self.naima_button.clicked.connect(self.__naima_setting)
-        self.naiba_button.clicked.connect(self.__naiba_setting)
-        self.nailuo_button.clicked.connect(self.__nailuo_setting)
-        self.naigong_button.clicked.connect(self.__naigong_setting)
-        # 绑定
-        self.zj_lv.textEdited.connect(self.__lv_to)
-        self.zj_xz.textEdited.connect(self.__intellect_to)
-        self.zj_zhili.textEdited.connect(self.__intellect_to)
-        self.zj_gh.textEdited.connect(self.__intellect_to)
-        self.zj_eh.textEdited.connect(self.__intellect_to)
-        self.zj_bd.textEdited.connect(self.__intellect_to)
 
         self.__set_validator()
 
@@ -387,18 +388,19 @@ class BuffUI(Ui_widget, QWidget):
             except ValueError:
                 input_box.setText(text[:-1])
 
-        # 整数类型
-        self.zj_zhili.setValidator(QtGui.QIntValidator())
+        # buff量与加减
 
+        # 整数类型
+        self.buff_liang.setValidator(QtGui.QIntValidator())
+        self.add.setValidator(QtGui.QIntValidator())
+        self.zj_zhili.setValidator(QtGui.QIntValidator())
         self.zj_xz.setValidator(QtGui.QIntValidator())
         self.zj_bd.setValidator(QtGui.QIntValidator())
         self.zj_eh.setValidator(QtGui.QIntValidator())
         self.zj_gh.setValidator(QtGui.QIntValidator())
         self.naiba_ej.setValidator(QtGui.QIntValidator())
         self.naiba_sh.setValidator(QtGui.QIntValidator())
-
         self.jt_zhili.setValidator(QtGui.QIntValidator())
-
         self.ty_zhili.setValidator(QtGui.QIntValidator())
         self.ty3_lv.setValidator(QtGui.QIntValidator())
         self.sg_guding.setValidator(QtGui.QIntValidator())
@@ -421,19 +423,14 @@ class BuffUI(Ui_widget, QWidget):
         # buff量与智力增加
 
     def _window_top(self):
+        QMessageBox.critical(self, '错误', '这个功能目前有Bug！取消置顶请点击最小化')
+        """
         if not bool(self.windowHandle().flags() & Qt.WindowStaysOnTopHint):
             self.windowHandle().setFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
             self.button_top.setStyleSheet("background:rgb(212, 218, 230);")
+
+
         else:
             self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
             self.button_top.setStyleSheet("")
-            print('F')
-        self.repaint()
-
-
-app = QApplication(argv)
-ui = BuffUI()
-
-print(ui.get_values())
-ui.show()
-app.exec_()
+        """

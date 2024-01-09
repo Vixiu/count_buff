@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1249</width>
-    <height>871</height>
+    <width>961</width>
+    <height>771</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -31,8 +31,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>20</y>
+     <x>0</x>
+     <y>0</y>
      <width>961</width>
      <height>771</height>
     </rect>
@@ -141,8 +141,8 @@ QScrollBar:horizontal {
     </property>
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>600</y>
+      <x>790</x>
+      <y>670</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -155,7 +155,7 @@ QScrollBar:horizontal {
      </font>
     </property>
     <property name="text">
-     <string>设为基础t</string>
+     <string>设为基础</string>
     </property>
     <property name="checkable">
      <bool>false</bool>
@@ -273,6 +273,9 @@ border: 2px solid rgb(125, 125, 125);
          <pointsize>13</pointsize>
         </font>
        </property>
+       <property name="text">
+        <string>123123</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -320,6 +323,12 @@ border: 2px solid rgb(125, 125, 125);
         <font>
          <pointsize>13</pointsize>
         </font>
+       </property>
+       <property name="text">
+        <string>12</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -886,7 +895,7 @@ padding-bottom:8px;
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="uncompiled/images.qrc">
+        <iconset resource="images.qrc">
          <normaloff>:/png/ba.png</normaloff>:/png/ba.png</iconset>
        </property>
        <property name="iconSize">
@@ -911,7 +920,7 @@ padding-bottom:8px;
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="uncompiled/images.qrc">
+        <iconset resource="images.qrc">
          <normaloff>:/png/ma.png</normaloff>:/png/ma.png</iconset>
        </property>
        <property name="iconSize">
@@ -939,7 +948,7 @@ padding-bottom:8px;
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="uncompiled/images.qrc">
+        <iconset resource="images.qrc">
          <normaloff>:/png/luo.png</normaloff>:/png/luo.png</iconset>
        </property>
        <property name="iconSize">
@@ -964,7 +973,7 @@ padding-bottom:8px;
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="uncompiled/images.qrc">
+        <iconset resource="images.qrc">
          <normaloff>:/png/gong.png</normaloff>:/png/gong.png</iconset>
        </property>
        <property name="iconSize">
@@ -1071,7 +1080,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>223</string>
+          <string>22</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1126,6 +1135,11 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item>
         <widget class="QRadioButton" name="radioButton">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>绑一绝</string>
          </property>
@@ -1136,8 +1150,13 @@ border: 2px solid rgb(144, 144, 144);
        </item>
        <item>
         <widget class="QRadioButton" name="radioButton_2">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>邦二觉</string>
+          <string>邦二加一</string>
          </property>
         </widget>
        </item>
@@ -1272,7 +1291,7 @@ border-bottom:0px;
            <number>32767</number>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -1306,7 +1325,7 @@ border-bottom:0px;
            <string/>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -1516,6 +1535,9 @@ border-bottom:0px;
          <pointsize>15</pointsize>
         </font>
        </property>
+       <property name="text">
+        <string>123123</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -1523,10 +1545,10 @@ border-bottom:0px;
    <widget class="QWidget" name="widget_9" native="true">
     <property name="geometry">
      <rect>
-      <x>780</x>
+      <x>790</x>
       <y>0</y>
-      <width>161</width>
-      <height>61</height>
+      <width>151</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -1561,7 +1583,7 @@ border-bottom:0px;
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="uncompiled/images.qrc">
+        <iconset resource="images.qrc">
          <normaloff>:/png/-.png</normaloff>:/png/-.png</iconset>
        </property>
       </widget>
@@ -1583,7 +1605,7 @@ border-bottom:0px;
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="uncompiled/images.qrc">
+        <iconset resource="images.qrc">
          <normaloff>:/png/t.png</normaloff>:/png/t.png</iconset>
        </property>
       </widget>
@@ -1603,7 +1625,7 @@ border-bottom:0px;
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="uncompiled/images.qrc">
+        <iconset resource="images.qrc">
          <normaloff>:/png/x.png</normaloff>:/png/x.png</iconset>
        </property>
       </widget>
@@ -1613,10 +1635,10 @@ border-bottom:0px;
    <widget class="QWidget" name="widget_11" native="true">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>70</y>
+      <x>750</x>
+      <y>60</y>
       <width>181</width>
-      <height>451</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -1629,6 +1651,51 @@ border-bottom:0px;
         <font>
          <pointsize>14</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QListWidget {
+	background-color:rgb(255, 255, 255);
+	border-radius:5px;
+	border:1px solid;
+	border-color:rgb(176, 176, 176)
+}
+
+QScrollArea{
+border: 0px solid;
+
+background-color: #f8f9fa;
+}
+QScrollBar:vertical {
+border: none;
+background: #f8f9fa;
+width: 10px;
+
+}
+QScrollBar::handle:vertical {
+background: Gainsboro;
+border-radius: 5px;
+border: none;
+}
+QScrollBar::add-line:vertical {
+border: 0px solid grey;
+background: #32CC99;
+height: 0px;
+subcontrol-position: bottom;
+subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+border: 0px solid grey;
+background: #32CC99;
+height: 0px;
+subcontrol-position: top;
+subcontrol-origin: margin;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+background: none;
+width: 0px;
+height: 0px;
+}
+</string>
        </property>
        <property name="spacing">
         <number>2</number>
@@ -1686,7 +1753,7 @@ border-bottom:0px;
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>0</height>
+         <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -1714,8 +1781,8 @@ border-bottom:0px;
      <rect>
       <x>450</x>
       <y>30</y>
-      <width>301</width>
-      <height>701</height>
+      <width>291</width>
+      <height>743</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1726,7 +1793,7 @@ border-bottom:0px;
 
 background-color:rgb(255, 255, 255);
   	
-	border-radius:10px;
+	border-radius:20px;
 
 }
 
@@ -1765,7 +1832,7 @@ background-color:rgb(255, 255, 255);
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="uncompiled/images.qrc">:/png/84.PNG</pixmap>
+              <pixmap resource="images.qrc">:/png/84.PNG</pixmap>
              </property>
              <property name="scaledContents">
               <bool>false</bool>
@@ -1798,11 +1865,7 @@ background-color:rgb(255, 255, 255);
         <item>
          <widget class="QWidget" name="widget_3" native="true">
           <property name="styleSheet">
-           <string notr="true">#widget_3{
-
-border-bottom: 2px solid rgb(179, 179, 179);
-
-}</string>
+           <string notr="true"/>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_18">
            <property name="spacing">
@@ -2003,6 +2066,64 @@ border-bottom: 2px solid rgb(179, 179, 179);
               </layout>
              </item>
             </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_12" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_16">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>20</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>20</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="Line" name="line_2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>56564</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color:rgb(140, 140, 140)</string>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="midLineWidth">
+              <number>0</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -2588,6 +2709,11 @@ border-bottom: 2px solid rgb(179, 179, 179);
      </item>
      <item>
       <widget class="QWidget" name="widget_14" native="true">
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(255, 255, 255);
+  	
+	border-radius:20px;</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_21">
         <item>
          <widget class="QLabel" name="yijue">
@@ -2614,7 +2740,7 @@ border-bottom: 2px solid rgb(179, 179, 179);
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="uncompiled/images.qrc">:/png/23.PNG</pixmap>
+             <pixmap resource="images.qrc">:/png/23.PNG</pixmap>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -2703,7 +2829,7 @@ border-bottom: 2px solid rgb(179, 179, 179);
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="uncompiled/images.qrc">:/png/350.PNG</pixmap>
+             <pixmap resource="images.qrc">:/png/350.PNG</pixmap>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -2912,19 +3038,6 @@ border-bottom: 2px solid rgb(179, 179, 179);
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="button_js">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>680</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>计算</string>
-    </property>
-   </widget>
    <zorder>layoutWidget</zorder>
    <zorder>left_widget</zorder>
    <zorder>button_jc</zorder>
@@ -2936,12 +3049,10 @@ border-bottom: 2px solid rgb(179, 179, 179);
    <zorder>layoutWidget</zorder>
    <zorder>widget_9</zorder>
    <zorder>widget_11</zorder>
-   <zorder>button_js</zorder>
   </widget>
  </widget>
  <resources>
-  <include location="uncompiled/images.qrc"/>
-  <include location="uncompiled/images.qrc"/>
+  <include location="images.qrc"/>
   <include location="uncompiled/images.qrc"/>
  </resources>
  <connections>

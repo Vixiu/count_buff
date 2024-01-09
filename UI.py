@@ -14,12 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_widget(object):
     def setupUi(self, widget):
         widget.setObjectName("widget")
-        widget.resize(1249, 871)
+        widget.resize(961, 771)
         widget.setMinimumSize(QtCore.QSize(0, 0))
         widget.setMaximumSize(QtCore.QSize(16777215, 999999))
         self.widget_1 = QtWidgets.QWidget(widget)
         self.widget_1.setEnabled(True)
-        self.widget_1.setGeometry(QtCore.QRect(90, 20, 961, 771))
+        self.widget_1.setGeometry(QtCore.QRect(0, 0, 961, 771))
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
@@ -117,7 +117,7 @@ class Ui_widget(object):
         self.widget_1.setObjectName("widget_1")
         self.button_jc = QtWidgets.QPushButton(self.widget_1)
         self.button_jc.setEnabled(True)
-        self.button_jc.setGeometry(QtCore.QRect(780, 690, 151, 61))
+        self.button_jc.setGeometry(QtCore.QRect(790, 670, 121, 61))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(False)
@@ -185,6 +185,7 @@ class Ui_widget(object):
         font = QtGui.QFont()
         font.setPointSize(13)
         self.jt_lv.setFont(font)
+        self.jt_lv.setAlignment(QtCore.Qt.AlignCenter)
         self.jt_lv.setObjectName("jt_lv")
         self.horizontalLayout_8.addWidget(self.jt_lv)
         self.groupBox_4 = QtWidgets.QGroupBox(self.widget_1)
@@ -580,10 +581,16 @@ class Ui_widget(object):
         self.ty3_lv.setObjectName("ty3_lv")
         self.horizontalLayout_3.addWidget(self.ty3_lv)
         self.radioButton = QtWidgets.QRadioButton(self.groupBox)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.radioButton.setFont(font)
         self.radioButton.setChecked(True)
         self.radioButton.setObjectName("radioButton")
         self.horizontalLayout_3.addWidget(self.radioButton)
         self.radioButton_2 = QtWidgets.QRadioButton(self.groupBox)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.radioButton_2.setFont(font)
         self.radioButton_2.setObjectName("radioButton_2")
         self.horizontalLayout_3.addWidget(self.radioButton_2)
         self.verticalLayout_15.addLayout(self.horizontalLayout_3)
@@ -662,7 +669,7 @@ class Ui_widget(object):
         self.buff_liang.setInputMask("")
         self.buff_liang.setText("")
         self.buff_liang.setMaxLength(32767)
-        self.buff_liang.setAlignment(QtCore.Qt.AlignCenter)
+        self.buff_liang.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.buff_liang.setObjectName("buff_liang")
         self.horizontalLayout_7.addWidget(self.buff_liang)
         self.verticalLayout_12.addLayout(self.horizontalLayout_7)
@@ -680,7 +687,7 @@ class Ui_widget(object):
         font.setPointSize(14)
         self.zj_zhili.setFont(font)
         self.zj_zhili.setInputMask("")
-        self.zj_zhili.setAlignment(QtCore.Qt.AlignCenter)
+        self.zj_zhili.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.zj_zhili.setObjectName("zj_zhili")
         self.horizontalLayout_4.addWidget(self.zj_zhili)
         self.label_5 = QtWidgets.QLabel(self.tab1)
@@ -788,7 +795,7 @@ class Ui_widget(object):
         self.add.setObjectName("add")
         self.horizontalLayout_11.addWidget(self.add)
         self.widget_9 = QtWidgets.QWidget(self.widget_1)
-        self.widget_9.setGeometry(QtCore.QRect(780, 0, 161, 61))
+        self.widget_9.setGeometry(QtCore.QRect(790, 0, 151, 51))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setBold(False)
@@ -838,7 +845,7 @@ class Ui_widget(object):
         self.button_close.setObjectName("button_close")
         self.horizontalLayout_13.addWidget(self.button_close)
         self.widget_11 = QtWidgets.QWidget(self.widget_1)
-        self.widget_11.setGeometry(QtCore.QRect(760, 70, 181, 451))
+        self.widget_11.setGeometry(QtCore.QRect(750, 60, 181, 571))
         self.widget_11.setStyleSheet("")
         self.widget_11.setObjectName("widget_11")
         self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.widget_11)
@@ -848,11 +855,51 @@ class Ui_widget(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.config_list.setFont(font)
+        self.config_list.setStyleSheet("QListWidget {\n"
+"    background-color:rgb(255, 255, 255);\n"
+"    border-radius:5px;\n"
+"    border:1px solid;\n"
+"    border-color:rgb(176, 176, 176)\n"
+"}\n"
+"\n"
+"QScrollArea{\n"
+"border: 0px solid;\n"
+"\n"
+"background-color: #f8f9fa;\n"
+"}\n"
+"QScrollBar:vertical {\n"
+"border: none;\n"
+"background: #f8f9fa;\n"
+"width: 10px;\n"
+"\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"background: Gainsboro;\n"
+"border-radius: 5px;\n"
+"border: none;\n"
+"}\n"
+"QScrollBar::add-line:vertical {\n"
+"border: 0px solid grey;\n"
+"background: #32CC99;\n"
+"height: 0px;\n"
+"subcontrol-position: bottom;\n"
+"subcontrol-origin: margin;\n"
+"}\n"
+"QScrollBar::sub-line:vertical {\n"
+"border: 0px solid grey;\n"
+"background: #32CC99;\n"
+"height: 0px;\n"
+"subcontrol-position: top;\n"
+"subcontrol-origin: margin;\n"
+"}\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+"background: none;\n"
+"width: 0px;\n"
+"height: 0px;\n"
+"}\n"
+"")
         self.config_list.setSelectionRectVisible(False)
         self.config_list.setObjectName("config_list")
-        item = QtWidgets.QListWidgetItem()
-        item.setTextAlignment(QtCore.Qt.AlignCenter)
-        self.config_list.addItem(item)
         self.verticalLayout_17.addWidget(self.config_list)
         self.widget_2 = QtWidgets.QWidget(self.widget_11)
         self.widget_2.setObjectName("widget_2")
@@ -878,7 +925,7 @@ class Ui_widget(object):
         self.horizontalLayout_14.addWidget(self.button_del)
         self.verticalLayout_17.addWidget(self.widget_2)
         self.button_save = QtWidgets.QPushButton(self.widget_11)
-        self.button_save.setMinimumSize(QtCore.QSize(0, 0))
+        self.button_save.setMinimumSize(QtCore.QSize(0, 40))
         self.button_save.setMaximumSize(QtCore.QSize(600, 300))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -888,7 +935,7 @@ class Ui_widget(object):
         self.button_save.setObjectName("button_save")
         self.verticalLayout_17.addWidget(self.button_save)
         self.layoutWidget1 = QtWidgets.QWidget(self.widget_1)
-        self.layoutWidget1.setGeometry(QtCore.QRect(450, 30, 301, 701))
+        self.layoutWidget1.setGeometry(QtCore.QRect(450, 30, 291, 743))
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.layoutWidget1)
         self.verticalLayout_20.setContentsMargins(0, 0, 0, 0)
@@ -898,7 +945,7 @@ class Ui_widget(object):
 "\n"
 "background-color:rgb(255, 255, 255);\n"
 "      \n"
-"    border-radius:10px;\n"
+"    border-radius:20px;\n"
 "\n"
 "}\n"
 "\n"
@@ -935,11 +982,7 @@ class Ui_widget(object):
         self.verticalLayout_11.addWidget(self.buff_name)
         self.verticalLayout_10.addWidget(self.widget_8)
         self.widget_3 = QtWidgets.QWidget(self.widget_13)
-        self.widget_3.setStyleSheet("#widget_3{\n"
-"\n"
-"border-bottom: 2px solid rgb(179, 179, 179);\n"
-"\n"
-"}")
+        self.widget_3.setStyleSheet("")
         self.widget_3.setObjectName("widget_3")
         self.horizontalLayout_18 = QtWidgets.QHBoxLayout(self.widget_3)
         self.horizontalLayout_18.setContentsMargins(-1, 0, -1, 15)
@@ -1019,6 +1062,29 @@ class Ui_widget(object):
         self.verticalLayout_5.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_18.addLayout(self.verticalLayout_5)
         self.verticalLayout_10.addWidget(self.widget_3)
+        self.widget_12 = QtWidgets.QWidget(self.widget_13)
+        self.widget_12.setStyleSheet("")
+        self.widget_12.setObjectName("widget_12")
+        self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.widget_12)
+        self.verticalLayout_16.setContentsMargins(20, 0, 20, 0)
+        self.verticalLayout_16.setSpacing(0)
+        self.verticalLayout_16.setObjectName("verticalLayout_16")
+        self.line_2 = QtWidgets.QFrame(self.widget_12)
+        self.line_2.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.line_2.sizePolicy().hasHeightForWidth())
+        self.line_2.setSizePolicy(sizePolicy)
+        self.line_2.setMaximumSize(QtCore.QSize(56564, 16777215))
+        self.line_2.setStyleSheet("color:rgb(140, 140, 140)")
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.line_2.setLineWidth(1)
+        self.line_2.setMidLineWidth(0)
+        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_2.setObjectName("line_2")
+        self.verticalLayout_16.addWidget(self.line_2)
+        self.verticalLayout_10.addWidget(self.widget_12)
         self.widget_4 = QtWidgets.QWidget(self.widget_13)
         self.widget_4.setStyleSheet("")
         self.widget_4.setObjectName("widget_4")
@@ -1243,6 +1309,9 @@ class Ui_widget(object):
         self.verticalLayout_10.addWidget(self.widget_4)
         self.verticalLayout_20.addWidget(self.widget_13)
         self.widget_14 = QtWidgets.QWidget(self.layoutWidget1)
+        self.widget_14.setStyleSheet("background-color:rgb(255, 255, 255);\n"
+"      \n"
+"    border-radius:20px;")
         self.widget_14.setObjectName("widget_14")
         self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.widget_14)
         self.verticalLayout_21.setObjectName("verticalLayout_21")
@@ -1414,10 +1483,12 @@ class Ui_widget(object):
     def retranslateUi(self, widget):
         _translate = QtCore.QCoreApplication.translate
         widget.setWindowTitle(_translate("widget", "Form"))
-        self.button_jc.setText(_translate("widget", "设为基础t"))
+        self.button_jc.setText(_translate("widget", "设为基础"))
         self.groupBox_6.setTitle(_translate("widget", "Buff适用(进图)"))
         self.label_17.setText(_translate("widget", "智力:"))
+        self.jt_zhili.setText(_translate("widget", "123123"))
         self.label_33.setText(_translate("widget", "Lv:"))
+        self.jt_lv.setText(_translate("widget", "12"))
         self.groupBox_4.setTitle(_translate("widget", "辟邪玉&&宠物&&光环&&武器"))
         self.groupBox_12.setTitle(_translate("widget", "增益量%"))
         self.label_16.setText(_translate("widget", "光环%:"))
@@ -1448,11 +1519,11 @@ class Ui_widget(object):
         self.label_15.setText(_translate("widget", "智力:"))
         self.ty_zhili.setText(_translate("widget", "123456"))
         self.label_47.setText(_translate("widget", "一绝Lv:"))
-        self.ty_lv.setText(_translate("widget", "223"))
+        self.ty_lv.setText(_translate("widget", "22"))
         self.label_22.setText(_translate("widget", "三觉:Lv"))
         self.ty3_lv.setText(_translate("widget", "123"))
         self.radioButton.setText(_translate("widget", "绑一绝"))
-        self.radioButton_2.setText(_translate("widget", "邦二觉"))
+        self.radioButton_2.setText(_translate("widget", "邦二加一"))
         self.label_31.setText(_translate("widget", "增益量:"))
         self.label_3.setText(_translate("widget", "智力:"))
         self.label_5.setText(_translate("widget", "Buff等级:"))
@@ -1466,11 +1537,7 @@ class Ui_widget(object):
         self.label_13.setText(_translate("widget", "二觉(单层)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), _translate("widget", "守护和二觉"))
         self.label_6.setText(_translate("widget", "智力加减:"))
-        __sortingEnabled = self.config_list.isSortingEnabled()
-        self.config_list.setSortingEnabled(False)
-        item = self.config_list.item(0)
-        item.setText(_translate("widget", "新建项目"))
-        self.config_list.setSortingEnabled(__sortingEnabled)
+        self.add.setText(_translate("widget", "123123"))
         self.button_add.setText(_translate("widget", "新增"))
         self.button_del.setText(_translate("widget", "删除当前"))
         self.button_save.setText(_translate("widget", "保存当前数据"))

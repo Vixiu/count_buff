@@ -2,7 +2,9 @@ import json
 from os import getenv, path, makedirs
 from sys import argv
 
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QMessageBox, QListWidgetItem, QLineEdit
+
+from BuffUI import BuffUI
 
 BUFF_BASE = {
     'nai_ma': {
@@ -13,7 +15,7 @@ BUFF_BASE = {
                    302, 311, 321, 332, 342, 353, 363, 374, 385, 395, 406, 415, 425, 437,
                    447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
         'xs': 665,
-        'xyz': (4350, 3500, 3.7886202335357666e-05),
+        'xyz': (4350, 3500, 3.78880649805069e-05),
     },
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
@@ -36,7 +38,7 @@ BUFF_BASE = {
                    559, 570, 581, 593]
         ,
         'xs': 665,
-        'xyz': (4350, 3500, 3.7886202335357666e-05),
+        'xyz': (4350, 3500, 3.78880649805069e-05),
 
     },
     'nai_luo': {
@@ -47,7 +49,7 @@ BUFF_BASE = {
                    256, 264, 273, 282, 291, 300, 309, 318, 327, 336, 345, 353, 362, 371,
                    380, 389, 398, 407, 416, 425, 434, 442, 451, 460, 469, 478],
         'xs': 665,
-        'xyz': (4350, 3500, 3.7886202335357666e-05),
+        'xyz': (4350, 3500, 3.78880649805069e-05),
 
     },
     "tai_yang": {'li_zhi': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -59,8 +61,7 @@ BUFF_BASE = {
 
 }
 FILE_PATH = r'{}'.format(path.join(getenv("APPDATA", ""), "count_buff", "data.json"))
-
-default_data = {
+DEFAULT_DATA = {
     'ty_lv': 37,
     'ty_intellect': 0,
     'ty3_lv': 3,
@@ -82,78 +83,27 @@ default_data = {
     'percentage_intellect': [],
     'ty_fixed': 0,
     'ty_percentage': [],
-    'cp_arm': True,
+    'cp_arms': True,
     'nai_ba_guardian': 0,
     'nai_ba_ssp': 0,
-}
-save_data = {
-    "nai_ma": {
-        "pz_1": {
-            "name": "默认配置",
-            "data": default_data.copy()
-        },
-
-    },
-    "nai_ba": {
-        "pz_1": {
-            "name": "默认配置",
-            "data": default_data.copy()
-        },
-
-    },
-    "nai_luo": {
-        "pz_1": {
-            "name": "默认配置",
-            "data": default_data.copy()
-        },
-
-    },
-    "nai_gong": {
-        "pz_1": {
-            "name": "默认配置",
-            "data": default_data.copy()
-        },
-
-    },
-    "record": {
-        "nai_ma": 'pz_1',
-        "nai_ba": 'pz_1',
-        "nai_luo": 'pz_1',
-        "nai_gong": 'pz_1'
-    },
-    "career": 'nai_ma'
+    "ty3_true": True,
+    "c_attack": 3350,
+    "c_intellect": 24500
 }
 
 
-# buff最顶层
-def buff(data_now):
-    cr = now_career
-    data_now['in_intellect'] += data_now["add"]
-    data_now['out_intellect'] += data_now["add"]
-    data_now['ty_intellect'] += data_now["add"]
-    now = {'zj': count_zj_buff(cr, data_now),
-           'jt': count_jt_buff(cr, data_now),
-           'ty': count_ty(data_now),
-           }
-    base = {
-        'zj': count_zj_buff(cr, default_data),
-        'jt': count_jt_buff(cr, default_data),
-        'ty': count_ty(default_data)
-    }
-    now.update(count_ty3(now['ty'], data_now['ty3_lv']))
-    base.update(count_ty3(base['ty'], default_data['ty3_lv']))
-    return now, base
+def diff_dict(dict1, dict2):
+    diff = {}
+    for key in dict1:
+        if isinstance(dict1[key], dict):
+            diff[key] = diff_dict(dict1[key], dict2[key])  # 递归
+        else:
+            diff[key] = dict2[key] - dict1[key]
+            if isinstance(diff[key], float):
+                diff[key] = round(diff[key], 2)
+    return diff
 
 
-# 计算三觉力智
-def count_ty3(intellect, lv):
-    return {
-        'san_one': round(intellect * (1.08 + lv * 0.01)),
-        'san_two': round(intellect * (1.23 + lv * 0.01)),
-    }
-
-
-# 递归将字典的值转换为字符串
 def value_to_str(data):
     if isinstance(data, dict):
         for key in data:
@@ -163,141 +113,18 @@ def value_to_str(data):
     return data
 
 
-# 递归设置差距文本样式
-def gap_set(gap):
-    if isinstance(gap, dict):
-        for key in gap:
-            gap[key] = gap_set(gap[key])
-    else:
-        gap = "<font color='{}'>{:+d}<font>".format('#21f805' if gap >= 0 else '#f40c0c', gap)
-    return gap
+# buff最顶层
+def buff(cr: str, data: dict):
+    power = {'zj': count_zj_buff(cr, data),
+             'jt': count_jt_buff(cr, data),
+             'ty': count_ty(data),
+             }
+
+    power['ty3'] = round(power['ty'] * (1.08 if data['ty3_true'] else 1.23 + data['ty3_lv'] * 0.01))
+
+    return power
 
 
-# 设置显示数据
-def current(data, gap):
-    UI.buff_sg.setText(data['zj']['sg'])
-    UI.buff_lz.setText(data['zj']['lz'])
-    UI.buff_sg_cj.setText(gap['zj']['sg'])
-    UI.buff_lz_cj.setText(gap['zj']['lz'])
-    UI.yijue_lz.setText(data['ty'])
-    UI.yijue_cj.setText(gap['ty'])
-    UI.sanjue_lz_1.setText(data['san_one'])
-    UI.sanjue_lz_1_cj.setText(gap['san_one'])
-    UI.sanjue_lz_2.setText(data['san_two'])
-    UI.sanjue_lz_2_cj.setText(gap['san_two'])
-    UI.b1_sg.setText(data['jt']['sg'])
-    UI.b1_lz.setText(data['jt']['lz'])
-    UI.b1_sg_cj.setText(gap['jt']['sg'])
-    UI.b1_lz_cj.setText(gap['jt']['lz'])
-    UI.b2_sg.setText(data['z_jt']['sg'])
-    UI.b2_lz.setText(data['z_jt']['lz'])
-    UI.b2_sg_cj.setText(gap['z_jt']['sg'])
-    UI.b2_lz_cj.setText(gap['z_jt']['lz'])
-
-
-# 设置奶妈计算结果
-def set_naima(data, gap):
-    current(data, gap)
-
-
-# 设置奶罗计算结果
-def set_nailuo(data, gap):
-    current(data, gap)
-    UI.b3_sg.setText(data['p_jt']['sg'])
-    UI.b3_lz.setText(data['p_jt']['lz'])
-    UI.b3_lz_cj.setText(gap['p_jt']['lz'])
-    UI.b3_sg_cj.setText(gap['p_jt']['sg'])
-
-
-# 设置奶爸计算结果
-def set_naiba(data, gap):
-    current(data, gap)
-
-
-# 设置奶公计算结果
-def set_naigong(data, gap):
-    current(data, gap)
-
-
-def button_count_clicked(data_now):
-    now, base = buff(data_now)
-
-    career = now_career
-    # 下面是 向下取整,还是四舍五入 有待研究
-    if career == 'nai_ma':
-        now['z_jt'] = {k: round(v * 1.15) for k, v in now['jt'].items()}
-        base['z_jt'] = {k: round(v * 1.15) for k, v in base['jt'].items()}
-        gap = diff_dict(base, now)
-        set_naima(value_to_str(now), gap_set(gap))
-    elif career == 'nai_luo':
-        now['z_jt'] = {k: round(v * 1.25) for k, v in now['jt'].items()}
-        now['p_jt'] = {k: round(v * 1.4375) for k, v in now['jt'].items()}
-        base['z_jt'] = {k: round(v * 1.25) for k, v in base['jt'].items()}
-        base['p_jt'] = {k: round(v * 1.4375) for k, v in base['jt'].items()}
-        gap = diff_dict(base, now)
-        set_nailuo(value_to_str(now), gap_set(gap))
-    elif career == 'nai_ba':
-        _ = default_data.copy()
-        _['in_intellect'] = _['in_intellect'] + default_data['nai_ba_guardian'] + default_data['nai_ba_ssp'] * 24
-        data_now['in_intellect'] = data_now['in_intellect'] + data_now['nai_ba_guardian'] + data_now['nai_ba_ssp'] * 24
-        now['z_jt'] = count_jt_buff(career, data_now)
-        base['z_jt'] = count_jt_buff(career, _)
-        #######################################
-
-        gap = diff_dict(base, now)
-        set_naiba(value_to_str(now), gap_set(gap))
-    elif career == 'nai_gong':
-        now['z_jt'] = {k: round(v * 1.1) for k, v in now['jt'].items()}
-        base['z_jt'] = {k: round(v * 1.1) for k, v in base['jt'].items()}
-        gap = diff_dict(base, now)
-        set_naigong(value_to_str(now), gap_set(gap))
-
-
-# 计算两个相同结构字典的差值
-def diff_dict(dict1, dict2):
-    diff = {}
-    for key in dict1:
-        if isinstance(dict1[key], dict):
-            diff[key] = diff_dict(dict1[key], dict2[key])  # 递归
-        else:
-            diff[key] = dict2[key] - dict1[key]
-    return diff
-
-
-# 核心计算函数
-def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arm: bool, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
-    """
-
-    :param buff_amount: 增益量
-    :param intellect: 四维
-    :param xs: 系数
-    :param xyz: x,y,z
-    :param cp_arm: cp武器
-    :param arm:
-    :return: 函数
-    """
-    x, y, z = xyz
-
-    def count(fixed, bfb: list, basic_attack) -> int:
-        """
-
-        :param fixed: 固定加成
-        :param bfb: 百分比加成
-        :param basic_attack: 基础数值
-        :return:
-        """
-        old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
-        for n in bfb:
-            old_buff *= (1 + n / 100)
-        new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
-        bf = (old_buff + new_buff) * (arm if cp_arm else 1)
-
-        return round(bf)
-
-    return count
-
-
-# 计算站街buff
 def count_zj_buff(cr: str, data) -> dict:
     arm = 1.008 if cr == 'nai_ba' else 1.08  # 奶爸武器bug
     count = count_buff(
@@ -305,7 +132,7 @@ def count_zj_buff(cr: str, data) -> dict:
         data['out_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
-        data['cp_arm'],
+        data['cp_arms'],
         arm  # 奶爸武器bug
     )
     return {
@@ -331,7 +158,7 @@ def count_jt_buff(cr, data) -> dict:
         data['in_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
-        data['cp_arm']
+        data['cp_arms']
     )
     return {
         'sg': count(
@@ -361,158 +188,320 @@ def count_ty(data) -> int:
                  )
 
 
-# 设置为基础数据
+# 核心计算函数
+def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arms: bool, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
+    """
 
-def is_contrast(data_now):
-    global default_data
-    DATA.set_placeholder_texts(data_now)
+    :param buff_amount: 增益量
+    :param intellect: 四维
+    :param xs: 系数
+    :param xyz: x,y,z
+    :param cp_arms: cp武器
+    :param arm:
+    :return: 函数
+    """
+    x, y, z = xyz
 
-    default_data = data_now.copy()
+    def count(fixed, bfb: list, basic_attack) -> int:
+        """
 
-    button_count_clicked()
+        :param fixed: 固定加成
+        :param bfb: 百分比加成
+        :param basic_attack: 基础数值
+        :return:
+        """
+        old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
+        for n in bfb:
+            old_buff *= (1 + n / 100)
+        new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
+        bf = (old_buff + new_buff) * (arm if cp_arms else 1)
+
+        return round(bf)
+
+    return count
 
 
-def save(data_now):
+def gap_set(gap):
+    if isinstance(gap, dict):
+        for key in gap:
+            gap[key] = gap_set(gap[key])
+    else:
+        gap = f"<font color='#FF8C00'>+{gap}<font>" if gap >= 0 else f"<font color='#f40c0c'>{gap}<font>"
+    return gap
+
+
+def count_magnification(data, ty3, attribute, c_attack, c_intellect):
+    attack, intellect = data['sg'], data['lz']
+
+    return {
+        "resident": round((1 + attack / c_attack) * (1 + intellect / (c_intellect + 250)) * attribute, 2),
+        "burst": round((1 + attack / c_attack) * (1 + (intellect + ty3) / (c_intellect + 250)) * attribute, 2)
+    }
+
+
+def button_count_clicked():
+    input_data = UI.get_values()
+
+    input_data['in_intellect'] += input_data["add"]
+    input_data['out_intellect'] += input_data["add"]
+    input_data['ty_intellect'] += input_data["add"]
+    now = buff(career, input_data)
+    base = buff(career, baseline_data)
+
+    # 下面是 向下取整,还是四舍五入 有待研究
+    if career == 'nai_ma':
+        now['z_jt'] = {k: round(v * 1.15) for k, v in now['jt'].items()}
+        base['z_jt'] = {k: round(v * 1.15) for k, v in base['jt'].items()}
+        now.update(count_magnification(now['z_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        base.update(count_magnification(base['z_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+
+        gap = diff_dict(base, now)
+        UI.set_show_text(value_to_str(now), gap_set(gap))
+    elif career == 'nai_luo':
+        now['z_jt'] = {k: round(v * 1.25) for k, v in now['jt'].items()}
+        now['p_jt'] = {k: round(v * 1.4375) for k, v in now['jt'].items()}
+        base['z_jt'] = {k: round(v * 1.25) for k, v in base['jt'].items()}
+        base['p_jt'] = {k: round(v * 1.4375) for k, v in base['jt'].items()}
+
+        now.update(count_magnification(now['p_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        base.update(count_magnification(base['p_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        gap = diff_dict(base, now)
+        UI.set_show_text(value_to_str(now), gap_set(gap))
+    elif career == 'nai_ba':
+        _ = baseline_data.copy()
+        _['in_intellect'] = _['in_intellect'] + _['nai_ba_guardian'] + _['nai_ba_ssp'] * 24
+        input_data['in_intellect'] = input_data['in_intellect'] + input_data['nai_ba_guardian'] + input_data['nai_ba_ssp'] * 24
+        now['z_jt'] = count_jt_buff(career, input_data)
+        base['z_jt'] = count_jt_buff(career, _)
+
+        now.update(count_magnification(now['z_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        base.update(count_magnification(base['z_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+
+        gap = diff_dict(base, now)
+        UI.set_show_text(value_to_str(now), gap_set(gap))
+    elif career == 'nai_gong':
+        now['z_jt'] = {k: round(v * 1.1) for k, v in now['jt'].items()}
+        base['z_jt'] = {k: round(v * 1.1) for k, v in base['jt'].items()}
+        now.update(count_magnification(now['z_jt'], now['ty3'], 1.174, input_data['c_attack'], input_data['c_intellect']))
+        base.update(count_magnification(base['z_jt'], base['ty3'], 1.174, input_data['c_attack'], input_data['c_intellect']))
+        gap = diff_dict(base, now)
+        UI.set_show_text(value_to_str(now), gap_set(gap))
+
+
+def is_contrast():
+    global baseline_data
+    baseline_data = UI.get_values()
+    UI.set_placeholder_texts(baseline_data)
+    UI.clear_show_hold_text()
+
+
+def is_save():
+    global save_data
+    input_data = UI.get_values()
+    input_data.pop('add', 1)
+    db = save_data[career][save_data['record'][career]]['data']
+    for k, v in input_data.items():
+        if db[k] != v:
+            # if QMessageBox.question(UI, "消息框标题", "数据未保存,是否保存数据？", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
+            cfg_id = save_data['record'][career]
+            save_data[career][cfg_id]['data'] = input_data
+
+
+def save(update=False):
+    global save_data
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
-
-    save_data[now_career][save_data['record'][now_career]]["data"] = data_now
+    if update:
+        cfg_id = save_data['record'][career]
+        save_data[career][cfg_id]['data'] = UI.get_values()
+        button_count_clicked()
+        is_contrast()
     with open(FILE_PATH, "w+") as f:
         json.dump(save_data, f)
-    is_contrast()
 
 
-# 设置配置按钮
-def pz_setting(cr):
-    for i in reversed(range(h_layout.count())):
-        h_layout.itemAt(i).widget().deleteLater()
-    for k, v in save_data[cr].items():
-        add_layout_widget(v['name'], k)
-
-
-# 读取数据
-def load():
-    global save_data, now_career
+def load_data():
+    global save_data, career
     # 首次运行创建文件夹及文件步骤写到save_data里不要写在这.否则可能会报毒
     try:
         with open(FILE_PATH, "r") as f:
             save_data = json.load(f)
-    except:
-        pass  # 如果读取不到或者读取错则什么都不做,用默认数据
-    _career = save_data['career']
-    now_career = save_data['career']
-    pz_setting(_career)
-    pz_clicked(save_data['record'][_career], _career)
-    if _career == 'nai_ma':
-        naima_setting()
-    elif _career == 'nai_ba':
-        naiba_setting()
-    elif _career == 'nai_luo':
-        nailuo_setting()
-    elif _career == 'nai_gong':
-        naigong_setting()
+            _ = ('nai_ma', 'nai_ba', 'nai_luo', "nai_gong")
+            for cr in _:
+                if isinstance(save_data[cr], dict):
+                    data = []
+                    for v in save_data[cr].values():
+                        data.append(v)
 
+                    save_data[cr] = data
+                    save_data['record'][cr] = 0
+    except:
+        pass  # 如果读取不到或者读取错则什么都不做,用默认数据]
+    career = save_data['career']
+    update_config()
+    if career == 'nai_ma':
+        UI.naima_button.click()
+    elif career == 'nai_ba':
+        UI.naiba_button.click()
+    elif career == 'nai_luo':
+        UI.nailuo_button.click()
+    elif career == 'nai_gong':
+        UI.naigong_button.click()
     button_count_clicked()
     is_contrast()
-    clear_cj()
 
 
-# 配置按钮绑定函数
-def pz_clicked(pz_id, cr=None):
-    cr = cr if cr else now_career
-    datas = save_data[cr][pz_id]['data']
-    clear_text()
-    clear_cj()
-    # 设置对应配置数据
-    DATA.set_values(datas)
-    '''        
-    btn = scrollArea_widget.findChild(QPushButton, pz_id)
-    btn.setStyleSheet("background:rgb(212, 218, 230);")
+def config_clicked(config_id):
+    global save_data
+    save_data['record'][career] = config_id
+    data = save_data[career][config_id]['data']
 
-    '''
-    # 设置对应按钮状态
-    for btn in scrollArea_widget.findChildren(QWidget):
-        if btn.objectName() == pz_id:
-            btn.setStyleSheet("background:rgb(212, 218, 230);")
-        else:
-            btn.setStyleSheet("")
-    save_data['record'][cr] = pz_id
+    UI.set_values(data)
+    UI.button_save.setText(f'保存({save_data[career][config_id]["name"]})')
     button_count_clicked()
+    is_contrast()
 
 
-# is_contrast()
+def update_config():
+    UI.config_list.clear()
+    select_id = save_data["record"][career]
 
-# 增加配置按钮
-def add_button():
-    message, ok = QInputDialog.getText(main_window, "", "请输入配置名")
+    for cfg_id, cfg in enumerate(save_data[career]):
+        if select_id == cfg_id:
+            config_clicked(select_id)
+            UI.add_config(cfg['name'], True)
+
+        else:
+            UI.add_config(cfg['name'])
+
+
+def add_config(select=False):
+    name, ok = QInputDialog.getText(UI, "", "请输入配置名")
     if ok:
-        keys = save_data[now_career].keys()
-        ls = [int(k[3:]) for k in keys]
-        pz_id = 1
-        for i in range(len(ls) + 1):
-            if i + 1 not in ls:
-                pz_id = f'pz_{i + 1}'
-
-                break
-
-        add_layout_widget(message, pz_id)
-        save_data[now_career][pz_id] = {
-            'name': message,
-            'data': default_data.copy()
-        }
-
-        pz_clicked(pz_id)
-    save()
-
-
-#  删除配置按钮
-def del_button():
-    if len(save_data[now_career]) == 1:
-        QMessageBox.critical(main_window, '错误', '至少保留一个吧！')
-
-    elif QMessageBox.question(main_window, "消息框标题", "确实删除吗？", QMessageBox.Yes | QMessageBox.No,
-                              QMessageBox.Yes) == QMessageBox.Yes:
-        pz_id = save_data['record'][now_career]
-        for btn in scrollArea_widget.findChildren(QWidget):
-            if btn.objectName() == pz_id:
-                btn.deleteLater()
-                del save_data[now_career][pz_id]
-        pz_clicked(list(save_data[now_career].keys())[0])
+        global save_data
+        save_data[career].append({
+            'name': name,
+            'data': DEFAULT_DATA.copy()
+        })
+        UI.add_config(name, select)
+        config_clicked(len(save_data[career]) - 1)
         save()
 
 
+def set_config_name(item: QListWidgetItem):
+    global save_data
+    cfg_id = UI.config_list.row(item)
+    save_data[career][cfg_id]['name'] = item.text()
+    save()
+
+
+def del_config():
+    global save_data
+    if len(save_data[career]) == 1:
+        QMessageBox.critical(UI, '错误', '至少保留一个吧！')
+    elif QMessageBox.question(UI, "消息框标题", "确实删除吗？", QMessageBox.Yes | QMessageBox.No,
+                              QMessageBox.Yes) == QMessageBox.Yes:
+
+        items = UI.config_list.selectedItems()
+        row = 0
+        for im in items:
+            row = UI.config_list.row(im)
+            UI.config_list.takeItem(row)
+            UI.config_list.update()
+            UI.config_list.repaint()
+            del save_data[career][row]
+        row = 0 if (row - 1) < 0 else row - 1
+        item = UI.config_list.item(row)
+        item.setSelected(True)
+        config_clicked(row)
+
+        UI.config_list.update()
+        UI.config_list.repaint()
+        save(False)
+
+
 # 是否保存数据
-def is_save():
-    data_now = DATA.get_values()
-    db = save_data[now_career][save_data['record'][now_career]]['data'].copy()
-    data_now.pop('add', 1)
-    db.pop("add", 1)
-    if not data_now == db:
-        if QMessageBox.question(main_window, "消息框标题", "是否保存数据？",
-                                QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
-            save()
+
+
+def career_button_clicked(career_name):
+    global career
+    #  is_save()
+    career = career_name
+    update_config()
+    UI.left_widget.update()
 
 
 # 开始,绑定按钮函数
 def start():
-    UI.button_count.clicked.connect(button_count_clicked)
+    load_data()
+    # UI.button_js.clicked.connect(button_count_clicked)
     UI.button_jc.clicked.connect(is_contrast)
+    UI.button_add.clicked.connect(lambda: add_config(True))
+    UI.button_del.clicked.connect(del_config)
+    UI.button_save.clicked.connect(lambda: save(True))
+
+    UI.config_list.itemClicked.connect(lambda _: config_clicked(UI.config_list.row(_)))
+    UI.config_list.itemChanged.connect(lambda s: set_config_name(s))
+
+    UI.nailuo_button.clicked.connect(lambda: career_button_clicked('nai_luo'))
+    UI.naima_button.clicked.connect(lambda: career_button_clicked('nai_ma'))
+    UI.naiba_button.clicked.connect(lambda: career_button_clicked('nai_ba'))
+    UI.naigong_button.clicked.connect(lambda: career_button_clicked('nai_gong'))
+    for k, v in UI.input_data.items():
+        if isinstance(v, QLineEdit):
+            v.textEdited.connect(button_count_clicked)
+    UI.radioButton.clicked.connect(button_count_clicked)
+    UI.radioButton_2.clicked.connect(button_count_clicked)
+    UI.cp_arm.clicked.connect(button_count_clicked)
+
+    '''
+    
+ 
 
     UI.button_save.clicked.connect(save)
 
-    UI.button_add.clicked.connect(add_button)
-    UI.button_del.clicked.connect(del_button)
+    
+    
     # 职业按钮绑定
-    UI.nailuo_button.clicked.connect(nailuo_setting)
-    UI.naima_button.clicked.connect(naima_setting)
-    UI.naiba_button.clicked.connect(naiba_setting)
-    UI.naigong_button.clicked.connect(naigong_setting)
+  
     # 读取数据
-    load()
+    
+    '''
 
 
 if __name__ == '__main__':
     app = QApplication(argv)
+    UI = BuffUI()
+    career = 'nai_ma'
 
+    save_data = {
+        "nai_ma": [{
+            "name": "奶妈",
+            "data": DEFAULT_DATA.copy()
+        }],
+
+        "nai_ba": [{
+            "name": "奶爸",
+            "data": DEFAULT_DATA.copy()
+        }
+        ],
+        "nai_luo": [{
+            "name": "奶萝",
+            "data": DEFAULT_DATA.copy()
+        }],
+        "nai_gong": [{
+            "name": "奶弓",
+            "data": DEFAULT_DATA.copy()
+        }],
+        "record": {
+            "nai_ma": 0,
+            "nai_ba": 0,
+            "nai_luo": 0,
+            "nai_gong": 0
+        },
+        "career": career
+    }
+    baseline_data = DEFAULT_DATA.copy()
     start()
+    UI.show()
     app.exec_()
