@@ -1,11 +1,11 @@
 import json
 from os import getenv, path, makedirs
 from sys import argv
-
-from PyQt5.QtCore import QCoreApplication, Qt
-from PyQt5.QtWidgets import QApplication, QMessageBox, QInputDialog, QLineEdit
-
-from BuffUI import BuffUI
+from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QApplication, QMessageBox, QInputDialog, QLineEdit, QGraphicsDropShadowEffect
+from BuffUI import BuffUI, RoundedWindow
+from PyQt5.QtCore import Qt
 
 BUFF_BASE = {
     'nai_ma': {
@@ -71,7 +71,6 @@ DEFAULT_DATA = {
     'out_lv': 1,
     'out_medal': 50,
     'out_earp': 175,
-    'out_passive': 554,
     'out_guild': 80,
     'in_intellect': 0,
     'in_lv': 21,
@@ -89,8 +88,78 @@ DEFAULT_DATA = {
     'nai_ba_ssp': 0,
     "ty3_true": True,
     "c_attack": 3350,
-    "c_intellect": 24500
+    "c_intellect": 24500,
+    "lv_01": 1,
+    "lv_02": 1,
+    "lv_03": 1,
+    "lv_04": 1,
+    "buff_wz": 0
 }
+#########
+career = 'nai_ma'
+save_data = {
+    "nai_ma": [{
+        "name": "奶妈",
+        "data": DEFAULT_DATA.copy()
+    }],
+
+    "nai_ba": [{
+        "name": "奶爸",
+        "data": DEFAULT_DATA.copy()
+    }
+    ],
+    "nai_luo": [{
+        "name": "奶萝",
+        "data": DEFAULT_DATA.copy()
+    }],
+    "nai_gong": [{
+        "name": "奶弓",
+        "data": DEFAULT_DATA.copy()
+    }],
+    "record": {
+        "nai_ma": 0,
+        "nai_ba": 0,
+        "nai_luo": 0,
+        "nai_gong": 0
+    },
+    "career": career
+}
+baseline_data = DEFAULT_DATA.copy()
+
+
+#############################
+# 核心计算函数
+def count_buff(buff_amount: int, intellect: int, xs: int, xyz: tuple, cp_arms: bool,
+               arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
+    """
+
+    :param buff_amount: 增益量
+    :param intellect: 四维
+    :param xs: 系数
+    :param xyz: x,y,z
+    :param cp_arms: cp武器
+    :param arm:
+    :return: 函数
+    """
+    x, y, z = xyz
+
+    def count(fixed, bfb: list, basic_attack) -> int:
+        """
+
+        :param fixed: 固定加成
+        :param bfb: 百分比加成
+        :param basic_attack: 基础数值
+        :return:
+        """
+
+        old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
+        for n in bfb:
+            old_buff *= (1 + n / 100)
+        new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
+        buff_ = (old_buff + new_buff) * (arm if cp_arms else 1)
+        return round(buff_)
+
+    return count
 
 
 def diff_dict(dict1, dict2):
@@ -120,16 +189,14 @@ def buff(cr: str, data: dict):
              'jt': count_jt_buff(cr, data),
              'ty': count_ty(data),
              }
-
-    power['ty3'] = round(power['ty'] * (1.08 if data['ty3_true'] else 1.23 + data['ty3_lv'] * 0.01))
-
+    power['ty3'] = round(power['ty'] * ((1.08 if data['ty3_true'] else 1.23) + data['ty3_lv'] * 0.01))
     return power
 
 
 def count_zj_buff(cr: str, data) -> dict:
     arm = 1.008 if cr == 'nai_ba' else 1.08  # 奶爸武器bug
     count = count_buff(
-        int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100)),
+        int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100+ data['buff_wz'] / 100)),
         data['out_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
@@ -155,7 +222,7 @@ def count_zj_buff(cr: str, data) -> dict:
 def count_jt_buff(cr, data) -> dict:
     count = count_buff(
         int(data['buff_amount'] * (
-                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100+ data['buff_wz'] / 100)),
         data['in_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
@@ -178,7 +245,7 @@ def count_jt_buff(cr, data) -> dict:
 def count_ty(data) -> int:
     count = count_buff(
         int(data['buff_amount'] * (
-                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100)),
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100+ data['buff_wz'] / 100)),
         data['ty_intellect'],
         BUFF_BASE['tai_yang']['xs'],
         BUFF_BASE['tai_yang']['xyz'],
@@ -187,39 +254,6 @@ def count_ty(data) -> int:
                  data['ty_percentage'],
                  BUFF_BASE['tai_yang']['li_zhi'][data['ty_lv'] - 1],
                  )
-
-
-# 核心计算函数
-def count_buff(buff_amount, intellect, xs, xyz: tuple, cp_arms: bool, arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
-    """
-
-    :param buff_amount: 增益量
-    :param intellect: 四维
-    :param xs: 系数
-    :param xyz: x,y,z
-    :param cp_arms: cp武器
-    :param arm:
-    :return: 函数
-    """
-    x, y, z = xyz
-
-    def count(fixed, bfb: list, basic_attack) -> int:
-        """
-
-        :param fixed: 固定加成
-        :param bfb: 百分比加成
-        :param basic_attack: 基础数值
-        :return:
-        """
-        old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
-        for n in bfb:
-            old_buff *= (1 + n / 100)
-        new_buff = basic_attack * ((intellect + x) / xs + 1) * (buff_amount + y) * z if buff_amount != 0 else 0
-        bf = (old_buff + new_buff) * (arm if cp_arms else 1)
-
-        return round(bf)
-
-    return count
 
 
 def gap_set(gap):
@@ -240,59 +274,121 @@ def count_magnification(data, ty3, attribute, c_attack, c_intellect):
     }
 
 
+def nai_ma_skill(skill, lv):
+    if skill == '15':
+
+        return \
+            [0, 86, 90, 94, 98, 102, 107, 112, 117, 123, 129, 135, 141, 147, 154, 161, 169, 177, 185, 193, 201, 210, 219, 229, 238, 248, 258, 269, 279, 290,
+             301,
+             313, 325, 337, 349, 361, 375, 388, 401, 415, 429, 443, 457, 473, 487, 503, 519, 535, 551, 567, 584, 598, 614, 630, 646, 662, 677, 693, 709, 725,
+             741,
+             756, 772, 788, 804, 820, 835, 851, 867, 883, 899][70 if lv > 70 else lv]
+    elif skill == '50':
+        return 14 + lv // 2 * 23 + ((lv - 1) // 2) * 22
+    elif skill == '75':
+        return 140 + lv * 10
+    elif skill == '95':
+        return 140 + lv * 10
+
+
 def button_count_clicked():
     input_data = UI.get_values()
 
-    input_data['in_intellect'] += input_data["add"]
-    input_data['out_intellect'] += input_data["add"]
-    input_data['ty_intellect'] += input_data["add"]
-    now = buff(career, input_data)
-    base = buff(career, baseline_data)
-
     # 下面是 向下取整,还是四舍五入 有待研究
     if career == 'nai_ma':
+        now_intellect = nai_ma_skill('15', input_data['lv_01']) + nai_ma_skill('75', input_data['lv_03']) + nai_ma_skill('95', input_data['lv_04'])
+        base_intellect = nai_ma_skill('15', baseline_data['lv_01']) + nai_ma_skill('75', baseline_data['lv_03']) + nai_ma_skill('95', baseline_data['lv_04'])
+        intellect = now_intellect - base_intellect + input_data["add"]
+
+        input_data['out_intellect'] += intellect
+        lv1 = 14 + input_data['lv_02'] // 2 * 23 + ((input_data['lv_02'] - 1) // 2) * 22
+        lv2 = 14 + baseline_data['lv_02'] // 2 * 23 + ((baseline_data['lv_02'] - 1) // 2) * 22
+        intellect += (lv1 - lv2)
+        input_data['in_intellect'] += intellect
+        input_data['ty_intellect'] += intellect
+        #############################################
+        now = buff(career, input_data)
+        base = buff(career, baseline_data)
         now['z_jt'] = {k: round(v * 1.15) for k, v in now['jt'].items()}
         base['z_jt'] = {k: round(v * 1.15) for k, v in base['jt'].items()}
-        now.update(count_magnification(now['z_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
-        base.update(count_magnification(base['z_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
-
+        now.update(
+            count_magnification(now['z_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        base.update(
+            count_magnification(base['z_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
         gap = diff_dict(base, now)
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_luo':
+        now_intellect = 0
+        base_intellect = 0
+        intellect = now_intellect - base_intellect + input_data["add"]
+        input_data['in_intellect'] += intellect
+        input_data['out_intellect'] += intellect
+        input_data['ty_intellect'] += intellect
+        #
+        now = buff(career, input_data)
+        base = buff(career, baseline_data)
         now['z_jt'] = {k: round(v * 1.25) for k, v in now['jt'].items()}
         now['p_jt'] = {k: round(v * 1.4375) for k, v in now['jt'].items()}
         base['z_jt'] = {k: round(v * 1.25) for k, v in base['jt'].items()}
         base['p_jt'] = {k: round(v * 1.4375) for k, v in base['jt'].items()}
-
-        now.update(count_magnification(now['p_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
-        base.update(count_magnification(base['p_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        now.update(
+            count_magnification(now['p_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        base.update(
+            count_magnification(base['p_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
         gap = diff_dict(base, now)
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_ba':
+        now_intellect = 0
+        base_intellect = 0
+        intellect = now_intellect - base_intellect + input_data["add"]
+        input_data['in_intellect'] += intellect
+        input_data['out_intellect'] += intellect
+        input_data['ty_intellect'] += intellect
+        #
+        now = buff(career, input_data)
+        base = buff(career, baseline_data)
         _ = baseline_data.copy()
         _['in_intellect'] = _['in_intellect'] + _['nai_ba_guardian'] + _['nai_ba_ssp'] * 24
-        input_data['in_intellect'] = input_data['in_intellect'] + input_data['nai_ba_guardian'] + input_data['nai_ba_ssp'] * 24
+        input_data['in_intellect'] = input_data['in_intellect'] + input_data['nai_ba_guardian'] + input_data[
+            'nai_ba_ssp'] * 24
         now['z_jt'] = count_jt_buff(career, input_data)
         base['z_jt'] = count_jt_buff(career, _)
 
-        now.update(count_magnification(now['z_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
-        base.update(count_magnification(base['z_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        now.update(
+            count_magnification(now['z_jt'], now['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
+        base.update(
+            count_magnification(base['z_jt'], base['ty3'], 1.141, input_data['c_attack'], input_data['c_intellect']))
 
         gap = diff_dict(base, now)
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_gong':
+
+        now_intellect = 0
+        base_intellect = 0
+        intellect = now_intellect - base_intellect + input_data["add"]
+        input_data['in_intellect'] += intellect
+        input_data['out_intellect'] += intellect
+        input_data['ty_intellect'] += intellect
+        #
+
+        now = buff(career, input_data)
+        base = buff(career, baseline_data)
         now['z_jt'] = {k: round(v * 1.1) for k, v in now['jt'].items()}
         base['z_jt'] = {k: round(v * 1.1) for k, v in base['jt'].items()}
-        now.update(count_magnification(now['z_jt'], now['ty3'], 1.174, input_data['c_attack'], input_data['c_intellect']))
-        base.update(count_magnification(base['z_jt'], base['ty3'], 1.174, input_data['c_attack'], input_data['c_intellect']))
+        now.update(
+            count_magnification(now['z_jt'], now['ty3'], 1.174, input_data['c_attack'], input_data['c_intellect']))
+        base.update(
+            count_magnification(base['z_jt'], base['ty3'], 1.174, input_data['c_attack'], input_data['c_intellect']))
         gap = diff_dict(base, now)
         UI.set_show_text(value_to_str(now), gap_set(gap))
 
 
 def is_contrast():
     global baseline_data
-    baseline_data = UI.get_values()
+
+    baseline_data = UI.get_values().copy()
     UI.set_placeholder_texts(baseline_data)
+    button_count_clicked()
     UI.clear_show_hold_text()
 
 
@@ -305,7 +401,8 @@ def is_save():
     for k, v in input_data.items():
         if db[k] != v:
             print(k, db[k], v, )
-            if QMessageBox.question(UI, "消息框标题", "数据未保存,是否保存数据？", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
+            if QMessageBox.question(widget, "消息框标题", "数据未保存,是否保存数据？",
+                                    QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
                 cfg_id = save_data['record'][career]
                 save_data[career][cfg_id]['data'] = input_data
 
@@ -351,10 +448,11 @@ def load_data():
     elif career == 'nai_gong':
         UI.naigong_button.click()
     button_count_clicked()
+
     is_contrast()
 
 
-def config_clicked(config_id, clicked=False):
+def config_clicked(config_id):
     global save_data
     save_data['record'][career] = config_id
     data = save_data[career][config_id]['data']
@@ -378,8 +476,11 @@ def update_config():
 
 
 def add_config(select=False):
-    name, ok = QInputDialog.getText(UI, "", "请输入配置名")
+    name, ok = QInputDialog.getText(widget, "", "请输入配置名")
     if ok:
+        if name == "":
+            QMessageBox.critical(widget, '错误', '配置名不能是空')
+            return
         global save_data
         save_data[career].append({
             'name': name,
@@ -400,8 +501,8 @@ def set_config_name(item):
 def del_config():
     global save_data
     if len(save_data[career]) == 1:
-        QMessageBox.critical(UI, '错误', '至少保留一个吧！')
-    elif QMessageBox.question(UI, "消息框标题", "确实删除吗？", QMessageBox.Yes | QMessageBox.No,
+        QMessageBox.critical(widget, '错误', '至少保留一个吧！')
+    elif QMessageBox.question(widget, "消息框标题", "确实删除吗？", QMessageBox.Yes | QMessageBox.No,
                               QMessageBox.Yes) == QMessageBox.Yes:
 
         items = UI.config_list.selectedItems()
@@ -438,16 +539,54 @@ def close_windows():
     QCoreApplication.instance().quit()
 
 
+def window_top():
+    if bool(widget.windowHandle().flags() & Qt.WindowStaysOnTopHint):
+        widget.window_top(False)
+        UI.button_top.setStyleSheet("")
+    else:
+        widget.window_top(True)
+        UI.button_top.setStyleSheet("background:rgb(212, 218, 230);")
+
+
+def add_button():
+    lv_min = int(UI.add_1.text())
+    lv_max = int(UI.add_2.text())
+    lv_count = int(UI.add_3.text())
+    # #########
+    if lv_min <= 15 <= lv_max:
+        UI.set_value('lv_01', UI.get_value('lv_01') + lv_count)
+    if lv_min <= 30 <= lv_max:
+        lv1 = UI.get_value('out_lv') + lv_count
+        UI.set_value('out_lv', lv1 if lv1 < 41 else 40)
+        lv2 = UI.get_value('in_lv') + lv_count
+        UI.set_value('in_lv', lv2 if lv2 < 41 else 40)
+    if lv_min <= 50 <= lv_max:
+        UI.set_value('lv_02', UI.get_value('lv_02') + lv_count)
+
+        lv1 = UI.get_value('ty_lv') + lv_count
+        UI.set_value('ty_lv', lv1 if lv1 < 41 else 40)
+    if lv_min <= 75 <= lv_max:
+        UI.set_value('lv_03', UI.get_value('lv_03') + lv_count)
+    if lv_min <= 95 <= lv_max:
+        UI.set_value('lv_04', UI.get_value('lv_04') + lv_count)
+    if lv_min <= 100 <= lv_max:
+        UI.set_value('ty3_lv', UI.get_value('ty3_lv') + lv_count)
+    button_count_clicked()
+
+
 # 开始,绑定按钮函数
 def start():
     load_data()
+    UI.button_lv_add.clicked.connect(add_button)
     # UI.button_js.clicked.connect(button_count_clicked)
     UI.button_jc.clicked.connect(is_contrast)
     UI.button_add.clicked.connect(lambda: add_config(True))
     UI.button_del.clicked.connect(del_config)
     UI.button_save.clicked.connect(lambda: save(True))
+    UI.button_min.clicked.connect(lambda: widget.showMinimized())
+    UI.button_top.clicked.connect(window_top)
     UI.button_close.clicked.connect(close_windows)
-    UI.config_list.itemClicked.connect(lambda _: config_clicked(UI.config_list.row(_), True))
+    UI.config_list.itemClicked.connect(lambda _: config_clicked(UI.config_list.row(_)))
     # UI.config_list.itemChanged.connect(lambda s: set_config_name(s))
     UI.nailuo_button.clicked.connect(lambda: career_button_clicked('nai_luo'))
     UI.naima_button.clicked.connect(lambda: career_button_clicked('nai_ma'))
@@ -459,40 +598,25 @@ def start():
     UI.radioButton.clicked.connect(button_count_clicked)
     UI.radioButton_2.clicked.connect(button_count_clicked)
     UI.cp_arm.clicked.connect(button_count_clicked)
+    effect = QGraphicsDropShadowEffect()
+    effect.setBlurRadius(10)  # 范围
+    effect.setOffset(0, 0)  # 横纵,偏移量
+    effect.setColor(Qt.black)  # 颜色
+    UI.widget_1.setGraphicsEffect(effect)
 
 
 if __name__ == '__main__':
     app = QApplication(argv)
+    # ui初始化
+    widget = RoundedWindow()
     UI = BuffUI()
-    career = 'nai_ma'
-    save_data = {
-        "nai_ma": [{
-            "name": "奶妈",
-            "data": DEFAULT_DATA.copy()
-        }],
-
-        "nai_ba": [{
-            "name": "奶爸",
-            "data": DEFAULT_DATA.copy()
-        }
-        ],
-        "nai_luo": [{
-            "name": "奶萝",
-            "data": DEFAULT_DATA.copy()
-        }],
-        "nai_gong": [{
-            "name": "奶弓",
-            "data": DEFAULT_DATA.copy()
-        }],
-        "record": {
-            "nai_ma": 0,
-            "nai_ba": 0,
-            "nai_luo": 0,
-            "nai_gong": 0
-        },
-        "career": career
-    }
-    baseline_data = DEFAULT_DATA.copy()
+    UI.setupUi(widget)
+    UI.init()
+    ##########
+    widget.show()
+    widget.setWindowTitle(' 奶量计算器')
+    widget.setStyleSheet("color: rgb(0, 0, 0);\n")
+    widget.setWindowIcon(QIcon(":/png/84.PNG"))
+    ##############
     start()
-    UI.show()
     app.exec_()

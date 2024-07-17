@@ -1,6 +1,5 @@
 import csv
-import json
-import requests
+
 
 import asyncio
 
@@ -660,17 +659,14 @@ async def get_rank(session, curRank, transferId, jobId, worldId, name, hero_name
 async def run():
     task = []
     _curRank = [i for i in range(1, 488, 50)]
-    async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=3),
-            connector=aiohttp.TCPConnector(limit=0, ssl=False)
-    ) as session:
+    async with aiohttp.ClientSession( timeout=aiohttp.ClientTimeout(total=3),connector=aiohttp.TCPConnector(limit=0, ssl=False)) as session:
         for hero in tqdm(HERO_LIST, desc='职业', position=1, bar_format='{l_bar}{bar} | {n}/{total}'):
-            for wn, v in tqdm(WORD_DICT.items(), leave=False, desc=f"跨区", position=2,
-                              bar_format='{l_bar}{bar} | {n}/{total}'):
+            for wn, v in tqdm(WORD_DICT.items(), leave=False, desc=f"跨区", position=2, bar_format='{l_bar}{bar} | {n}/{total}'):
                 for _ in tqdm(v, leave=False, desc='小区', position=3, bar_format='{l_bar}{bar} | {n}/{total}'):
                     keys = {
                         'word_name': wn,
-                        **hero, **_
+                        **hero,
+                        **_
                     }
                     for cr in _curRank:
                         task.append(get_rank(session=session, curRank=cr, **keys))

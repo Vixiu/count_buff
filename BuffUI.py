@@ -1,28 +1,54 @@
+from sys import argv
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QApplication, QLineEdit, QListWidgetItem, QMessageBox
 
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt, QCoreApplication
 from PyQt5 import QtGui
-
 from UI import Ui_widget
 
 
-class BuffUI(Ui_widget, QWidget):
+class RoundedWindow(QWidget):
     def __init__(self):
-        super().__init__()
-        self.setupUi(self)
+        super(QWidget, self).__init__()
+        self.setWindowFlag(Qt.WindowStaysOnTopHint, True)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setWindowFlag(Qt.WindowStaysOnTopHint, True)  # 默认置顶
         self.setAttribute(Qt.WA_TranslucentBackground, True)
 
-        self.setWindowTitle(' 奶量计算器')
-        self.setStyleSheet("color: rgb(0, 0, 0);\n")
-        # 无边框标题设置
+    def mousePressEvent(self, event):
+        """鼠标点击事件"""
+        if event.button() == Qt.LeftButton:
+            self.mPos = event.pos()
+        event.accept()
+
+    def mouseReleaseEvent(self, event):
+        """鼠标弹起事件"""
+        self.mPos = None
+        event.accept()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.LeftButton and self.mPos:
+            self.move(self.mapToGlobal(event.pos() - self.mPos))
+        event.accept()
+
+    def window_top(self, flag):
+        if flag:
+            self.windowHandle().setFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
+
+        else:
+            self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+        self.repaint()
+
+
+class BuffUI(Ui_widget):
+    def __init__(self):
+        self.input_data = None
+
+    def init(self):
+        #
 
         # 默认按钮绑定事件
-        self.button_top.clicked.connect(self._window_top)  # 置顶
-        self.button_min.clicked.connect(lambda: self.showMinimized())  # 最小化
         self.naima_button.clicked.connect(self.__naima_setting)
         self.naiba_button.clicked.connect(self.__naiba_setting)
         self.nailuo_button.clicked.connect(self.__nailuo_setting)
@@ -30,15 +56,16 @@ class BuffUI(Ui_widget, QWidget):
         # 绑定
         self.zj_lv.textEdited.connect(self.__lv_to)
         self.zj_xz.textEdited.connect(self.__intellect_to)
-        self.zj_zhili.textEdited.connect(self.__intellect_to)
+        #  self.zj_zhili.textEdited.connect(self.__intellect_to)
         self.zj_gh.textEdited.connect(self.__intellect_to)
         self.zj_eh.textEdited.connect(self.__intellect_to)
-        self.zj_bd.textEdited.connect(self.__intellect_to)
+        self.zj_bd.clicked.connect(self.__intellect_to)
+        ########
         self.input_data = {
             "ty_intellect": self.ty_zhili,
             "in_intellect": self.jt_zhili,
             "buff_amount": self.buff_liang,
-
+            "buff_wz": self.buff_wz,
             "out_intellect": self.zj_zhili,
             "out_lv": self.zj_lv,
             "add": self.add,
@@ -56,7 +83,6 @@ class BuffUI(Ui_widget, QWidget):
             "ty_percentage": self.ty_bfb,
             "out_medal": self.zj_xz,
             "out_earp": self.zj_eh,
-            "out_passive": self.zj_bd,
             "out_guild": self.zj_gh,
             "nai_ba_guardian": self.naiba_sh,
             "nai_ba_ssp": self.naiba_ej,
@@ -64,8 +90,14 @@ class BuffUI(Ui_widget, QWidget):
             "ty3_true": self.radioButton,
             "c_attack": self.c_sg,
             "c_intellect": self.c_lz,
+            ###
+            "lv_01": self.lv_01,
+            "lv_02": self.lv_02,
+            "lv_03": self.lv_03,
+            "lv_04": self.lv_04,
+
         }
-        self.__init()
+        self.__set_validator()
 
     def add_config(self, name, select=False):
         item = QListWidgetItem(name)
@@ -79,7 +111,7 @@ class BuffUI(Ui_widget, QWidget):
 
     def get_value(self, name):
         if name not in self.input_data:
-            raise print(f"{name} is not in UI")
+            raise ValueError(f"{name} is not in UI")
         if name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
             val = self.input_data[name].text()
             if val == '' or val in ("-", "+"):
@@ -102,7 +134,6 @@ class BuffUI(Ui_widget, QWidget):
                 return int(float(val)) + int(self.input_data[name].placeholderText())
             return int(float(val)) if val else 0
         else:
-
             val = self.input_data[name].text()
             if val == '' or val in ("-", "+"):
                 val = self.input_data[name].placeholderText()
@@ -113,9 +144,8 @@ class BuffUI(Ui_widget, QWidget):
 
     def set_value(self, name, value):
         if name not in self.input_data:
-            raise print(f"{name} is not in UI")
-
-        if name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
+            print(f"{name} is not in UI")
+        elif name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
             self.input_data[name].setText(",".join([str(i) for i in value]))
         elif name == "cp_arms":
             self.input_data[name].setChecked(value)
@@ -179,23 +209,11 @@ class BuffUI(Ui_widget, QWidget):
             self.b3_lz_cj.setText(gap['p_jt']['lz'])
             self.b3_sg_cj.setText(gap['p_jt']['sg'])
 
-    def mousePressEvent(self, event):
-        """鼠标点击事件"""
-        if event.button() == Qt.LeftButton:
-            self.mPos = event.pos()
-        event.accept()
-
-    def mouseReleaseEvent(self, event):
-        """鼠标弹起事件"""
-        self.mPos = None
-        event.accept()
-
-    def mouseMoveEvent(self, event):
-        if event.buttons() == Qt.LeftButton and self.mPos:
-            self.move(self.mapToGlobal(event.pos() - self.mPos))
-        event.accept()
-
     def clear_left_button_style(self):
+        """
+        清除选择职业
+        :return:
+        """
         self.nailuo_button.setStyleSheet('')
         self.naiba_button.setStyleSheet('')
         self.naima_button.setStyleSheet('')
@@ -205,6 +223,10 @@ class BuffUI(Ui_widget, QWidget):
         pass
 
     def clear_show_text(self):
+        """
+        清除输入文本
+        :return:
+        """
         self.buff_sg.setText('')
         self.buff_lz.setText('')
         self.b1_lz.setText('')
@@ -215,10 +237,20 @@ class BuffUI(Ui_widget, QWidget):
         self.b3_lz.setText('')
         self.yijue_lz.setText('')
         self.sanjue_lz_1.setText('')
-
         self.add.setText('')
+        self.add_1.setText('1')
+        self.add_2.setText('100')
+        self.add_3.setText('1')
+        self.lv_01.setText('')
+        self.lv_02.setText('')
+        self.lv_03.setText('')
+        self.lv_04.setText('')
 
     def clear_show_hold_text(self):
+        """
+        清除差距文本
+        :return:
+        """
         self.buff_sg_cj.setText('')
         self.buff_lz_cj.setText('')
         self.b1_lz_cj.setText('')
@@ -233,25 +265,21 @@ class BuffUI(Ui_widget, QWidget):
         self.label_44.setText('')
 
     def clear_all_text(self):
+        """
+        清除全部
+        :return:
+        """
         self.clear_show_hold_text()
         self.clear_show_text()
         self.clear_input_text()
 
-    def __init(self):
-
-        self.__set_validator()
-
-        effect = QGraphicsDropShadowEffect()
-        effect.setBlurRadius(10)  # 范围
-        effect.setOffset(0, 0)  # 横纵,偏移量
-        effect.setColor(Qt.black)  # 颜色
-        self.setGraphicsEffect(effect)
-
     def __intellect_to(self):
         intellect = 0
-        for le in ('out_medal', 'out_earp', 'out_passive', 'out_guild', 'out_intellect'):
+        for le in ('out_medal', 'out_earp', 'out_guild', 'out_intellect'):
             text = self.get_value(le)
             intellect += int(text)
+        lv = self.get_value('lv_02')
+        intellect += (14 + lv // 2 * 23 + ((lv - 1) // 2) * 22)
         self.jt_zhili.setText(str(intellect))
         self.ty_zhili.setText(str(intellect))
 
@@ -263,10 +291,13 @@ class BuffUI(Ui_widget, QWidget):
                 self.jt_lv.setText(str(value))
 
     def __naima_setting(self):
+        self.tabWidget.setTabVisible(1, True)
+
+        self.tabWidget.setTabVisible(3, False)
+        self.tabWidget.setCurrentIndex(0)
         self.clear_all_text()
         self.clear_left_button_style()
-        self.tabWidget.removeTab(2)
-        self.setWindowIcon(QIcon(":/png/84.PNG"))
+
         self.label_6.setText('智力加减:')
         self.label_3.setText('智力:')
         self.label_17.setText('智力:')
@@ -285,10 +316,14 @@ class BuffUI(Ui_widget, QWidget):
         self.buff_gain.setText('勇气+颂歌')
 
     def __nailuo_setting(self):
+        self.tabWidget.setTabVisible(1, False)
+        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setTabVisible(3, False)
+
         self.clear_all_text()
         self.clear_left_button_style()
-        self.tabWidget.removeTab(2)
-        self.setWindowIcon(QIcon(":/png/719.PNG"))
+
+        # self.setWindowIcon(QIcon(":/png/719.PNG"))
         self.label_6.setText('智力加减:')
         self.label_3.setText('智力:')
         self.label_17.setText('智力:')
@@ -307,10 +342,12 @@ class BuffUI(Ui_widget, QWidget):
         self.buff_gain.setText('禁忌诅咒+疯狂召唤')
 
     def __naiba_setting(self):
+        self.tabWidget.setTabVisible(1, False)
+        self.tabWidget.setTabVisible(3, True)
+        self.tabWidget.setCurrentIndex(0)
         self.clear_all_text()
         self.clear_left_button_style()
-        self.tabWidget.insertTab(2, self.tab3, '奶爸二觉')
-        self.setWindowIcon(QIcon(":/png/111.PNG"))
+        # self.setWindowIcon(QIcon(":/png/111.PNG"))
         self.label_6.setText('体精加减:')
         self.label_3.setText('体精:')
         self.label_17.setText('体精:')
@@ -330,10 +367,12 @@ class BuffUI(Ui_widget, QWidget):
         self.buff_gain.setText('守护+荣誉祝福(24层)')
 
     def __naigong_setting(self):
+        self.tabWidget.setTabVisible(1, False)
+        self.tabWidget.setCurrentIndex(0)
         self.clear_all_text()
         self.clear_left_button_style()
-        self.tabWidget.removeTab(2)
-        self.setWindowIcon(QIcon(":/png/14.PNG"))
+        self.tabWidget.setTabVisible(3, False)
+        # self.setWindowIcon(QIcon(":/png/14.PNG"))
         self.label_6.setText('精神加减:')
         self.label_3.setText('精神:')
         self.label_17.setText('精神:')
@@ -385,14 +424,11 @@ class BuffUI(Ui_widget, QWidget):
             except ValueError:
                 input_box.setText(text[:-1])
 
-        # buff量与加减
-
         # 整数类型
         self.buff_liang.setValidator(QtGui.QIntValidator())
         self.add.setValidator(QtGui.QIntValidator())
         self.zj_zhili.setValidator(QtGui.QIntValidator())
         self.zj_xz.setValidator(QtGui.QIntValidator())
-        self.zj_bd.setValidator(QtGui.QIntValidator())
         self.zj_eh.setValidator(QtGui.QIntValidator())
         self.zj_gh.setValidator(QtGui.QIntValidator())
         self.naiba_ej.setValidator(QtGui.QIntValidator())
@@ -405,30 +441,26 @@ class BuffUI(Ui_widget, QWidget):
         self.ty_lz.setValidator(QtGui.QIntValidator())
         self.c_sg.setValidator(QtGui.QIntValidator())
         self.c_lz.setValidator(QtGui.QIntValidator())
+        self.lv_01.setValidator(QtGui.QIntValidator())
+        self.lv_02.setValidator(QtGui.QIntValidator())
+        self.lv_03.setValidator(QtGui.QIntValidator())
+        self.lv_04.setValidator(QtGui.QIntValidator())
+        self.add_1.setValidator(QtGui.QIntValidator())
+        self.add_2.setValidator(QtGui.QIntValidator())
+        self.add_3.setValidator(QtGui.QIntValidator())
+
         # 浮点数
         self.buff_gh.textEdited.connect(lambda: float_validator(self.buff_gh))
         self.buff_cw.textEdited.connect(lambda: float_validator(self.buff_cw))
         self.buff_bxy.textEdited.connect(lambda: float_validator(self.buff_bxy))
+        self.buff_wz.textEdited.connect(lambda: float_validator(self.buff_wz))
         # 等级
         self.jt_lv.textEdited.connect(lambda: lv_validator(self.jt_lv))
         self.ty_lv.textEdited.connect(lambda: lv_validator(self.ty_lv))
         self.zj_lv.textEdited.connect(lambda: lv_validator(self.zj_lv))
+
         # 百分比
         self.lz_bfb.textEdited.connect(lambda: percent_sign_validator(self.lz_bfb))
         self.sg_bfb.textEdited.connect(lambda: percent_sign_validator(self.sg_bfb))
         self.ty_bfb.textEdited.connect(lambda: percent_sign_validator(self.ty_bfb))
         # buff量与智力增加
-
-    def _window_top(self):
-        QMessageBox.critical(self, '错误:(', '这个功能目前有Bug！请尝试最小化')
-        '''
-        if not bool(self.windowHandle().flags() & Qt.WindowStaysOnTopHint):
-            self.windowHandle().setFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
-            self.button_top.setStyleSheet("background:rgb(212, 218, 230);")
-
-
-        else:
-            self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
-            self.button_top.setStyleSheet("")
-
-        '''
