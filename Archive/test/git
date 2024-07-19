@@ -7,4 +7,5 @@ git config --global --unset http.proxy
 git config --global --unset https.proxy
 
 
+#  pyuic5 F:\XiangMu\count_buff\Archive\UI.ui -o F:\XiangMu\count_buff\UI.py
 

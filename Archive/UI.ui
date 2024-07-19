@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>961</width>
-    <height>771</height>
+    <width>982</width>
+    <height>820</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -33,8 +33,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>961</width>
-     <height>771</height>
+     <width>981</width>
+     <height>821</height>
     </rect>
    </property>
    <property name="font">
@@ -141,8 +141,8 @@ QScrollBar:horizontal {
     </property>
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>660</y>
+      <x>780</x>
+      <y>720</y>
       <width>141</width>
       <height>61</height>
      </rect>
@@ -150,8 +150,8 @@ QScrollBar:horizontal {
     <property name="font">
      <font>
       <pointsize>12</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -176,7 +176,7 @@ QScrollBar:horizontal {
       <x>430</x>
       <y>30</y>
       <width>4</width>
-      <height>700</height>
+      <height>751</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -216,8 +216,8 @@ background-color: rgb(213, 247, 255);</string>
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>150</y>
-      <width>271</width>
+      <y>140</y>
+      <width>281</width>
       <height>61</height>
      </rect>
     </property>
@@ -275,6 +275,9 @@ border: 2px solid rgb(125, 125, 125);
        </property>
        <property name="text">
         <string>123123</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -338,7 +341,7 @@ border: 2px solid rgb(125, 125, 125);
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>370</y>
+      <y>420</y>
       <width>381</width>
       <height>371</height>
      </rect>
@@ -356,7 +359,7 @@ border: 2px solid rgb(144, 144, 144);
 }</string>
     </property>
     <property name="title">
-     <string>辟邪玉&amp;&amp;宠物&amp;&amp;光环&amp;&amp;武器</string>
+     <string>辟邪玉&amp;&amp;宠物&amp;&amp;光环&amp;&amp;武器等</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -373,7 +376,7 @@ border: 2px solid rgb(144, 144, 144);
        <x>20</x>
        <y>30</y>
        <width>161</width>
-       <height>123</height>
+       <height>131</height>
       </rect>
      </property>
      <property name="font">
@@ -385,29 +388,29 @@ border: 2px solid rgb(144, 144, 144);
       </font>
      </property>
      <property name="title">
-      <string>增益量%</string>
+      <string>增益量</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="label_16">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>光环%:</string>
+         <string>光环:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="buff_gh">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="buff_bxy">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="text">
@@ -422,22 +425,22 @@ border: 2px solid rgb(144, 144, 144);
        <widget class="QLabel" name="label">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>宠物%:</string>
+         <string>宠物:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="buff_cw">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="buff_gh">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="text">
@@ -452,26 +455,56 @@ border: 2px solid rgb(144, 144, 144);
        <widget class="QLabel" name="label_12">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>辟邪玉%:</string>
+         <string>辟邪玉:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="buff_bxy">
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="buff_cw">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="text">
          <string>99.99</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_35">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>纹章:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="buff_wz">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>9999</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -484,9 +517,9 @@ border: 2px solid rgb(144, 144, 144);
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>160</y>
+       <y>170</y>
        <width>161</width>
-       <height>131</height>
+       <height>121</height>
       </rect>
      </property>
      <property name="font">
@@ -538,6 +571,9 @@ border: 2px solid rgb(144, 144, 144);
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_21">
           <property name="font">
@@ -561,7 +597,7 @@ border: 2px solid rgb(144, 144, 144);
            </font>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -689,7 +725,7 @@ border: 2px solid rgb(144, 144, 144);
            <string>99.99,9.9,9</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -697,6 +733,9 @@ border: 2px solid rgb(144, 144, 144);
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_20">
           <property name="font">
@@ -720,7 +759,7 @@ border: 2px solid rgb(144, 144, 144);
            </font>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -731,15 +770,15 @@ border: 2px solid rgb(144, 144, 144);
     <widget class="QCheckBox" name="cp_arm">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>240</x>
        <y>310</y>
-       <width>111</width>
+       <width>141</width>
        <height>41</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>15</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
@@ -754,7 +793,7 @@ border: 2px solid rgb(144, 144, 144);
 </string>
      </property>
      <property name="text">
-      <string>CP武器</string>
+      <string>CP/失衡武器</string>
      </property>
      <property name="checked">
       <bool>true</bool>
@@ -836,10 +875,10 @@ border: 2px solid rgb(144, 144, 144);
     </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>20</y>
-      <width>101</width>
-      <height>321</height>
+      <width>91</width>
+      <height>371</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -990,8 +1029,8 @@ padding-bottom:8px;
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>220</y>
-      <width>271</width>
+      <y>210</y>
+      <width>281</width>
       <height>91</height>
      </rect>
     </property>
@@ -1045,6 +1084,9 @@ border: 2px solid rgb(144, 144, 144);
          </property>
          <property name="text">
           <string>123456</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -1102,7 +1144,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>三觉:Lv</string>
+          <string>三觉Lv:</string>
          </property>
         </widget>
        </item>
@@ -1169,16 +1211,22 @@ border: 2px solid rgb(144, 144, 144);
      <rect>
       <x>120</x>
       <y>30</y>
-      <width>271</width>
+      <width>281</width>
       <height>101</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">QTabWidget
-{background-color:rgb(4,138,224);
+{background-color:rgb(170, 255, 255);
 }
 /*设置控件下面板的背景颜色*/
 QTabWidget::pane
@@ -1194,24 +1242,24 @@ border-top-right-radius:10px;  */
 /*设置控件下选择页的颜色*/
 QTabBar::tab
 {
-color:rgb(29, 29, 29);
+color:rgb(0, 0, 0);
 background-color: rgb(255,255,255);
 border:2px solid rgb(141, 141, 141);
-font: bold 9pt ;
-min-width: 80px;
+font:  9pt ;
+min-width:60px;
 min-height: 20px;
 border-bottom:0px;
 border-top-left-radius: 6px;
 border-top-right-radius: 6px;
 }
 QTabBar::tab:hover {
-        background-color: #f0f0f0;
+        background-color:#d5e3ff;
     }
 
 /*background-color:rgb(4,138,224);*/
 QTabBar::tab:selected{
-color:rgb(130, 130, 130);
-
+color:rgb(0, 0, 0);
+font: bold 9pt ;
 border: 2px solid gray; 
 border-bottom:0px;
 }</string>
@@ -1223,7 +1271,7 @@ border-bottom:0px;
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideRight</enum>
@@ -1285,13 +1333,13 @@ border-bottom:0px;
            <string notr="true"/>
           </property>
           <property name="text">
-           <string/>
+           <string>111</string>
           </property>
           <property name="maxLength">
            <number>32767</number>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -1324,8 +1372,11 @@ border-bottom:0px;
           <property name="inputMask">
            <string/>
           </property>
+          <property name="text">
+           <string>111</string>
+          </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -1369,6 +1420,9 @@ border-bottom:0px;
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="text">
+           <string>11</string>
+          </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
@@ -1378,25 +1432,147 @@ border-bottom:0px;
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="tab2">
+    <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>推算进图</string>
+      <string>被动技能</string>
      </attribute>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>纹章:</string>
+       <widget class="QLabel" name="label_30">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        <property name="text">
+         <string>Lv15:启示:颂歌</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
+       <widget class="QLineEdit" name="lv_01">
+        <property name="maximumSize">
+         <size>
+          <width>30111</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>99</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_40">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Lv50:虔诚信念</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="lv_02">
+        <property name="maximumSize">
+         <size>
+          <width>111111</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>99</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_37">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Lv75:大天使庇护</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lv_03">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>99</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_45">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Lv95:圣天使之光</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="lv_04">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>99</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="tab2">
+     <attribute name="title">
+      <string>进图推算</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1">
        <widget class="QLineEdit" name="zj_xz">
         <property name="text">
          <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -1404,27 +1580,6 @@ border-bottom:0px;
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>附魔耳环:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLineEdit" name="zj_eh">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>一绝被动:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="zj_bd">
-        <property name="text">
-         <string/>
         </property>
        </widget>
       </item>
@@ -1443,13 +1598,56 @@ border-bottom:0px;
         <property name="text">
          <string/>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>纹章:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="zj_eh">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>一绝被动</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="zj_bd">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>虔诚信念</string>
+        </property>
        </widget>
       </item>
      </layout>
     </widget>
     <widget class="QWidget" name="tab3">
      <attribute name="title">
-      <string>守护和二觉</string>
+      <string>二觉</string>
      </attribute>
      <layout class="QHBoxLayout" name="horizontalLayout_12">
       <item>
@@ -1504,48 +1702,10 @@ border-bottom:0px;
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>310</y>
-      <width>271</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_11">
-     <item>
-      <widget class="QLabel" name="label_6">
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>智力加减:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="add">
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>123123</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="widget_9" native="true">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>820</x>
       <y>0</y>
       <width>151</width>
       <height>51</height>
@@ -1635,8 +1795,8 @@ border-bottom:0px;
    <widget class="QWidget" name="widget_11" native="true">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>60</y>
+      <x>760</x>
+      <y>80</y>
       <width>191</width>
       <height>521</height>
      </rect>
@@ -1793,8 +1953,8 @@ height: 0px;
      <rect>
       <x>450</x>
       <y>30</y>
-      <width>291</width>
-      <height>731</height>
+      <width>301</width>
+      <height>761</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1859,8 +2019,8 @@ background-color:rgb(255, 255, 255);
              <property name="font">
               <font>
                <pointsize>14</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <weight>75</weight>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">
@@ -2189,7 +2349,7 @@ background-color:rgb(255, 255, 255);
                 <item>
                  <widget class="QLabel" name="label_36">
                   <property name="styleSheet">
-                   <string notr="true">color:rgb(150, 150, 150)</string>
+                   <string notr="true">color:rgb(203, 162, 0)</string>
                   </property>
                   <property name="text">
                    <string>单Buff</string>
@@ -2368,7 +2528,7 @@ background-color:rgb(255, 255, 255);
                 <item>
                  <widget class="QLabel" name="buff_gain">
                   <property name="styleSheet">
-                   <string notr="true">color:rgb(150, 150, 150)</string>
+                   <string notr="true">color:rgb(203, 162, 0)</string>
                   </property>
                   <property name="text">
                    <string>勇气+圣歌</string>
@@ -2553,7 +2713,7 @@ background-color:rgb(255, 255, 255);
                 <item>
                  <widget class="QLabel" name="buff_gain_nailuo">
                   <property name="styleSheet">
-                   <string notr="true">color:rgb(150, 150, 150)</string>
+                   <string notr="true">color:rgb(203, 162, 0)</string>
                   </property>
                   <property name="text">
                    <string>偏爱(禁忌诅咒+疯狂召唤)</string>
@@ -2735,6 +2895,9 @@ background-color:rgb(255, 255, 255);
             <weight>75</weight>
             <bold>true</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>圣光天启</string>
@@ -3050,7 +3213,154 @@ background-color:rgb(255, 255, 255);
      </item>
     </layout>
    </widget>
-   <zorder>layoutWidget</zorder>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>310</y>
+      <width>281</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { 
+border: 2px solid rgb(125, 125, 125); 
+}</string>
+    </property>
+    <property name="title">
+     <string>快捷计算</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_18">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_21">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="add_1">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>999</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_46">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>到</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="add_2">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>999</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_50">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>技能加</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="add_3">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>999</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="button_lv_add">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>增加</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>智力加减:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="add">
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>123123</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
    <zorder>left_widget</zorder>
    <zorder>button_jc</zorder>
    <zorder>line</zorder>
@@ -3061,11 +3371,12 @@ background-color:rgb(255, 255, 255);
    <zorder>layoutWidget</zorder>
    <zorder>widget_9</zorder>
    <zorder>widget_11</zorder>
+   <zorder>groupBox_3</zorder>
   </widget>
  </widget>
  <resources>
   <include location="images.qrc"/>
-  <include location="uncompiled/images.qrc"/>
+  <include location="images.qrc"/>
  </resources>
  <connections>
   <connection>
