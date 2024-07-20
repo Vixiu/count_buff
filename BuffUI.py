@@ -59,7 +59,8 @@ class BuffUI(Ui_widget):
         #  self.zj_zhili.textEdited.connect(self.__intellect_to)
         self.zj_gh.textEdited.connect(self.__intellect_to)
         self.zj_eh.textEdited.connect(self.__intellect_to)
-        self.zj_bd.clicked.connect(self.__intellect_to)
+        self.tabWidget.tabBarClicked.connect(self.__tab_widget)
+
         ########
         self.input_data = {
             "ty_intellect": self.ty_zhili,
@@ -98,6 +99,10 @@ class BuffUI(Ui_widget):
 
         }
         self.__set_validator()
+
+    def __tab_widget(self, index):
+        if index == 2:
+            self.__intellect_to()
 
     def add_config(self, name, select=False):
         item = QListWidgetItem(name)
@@ -157,7 +162,7 @@ class BuffUI(Ui_widget):
         elif name in ("c_attack", "c_intellect"):
             self.input_data[name].setPlaceholderText(str(value))
             self.input_data[name].setText('')
-        elif name == "add_buff_amount":
+        elif name == "add_buff_amount" or name == 'add':
             pass
         else:
             self.input_data[name].setText(str(value))
@@ -168,7 +173,7 @@ class BuffUI(Ui_widget):
 
     def set_placeholder_text(self, name, text):
         if name not in self.input_data:
-            raise print(f"{name} is not in UI")
+            raise ValueError(f"{name} is not in UI")
         if name in ("percentage_attack", "percentage_intellect", "ty_percentage"):
             self.input_data[name].setPlaceholderText(",".join([str(i) for i in text]))
             self.input_data[name].setText('')
@@ -292,7 +297,13 @@ class BuffUI(Ui_widget):
 
     def __naima_setting(self):
         self.tabWidget.setTabVisible(1, True)
-
+        #
+        self.lb_01.setText('Lv15:启示:颂歌')
+        self.lb_02.setText('Lv50:虔诚信念')
+        self.lb_03.setText('Lv75:大天使庇护')
+        self.lb_04.setText('Lv95:圣天使之光')
+        self.zj_bd.setText('虔诚信念')
+        #
         self.tabWidget.setTabVisible(3, False)
         self.tabWidget.setCurrentIndex(0)
         self.clear_all_text()
@@ -316,14 +327,21 @@ class BuffUI(Ui_widget):
         self.buff_gain.setText('勇气+颂歌')
 
     def __nailuo_setting(self):
-        self.tabWidget.setTabVisible(1, False)
+        self.tabWidget.setTabVisible(1, True)
+        #
+        self.lb_01.setText('Lv15:人偶操纵者')
+        self.lb_02.setText('Lv50:少女的爱')
+        self.lb_03.setText('Lv75:冥月绽放')
+        self.lb_04.setText('Lv95:不祥的微笑')
+        self.zj_bd.setText('少女的爱')
+        #
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget.setTabVisible(3, False)
 
         self.clear_all_text()
         self.clear_left_button_style()
 
-        # self.setWindowIcon(QIcon(":/png/719.PNG"))
+        #self.setWindowIcon(QIcon(":/png/719.PNG"))
         self.label_6.setText('智力加减:')
         self.label_3.setText('智力:')
         self.label_17.setText('智力:')
@@ -343,6 +361,14 @@ class BuffUI(Ui_widget):
 
     def __naiba_setting(self):
         self.tabWidget.setTabVisible(1, False)
+        #
+        self.lb_01.setText('Lv15:守护恩赐')
+        self.lb_02.setText('Lv50:信念光环')
+        self.lb_03.setText('信仰之翼')
+        self.lb_04.setText('Lv95:神之代行者')
+        self.zj_bd.setText('待开发')
+        # self.zj_bd.setText('Lv50:信念光环')
+        #
         self.tabWidget.setTabVisible(3, True)
         self.tabWidget.setCurrentIndex(0)
         self.clear_all_text()
@@ -367,7 +393,14 @@ class BuffUI(Ui_widget):
         self.buff_gain.setText('守护+荣誉祝福(24层)')
 
     def __naigong_setting(self):
-        self.tabWidget.setTabVisible(1, False)
+        self.tabWidget.setTabVisible(1, True)
+        #
+        self.lb_01.setText('Lv15:多彩感性')
+        self.lb_02.setText('Lv50:明星气场')
+        self.lb_03.setText('Lv75:崭新曲风')
+        self.lb_04.setText('Lv95:和茉霓之歌')
+        self.zj_bd.setText('明星气场')
+        #
         self.tabWidget.setCurrentIndex(0)
         self.clear_all_text()
         self.clear_left_button_style()

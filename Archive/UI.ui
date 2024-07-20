@@ -1098,7 +1098,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>一绝Lv:</string>
+          <string>一觉Lv:</string>
          </property>
         </widget>
        </item>
@@ -1183,7 +1183,7 @@ border: 2px solid rgb(144, 144, 144);
           </font>
          </property>
          <property name="text">
-          <string>绑一绝</string>
+          <string>绑一觉</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -1438,7 +1438,7 @@ border-bottom:0px;
      </attribute>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_30">
+       <widget class="QLabel" name="lb_01">
         <property name="font">
          <font>
           <pointsize>9</pointsize>
@@ -1471,7 +1471,7 @@ border-bottom:0px;
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLabel" name="label_40">
+       <widget class="QLabel" name="lb_02">
         <property name="font">
          <font>
           <pointsize>9</pointsize>
@@ -1506,7 +1506,7 @@ border-bottom:0px;
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_37">
+       <widget class="QLabel" name="lb_03">
         <property name="font">
          <font>
           <pointsize>10</pointsize>
@@ -1533,7 +1533,7 @@ border-bottom:0px;
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QLabel" name="label_45">
+       <widget class="QLabel" name="lb_04">
         <property name="font">
          <font>
           <pointsize>9</pointsize>
@@ -1626,12 +1626,12 @@ border-bottom:0px;
       <item row="1" column="0">
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>一绝被动</string>
+         <string>一觉被动:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QPushButton" name="zj_bd">
+       <widget class="QLabel" name="zj_bd">
         <property name="font">
          <font>
           <weight>75</weight>
@@ -1639,7 +1639,10 @@ border-bottom:0px;
          </font>
         </property>
         <property name="text">
-         <string>虔诚信念</string>
+         <string>Tst</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -1974,6 +1977,9 @@ background-color:rgb(255, 255, 255);
 </string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_10">
+        <property name="bottomMargin">
+         <number>25</number>
+        </property>
         <item>
          <widget class="QWidget" name="widget_8" native="true">
           <property name="styleSheet">
@@ -2887,6 +2893,9 @@ background-color:rgb(255, 255, 255);
 	border-radius:20px;</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_21">
+        <property name="topMargin">
+         <number>9</number>
+        </property>
         <item>
          <widget class="QLabel" name="yijue">
           <property name="font">
@@ -3346,6 +3355,13 @@ border: 2px solid rgb(125, 125, 125);
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label_30">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLineEdit" name="add">
          <property name="font">
           <font>
@@ -3353,7 +3369,10 @@ border: 2px solid rgb(125, 125, 125);
           </font>
          </property>
          <property name="text">
-          <string>123123</string>
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string/>
          </property>
         </widget>
        </item>

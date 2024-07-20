@@ -27,8 +27,9 @@ def binary_de():
     # 使用二分查找
     while flag:
         z = (max_num + min_num) / 2
+        print(f'第{num}次,{z:.35f}')
+        num += 1
         for ls in sg:
-            num += 1
             c = count_buff(*ls[:-1]) - ls[-1]
             if c < 0:
                 min_num = z
@@ -40,7 +41,6 @@ def binary_de():
                 break
             elif c == 0:
                 flag = False
-    print(z, f'运算{num}次')
 
 
 sg = [
@@ -57,3 +57,4 @@ sg = [
 # 不要穿戴任何百分比加成的装备(光环,宠物,辟邪玉)来填写数值
 
 binary_de()
+print(f'{z:.35f}','--',z)

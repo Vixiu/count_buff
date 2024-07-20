@@ -68,12 +68,12 @@ DEFAULT_DATA = {
     'ty3_lv': 3,
     'buff_amount': 0,
     'out_intellect': 0,
-    'out_lv': 1,
+    'out_lv': 21,
     'out_medal': 50,
     'out_earp': 175,
     'out_guild': 80,
     'in_intellect': 0,
-    'in_lv': 21,
+    'in_lv': 35,
     'halo_amount': 0,
     'pet_amount': 0,
     'jade_amount': 0,
@@ -196,7 +196,7 @@ def buff(cr: str, data: dict):
 def count_zj_buff(cr: str, data) -> dict:
     arm = 1.008 if cr == 'nai_ba' else 1.08  # 奶爸武器bug
     count = count_buff(
-        int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100+ data['buff_wz'] / 100)),
+        int(data['buff_amount'] * (1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['buff_wz'] / 100)),
         data['out_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
@@ -222,7 +222,7 @@ def count_zj_buff(cr: str, data) -> dict:
 def count_jt_buff(cr, data) -> dict:
     count = count_buff(
         int(data['buff_amount'] * (
-                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100+ data['buff_wz'] / 100)),
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100 + data['buff_wz'] / 100)),
         data['in_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
@@ -245,7 +245,7 @@ def count_jt_buff(cr, data) -> dict:
 def count_ty(data) -> int:
     count = count_buff(
         int(data['buff_amount'] * (
-                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100+ data['buff_wz'] / 100)),
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100 + data['buff_wz'] / 100)),
         data['ty_intellect'],
         BUFF_BASE['tai_yang']['xs'],
         BUFF_BASE['tai_yang']['xyz'],
@@ -276,7 +276,6 @@ def count_magnification(data, ty3, attribute, c_attack, c_intellect):
 
 def nai_ma_skill(skill, lv):
     if skill == '15':
-
         return \
             [0, 86, 90, 94, 98, 102, 107, 112, 117, 123, 129, 135, 141, 147, 154, 161, 169, 177, 185, 193, 201, 210, 219, 229, 238, 248, 258, 269, 279, 290,
              301,
@@ -288,7 +287,36 @@ def nai_ma_skill(skill, lv):
     elif skill == '75':
         return 140 + lv * 10
     elif skill == '95':
+        return 150 + lv * 10
+
+
+def nai_luo_skill(skill, lv):
+    if skill == '15':
+        return \
+            [0, 69, 73, 77, 81, 85, 90, 95, 100, 106, 112, 118, 124, 130, 137, 144, 152, 160, 168, 176, 184, 193, 202, 212, 221, 231, 241, 252, 262, 273, 284,
+             296, 308, 320, 332, 344, 358, 371, 384, 398, 412, 426, 440, 456, 470, 486, 502, 518, 534, 550, 567, 581, 597, 613, 629, 645, 660, 676, 692, 708,
+             724, 739, 755, 771, 787, 803, 818, 834, 850, 866, 882][70 if lv > 70 else lv]
+    elif skill == '50':
+        return 14 + lv // 2 * 23 + ((lv - 1) // 2) * 22
+    elif skill == '75':
         return 140 + lv * 10
+    elif skill == '95':
+        return 150 + lv * 10
+
+
+def nai_gong_skill(skill, lv):
+    if skill == '15':
+        return \
+            [0, 276, 280, 284, 288, 292, 297, 302, 307, 313, 319, 325, 331, 337, 344, 351, 359, 367, 375, 383, 391, 400, 409, 419, 428, 438, 448, 459, 469, 480,
+             491, 503, 515, 527, 539, 551,
+             565, 578, 591, 605, 619, 633, 647, 663, 677, 693, 709, 725, 741, 757, 774, 788, 804, 820, 836, 852, 867, 883, 899, 915, 931, 946, 962, 978, 994,
+             1010, 1025, 1041, 1057, 1073, 1089][70 if lv > 70 else lv]
+    elif skill == '50':
+        return 14 + lv // 2 * 23 + ((lv - 1) // 2) * 22
+    elif skill == '75':
+        return 140 + lv * 10
+    elif skill == '95':
+        return 150 + lv * 10
 
 
 def button_count_clicked():
@@ -299,7 +327,6 @@ def button_count_clicked():
         now_intellect = nai_ma_skill('15', input_data['lv_01']) + nai_ma_skill('75', input_data['lv_03']) + nai_ma_skill('95', input_data['lv_04'])
         base_intellect = nai_ma_skill('15', baseline_data['lv_01']) + nai_ma_skill('75', baseline_data['lv_03']) + nai_ma_skill('95', baseline_data['lv_04'])
         intellect = now_intellect - base_intellect + input_data["add"]
-
         input_data['out_intellect'] += intellect
         lv1 = 14 + input_data['lv_02'] // 2 * 23 + ((input_data['lv_02'] - 1) // 2) * 22
         lv2 = 14 + baseline_data['lv_02'] // 2 * 23 + ((baseline_data['lv_02'] - 1) // 2) * 22
@@ -318,13 +345,17 @@ def button_count_clicked():
         gap = diff_dict(base, now)
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_luo':
-        now_intellect = 0
-        base_intellect = 0
+        now_intellect = nai_luo_skill('15', input_data['lv_01']) + nai_luo_skill('75', input_data['lv_03']) + nai_luo_skill('95', input_data['lv_04'])
+        base_intellect = nai_luo_skill('15', baseline_data['lv_01']) + nai_luo_skill('75', baseline_data['lv_03']) + nai_luo_skill('95', baseline_data['lv_04'])
         intellect = now_intellect - base_intellect + input_data["add"]
-        input_data['in_intellect'] += intellect
         input_data['out_intellect'] += intellect
+        lv1 = 14 + input_data['lv_02'] // 2 * 23 + ((input_data['lv_02'] - 1) // 2) * 22
+        lv2 = 14 + baseline_data['lv_02'] // 2 * 23 + ((baseline_data['lv_02'] - 1) // 2) * 22
+        intellect += (lv1 - lv2)
+        input_data['in_intellect'] += intellect
         input_data['ty_intellect'] += intellect
-        #
+        #############################################
+
         now = buff(career, input_data)
         base = buff(career, baseline_data)
         now['z_jt'] = {k: round(v * 1.25) for k, v in now['jt'].items()}
@@ -338,13 +369,7 @@ def button_count_clicked():
         gap = diff_dict(base, now)
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_ba':
-        now_intellect = 0
-        base_intellect = 0
-        intellect = now_intellect - base_intellect + input_data["add"]
-        input_data['in_intellect'] += intellect
-        input_data['out_intellect'] += intellect
-        input_data['ty_intellect'] += intellect
-        #
+
         now = buff(career, input_data)
         base = buff(career, baseline_data)
         _ = baseline_data.copy()
@@ -363,13 +388,17 @@ def button_count_clicked():
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_gong':
 
-        now_intellect = 0
-        base_intellect = 0
+        now_intellect = nai_gong_skill('15', input_data['lv_01']) + nai_gong_skill('75', input_data['lv_03']) + nai_gong_skill('95', input_data['lv_04'])
+        base_intellect = nai_gong_skill('15', baseline_data['lv_01']) + nai_gong_skill('75', baseline_data['lv_03']) + nai_gong_skill('95',
+                                                                                                                                      baseline_data['lv_04'])
         intellect = now_intellect - base_intellect + input_data["add"]
-        input_data['in_intellect'] += intellect
         input_data['out_intellect'] += intellect
+        lv1 = 14 + input_data['lv_02'] // 2 * 23 + ((input_data['lv_02'] - 1) // 2) * 22
+        lv2 = 14 + baseline_data['lv_02'] // 2 * 23 + ((baseline_data['lv_02'] - 1) // 2) * 22
+        intellect += (lv1 - lv2)
+        input_data['in_intellect'] += intellect
         input_data['ty_intellect'] += intellect
-        #
+        #############################################
 
         now = buff(career, input_data)
         base = buff(career, baseline_data)
@@ -385,8 +414,14 @@ def button_count_clicked():
 
 def is_contrast():
     global baseline_data
+    data = UI.get_values()
 
-    baseline_data = UI.get_values().copy()
+    if data['add'] != 0 and QMessageBox.question(widget, "快捷计算", "是否将智力/精神,加到面板内？", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
+        data['in_intellect'] += data['add']
+        data['ty_intellect'] += data['add']
+        data['out_intellect'] += data['add']
+    UI.add.setText('')
+    baseline_data = data.copy()
     UI.set_placeholder_texts(baseline_data)
     button_count_clicked()
     UI.clear_show_hold_text()
@@ -409,6 +444,7 @@ def is_save():
 
 def save(update=False):
     global save_data
+
     if not path.exists(path.dirname(FILE_PATH)):
         makedirs(path.dirname(FILE_PATH))
     if update:
@@ -438,6 +474,7 @@ def load_data():
     except:
         pass  # 如果读取不到或者读取错则什么都不做,用默认数据]
     career = save_data['career']
+    career_button_clicked(career)
     update_config()
     if career == 'nai_ma':
         UI.naima_button.click()
@@ -448,7 +485,6 @@ def load_data():
     elif career == 'nai_gong':
         UI.naigong_button.click()
     button_count_clicked()
-
     is_contrast()
 
 
@@ -532,6 +568,14 @@ def career_button_clicked(career_name):
     save_data["career"] = career_name
     update_config()
     UI.left_widget.update()
+    if career == 'nai_ma':
+        widget.setWindowIcon(QIcon(":/png/84.PNG"))
+    elif career == 'nai_ba':
+        widget.setWindowIcon(QIcon(":/png/111.PNG"))
+    elif career == 'nai_luo':
+        widget.setWindowIcon(QIcon(":/png/719.PNG"))
+    elif career == 'nai_gong':
+        widget.setWindowIcon(QIcon(":/png/14.PNG"))
 
 
 def close_windows():
@@ -549,6 +593,8 @@ def window_top():
 
 
 def add_button():
+    if career == 'nai_ba':
+        return
     lv_min = int(UI.add_1.text())
     lv_max = int(UI.add_2.text())
     lv_count = int(UI.add_3.text())
@@ -562,7 +608,6 @@ def add_button():
         UI.set_value('in_lv', lv2 if lv2 < 41 else 40)
     if lv_min <= 50 <= lv_max:
         UI.set_value('lv_02', UI.get_value('lv_02') + lv_count)
-
         lv1 = UI.get_value('ty_lv') + lv_count
         UI.set_value('ty_lv', lv1 if lv1 < 41 else 40)
     if lv_min <= 75 <= lv_max:
@@ -607,6 +652,7 @@ def start():
 
 if __name__ == '__main__':
     app = QApplication(argv)
+
     # ui初始化
     widget = RoundedWindow()
     UI = BuffUI()
@@ -616,7 +662,6 @@ if __name__ == '__main__':
     widget.show()
     widget.setWindowTitle(' 奶量计算器')
     widget.setStyleSheet("color: rgb(0, 0, 0);\n")
-    widget.setWindowIcon(QIcon(":/png/84.PNG"))
     ##############
     start()
     app.exec_()
