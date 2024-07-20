@@ -97,6 +97,7 @@ DEFAULT_DATA = {
 }
 #########
 career = 'nai_ma'
+
 save_data = {
     "nai_ma": [{
         "name": "奶妈",
