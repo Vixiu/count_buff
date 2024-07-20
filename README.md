@@ -1,11 +1,10 @@
 <h1 id="-div-align-center-dnf-div-"><div align="center"> DNF 奶量计算器 </div></h1>
 
 <h2 id="-">使用及说明</h2>
-<h5>力求做到,通过简单填写站街属性，即可准确的计算站街与进图Buff。</h5>
 <h5>如果算出来的三攻与实际超过±2,那么大概率是你填的不对或穿的不是换装上的装备</h5>
 <ol>
-<li><strong>增益量:</strong> 照填即可,如果输入正负(+,-)号加数字,那么软件会以基础数据为准进行加减计算.<font color=#6495ED> (位置:按键(M)-&gt;详细信息-&gt;增益量)</font></li>
-<li><strong>站街属性:</strong> 照填即可</li>
+<li><strong>站街属性:</strong> 增益量:如果输入正负(+,-)号加数字,那么软件会以基础数据为准进行加减计算.<font color=#6495ED> (增益量位置:按键(M)-&gt;详细信息-&gt;增益量)</font></li>  
+<li><strong>被动技能:</strong>照填即可,点击设为基础后,不会将数值加到计算器里,而是归零</li>
 <li><strong>推算进图:</strong> 可以不填,此栏主要是为了推算出进图属性,推算结果不一定准确,具体请以实际进图为准.<font color=#6495ED>(目前影响推算结果的有:附魔类装备,无畏鞋子,活动Buff等进图计算的装备)</font></li>
 <li><strong>Buff 适用/一绝适用:</strong> 填写实际多人组队进图的属性</li>
 <li><strong>智力加减:</strong><font color=#FF7F50>输入正负(+,-)号加数字</font> ,正号可以忽略不写.此项会对<font color=#FF7F50>站街智力,buff 适用智力,太阳适用智力</font>进行加减并计算结果.</li>
