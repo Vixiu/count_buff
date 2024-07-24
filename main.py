@@ -17,6 +17,7 @@ BUFF_BASE = {
                    447, 458, 468, 478, 489, 500, 511, 520, 530, 541, 551, 563],
         'xs': 665,
         'xyz': (4350, 3500, 3.78880649805069e-05),
+        'lz_z': 0.00003856420516967773437500000000000
     },
     'nai_ba': {
         'san_gong': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
@@ -27,6 +28,7 @@ BUFF_BASE = {
                    494, 505, 518, 529, 541, 552, 565, 575, 587, 598, 609, 622],
         'xs': 620,
         'xyz': (4345, 3498, 0.000035699),
+        'lz_z': 0.000035699
 
     },
     'nai_gong': {
@@ -40,6 +42,7 @@ BUFF_BASE = {
         ,
         'xs': 665,
         'xyz': (4350, 3500, 3.78880649805069e-05),
+        'lz_z': 0.00003856420516967773437500000000000
 
     },
     'nai_luo': {
@@ -51,6 +54,7 @@ BUFF_BASE = {
                    380, 389, 398, 407, 416, 425, 434, 442, 451, 460, 469, 478],
         'xs': 665,
         'xyz': (4350, 3500, 3.78880649805069e-05),
+        'lz_z': 0.00003856420516967773437500000000000
 
     },
     "tai_yang": {'li_zhi': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -142,9 +146,9 @@ def count_buff(buff_amount: int, intellect: int, xs: int, xyz: tuple, cp_arms: b
     :param arm:
     :return: 函数
     """
-    x, y, z = xyz
+    x, y, sg_z = xyz
 
-    def count(fixed, bfb: list, basic_attack) -> int:
+    def count(fixed, bfb: list, basic_attack, lz_z=0) -> int:
         """
 
         :param fixed: 固定加成
@@ -152,7 +156,7 @@ def count_buff(buff_amount: int, intellect: int, xs: int, xyz: tuple, cp_arms: b
         :param basic_attack: 基础数值
         :return:
         """
-
+        z= sg_z if lz_z ==0 else lz_z
         old_buff = ((basic_attack + fixed) * ((intellect / xs) + 1))
         for n in bfb:
             old_buff *= (1 + n / 100)
@@ -216,6 +220,7 @@ def count_zj_buff(cr: str, data) -> dict:
             data['fixed_intellect'],
             data['percentage_intellect'],
             BUFF_BASE[cr]['li_zhi'][data['out_lv'] - 1],
+            BUFF_BASE[cr]['lz_z'],
         )}
 
 
@@ -223,7 +228,8 @@ def count_zj_buff(cr: str, data) -> dict:
 def count_jt_buff(cr, data) -> dict:
     count = count_buff(
         int(data['buff_amount'] * (
-                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100 + data['buff_wz'] / 100)),
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100 + data[
+            'buff_wz'] / 100)),
         data['in_intellect'],
         BUFF_BASE[cr]['xs'],
         BUFF_BASE[cr]['xyz'],
@@ -239,6 +245,7 @@ def count_jt_buff(cr, data) -> dict:
             data['fixed_intellect'],
             data['percentage_intellect'],
             BUFF_BASE[cr]['li_zhi'][data['in_lv'] - 1],
+            BUFF_BASE[cr]['lz_z'],
         )}
 
 
@@ -246,7 +253,8 @@ def count_jt_buff(cr, data) -> dict:
 def count_ty(data) -> int:
     count = count_buff(
         int(data['buff_amount'] * (
-                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100 + data['buff_wz'] / 100)),
+                1 + data['halo_amount'] / 100 + data['pet_amount'] / 100 + data['jade_amount'] / 100 + data[
+            'buff_wz'] / 100)),
         data['ty_intellect'],
         BUFF_BASE['tai_yang']['xs'],
         BUFF_BASE['tai_yang']['xyz'],
@@ -278,9 +286,11 @@ def count_magnification(data, ty3, attribute, c_attack, c_intellect):
 def nai_ma_skill(skill, lv):
     if skill == '15':
         return \
-            [0, 86, 90, 94, 98, 102, 107, 112, 117, 123, 129, 135, 141, 147, 154, 161, 169, 177, 185, 193, 201, 210, 219, 229, 238, 248, 258, 269, 279, 290,
+            [0, 86, 90, 94, 98, 102, 107, 112, 117, 123, 129, 135, 141, 147, 154, 161, 169, 177, 185, 193, 201, 210,
+             219, 229, 238, 248, 258, 269, 279, 290,
              301,
-             313, 325, 337, 349, 361, 375, 388, 401, 415, 429, 443, 457, 473, 487, 503, 519, 535, 551, 567, 584, 598, 614, 630, 646, 662, 677, 693, 709, 725,
+             313, 325, 337, 349, 361, 375, 388, 401, 415, 429, 443, 457, 473, 487, 503, 519, 535, 551, 567, 584, 598,
+             614, 630, 646, 662, 677, 693, 709, 725,
              741,
              756, 772, 788, 804, 820, 835, 851, 867, 883, 899][70 if lv > 70 else lv]
     elif skill == '50':
@@ -294,8 +304,10 @@ def nai_ma_skill(skill, lv):
 def nai_luo_skill(skill, lv):
     if skill == '15':
         return \
-            [0, 69, 73, 77, 81, 85, 90, 95, 100, 106, 112, 118, 124, 130, 137, 144, 152, 160, 168, 176, 184, 193, 202, 212, 221, 231, 241, 252, 262, 273, 284,
-             296, 308, 320, 332, 344, 358, 371, 384, 398, 412, 426, 440, 456, 470, 486, 502, 518, 534, 550, 567, 581, 597, 613, 629, 645, 660, 676, 692, 708,
+            [0, 69, 73, 77, 81, 85, 90, 95, 100, 106, 112, 118, 124, 130, 137, 144, 152, 160, 168, 176, 184, 193, 202,
+             212, 221, 231, 241, 252, 262, 273, 284,
+             296, 308, 320, 332, 344, 358, 371, 384, 398, 412, 426, 440, 456, 470, 486, 502, 518, 534, 550, 567, 581,
+             597, 613, 629, 645, 660, 676, 692, 708,
              724, 739, 755, 771, 787, 803, 818, 834, 850, 866, 882][70 if lv > 70 else lv]
     elif skill == '50':
         return 14 + lv // 2 * 23 + ((lv - 1) // 2) * 22
@@ -308,9 +320,11 @@ def nai_luo_skill(skill, lv):
 def nai_gong_skill(skill, lv):
     if skill == '15':
         return \
-            [0, 276, 280, 284, 288, 292, 297, 302, 307, 313, 319, 325, 331, 337, 344, 351, 359, 367, 375, 383, 391, 400, 409, 419, 428, 438, 448, 459, 469, 480,
+            [0, 276, 280, 284, 288, 292, 297, 302, 307, 313, 319, 325, 331, 337, 344, 351, 359, 367, 375, 383, 391, 400,
+             409, 419, 428, 438, 448, 459, 469, 480,
              491, 503, 515, 527, 539, 551,
-             565, 578, 591, 605, 619, 633, 647, 663, 677, 693, 709, 725, 741, 757, 774, 788, 804, 820, 836, 852, 867, 883, 899, 915, 931, 946, 962, 978, 994,
+             565, 578, 591, 605, 619, 633, 647, 663, 677, 693, 709, 725, 741, 757, 774, 788, 804, 820, 836, 852, 867,
+             883, 899, 915, 931, 946, 962, 978, 994,
              1010, 1025, 1041, 1057, 1073, 1089][70 if lv > 70 else lv]
     elif skill == '50':
         return 14 + lv // 2 * 23 + ((lv - 1) // 2) * 22
@@ -325,8 +339,12 @@ def button_count_clicked():
 
     # 下面是 向下取整,还是四舍五入 有待研究
     if career == 'nai_ma':
-        now_intellect = nai_ma_skill('15', input_data['lv_01']) + nai_ma_skill('75', input_data['lv_03']) + nai_ma_skill('95', input_data['lv_04'])
-        base_intellect = nai_ma_skill('15', baseline_data['lv_01']) + nai_ma_skill('75', baseline_data['lv_03']) + nai_ma_skill('95', baseline_data['lv_04'])
+        now_intellect = nai_ma_skill('15', input_data['lv_01']) + nai_ma_skill('75',
+                                                                               input_data['lv_03']) + nai_ma_skill('95',
+                                                                                                                   input_data[
+                                                                                                                       'lv_04'])
+        base_intellect = nai_ma_skill('15', baseline_data['lv_01']) + nai_ma_skill('75', baseline_data[
+            'lv_03']) + nai_ma_skill('95', baseline_data['lv_04'])
         intellect = now_intellect - base_intellect + input_data["add"]
         input_data['out_intellect'] += intellect
         lv1 = 14 + input_data['lv_02'] // 2 * 23 + ((input_data['lv_02'] - 1) // 2) * 22
@@ -346,8 +364,11 @@ def button_count_clicked():
         gap = diff_dict(base, now)
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_luo':
-        now_intellect = nai_luo_skill('15', input_data['lv_01']) + nai_luo_skill('75', input_data['lv_03']) + nai_luo_skill('95', input_data['lv_04'])
-        base_intellect = nai_luo_skill('15', baseline_data['lv_01']) + nai_luo_skill('75', baseline_data['lv_03']) + nai_luo_skill('95', baseline_data['lv_04'])
+        now_intellect = nai_luo_skill('15', input_data['lv_01']) + nai_luo_skill('75',
+                                                                                 input_data['lv_03']) + nai_luo_skill(
+            '95', input_data['lv_04'])
+        base_intellect = nai_luo_skill('15', baseline_data['lv_01']) + nai_luo_skill('75', baseline_data[
+            'lv_03']) + nai_luo_skill('95', baseline_data['lv_04'])
         intellect = now_intellect - base_intellect + input_data["add"]
         input_data['out_intellect'] += intellect
         lv1 = 14 + input_data['lv_02'] // 2 * 23 + ((input_data['lv_02'] - 1) // 2) * 22
@@ -389,9 +410,11 @@ def button_count_clicked():
         UI.set_show_text(value_to_str(now), gap_set(gap))
     elif career == 'nai_gong':
 
-        now_intellect = nai_gong_skill('15', input_data['lv_01']) + nai_gong_skill('75', input_data['lv_03']) + nai_gong_skill('95', input_data['lv_04'])
-        base_intellect = nai_gong_skill('15', baseline_data['lv_01']) + nai_gong_skill('75', baseline_data['lv_03']) + nai_gong_skill('95',
-                                                                                                                                      baseline_data['lv_04'])
+        now_intellect = nai_gong_skill('15', input_data['lv_01']) + nai_gong_skill('75', input_data[
+            'lv_03']) + nai_gong_skill('95', input_data['lv_04'])
+        base_intellect = nai_gong_skill('15', baseline_data['lv_01']) + nai_gong_skill('75', baseline_data[
+            'lv_03']) + nai_gong_skill('95',
+                                       baseline_data['lv_04'])
         intellect = now_intellect - base_intellect + input_data["add"]
         input_data['out_intellect'] += intellect
         lv1 = 14 + input_data['lv_02'] // 2 * 23 + ((input_data['lv_02'] - 1) // 2) * 22
@@ -417,7 +440,8 @@ def is_contrast():
     global baseline_data
     data = UI.get_values()
 
-    if data['add'] != 0 and QMessageBox.question(widget, "快捷计算", "是否将智力/精神,加到面板内？", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
+    if data['add'] != 0 and QMessageBox.question(widget, "快捷计算", "是否将智力/精神,加到面板内？",
+                                                 QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
         data['in_intellect'] += data['add']
         data['ty_intellect'] += data['add']
         data['out_intellect'] += data['add']
