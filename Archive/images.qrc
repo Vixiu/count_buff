@@ -1,9 +1,7 @@
 <RCC>
   <qresource lang="yongqi">
-    <file>png/14.PNG</file>
     <file>png/-.png</file>
-    <file>png/t.png</file>
-    <file>png/x.png</file>
+    <file>png/14.PNG</file>
     <file>png/23.PNG</file>
     <file>png/34.PNG</file>
     <file>png/84.PNG</file>
@@ -15,9 +13,18 @@
     <file>png/719.PNG</file>
     <file>png/757.PNG</file>
     <file>png/838.PNG</file>
+    <file>png/add.png</file>
     <file>png/ba.png</file>
+    <file>png/close.png</file>
+    <file>png/del.png</file>
+    <file>png/down.png</file>
     <file>png/gong.png</file>
     <file>png/luo.png</file>
     <file>png/ma.png</file>
+    <file>png/min.png</file>
+    <file>png/pin.png</file>
+    <file>png/t.png</file>
+    <file>png/up.png</file>
+    <file>png/x.png</file>
   </qresource>
 </RCC>

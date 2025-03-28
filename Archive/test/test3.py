@@ -3,7 +3,7 @@ from sys import argv
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QApplication
 
-from UI import Ui_widget
+from QtUI import Ui_widget
 from UIData import UIData
 from Widget import RoundedWindow
 

@@ -1753,4 +1753,6 @@ class Ui_widget(object):
         self.button_lv_add.setText(_translate("widget", "增加"))
         self.label_6.setText(_translate("widget", "智力加减:"))
         self.add.setText(_translate("widget", "123123"))
-import images_rc
+
+
+from UI import images_rc
