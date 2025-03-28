@@ -11,6 +11,5 @@
 <li><strong>辟邪玉&amp;宠物&amp;&amp;光环&amp;武器:</strong> 固定三攻填写<font color=#FF7F50>身上所有固定三攻总和</font>,百分比三攻<font color=#FF7F50>每项请用逗号(,)隔开,固定力智与百分比力智同理,其余照填即可.注意:</font><font color=#6495ED>辟邪玉上的百分比三攻与力智,内部为加算,请填写一项(所有词条的和),不要每个词条都用逗号隔开</font></li>
 </ol>
 <h2 id="-">界面预览</h2>
-<img width="850" src="https://github.com/Vixiu/count_buff/blob/Buff/Archive/png_readme/Buffv1.3.1.png">
 
 
