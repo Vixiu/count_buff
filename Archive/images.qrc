@@ -1,30 +1,48 @@
 <RCC>
-  <qresource lang="yongqi">
-    <file>png/-.png</file>
-    <file>png/14.PNG</file>
-    <file>png/23.PNG</file>
-    <file>png/34.PNG</file>
-    <file>png/84.PNG</file>
-    <file>png/88.PNG</file>
-    <file>png/111.PNG</file>
-    <file>png/158.PNG</file>
-    <file>png/350.PNG</file>
-    <file>png/548.PNG</file>
-    <file>png/719.PNG</file>
-    <file>png/757.PNG</file>
-    <file>png/838.PNG</file>
+  <qresource>
+    <file>png/about.png</file>
     <file>png/add.png</file>
     <file>png/ba.png</file>
+    <file>png/ba_buff.png</file>
+    <file>png/ba_sk1.png</file>
+    <file>png/ba_sk2.png</file>
+    <file>png/ba_ty1.png</file>
+    <file>png/ba_ty3.png</file>
     <file>png/close.png</file>
     <file>png/del.png</file>
     <file>png/down.png</file>
     <file>png/gong.png</file>
+    <file>png/gong_buff.png</file>
+    <file>png/gong_sk1.png</file>
+    <file>png/gong_sk2.png</file>
+    <file>png/gong_sk3.png</file>
+    <file>png/gong_sk4.png</file>
+    <file>png/gong_ty1.png</file>
+    <file>png/gong_ty3.png</file>
     <file>png/luo.png</file>
+    <file>png/luo_buff.png</file>
+    <file>png/luo_sk1.png</file>
+    <file>png/luo_sk2.png</file>
+    <file>png/luo_sk3.png</file>
+    <file>png/luo_sk4.png</file>
+    <file>png/luo_sk5.png</file>
+    <file>png/luo_sk6.png</file>
+    <file>png/luo_sk7.png</file>
+    <file>png/luo_sk8.png</file>
+    <file>png/luo_ty1.png</file>
+    <file>png/luo_ty3.png</file>
     <file>png/ma.png</file>
+    <file>png/ma_buff.png</file>
+    <file>png/ma_sk1.png</file>
+    <file>png/ma_sk2.png</file>
+    <file>png/ma_sk3.png</file>
+    <file>png/ma_sk4.png</file>
+    <file>png/ma_ty1.png</file>
+    <file>png/ma_ty3.png</file>
     <file>png/min.png</file>
+    <file>png/options.png</file>
     <file>png/pin.png</file>
-    <file>png/t.png</file>
+    <file>png/setting.png</file>
     <file>png/up.png</file>
-    <file>png/x.png</file>
   </qresource>
 </RCC>

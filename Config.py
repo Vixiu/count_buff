@@ -2,9 +2,11 @@ import copy
 
 CLASS = {
     'ma': {
+        'name':'圣骑士',
         'buff':{
             'name':'勇气祝福',
             'lv':35,
+            'icon':'ma_buff.png',
             'attack': [39, 41, 43, 44, 45, 47, 49, 50, 52, 53, 54, 56, 58, 59, 61, 62,
                        63, 65, 67, 69, 70, 71, 73, 75, 77, 79, 80, 81, 83, 85, 86, 88,
                        89, 90, 92, 94, 95, 97, 98, 100],
@@ -15,6 +17,7 @@ CLASS = {
             'xyz': (4350, 3500, 3.78880649805069e-05),
         },
         "ty1": {
+            'icon':'ma_ty1.png',
             'name':'圣光天启',
             'lv':50,
             'intellect': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -24,6 +27,7 @@ CLASS = {
             'xyz': (5250, 5000, 0.000025),
         },
         'ty3':{
+            'icon':'ma_ty3.png',
             'name':'祈愿·天使赞歌',
             'lv':100,
             'bind1':1.08,
@@ -34,6 +38,12 @@ CLASS = {
         'attribute': '智力',
         'skill_form':[
             {
+                'icon':'ma_sk1.png',
+                'name':'勇气颂歌',
+                'multiplier':0.15
+            },
+            {
+                'icon':'ma_sk2.png',
                 'name':'勇气祝福+勇气颂歌',
                 'multiplier':1.15
             }
@@ -67,9 +77,20 @@ CLASS = {
                 'data':[150 + lv * 10 for lv in  range(100)]
             },
         ],
+        'total_buff': [
+            {'icon': None,
+             'name': '总(一绝下)',
+             'value': [1, 3, 4]
+             },
+            {'icon': None,
+             'name': '总(三绝下)',
+             'value': [1, 3, 5]
+             }
+        ],
     },
     'gong': {
         'buff':{
+            'icon':'gong_buff.png',
             'name': '可爱节拍',
             'lv': 35,
             'attack': [40, 42, 44, 46, 47, 49, 51, 52, 54, 55, 56, 58, 60, 61, 63,
@@ -83,6 +104,7 @@ CLASS = {
             'xyz': (4350, 3500, 3.78880649805069e-05),
         },
         "ty1": {
+            'icon':'gong_ty1.png',
             'name':'梦想的舞台',
             'lv':50,
             'intellect': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -92,6 +114,7 @@ CLASS = {
             'xyz': (5250, 5000, 0.000025),
         },
         'ty3':{
+            'icon':'gong_ty3.png',
             'name':'终曲:霓虹蝶梦',
             'lv':100,
             'bind1':1.08,
@@ -100,10 +123,17 @@ CLASS = {
         },
         'damage_increase':1.174,
         'attribute':'精神',
-        'skill_form':[{
-            'name':'可爱节拍+燃情狂想曲',
-            'multiplier':1.1,
-        }],
+        'skill_form':[
+            {
+                'icon':'gong_sk1',
+                'name':'燃情狂想曲',
+                'multiplier':0.1,
+            },
+            {
+                'icon':None,
+                'name':'可爱节拍+燃情狂想曲',
+                'multiplier':1.1,
+            }],
         'passive_skill':[
             {
                 'lv':15,
@@ -118,7 +148,7 @@ CLASS = {
             {'lv':25,
              'name':'主角登场',
              'out_map': False,
-             'data':[999],
+             'data':[0],
              },
             {
                 'out_map':False,
@@ -128,17 +158,28 @@ CLASS = {
             {
                 'lv':75,
                 'name':'崭新曲风',
-'out_map':True,
+                'out_map':True,
                 'data':[140 + lv * 10 for lv in  range(100)]},
             {
-'out_map':True,
+                'out_map':True,
                 'lv':95,
                 'name': '和茉霓之歌',
                 'data':[150 + lv * 10 for lv in  range(100)]},
         ],
+        'total_buff':[
+            { 'icon':None,
+              'name':'总(一绝下)',
+              'value':[1, 3, 4]
+              },
+            {'icon':None,
+             'name':'总(三绝下)',
+             'value':[1, 3, 5]
+             }
+        ],
     },
     'luo': {
         'buff':{
+            'icon':'luo_buff.png',
             'name': '禁忌诅咒',
             'lv': 35,
             'attack': [34, 35, 37, 38, 39, 41, 42, 43, 45, 46, 47, 49, 50, 51, 53, 54,
@@ -151,6 +192,7 @@ CLASS = {
             'xyz': (4350, 3500, 3.78880649805069e-05),
         },
         "ty1": {
+            'icon':'luo_ty1.png',
             'name': '开幕！人偶剧场',
             'lv': 50,
             'intellect': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -160,6 +202,7 @@ CLASS = {
             'xyz': (5250, 5000, 0.000025),
         },
         'ty3': {
+            'icon':'luo_ty3.png',
             'name': '终幕！人偶剧场',
             'lv': 100,
             'bind1': 1.08,
@@ -169,11 +212,16 @@ CLASS = {
         'damage_increase':1.141,
         'attribute': '智力',
         'skill_form':[
-            {
+            {   'icon':'luo_sk1.png',
+                'name': '疯狂召唤',
+                'multiplier': 0.25
+                },
+            {   'icon':None,
                 'name':'禁忌诅咒+疯狂召唤',
                 'multiplier':1.25
-            },
+                },
             {
+                'icon':None,
                 'name':'偏爱(禁忌诅咒+疯狂召唤)',
                 'multiplier':1.4375
             }
@@ -181,7 +229,7 @@ CLASS = {
         'passive_skill':[
             {
                 'lv':15,
-'out_map':True,
+                'out_map':True,
                 'name': '人偶操纵者',
                 'data':[ 69, 73, 77, 81, 85, 90, 95, 100, 106, 112, 118, 124, 130, 137, 144, 152, 160, 168, 176, 184, 193, 202,
                          212, 221, 231, 241, 252, 262, 273, 284,
@@ -190,23 +238,40 @@ CLASS = {
                          724, 739, 755, 771, 787, 803, 818, 834, 850, 866, 882]},
             {
                 'lv':50,
-'out_map':False,
+                'out_map':False,
                 'name': '少女的爱',
                 'data':[14 + lv // 2 * 23 + ((lv - 1) // 2) * 22 for lv in  range(100)]},
             {
                 'lv':75,
-'out_map':True,
+                'out_map':True,
                 'name': '冥月绽放',
                 'data':[140 + lv * 10 for lv in  range(100)]},
             {
                 'lv':95,
-'out_map':True,
+                'out_map':True,
                 'name': '不祥的微笑',
                 'data':[150 + lv * 10 for lv in  range(100)]},
         ],
+        'total_buff': [
+            {'icon': None,
+             'name': '总(一绝下,非偏爱)',
+             'value': [1, 3, 5]
+             },
+            {'icon': None,
+             'name': '总(三绝下,非偏爱)',
+             'value': [1, 3, 6]
+             },
+            {'icon': None,
+             'name': '总(三绝下,偏爱)',
+             'value': [1, 4, 6]
+             }
+        ],
+
+
     },
     'ba': {
         'buff':{
+            'icon':'ba_buff.png',
             'name': '荣誉祝福',
             'lv': 35,
             'attack': [44, 45, 47, 49, 50, 52, 54, 55, 57, 59, 60, 62, 64, 65, 67, 69,
@@ -219,6 +284,7 @@ CLASS = {
             'xyz': (4345, 3498, 0.000035699),
         },
         "ty1": {
+            'icon':'ba_ty1.png',
             'name': '天启之珠',
             'lv': 50,
             'intellect': [43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346, 379,
@@ -228,6 +294,7 @@ CLASS = {
             'xyz': (5250, 5000, 0.000025),
         },
         'ty3': {
+            'icon':'ba_ty3.png',
             'name': '生命礼赞:神威',
             'lv': 100,
             'bind1': 1.08,
@@ -237,30 +304,41 @@ CLASS = {
         'damage_increase':1.141,
         'skill_form':[
             {
+                'icon':'ba_buff.png',
                 'name':'荣誉祝福(24层)',
-                'multiplier':None
+                'multiplier':1.12
             }
         ],
         'attribute':'体精',
         'passive_skill':[
             {
                 'lv':15,
-'out_map':False,
+                'out_map':False,
                 'name':'守护恩赐',
-                'data':[]
+                'data':[0]
             },
             {
                 'lv':50,
                 'out_map':False,
                 'name': '信念光环',
-                'data': []
+                'data': [0]
             },
             {
                 'lv':95,
                 'out_map':False,
                 'name': '神之代行者',
-                'data': []
+                'data': [0]
             }
+        ],
+        'total_buff': [
+            {'icon': None,
+             'name': '总(一绝下)',
+             'value': [1, 2, 3]
+             },
+            {'icon': None,
+             'name': '总(三绝下)',
+             'value': [1, 2, 4]
+             }
         ],
     },
 }
@@ -278,9 +356,9 @@ DEFAULT_INPUT_DATA = {
         'fixed_attack': 0,
         'fixed_intellect': 0,
         'fixed_ty': 0,
-        'percentage_attack': [],
-        'percentage_intellect': [],
-        'percentage_ty': [],
+        'percentage_attack': [0.0],
+        'percentage_intellect': [0.0,0.0],
+        'percentage_ty': [0.0,0.0,0.0],
     },
     'buff':{
         'intellect_out': 0,
@@ -301,7 +379,7 @@ CONFIG_TEMPLATE={
         {'name':'测试配置1',
          'data':{'cp_arms': True, 'c_attack': 3350, 'c_intellect': 24500, 'buff_amount': {'in_map': 44, 'out_map': 53333, 'enh': 0}, 'bxy': {'enh': 3, 'fixed_attack': 5, 'fixed_intellect': 2, 'fixed_ty': 2, 'percentage_attack': [2.0], 'percentage_intellect': [3.0], 'percentage_ty': [1.0]}, 'buff': {'intellect_out': 3222, 'lv_out': 21, 'intellect_in': 1111, 'lv_in': 35}, 'ty': {'ty1_lv': 37, 'intellect': 4444, 'ty3_lv': 3, 'is_ty1': True}, 'skill': {0: 3, 1: 4, 2: 5, 3: 1}}
          },
-        {'name': '测试配置2',
+        {'name': '测试配置222222222',
          'data': {'cp_arms': True, 'c_attack': 3350, 'c_intellect': 24500,
                   'buff_amount': {'in_map': 44, 'out_map': 53333, 'enh': 0},
                   'bxy': {'enh': 3, 'fixed_attack': 5, 'fixed_intellect': 2, 'fixed_ty': 2, 'percentage_attack': [2.0],
@@ -335,7 +413,7 @@ CONFIG_TEMPLATE={
     'last':'ma',
     'record':{i: 0 for i in CLASS}
 }
-
+Version='2.0.0'
 '''
 -备忘
 DEFAULT_DATA仅可嵌套字典
@@ -343,20 +421,13 @@ CLASS里的passive_skill,技能存放顺序要从小到大
 
 QIcon(":/png/84.PNG")
 
-    effect = QGraphicsDropShadowEffect()
-    effect.setBlurRadius(10)  # 范围
-    effect.setOffset(0, 0)  # 横纵,偏移量
-    effect.setColor(Qt.black)  # 颜色
-    UI.widget_1.setGraphicsEffect(effect)
-    
 后续要添加职业要修改的:
     CLASS里增加对应数据,
     SAVE_CONFIG_TEMPLATE增加,
     UI里增加对应职业按钮
---------
-add_lv 排序  设置input_text
-set_base与init_buff 是否返回
-输入规则校验
+
+奶罗 buff 组成
+奶爸 设置
 '''
 
 

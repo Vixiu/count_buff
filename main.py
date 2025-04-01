@@ -20,13 +20,14 @@ def transport_layer(*keys):
         UI.set_show_text(buff())
     return transport
 
-def add_max_lv():
+def init_config():
     for key in CLASS:
         CLASS[key]['buff']['max_lv']=min(len(CLASS[key]['buff']['attack']),len(CLASS[key]['buff']['intellect']))
         CLASS[key]['ty1']['max_lv'] =len(CLASS[key]['ty1']['intellect'] )
         CLASS[key]['ty3']['max_lv'] = 999
         for item in  CLASS[key]['passive_skill']:
             item['max_lv']=len(item['data'])
+
 def window_top():
     if bool(widget.windowHandle().flags() & Qt.WindowStaysOnTopHint):
         widget.window_top(False)
@@ -49,9 +50,6 @@ def bing_input(dt: dict, ls=None):
             v.textEdited.connect(transport_layer(*ls))
         ls.pop()
 
-
-def test(a):
-    print(a)
 def set_base():
     buff.set_base()
     UI.set_placeholder_text(buff.data)
@@ -81,10 +79,6 @@ def set_job(job):
     set_config(save_data['record'][job],True)
 
 
-
-#################################################
-
-
 def class_config(job):
     def config():
         set_job(job)
@@ -111,16 +105,43 @@ def add_lv():
         # 设置input_text
         UI.set_input_text(result['data'])
         UI.set_show_text(buff())
-        text = ''
+
 
         for item in result['result']:
             print(item)
+        html="""
+        <table cellspacing='5' cellpadding='2' width='100%' style="font-size: 14px;">
+                <tr>
+                    <th align='right'>技能</th>
+                    <th align='center'>原等级</th>
+                    <th align='center'></th>
+                    <th align='center'>新等级</th>
+                    <th align='center'>四维差距</th>
+                </tr>
+        """
+        total=0
         for item in sorted(result['result'], key=lambda x: x['lv']):
-            text+=f"Lv{item['lv']}  {item['name']}:{item['old_lv']}->{item['new_lv']} {item['increase']}\n"
+            total+= item['increase'] if isinstance(item['increase'],int) else 0
+            html+=("<tr>"
+                   f"<td align='right'>Lv{item['lv']}  {item['name']}:</td>"
+                   f"<td align='center'>{item['old_lv']}</td>"
+                   f"<td align='center'>-></td>"
+                    f"<td align='center'>{item['new_lv']}</td>"
+                   f"<td align='center'>{item['increase']}</td>"
+                "</tr>")
+        html+=('</table>'
+               f'<p style="font-size: 14px; margin-top: 12px;" ><b>四维共:{total},新的等级已应用到计算器内</></p>')
             #'lv': 35, 'name': '禁忌诅咒(图外)', 'old_lv': 21, 'new_lv': 40, 'increase': ''
-        QMessageBox.information(widget, '奶量计算器', text)
+        QMessageBox.about(widget, '奶量计算器', html)
     except:
         pass
+def about():
+    html=(
+    f'<p>当前版本:{Version}</p>'
+    '<p>Bug,意见反馈群:<a href="https://qm.qq.com/cgi-bin/qm/qr?k=RsvjlH8mGFVAFRGL9CvhGnV5q4WDagvw&jump_from=webapi&authKey=/G2wLNZPUbLOO/nUj/faWQgVSGcad9SVjAuOIOlfxlJ2CWiAp9vGD6LxFFDZOkUB">134490967</a></p>'
+    '<p>Github开源地址:<a href="https://github.com/Vixiu/count_buff">https://github.com/Vixiu/count_buff</a></p>'
+          )
+    QMessageBox.about(widget, '奶量计算器', html)
 
 def save():
     if not path.exists(path.dirname(FILE_PATH)):
@@ -161,7 +182,7 @@ def load_config():
 
         save_data['last']=data['last']
         save_data['record']=data['record']
-    except FileNotFoundError:
+    except :
         pass
 
 def del_config():
@@ -178,7 +199,7 @@ def del_config():
 def add_config(data=None):
     name, ok = QInputDialog.getText(widget, "奶量计算器", "请输入配置名")
     if ok and name.strip():
-        data= deepcopy(DEFAULT_INPUT_DATA) if data is None else deepcopy(data)
+        data= deepcopy(DEFAULT_INPUT_DATA) if data is None else deepcopy(buff.data)
         save_data[buff.job].append({'name':name,'data':data})
         UI.set_config([key['name'] for key in save_data[buff.job]])
         index=len(save_data[buff.job])-1
@@ -192,16 +213,21 @@ def as_config():
     set_base()
 
 def start():
-    add_max_lv()
+    # 初始化状态
+    init_config()
+    load_config()
+    set_job(save_data['last'])
     # 顶部按钮绑定
     UI.button_min.clicked.connect(lambda: widget.showMinimized())
     UI.button_top.clicked.connect(window_top)
     UI.button_close.clicked.connect(window_close)
+    UI.button_about.clicked.connect(about)
     # 绑定所有输入对象到transport_layer
     bing_input(UI.input_map)
     # 绑定切换职业按钮
     for job,bt in UI.job_button.items():
        bt.clicked.connect(class_config(job))
+    # 别的按钮绑定
     UI.button_base.clicked.connect(lambda :set_base())
     UI.input_offset.textEdited.connect(offset_value)
     UI.button_add_lv.clicked.connect(add_lv)
@@ -210,20 +236,18 @@ def start():
     UI.button_del_config.clicked.connect(del_config)
     UI.button_add_config.clicked.connect(add_config)
     UI.button_as_config.clicked.connect(as_config)
-    # 初始化状态
-    load_config()
-    set_job(save_data['last'])
+
 
 if __name__ == '__main__':
     #QApplication::setHighDpiScaleFactorRoundingPolicy
     #(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+
     app = QApplication(argv)
     widget = RoundedWindow()
     UI = BuffUI(widget)
     buff = Buff()
-    start()
-    ##########
     widget.show()
     widget.setWindowTitle(' 奶量计算器')
     widget.setStyleSheet("color: rgb(0, 0, 0);\n")
+    start()
     app.exec_()

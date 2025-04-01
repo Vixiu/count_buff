@@ -1,12 +1,13 @@
-from PyQt5.QtGui import QIntValidator, QValidator,QDoubleValidator
-from sys import argv
+from PyQt5.QtGui import QIntValidator, QValidator, QDoubleValidator, QBrush, QColor, QFont, QPixmap
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QApplication, QLineEdit, QListWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QApplication, QLineEdit, QListWidgetItem, QMessageBox, \
+    QAbstractItemView, QHeaderView, QTableWidgetItem, QLabel
 
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt, QCoreApplication
+from PyQt5.QtCore import Qt, QCoreApplication, QSize
 from PyQt5 import QtGui
+
 
 from QtUI.uic5 import Ui_widget
 from Config import CLASS
@@ -94,22 +95,8 @@ class TY3:
     def setPlaceholderText(self, bl):
         self.setText(bl)
 
-def text_color(value:int)->str:
-    if value>0:
-        return f"<font color='#FF8C00'>+{value}<font>"
-    elif value<0:
-        return f"<font color='#f40c0c'>{value}<font>"
-    else:
-        return ''
-def set_color(dt:dict):
-    for key in dt:
-        if isinstance(dt[key],dict):
-            dt[key]={k:text_color(v) for k ,v in dt[key].items()}
-        elif isinstance(dt[key],list):
-            dt[key]=[{k:text_color(v) for k,v in item.items()} for item in dt[key]]
-        else:
-            dt[key]=text_color(dt[key])
-    return dt
+
+
 
 class RoundedWindow(QWidget):
     def __init__(self):
@@ -147,197 +134,242 @@ class RoundedWindow(QWidget):
 
 
 class BuffUI(Ui_widget):
-    def __init__(self,widget):
-        self.setupUi(widget)
-        self.job_button = {
-            'ma': self.ma_button,
-            'ba': self.ba_button,
-            'luo': self.luo_button,
-            'gong': self.gong_button
-        }
-        self._skill_list = [
-            [self.lv1_name, self.lv1_value],
-            [self.lv2_name, self.lv2_value],
-            [self.lv3_name, self.lv3_value],
-            [self.lv4_name, self.lv4_value],
-            [self.lv5_name, self.lv5_value],
-            [self.lv6_name, self.lv6_value],
-            [self.lv7_name, self.lv7_value],
-        ]
-        self.input_map={
-            'cp_arms': CpArms(self.cp_arm),
-            "c_attack": self.c_attack,
-            "c_intellect": self.c_intellect,
-            'buff_amount': {
-                'in_map':self.buff_amount_in_map,
-                'out_map':self.buff_amount_out_map,
-                'enh':self.buff_amount_enh
-            },
-            'bxy':{
-                'enh':self.bxy_ehn,
-                'fixed_attack': self.bxy_fixed_attack,
-                'fixed_intellect': self.bxy_fixed_intellect,
-                'fixed_ty': self.bxy_fixed_ty,
-                'percentage_attack': Percentage(self.bxy_percentage_attack),
-                'percentage_intellect': Percentage(self.bxy_percentage_intellect),
-                'percentage_ty': Percentage(self.bxy_percentage_ty),
-            },
-            'buff':{
-                'intellect_out': self.buff_intellect_out,
-                'lv_out': self.buff_lv_out,
-                'intellect_in': self.buff_intellect_in,
-                'lv_in': self.buff_lv_in,
-            },
-            'ty':{
-                'ty1_lv': self.ty_lv,
-                'intellect': self.ty_intellect,
-                'ty3_lv': self.ty3_lv,
-                "is_ty1": TY3(self.rb1,self.rb2),
-            },
-            'skill':{i:item[1] for i,item in enumerate(self._skill_list)}
-        }
-        self._validator()
+        def __init__(self,widget):
+            self.setupUi(widget)
+            self.job_button = {
+                'ma': self.ma_button,
+                'ba': self.ba_button,
+                'luo': self.luo_button,
+                'gong': self.gong_button
+            }
+            self._skill_list = [
+                [self.lv1_name, self.lv1_value],
+                [self.lv2_name, self.lv2_value],
+                [self.lv3_name, self.lv3_value],
+                [self.lv4_name, self.lv4_value],
+                [self.lv5_name, self.lv5_value],
+                [self.lv6_name, self.lv6_value],
+                [self.lv7_name, self.lv7_value],
+            ]
+            self.input_map={
+                'cp_arms': CpArms(self.cp_arm),
+                "c_attack": self.c_attack,
+                "c_intellect": self.c_intellect,
+                'buff_amount': {
+                    'in_map':self.buff_amount_in_map,
+                    'out_map':self.buff_amount_out_map,
+                    'enh':self.buff_amount_enh
+                },
+                'bxy':{
+                    'enh':self.bxy_ehn,
+                    'fixed_attack': self.bxy_fixed_attack,
+                    'fixed_intellect': self.bxy_fixed_intellect,
+                    'fixed_ty': self.bxy_fixed_ty,
+                    'percentage_attack': Percentage(self.bxy_percentage_attack),
+                    'percentage_intellect': Percentage(self.bxy_percentage_intellect),
+                    'percentage_ty': Percentage(self.bxy_percentage_ty),
+                },
+                'buff':{
+                    'intellect_out': self.buff_intellect_out,
+                    'lv_out': self.buff_lv_out,
+                    'intellect_in': self.buff_intellect_in,
+                    'lv_in': self.buff_lv_in,
+                },
+                'ty':{
+                    'ty1_lv': self.ty_lv,
+                    'intellect': self.ty_intellect,
+                    'ty3_lv': self.ty3_lv,
+                    "is_ty1": TY3(self.rb1,self.rb2),
+                },
+                'skill':{i:item[1] for i,item in enumerate(self._skill_list)}
+            }
+            # 设置输入校验
+            self._validator()
+            # 设置阴影
+           # self._effect()
+            # 设置表格样式
+            self._table()
 
-    def clear_quick_calc_text(self):
-        self.add_1.setText('')
-        self.add_2.setText('')
-        self.add_3.setText('')
-        self.input_offset.setText('')
+            #-
 
-    def setting(self,job):
-        data=CLASS[job]
-        self.tabWidget.setTabVisible(1, True)
-        self.clear_quick_calc_text()
-        self.attribute_1.setText(data['attribute'])
-        self.attribute_2.setText(data['attribute'])
-        self.attribute_3.setText(data['attribute'])
-        self.attribute_4.setText(data['attribute']+'加减')
-        self.buff_name_1.setText(data['buff']['name'])
-        self.buff_name_2.setText(data['buff']['name'])
-        self.buff_name_3.setText(data['skill_form'][0]['name'])
-        if  len(data['skill_form']) >1:
-            self.widget_9.show()
-            self.buff_name_4.setText(data['skill_form'][1]['name'])
-        else:
-            self.widget_9.hide()
+          #  self.widget_3.setGraphicsEffect(effect)
+        def _add_row(self, name, icon=None):
+            index = self.tableWidget.rowCount()
+            self.tableWidget.insertRow(index)
+            for col in range(self.tableWidget.columnCount()):
+                item = QTableWidgetItem("")
+                item.setFont(QFont("Arial", 12))
+                if col %2==0:
+                    item.setTextAlignment(Qt.AlignRight| Qt.AlignVCenter)
+                elif col==1:
+                    item.setFont(QFont("Arial", 12))
+                self.tableWidget.setItem(index, col, item)
+            if icon is not None:
+                label=QLabel()
+                pixmap = QPixmap(f":/png/{icon}")
 
-        self.ty1_name.setText(data['ty1']['name'])
-        self.ty3_name.setText(data['ty3']['name'])
-
-        self._clear_left_button_style()
-        self.job_button[job].setStyleSheet('border:0px; border-radius: 0px;'
-                                            'padding-top:8px;'
-                                            'padding-bottom:8px;'
-                                            'border-left: 5px solid rgb(5, 229, 254);'
-                                           )
-        # 技能输入框
-        for l1,l2 in self._skill_list:
-            l1.hide()
-            l2.hide()
-
-        for i, item in enumerate(data['passive_skill']):
-            self._skill_list[i][0].setText(f"Lv{item['lv']} {item['name']}:")
-            self._skill_list[i][0].show()
-            self._skill_list[i][1].show()
+                label.setPixmap(pixmap)
+                label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+                label.setContentsMargins(10, 0, 0, 0)
+                self.tableWidget.setCellWidget(index,0,label)
+                #self.tableWidget.item(index,0).setIcon(QIcon(f":/png/{icon}"))
 
 
+            self.tableWidget.item(index, 1).setText(name)
 
-    def _clear_left_button_style(self):
-        self.luo_button.setStyleSheet('')
-        self.ba_button.setStyleSheet('')
-        self.ma_button.setStyleSheet('')
-        self.gong_button.setStyleSheet('')
+        def clear_quick_calc_text(self):
+            self.add_1.setText('')
+            self.add_2.setText('')
+            self.add_3.setText('')
+            self.input_offset.setText('')
 
-    def set_input_text(self,data:dict,input_map=None):
-        if input_map is None:
-            input_map = self.input_map
-        for k1, v1 in data.items():
-            if isinstance(v1, dict):
-                self.set_input_text(v1, input_map[k1])
+        def setting(self, job):
+            data=CLASS[job]
+            self.tabWidget.setTabVisible(1, True)
+            self.clear_quick_calc_text()
+            self.attribute_1.setText(data['attribute'])
+            self.attribute_2.setText(data['attribute'])
+            self.attribute_3.setText(data['attribute'])
+            self.attribute_4.setText(data['attribute'] + '加减')
+            # -
+            self.tableWidget.setRowCount(0)
+            self._add_row(data['buff']['name'] + '(站街)', data['buff']['icon'])
+            self._add_row(data['buff']['name'] + '(进图)', data['buff']['icon'])
+            for item in data['skill_form']:
+                self._add_row(item['name'], item['icon'])
+            self._add_row(data['ty1']['name'], data['ty1']['icon'])
+            self._add_row(data['ty3']['name'], data['ty3']['icon'])
+            for item in data['total_buff']:
+                self._add_row(item['name'], item['icon'])
+            #-
+            self._clear_left_button_style()
+            self.job_button[job].setStyleSheet('border:0px; border-radius: 0px;'
+                                                'padding-top:8px;'
+                                                'padding-bottom:8px;'
+                                                'border-left: 5px solid rgb(5, 229, 254);'
+                                                )
+            # 技能输入框
+            for l1,l2 in self._skill_list:
+                l1.hide()
+                l2.hide()
+
+            for i, item in enumerate(data['passive_skill']):
+                self._skill_list[i][0].setText(f"Lv{item['lv']} {item['name']}:")
+                self._skill_list[i][0].show()
+                self._skill_list[i][1].show()
+
+        def _set_diff(self,row,col,value):
+            item= self.tableWidget.item(row, col)
+            if value == '-':
+               item.setText('')
+            elif value > 0:
+                item.setText(f'+{value}')
+                item.setForeground(QBrush(QColor("green")))
+
+            elif value < 0:
+                item.setText(str(value))
+                item.setForeground(QBrush(QColor("red")))
             else:
-                input_map[k1].setText(str(v1))
+              item.setText('')
 
 
-    def set_placeholder_text(self,data:dict,input_map=None):
-        if input_map is None:
-            input_map=self.input_map
-        for k1, v1 in data.items():
-            if isinstance(v1, dict):
-                self.set_placeholder_text(v1,input_map[k1])
-            else:
-                input_map[k1].setText('')
-                input_map[k1].setPlaceholderText(str(v1))
+        def _clear_left_button_style(self):
+            self.luo_button.setStyleSheet('')
+            self.ba_button.setStyleSheet('')
+            self.ma_button.setStyleSheet('')
+            self.gong_button.setStyleSheet('')
 
-    def set_show_text(self,result):
-        res,diff=result['result'],set_color(result['diff'])
-        self.show_buff_attact1.setText(str(res['out_map']['attack']))
-        self.show_buff_intellect1.setText(str(res['out_map']['intellect']))
-        self.show_buff_attact1_df.setText(diff['out_map']['attack'])
-        self.show_buff_intellect1_df.setText(diff['out_map']['intellect'])
-        in_map=res['in_map']
-        self.show_buff_attack2.setText(str(in_map[0]['attack']))
-        self.show_buff_attack3.setText(str(in_map[1]['attack']))
-        self.show_buff_intellect2.setText(str(in_map[0]['intellect']))
-        self.show_buff_intellect3.setText(str(in_map[1]['intellect']))
-        self.show_buff_mp1.setText(str(in_map[0]['multiplier']))
-        self.show_buff_mp2.setText(str(in_map[1]['multiplier']))
-        in_map=diff['in_map']
-        self.show_buff_attack2_df.setText(in_map[0]['attack'])
-        self.show_buff_attack3_df.setText(in_map[1]['attack'])
-        self.show_buff_intellect2_df.setText(in_map[0]['intellect'])
-        self.show_buff_intellect3_df.setText(in_map[1]['intellect'])
-        if len(in_map)>2:
-            self.show_buff_intellect4_df.setText(in_map[2]['intellect'])
-            self.show_buff_attack4_df.setText(in_map[2]['attack'])
-            self.show_buff_intellect4.setText(str(res['in_map'][2]['intellect']))
-            self.show_buff_attack4.setText(str(res['in_map'][2]['attack']))
-            self.show_buff_mp3.setText(str(res['in_map'][2]['multiplier']))
+        def set_input_text(self,data:dict,input_map=None):
+            if input_map is None:
+                input_map = self.input_map
+            for k1, v1 in data.items():
+                if isinstance(v1, dict):
+                    self.set_input_text(v1, input_map[k1])
+                else:
+                    input_map[k1].setText(str(v1))
 
-        self.show_ty1.setText(str(res['ty1']))
-        self.show_ty3.setText(str(res['ty3']))
-        self.show_mp1.setText(str(res['multiplier']['ty1_buff']))
-        self.show_mp2.setText(str(res['multiplier']['ty3_buff']))
 
-        self.show_ty1_df.setText(diff['ty1'])
-        self.show_ty3_df.setText(diff['ty3'])
-        self.show_mp1_df.setText(diff['multiplier']['ty1_buff'])
-        self.show_mp2_df.setText(diff['multiplier']['ty3_buff'])
+        def set_placeholder_text(self,data:dict,input_map=None):
+            if input_map is None:
+                input_map=self.input_map
+            for k1, v1 in data.items():
+                if isinstance(v1, dict):
+                    self.set_placeholder_text(v1,input_map[k1])
+                else:
+                    input_map[k1].setText('')
+                    input_map[k1].setPlaceholderText(str(v1))
 
-    def set_config(self,names:list[str]):
-        self.config_combobox.clear()
-        for n in names:
-            self.config_combobox.addItem(n)
-    def _validator(self):
-        self.buff_amount_out_map.setValidator(QIntValidator())
-        self.buff_amount_enh.setValidator(QDoubleValidator())
-        self.buff_intellect_out.setValidator(QIntValidator())
-        self.buff_lv_out.setValidator(QIntValidator())
-        self.buff_intellect_in.setValidator(QIntValidator())
-        self.buff_lv_in.setValidator(QIntValidator())
-        self.ty_lv.setValidator(QIntValidator())
-        self.ty_intellect.setValidator(QIntValidator())
-        self.ty3_lv.setValidator(QIntValidator())
-        self.buff_amount_in_map.setValidator(QIntValidator())
-        self.add_1.setValidator(QIntValidator())
-        self.add_2.setValidator(QIntValidator())
-        self.add_3.setValidator(QIntValidator())
-        self.input_offset.setValidator(QIntValidator())
-        # -
-        self.bxy_fixed_attack.setValidator(QIntValidator())
-        self.bxy_fixed_intellect.setValidator(QIntValidator())
-        self.bxy_fixed_ty.setValidator(QIntValidator())
-        self.bxy_percentage_intellect.setValidator(QIntValidator())
-        self.bxy_percentage_attack.setValidator(PValidator())
-        self.bxy_percentage_ty.setValidator(QIntValidator())
-        self.bxy_ehn.setValidator(QDoubleValidator())
-        # -
-        self.lv1_value.setValidator(QIntValidator())
-        self.lv2_value.setValidator(QIntValidator())
-        self.lv3_value.setValidator(QIntValidator())
-        self.lv4_value.setValidator(QIntValidator())
-        self.lv5_value.setValidator(QIntValidator())
-        self.lv6_value.setValidator(QIntValidator())
-        self.lv7_value.setValidator(QIntValidator())
-        # -
-        self.c_attack.setValidator(QIntValidator())
-        self.c_intellect.setValidator(QIntValidator())
+        def set_show_text(self,result):
+            for i, (res, diff) in enumerate(zip(result['result'], result['diff'])):
+                self.tableWidget.item(i, 2).setText(str(res['attack']))
+                self.tableWidget.item(i, 4).setText(str(res['intellect']))
+                self.tableWidget.item(i, 6).setText(str(res['multiplier']))
+                self._set_diff(i, 3, diff['attack'])
+                self._set_diff(i, 5, diff['intellect'])
+                self._set_diff(i, 7, diff['multiplier'])
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+            total_width = sum(self.tableWidget.columnWidth(i) for i in range(self.tableWidget.columnCount()))
+
+            if total_width <=self.tableWidget.width():
+                self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+                self.tableWidget.horizontalHeader().setSectionResizeMode(1,QHeaderView.ResizeToContents)
+                self.tableWidget.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
+        def set_config(self,names:list[str]):
+            self.config_combobox.clear()
+            for n in names:
+                self.config_combobox.addItem(n)
+        def _table(self):
+          #  self.tableWidget.setIconSize(QSize(24, 24))
+            self.tableWidget.resizeColumnsToContents()
+            self.tableWidget.setSelectionMode(QAbstractItemView.NoSelection)  # 禁止选中
+            self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 禁止修改
+            # self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 禁止拖动表头
+            self.tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+
+        # self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        def _create_effect(self):
+            effect = QGraphicsDropShadowEffect()
+            effect.setBlurRadius(15)  # 范围
+            effect.setOffset(1, 1)  # 横纵,偏移量
+            effect.setColor(QColor("#c3c5c9"))  # 颜色
+            return effect
+        def _effect(self):
+            self.widget_5.setGraphicsEffect(self._create_effect())
+            self.widget_3.setGraphicsEffect(self._create_effect())
+            self.tableWidget.setGraphicsEffect(self._create_effect())
+        def _validator(self):
+            self.buff_amount_out_map.setValidator(QIntValidator())
+            self.buff_amount_enh.setValidator(QDoubleValidator())
+            self.buff_intellect_out.setValidator(QIntValidator())
+            self.buff_lv_out.setValidator(QIntValidator())
+            self.buff_intellect_in.setValidator(QIntValidator())
+            self.buff_lv_in.setValidator(QIntValidator())
+            self.ty_lv.setValidator(QIntValidator())
+            self.ty_intellect.setValidator(QIntValidator())
+            self.ty3_lv.setValidator(QIntValidator())
+            self.buff_amount_in_map.setValidator(QIntValidator())
+            self.add_1.setValidator(QIntValidator())
+            self.add_2.setValidator(QIntValidator())
+            self.add_3.setValidator(QIntValidator())
+            self.input_offset.setValidator(QIntValidator())
+            # -
+            self.bxy_fixed_attack.setValidator(QIntValidator())
+            self.bxy_fixed_intellect.setValidator(QIntValidator())
+            self.bxy_fixed_ty.setValidator(QIntValidator())
+            self.bxy_percentage_intellect.setValidator(QIntValidator())
+            self.bxy_percentage_attack.setValidator(PValidator())
+            self.bxy_percentage_ty.setValidator(QIntValidator())
+            self.bxy_ehn.setValidator(QDoubleValidator())
+            # -
+            self.lv1_value.setValidator(QIntValidator())
+            self.lv2_value.setValidator(QIntValidator())
+            self.lv3_value.setValidator(QIntValidator())
+            self.lv4_value.setValidator(QIntValidator())
+            self.lv5_value.setValidator(QIntValidator())
+            self.lv6_value.setValidator(QIntValidator())
+            self.lv7_value.setValidator(QIntValidator())
+            # -
+            self.c_attack.setValidator(QIntValidator())
+            self.c_intellect.setValidator(QIntValidator())

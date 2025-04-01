@@ -43,7 +43,7 @@ def compare_and_update(base_dict, target_dict):
 
 class Buff:
     def __init__(self):
-        self._base_result={}
+        self._base_result=[]
         self._backup_data = deepcopy(DEFAULT_INPUT_DATA)
         self._offset=0
         self._data = {}
@@ -91,7 +91,7 @@ class Buff:
             self._data['bxy']['percentage_intellect'],
             CLASS[ self._job]['buff']['intellect'][lv - 1],
         )}
-    def _count_ty(self,intellect)->dict:
+    def _count_ty(self,intellect)->list:
         """
         计算太阳
         :param intellect: 四维
@@ -109,13 +109,14 @@ class Buff:
                   self._data['bxy']['percentage_ty'],
                   data['ty1']['intellect'][self._data['ty']['ty1_lv']- 1],
                   )
-        return {
-            'ty1':ty1,
-            'ty3':round(ty1 * (
-                    data['ty3']['bind1'] if self._data['ty']["is_ty1"] else data['ty3']['bind2+1']
+        ty3=round(ty1 * (
+            ( data['ty3']['bind1'] if self._data['ty']["is_ty1"] else data['ty3']['bind2+1'])
                         + self._data['ty']['ty3_lv'] * data['ty3']['growth'])
                         )
-        }
+        return [
+            {'attack': '-','intellect': ty1},
+            {'attack': '-', 'intellect': ty3},
+        ]
     def _count_multiplier(self, attack, intellect, damage_increase)->float:
         """
         倍率计算
@@ -125,27 +126,17 @@ class Buff:
         :return:
         """
         return round(
-            (1 + attack / self._data['c_attack']) * (1 + intellect / (self._data['c_intellect'] + 250)) * damage_increase
+            (1 + attack / self._data['c_attack']) *
+            (1 + intellect / (self._data['c_intellect'] + 250)) * damage_increase
             , 2)
-    def _count(self,intellect_in,intellect_out,ty_intellect):
-        """
-        整合
-        :param intellect_in:
-        :param intellect_out:
-        :param ty_intellect:
-        :return:
-        """
-        buff = self._count_ty(ty_intellect)
-        buff['out_map'] = self._count_buff( intellect_out, self._buff_amount_out_map, self._data['buff']['lv_out'])
-        buff['in_map'] = self._count_buff(intellect_in, self._buff_amount_in_map, self._data['buff']['lv_in'])
-        return  buff
-
-    def _set_multiplier(self,in_map:list):
-        for item in in_map:
-            item['multiplier']=self._count_multiplier(
-                    item['attack'],item['intellect'],CLASS[self._job]['damage_increase']
-        )
-        return in_map
+    def _set_multiplier(self,res:list):
+        for item in res:
+            attack,intellect=item['attack'],item['intellect']
+            if attack =='-':
+                item['multiplier']='-'
+            else:
+                item['multiplier']=self._count_multiplier(attack,intellect,CLASS[self._job]['damage_increase'])
+        return res
 
     def _get_job_buff(self):
         # 计算地图内外四维偏移
@@ -159,60 +150,51 @@ class Buff:
 
         data=CLASS[self._job]
         # 计算基础buff
-        buff = self._count(
-                           intellect_in + self._data['buff']['intellect_in'],
-                           intellect_out + self._data['buff']['intellect_out'],
-                           intellect_in + self._data['ty']['intellect']
-                           )
-        # 计算圣歌与buff等
-        in_map=[buff['in_map']]
-
+        result = [self._count_buff(
+            intellect_out + self._data['buff']['intellect_out'],
+            self._buff_amount_out_map,
+            self._data['buff']['lv_out'])]
+        in_map=self._count_buff(
+            intellect_in + self._data['buff']['intellect_in'],
+            self._buff_amount_in_map,
+            self._data['buff']['lv_in']
+        )
+        result.append(in_map)
         for item in data['skill_form']:
-            in_map.append({
-                'attack': round(buff['in_map']['attack'] *item['multiplier'] ),
-                'intellect': round(buff['in_map']['intellect'] * item['multiplier']),
+            result.append({
+                'attack': round(in_map['attack'] * item['multiplier']),
+                'intellect': round(in_map['intellect'] * item['multiplier']),
+            })
+        result+=self._count_ty(intellect_in + self._data['ty']['intellect'])
+        # 添加total_buff总数据
+        for item in data['total_buff']:
+            result.append({
+                key: sum(
+                    0 if isinstance(result[i][key], str) else result[i][key]
+                    for i in item['value']
+                )
+                for key in ['attack', 'intellect']
             })
 
-        buff['in_map'] = self._set_multiplier(in_map)
-        # ---
-        in_map=in_map[-1]
-        buff['multiplier'] = {
-            'ty1_buff': self._count_multiplier(
-                in_map['attack'], in_map['intellect'] + buff['ty1'], data['damage_increase']
-            ),
-            'ty3_buff': self._count_multiplier(
-                in_map['attack'], in_map['intellect'] + buff['ty3'],data['damage_increase']
-            )
-        }
-        return buff
+        # 计算倍率
+        result=self._set_multiplier(result)
+        result[0]['multiplier']='-' # 站街倍率设置为空
 
-    def _diff_dict(self, dict1:dict):
-        """
-        计算与基础的差距
-        :param dict1:
-        :return:
-        """
-        result = {}
-        for k1,v1 in dict1.items():
-            if k1 in self._base_result:
-                if isinstance(v1,dict):
-                    result[k1]={k2: v2-self._base_result[k1].get(k2, 0) for k2,v2 in v1.items()}
-                elif isinstance(v1,list):
-                    result[k1]=[ ]
-                    for i, item in enumerate(v1):
-                        l=len(self._base_result[k1])
-                        result[k1].append({})
-                        for k2, v2 in item.items():
-                            if i<l and k2 in self._base_result[k1][i]:
-                                result[k1][i][k2]=v2-self._base_result[k1][i][k2]
-                            else:
-                                result[k1][i][k2] = v2
-                else:
-                    result[k1]=v1-self._base_result.get(k1, 0)
-            else:
-                result[k1]=v1
         return result
 
+    def _diff(self, ls:list):
+        result =[]
+        for item1,item2 in zip(ls,self._base_result):
+            _={}
+            for k,v in item1.items():
+                if v =='-' or item2[k]=='-':
+                    _[k]='-'
+                elif k=='multiplier':
+                    _[k] = round(v-item2[k],2)
+                else:
+                    _[k]=v-item2[k]
+            result.append(_)
+        return result
 
     def _check_lv(self):
         job= CLASS[self._job]
@@ -308,7 +290,6 @@ class Buff:
 
 
     def set_base(self):
-
         self._data['buff']['intellect_out']+=self._offset
         self._data['buff']['intellect_in'] += self._offset
         self._data['ty']['intellect'] += self._offset
@@ -353,7 +334,6 @@ class Buff:
         else:
             print(keys,value)
         self._check_lv()
-        print(self._data['skill'])
 
 
     def set_offset(self,value):
@@ -362,39 +342,28 @@ class Buff:
         self._job=job
 
 
-    def __call__(self):
+    def __call__(self)->dict[str:list]:
         """
-        :return: {
-            'out_map':{  #地图外
-                'attack': 99999,
-                'intellect': 99999,
-            },
-            'in_map':[ #地图内
-                {
-                    'attack': 99999,
-                    'intellect': 99999,
-                    'multiplier':99.99 #对应倍率
+        列表构成
+        第一项固定为图外Buff,
+        第二项固定为图内buff,
+        skill_form里的项目,
+        固定为一觉,
+        固定为二觉,
+        固定为总和,
+        固定为总和,
+        :return: [
+            {
+            'attack': 99999,# 三攻 '-'为不存在
+            'intellect': 99999,# 力智 '-'为不存在
+            'multiplier':99.99 # 对应倍率
                     },
-                {
-                    'attack': 99999,
-                    'intellect': 99999,
-                    'multiplier':99.99
-                    },
-                ...
-            ],
-            'ty1':99999, #一绝
-            'ty3':99999,
-            'multiplier':{
-                'ty1_buff':99.99, # 一绝+buff(总) 倍率
-                'ty3_buff':99.99
-            }
-        }
+            ...
+        ]
+
         """
-        if  self._job =='ba':
-            pass
-        else:
-            res=self._get_job_buff()
-            return {'result':res,'diff':self._diff_dict(res)}
+        res=self._get_job_buff()
+        return {'result':res,'diff':self._diff(res)}
 
 
 
