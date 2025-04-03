@@ -3,24 +3,25 @@ from copy import deepcopy
 
 from Config import *
 
-def count_buff(buff_amount: int, intellect: int, cp_arms: bool,xs: int,xyz,arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
+def count_buff(buff_amount: int, intellect: int,xs: int,xyz,arm=1.08):  # 这个arm参数仅用于临时修正奶爸的站街武器BUG
     """
     :param xyz:
     :param buff_amount: 增益量
     :param intellect: 四维
     :param xs: 系数
-    :param cp_arms: cp武器
+
     :param arm:
     :return: 函数
     """
-    def count(fixed, bfb: list, basic:int) -> int:
+    x, y, z = xyz
+    def count(fixed, bfb: list, basic:int,cp_arms: bool) -> int:
         """
+        :param cp_arms: cp武器
         :param fixed: 固定加成
         :param bfb: 百分比加成
         :param basic: 基础数值
         :return:
         """
-        x,y,z=xyz
         old_buff = ((basic + fixed) * ((intellect / xs) + 1))
         for n in bfb:
             old_buff *= (1 + n / 100)
@@ -54,7 +55,7 @@ class Buff:
         进图增益量
         :return:
         """
-        return    int(
+        return    (
             (self._data['buff_amount']['in_map'] + self._data['buff_amount']['out_map']) *
             (1 + self._data['buff_amount']['enh'] / 100 + self._data['bxy']['enh'] / 100)
         )
@@ -64,20 +65,22 @@ class Buff:
         图外增益量
         :return:
         """
-        return int(
+        return (
             self._data['buff_amount']['out_map'] * (1 + self._data['buff_amount']['enh'] / 100)
         )
     @property
-    def data(self):
+    def data(self)->dict:
         return self._data
     @property
-    def job(self):
+    def job(self)->str:
         return  self._job
 
     def _count_buff(self,intellect,buff_amount,lv)->dict:
         count = count_buff(
-            buff_amount, intellect,
-            self._data['cp_arms'],CLASS[ self._job]['buff']['xs'], CLASS[ self._job]['buff']['xyz'],
+            buff_amount,
+            intellect,
+            CLASS[ self._job]['buff']['xs'],
+            CLASS[ self._job]['buff']['xyz'],
             1.008 if  self._job == 'ba' else 1.08
         )
         return {
@@ -85,12 +88,15 @@ class Buff:
             self._data['bxy']['fixed_attack'],
             self._data['bxy']['percentage_attack'],
             CLASS[ self._job]['buff']['attack'][lv - 1],
+            self._data['cp_arms'],
         ),
         'intellect': count(
             self._data['bxy']['fixed_intellect'],
             self._data['bxy']['percentage_intellect'],
             CLASS[ self._job]['buff']['intellect'][lv - 1],
+            False
         )}
+
     def _count_ty(self,intellect)->list:
         """
         计算太阳
@@ -101,13 +107,13 @@ class Buff:
         count = count_buff(
             self._buff_amount_in_map,
             intellect,
-            False,
             data['ty1']['xs'],
             data['ty1']['xyz'],
         )
         ty1=count(self._data['bxy']['fixed_ty'],
                   self._data['bxy']['percentage_ty'],
                   data['ty1']['intellect'][self._data['ty']['ty1_lv']- 1],
+                  False
                   )
         ty3=round(ty1 * (
             ( data['ty3']['bind1'] if self._data['ty']["is_ty1"] else data['ty3']['bind2+1'])
@@ -294,9 +300,14 @@ class Buff:
         self._data['buff']['intellect_in'] += self._offset
         self._data['ty']['intellect'] += self._offset
         self._offset=0
+        self._data['skill'] =self._backup_data ['skill']
         self._backup_data = deepcopy(self._data)
+
         self._base_result=self._get_job_buff()
 
+    def set_base_skill(self):
+        self._backup_data['skill']=deepcopy(self._data['skill'])
+        #self._base_result = self._get_job_buff()
 
     def set_data(self,data):
         for i, _ in enumerate(CLASS[self._job]['passive_skill']):

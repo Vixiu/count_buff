@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>png/ico.png</file>
     <file>png/about.png</file>
     <file>png/add.png</file>
     <file>png/ba.png</file>

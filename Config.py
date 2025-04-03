@@ -375,28 +375,10 @@ DEFAULT_INPUT_DATA = {
     "skill":{}
 }
 CONFIG_TEMPLATE={
-    'ma':[
-        {'name':'测试配置1',
-         'data':{'cp_arms': True, 'c_attack': 3350, 'c_intellect': 24500, 'buff_amount': {'in_map': 44, 'out_map': 53333, 'enh': 0}, 'bxy': {'enh': 3, 'fixed_attack': 5, 'fixed_intellect': 2, 'fixed_ty': 2, 'percentage_attack': [2.0], 'percentage_intellect': [3.0], 'percentage_ty': [1.0]}, 'buff': {'intellect_out': 3222, 'lv_out': 21, 'intellect_in': 1111, 'lv_in': 35}, 'ty': {'ty1_lv': 37, 'intellect': 4444, 'ty3_lv': 3, 'is_ty1': True}, 'skill': {0: 3, 1: 4, 2: 5, 3: 1}}
-         },
-        {'name': '测试配置222222222',
-         'data': {'cp_arms': True, 'c_attack': 3350, 'c_intellect': 24500,
-                  'buff_amount': {'in_map': 44, 'out_map': 53333, 'enh': 0},
-                  'bxy': {'enh': 3, 'fixed_attack': 5, 'fixed_intellect': 2, 'fixed_ty': 2, 'percentage_attack': [2.0],
-                          'percentage_intellect': [3.0], 'percentage_ty': [1.0]},
-                  'buff': {'intellect_out': 3, 'lv_out': 21, 'intellect_in': 1111, 'lv_in': 35},
-                  'ty': {'ty1_lv': 37, 'intellect': 4444, 'ty3_lv': 3, 'is_ty1': True},
-                  'skill': {0: 3, 1: 4, 2: 5, 3: 1}}
-         },
-        {'name': '测试配置3',
-         'data': {'cp_arms': True, 'c_attack': 3350, 'c_intellect': 24500,
-                  'buff_amount': {'in_map': 44, 'out_map': 53333, 'enh': 0},
-                  'bxy': {'enh': 3, 'fixed_attack': 5, 'fixed_intellect': 2, 'fixed_ty': 2, 'percentage_attack': [2.0],
-                          'percentage_intellect': [3.0], 'percentage_ty': [1.0]},
-                  'buff': {'intellect_out': 3222, 'lv_out': 21, 'intellect_in': 1111, 'lv_in': 35},
-                  'ty': {'ty1_lv': 37, 'intellect': 4444, 'ty3_lv': 3, 'is_ty1': True},
-                  'skill': {0: 3, 1: 4, 2: 5, 3: 1}}
-         },
+    'ma':[{
+        'name':'测试配置1',
+        'data':copy.deepcopy(DEFAULT_INPUT_DATA)
+        },
     ],
     'ba':[{
         'name':'默认配置',
@@ -414,20 +396,20 @@ CONFIG_TEMPLATE={
     'record':{i: 0 for i in CLASS}
 }
 Version='2.0.0'
+
+
 '''
--备忘
+- 备忘
 DEFAULT_DATA仅可嵌套字典
 CLASS里的passive_skill,技能存放顺序要从小到大
-
-QIcon(":/png/84.PNG")
 
 后续要添加职业要修改的:
     CLASS里增加对应数据,
     SAVE_CONFIG_TEMPLATE增加,
     UI里增加对应职业按钮
-
-奶罗 buff 组成
-奶爸 设置
+    BuffUI 修改
+main里切换配置与职业的逻辑或许可以优化
+技能的应用的逻辑待修改
 '''
 
 

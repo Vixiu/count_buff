@@ -20,7 +20,7 @@ def transport_layer(*keys):
         UI.set_show_text(buff())
     return transport
 
-def init_config():
+def init_class():
     for key in CLASS:
         CLASS[key]['buff']['max_lv']=min(len(CLASS[key]['buff']['attack']),len(CLASS[key]['buff']['intellect']))
         CLASS[key]['ty1']['max_lv'] =len(CLASS[key]['ty1']['intellect'] )
@@ -39,6 +39,7 @@ def window_top():
 def window_close():
     QCoreApplication.instance().quit()
     save()
+
 def bing_input(dt: dict, ls=None):
     if ls is None:
         ls = []
@@ -62,6 +63,7 @@ def set_config(index,update_base=False):
     data=save_data[buff.job][index]['data']
     buff.set_data(data)
     if update_base:
+        buff.set_base_skill()
         set_base()
     else:
         UI.set_input_text(data)
@@ -93,6 +95,7 @@ def offset_value(value:str):
         UI.set_show_text(buff())
     except ValueError:
         pass
+
 
 def add_lv():
     try:
@@ -164,8 +167,9 @@ def save_config():
     else:
         QMessageBox.information(widget, '奶量计算器', '默认配置不可修改,请另存为!')
 
-
-
+def set_base_skill():
+    buff.set_base_skill()
+    set_base()
 
 def load_config():
     try:
@@ -179,11 +183,14 @@ def load_config():
                     skill={int(k):v for k,v in dt['data']['skill'].items()}
                     dt['data']['skill']=skill
                 save_data[job] = save_data[job] + ls
+        if data['last'] in save_data:
+            save_data['last']=data['last']
+        for k,v in data['record'].items():
+            if k in save_data and  v <len(save_data[k]):
+                save_data['record'][k]=data['record'][k]
 
-        save_data['last']=data['last']
-        save_data['record']=data['record']
     except :
-        pass
+        print('首次启动')
 
 def del_config():
     index=save_data['record'][buff.job]
@@ -214,7 +221,7 @@ def as_config():
 
 def start():
     # 初始化状态
-    init_config()
+    init_class()
     load_config()
     set_job(save_data['last'])
     # 顶部按钮绑定
@@ -228,7 +235,7 @@ def start():
     for job,bt in UI.job_button.items():
        bt.clicked.connect(class_config(job))
     # 别的按钮绑定
-    UI.button_base.clicked.connect(lambda :set_base())
+    UI.button_base.clicked.connect(set_base)
     UI.input_offset.textEdited.connect(offset_value)
     UI.button_add_lv.clicked.connect(add_lv)
     UI.config_combobox.activated.connect(set_config)
@@ -236,7 +243,7 @@ def start():
     UI.button_del_config.clicked.connect(del_config)
     UI.button_add_config.clicked.connect(add_config)
     UI.button_as_config.clicked.connect(as_config)
-
+    UI.button_skill.clicked.connect(set_base_skill)
 
 if __name__ == '__main__':
     #QApplication::setHighDpiScaleFactorRoundingPolicy
@@ -249,5 +256,6 @@ if __name__ == '__main__':
     widget.show()
     widget.setWindowTitle(' 奶量计算器')
     widget.setStyleSheet("color: rgb(0, 0, 0);\n")
+    widget.setWindowIcon(QIcon(":/png/ico.png"))
     start()
     app.exec_()

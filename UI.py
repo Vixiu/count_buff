@@ -358,9 +358,9 @@ class BuffUI(Ui_widget):
             self.bxy_fixed_attack.setValidator(QIntValidator())
             self.bxy_fixed_intellect.setValidator(QIntValidator())
             self.bxy_fixed_ty.setValidator(QIntValidator())
-            self.bxy_percentage_intellect.setValidator(QIntValidator())
+            self.bxy_percentage_intellect.setValidator(PValidator())
             self.bxy_percentage_attack.setValidator(PValidator())
-            self.bxy_percentage_ty.setValidator(QIntValidator())
+            self.bxy_percentage_ty.setValidator(PValidator())
             self.bxy_ehn.setValidator(QDoubleValidator())
             # -
             self.lv1_value.setValidator(QIntValidator())

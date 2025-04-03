@@ -1842,7 +1842,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                      <item>
                       <widget class="QLabel" name="label_38">
                        <property name="text">
-                        <string/>
+                        <string>注意:切换配置带来的技能差距</string>
                        </property>
                        <property name="wordWrap">
                         <bool>true</bool>
@@ -1883,7 +1883,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <set>Qt::AlignCenter</set>
                          </property>
                          <property name="placeholderText">
-                          <string>0</string>
+                          <string>1</string>
                          </property>
                         </widget>
                        </item>
@@ -1914,7 +1914,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <set>Qt::AlignCenter</set>
                          </property>
                          <property name="placeholderText">
-                          <string>0</string>
+                          <string>1</string>
                          </property>
                         </widget>
                        </item>
@@ -1956,7 +1956,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <set>Qt::AlignCenter</set>
                          </property>
                          <property name="placeholderText">
-                          <string>0</string>
+                          <string>1</string>
                          </property>
                         </widget>
                        </item>
@@ -1990,7 +1990,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <set>Qt::AlignCenter</set>
                          </property>
                          <property name="placeholderText">
-                          <string>0</string>
+                          <string>1</string>
                          </property>
                         </widget>
                        </item>
@@ -2024,7 +2024,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <set>Qt::AlignCenter</set>
                          </property>
                          <property name="placeholderText">
-                          <string>0</string>
+                          <string>1</string>
                          </property>
                         </widget>
                        </item>
@@ -2058,7 +2058,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <set>Qt::AlignCenter</set>
                          </property>
                          <property name="placeholderText">
-                          <string>0</string>
+                          <string>1</string>
                          </property>
                         </widget>
                        </item>
@@ -2092,7 +2092,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <set>Qt::AlignCenter</set>
                          </property>
                          <property name="placeholderText">
-                          <string>0</string>
+                          <string>1</string>
                          </property>
                         </widget>
                        </item>
@@ -2110,6 +2110,30 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </size>
                        </property>
                       </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="button_skill">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <pointsize>13</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>应用为当前属性</string>
+                       </property>
+                      </widget>
                      </item>
                     </layout>
                    </widget>
