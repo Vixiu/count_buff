@@ -2,20 +2,23 @@ from PyQt5.QtGui import QIntValidator, QValidator, QDoubleValidator, QBrush, QCo
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QApplication, QLineEdit, QListWidgetItem, QMessageBox, \
-    QAbstractItemView, QHeaderView, QTableWidgetItem, QLabel
+    QAbstractItemView, QHeaderView, QTableWidgetItem, QLabel, QPushButton
 
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt, QCoreApplication, QSize
 from PyQt5 import QtGui
-
-
+from DataClass.Result import Result, Item, LvResult
+from DataClass.InputData import InputData
+from DataClass.Job import Job
+from Config  import JobID,Version
 from QtUI.uic5 import Ui_widget
-from Config import CLASS
+from QtUI import images_rc #  不要删除这个导入
 from PyQt5.QtWidgets import QLineEdit,QCheckBox,QRadioButton
 class LValidator(QValidator):
-    def __init__(self,min_,max_):
+    def __init__(self,max_,min_=1):
         super().__init__()
-        self.min,self.max=min_,max_
+        self.min_value,self.max_value=min_,max_
+    '''
     def validate(self, text:str, pos):
         if text =='':
             return QValidator.Acceptable, '1', pos
@@ -24,7 +27,30 @@ class LValidator(QValidator):
         elif (text[0] == '+' or text[0] == '-') and (text[1:].isdigit() or not text[1:]):
             return QValidator.Acceptable, text, pos
         return QValidator.Invalid, text, pos
+    '''
 
+    def validate(self, input_str, pos):
+        # 检查是否为空
+        if not input_str:
+            return QValidator.Acceptable,input_str, pos
+
+        # 检查是否为数字
+        if  input_str.isdigit():
+            if self.min_value <=int(input_str) <=  self.max_value:
+                return QValidator.Acceptable, input_str, pos
+            else:
+                return QValidator.Intermediate, input_str, pos
+        return  QValidator.Invalid, input_str, pos
+
+    def fixup(self, input_str):
+        try:
+            value = int(input_str)
+            if value < self.min_value:
+                return str(self.min_value)
+            if value > self.max_value:
+                return str(self.max_value)
+        except ValueError:
+            return str(self.min_value)
 class PValidator(QValidator):
     def validate(self, text: str, pos):
         text = text.replace('。', '.').replace(' ', '').replace('，', ',').replace(',,', ',')
@@ -35,7 +61,7 @@ class PValidator(QValidator):
 
         return QValidator.Acceptable, text, pos
 
-class CpArms:
+class CpArm:
     def __init__(self,check_box:QCheckBox):
         self._check_box=check_box
     @property
@@ -95,9 +121,6 @@ class TY3:
     def setPlaceholderText(self, bl):
         self.setText(bl)
 
-
-
-
 class RoundedWindow(QWidget):
     def __init__(self):
         super(RoundedWindow, self).__init__()
@@ -126,96 +149,106 @@ class RoundedWindow(QWidget):
     def window_top(self, flag):
         if flag:
             self.windowHandle().setFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
-
         else:
             self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
         self.repaint()
 
-
-
-class BuffUI(Ui_widget):
-        def __init__(self,widget):
-            self.setupUi(widget)
-            self.job_button = {
+class BuffUI(Ui_widget,RoundedWindow):
+        def __init__(self):
+            RoundedWindow.__init__(self)
+            self.setupUi(self)
+            self.button_min.clicked.connect(lambda: self.showMinimized())
+            self.button_top.clicked.connect(self.__window_ontop)
+            self.button_about.clicked.connect(self.show_about)
+            self.setWindowTitle(' 奶量计算器')
+            self.setStyleSheet("color: rgb(0, 0, 0);\n")
+            self.setWindowIcon(QIcon(":/png/ico.png"))
+            # - 以下需要手动绑定输入对象到变量
+            # 左侧职业按钮
+            self.job_button :dict[str,QPushButton]= {
                 'ma': self.ma_button,
                 'ba': self.ba_button,
                 'luo': self.luo_button,
                 'gong': self.gong_button
             }
-            self._skill_list = [
-                [self.lv1_name, self.lv1_value],
-                [self.lv2_name, self.lv2_value],
-                [self.lv3_name, self.lv3_value],
-                [self.lv4_name, self.lv4_value],
-                [self.lv5_name, self.lv5_value],
-                [self.lv6_name, self.lv6_value],
-                [self.lv7_name, self.lv7_value],
-            ]
-            self.input_map={
-                'cp_arms': CpArms(self.cp_arm),
-                "c_attack": self.c_attack,
-                "c_intellect": self.c_intellect,
-                'buff_amount': {
-                    'in_map':self.buff_amount_in_map,
-                    'out_map':self.buff_amount_out_map,
-                    'enh':self.buff_amount_enh
-                },
-                'bxy':{
-                    'enh':self.bxy_ehn,
-                    'fixed_attack': self.bxy_fixed_attack,
-                    'fixed_intellect': self.bxy_fixed_intellect,
-                    'fixed_ty': self.bxy_fixed_ty,
-                    'percentage_attack': Percentage(self.bxy_percentage_attack),
-                    'percentage_intellect': Percentage(self.bxy_percentage_intellect),
-                    'percentage_ty': Percentage(self.bxy_percentage_ty),
-                },
-                'buff':{
-                    'intellect_out': self.buff_intellect_out,
-                    'lv_out': self.buff_lv_out,
-                    'intellect_in': self.buff_intellect_in,
-                    'lv_in': self.buff_lv_in,
-                },
-                'ty':{
-                    'ty1_lv': self.ty_lv,
-                    'intellect': self.ty_intellect,
-                    'ty3_lv': self.ty3_lv,
-                    "is_ty1": TY3(self.rb1,self.rb2),
-                },
-                'skill':{i:item[1] for i,item in enumerate(self._skill_list)}
+            # 被动技能
+            self.skill_map:tuple[tuple[QLabel,QLineEdit],...]= (
+                (self.lv1_name, self.lv1_value),
+                (self.lv2_name, self.lv2_value),
+                (self.lv3_name, self.lv3_value),
+                (self.lv4_name, self.lv4_value),
+                (self.lv5_name, self.lv5_value),
+                (self.lv6_name, self.lv6_value),
+                (self.lv7_name, self.lv7_value),
+            )
+            # 输入框与InputData对应
+            self.input_map:dict[str,object]={
+                "is_cp":CpArm(self.cp_arm),
+                "c_attack":self.c_attack,
+                "c_intellect":self.c_intellect,
+                # buff属性
+                "buff_intellect_in_map":self.buff_intellect_in,
+                "buff_lv_in_map":self.buff_lv_in,
+                "buff_intellect_out_map":self.buff_intellect_out,
+                "buff_lv_out_map":self.buff_lv_out,
+                # 增益量
+                "buff_amount_in_map":self.buff_amount_in_map,
+                "buff_amount_out_map":self.buff_amount_out_map,
+                "buff_amount_amp":self.buff_amount_enh,
+                # 避邪玉
+                "bxy_amp":self.bxy_ehn,
+                "bxy_fixed_attack":self.bxy_fixed_attack,
+                "bxy_fixed_intellect":self.bxy_fixed_intellect,
+                "bxy_fixed_ty":self.bxy_fixed_ty,
+                "bxy_percentage_attack":Percentage(self.bxy_percentage_attack),
+                "bxy_percentage_intellect": Percentage(self.bxy_percentage_intellect),
+                "bxy_percentage_ty":Percentage(self.bxy_percentage_ty),
+                # 觉醒
+                "ty_ty1_lv":self.ty_lv,
+                "ty_intellect":self.ty_intellect,
+                "ty_ty3_lv":self.ty3_lv,
+                "ty_is_ty1":TY3(self.rb1,self.rb2),
+                # 技能
             }
-            # 设置输入校验
-            self._validator()
-            # 设置阴影
-           # self._effect()
-            # 设置表格样式
-            self._table()
+            self.input_map.update(
+                {f'skill_{i}':item[1] for i,item in enumerate(self.skill_map)}
+            )
+            # -
+            self.hide_text='--'
+            # 右键菜单
+            # window.setContextMenuPolicy(Qt.CustomContextMenu)
+            # window.customContextMenuRequested.connect(show_menu)
+            self.__hide_grids:set[tuple[int,int]]={(-1,-1)}
+            self.__validator()
+           # self.__effect()
+            self.__init_table()
+            self.__check()
 
-            #-
-
-          #  self.widget_3.setGraphicsEffect(effect)
-        def _add_row(self, name, icon=None):
-            index = self.tableWidget.rowCount()
-            self.tableWidget.insertRow(index)
+        def add_row(self, name, icon='',*show):
+            row = self.tableWidget.rowCount()
+            self.tableWidget.insertRow(row)
             for col in range(self.tableWidget.columnCount()):
                 item = QTableWidgetItem("")
                 item.setFont(QFont("Arial", 12))
-                if col %2==0:
-                    item.setTextAlignment(Qt.AlignRight| Qt.AlignVCenter)
-                elif col==1:
-                    item.setFont(QFont("Arial", 12))
-                self.tableWidget.setItem(index, col, item)
-            if icon is not None:
-                label=QLabel()
-                pixmap = QPixmap(f":/png/{icon}")
+                if col % 2 == 0:
+                    item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
+                else:
+                    pass
+                self.tableWidget.setItem(row, col, item)
 
+            if icon:
+                label = QLabel()
+                pixmap = QPixmap(icon)
                 label.setPixmap(pixmap)
                 label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
                 label.setContentsMargins(10, 0, 0, 0)
-                self.tableWidget.setCellWidget(index,0,label)
-                #self.tableWidget.item(index,0).setIcon(QIcon(f":/png/{icon}"))
-
-
-            self.tableWidget.item(index, 1).setText(name)
+                self.tableWidget.setCellWidget(row, 0, label)
+                # self.tableWidget.item(index,0).setIcon(QIcon(f))
+            for i,bl in enumerate(show,start=1):
+                if not bl:
+                    self.__hide_grids.add((row,i*2))
+                    self.tableWidget.item(row,i*2).setText(self.hide_text)
+            self.tableWidget.item(row, 1).setText(name)
 
         def clear_quick_calc_text(self):
             self.add_1.setText('')
@@ -223,132 +256,161 @@ class BuffUI(Ui_widget):
             self.add_3.setText('')
             self.input_offset.setText('')
 
-        def setting(self, job):
-            data=CLASS[job]
+        def set_job(self, job:Job):
+            self.__hide_grids=set()
+            # 切换至基础属性
             self.tabWidget.setTabVisible(1, True)
+            # 清除快捷计算的文本
             self.clear_quick_calc_text()
-            self.attribute_1.setText(data['attribute'])
-            self.attribute_2.setText(data['attribute'])
-            self.attribute_3.setText(data['attribute'])
-            self.attribute_4.setText(data['attribute'] + '加减')
-            # -
-            self.tableWidget.setRowCount(0)
-            self._add_row(data['buff']['name'] + '(站街)', data['buff']['icon'])
-            self._add_row(data['buff']['name'] + '(进图)', data['buff']['icon'])
-            for item in data['skill_form']:
-                self._add_row(item['name'], item['icon'])
-            self._add_row(data['ty1']['name'], data['ty1']['icon'])
-            self._add_row(data['ty3']['name'], data['ty3']['icon'])
-            for item in data['total_buff']:
-                self._add_row(item['name'], item['icon'])
-            #-
-            self._clear_left_button_style()
-            self.job_button[job].setStyleSheet('border:0px; border-radius: 0px;'
+            # 属性设置
+            self.attribute_1.setText(job.attribute)
+            self.attribute_2.setText(job.attribute)
+            self.attribute_3.setText(job.attribute)
+            self.attribute_4.setText(job.attribute + '加减(+,-)')
+            # 设置显示文本
+            self.tableWidget.setRowCount(0) # 清除所有行
+            self.add_row(job.buff.name + '(站街)', job.buff.icon,True,True,False)
+            self.add_row(job.buff.name + '(进图)', job.buff.icon,)
+            for item in job.skill_form:
+                self.add_row(item.name, item.icon,*item.show)
+            self.add_row(job.ty1.name, job.ty1.icon,False,True,False)
+            self.add_row(job.ty3.name, job.ty3.icon,False,True,False)
+            for item in job.total_buff:
+                self.add_row(item.name, item.icon)
+            # 设置左侧按钮
+            self.__clear_left_button_style()
+            self.job_button[job.id].setStyleSheet('border:0px; border-radius: 0px;'
                                                 'padding-top:8px;'
                                                 'padding-bottom:8px;'
                                                 'border-left: 5px solid rgb(5, 229, 254);'
                                                 )
-            # 技能输入框
-            for l1,l2 in self._skill_list:
+            # 等级规则
+            self.buff_lv_out.setValidator(LValidator(job.buff.max_lv))
+            self.buff_lv_in.setValidator(LValidator(job.buff.max_lv))
+            self.ty_lv.setValidator(LValidator(job.ty1.max_lv))
+            self.ty3_lv.setValidator(LValidator(9999))
+            # 被动技能设置
+            for l1,l2 in self.skill_map:
                 l1.hide()
                 l2.hide()
 
-            for i, item in enumerate(data['passive_skill']):
-                self._skill_list[i][0].setText(f"Lv{item['lv']} {item['name']}:")
-                self._skill_list[i][0].show()
-                self._skill_list[i][1].show()
+            for i, item in enumerate(job.passive_skill):
+                self.skill_map[i][0].setText(f"Lv{item.lv} {item.name}:")
+                self.skill_map[i][1].setValidator(LValidator(item.max_lv))
+                self.skill_map[i][0].show()
+                self.skill_map[i][1].show()
+            self.__adjust_column_widths()
 
-        def _set_diff(self,row,col,value):
-            item= self.tableWidget.item(row, col)
-            if value == '-':
-               item.setText('')
+        def set_config_names(self, names: list[str]):
+            self.config_combobox.clear()
+            self.config_combobox.addItems(names)
+        def set_show_text(self,res:Result,diff:Result):
+            for i, (res, diff) in enumerate(zip(res, diff)):
+                self.__set_table_text(i, 2, res.attack,diff.attack)
+                self.__set_table_text(i, 4, res.intellect, diff.intellect)
+                self.__set_table_text(i, 6, res.multiplier, diff.multiplier)
+            self.__adjust_column_widths()
+
+        def show_about(self):
+            html = (
+                """
+                <h3 id="-">使用及说明</h3>
+                <ol>
+                <li>使用前应穿上换装上的装备.</li>
+                <li><strong>Buff(进图)/一觉/三觉:</strong> 请填写实际多人组队进图的属性</li>
+                <li><strong>辟邪玉</strong> 固定三攻填写<font color=#FF7F50>身上所有固定三攻总和</font>,百分比三攻<font color=#FF7F50>每项请用逗号(,)隔开</font>,固定力智与百分比力智同理.</li>
+                <li><font color=#6495ED>辟邪玉上的百分比三攻与力智,内部为加算,请填写一项(所有词条的和),不要每个词条都用逗号隔开</font></li> 
+                <li>如果输入(+,-)号加数字,那么软件会根据基础数据进行加减计算.</li>  
+                <li>理论三攻误差再±1,力智误差±5,超出过多肯定是你填的不对!</li>
+                </ol>
+                """
+                f'<h4>当前版本:{Version}</h4>'
+                '<h4>Bug,意见反馈群:<a href="https://qm.qq.com/cgi-bin/qm/qr?k=RsvjlH8mGFVAFRGL9CvhGnV5q4WDagvw&jump_from=webapi&authKey=/G2wLNZPUbLOO/nUj/faWQgVSGcad9SVjAuOIOlfxlJ2CWiAp9vGD6LxFFDZOkUB">134490967</a></h4>'
+                '<h4>开源地址:<a href="https://github.com/Vixiu/count_buff">https://github.com/Vixiu/count_buff</a></h4>'
+            )
+            QMessageBox.about(self, '奶量计算器', html)
+
+        def show_lv_window(self,result:LvResult):
+            html = """
+                 <table cellspacing='5' cellpadding='2' width='100%' style="font-size: 14px;">
+                         <tr>
+                             <th align='right'>技能</th>
+                             <th align='center'>原等级</th>
+                             <th align='center'></th>
+                             <th align='center'>新等级</th>
+                             <th align='center'>四维差距</th>
+                         </tr>
+                 """
+            total=0
+            for skill in result:
+                total+=skill.attribute
+                html += ("<tr>"
+                         f"<td align='right'>Lv{skill.lv}  {skill.name}:</td>"
+                         f"<td align='center'>{skill.old_lv}</td>"
+                         f"<td align='center'>-></td>"
+                         f"<td align='center'>{skill.new_lv}</td>"
+                         f"<td align='center'>{skill.info}</td>"
+                         "</tr>")
+            html += ('</table>'
+                     f'<p style="font-size: 14px; margin-top: 12px;" ><b>四维共:{total},新的等级已应用到计算器内</></p>')
+            QMessageBox.about(self, 'test', html)
+
+
+        def __adjust_column_widths(self):
+            #self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+            horizontal=self.tableWidget.horizontalHeader()
+            horizontal.setSectionResizeMode(QHeaderView.ResizeToContents)
+            total_width=sum(horizontal.sectionSize(col) for col in range(horizontal.count()))
+            horizontal.setSectionResizeMode(QHeaderView.Fixed)
+            if horizontal.width() > total_width:
+                scale=horizontal.width()/total_width
+                width_sum = 0
+                for col in range(horizontal.count()-1):
+                    cell_width=int(horizontal.sectionSize(col)*scale)
+                    horizontal.resizeSection(col,cell_width)
+                    width_sum+=cell_width
+                horizontal.resizeSection(horizontal.count()-1,int(horizontal.width()-width_sum))
+
+        def __set_diff(self, row, col, value):
+            item = self.tableWidget.item(row, col)
+            if value == 0:
+                item.setText('')
             elif value > 0:
                 item.setText(f'+{value}')
                 item.setForeground(QBrush(QColor("green")))
-
             elif value < 0:
                 item.setText(str(value))
                 item.setForeground(QBrush(QColor("red")))
-            else:
-              item.setText('')
-
-
-        def _clear_left_button_style(self):
+        def __clear_left_button_style(self):
             self.luo_button.setStyleSheet('')
             self.ba_button.setStyleSheet('')
             self.ma_button.setStyleSheet('')
             self.gong_button.setStyleSheet('')
-
-        def set_input_text(self,data:dict,input_map=None):
-            if input_map is None:
-                input_map = self.input_map
-            for k1, v1 in data.items():
-                if isinstance(v1, dict):
-                    self.set_input_text(v1, input_map[k1])
-                else:
-                    input_map[k1].setText(str(v1))
-
-
-        def set_placeholder_text(self,data:dict,input_map=None):
-            if input_map is None:
-                input_map=self.input_map
-            for k1, v1 in data.items():
-                if isinstance(v1, dict):
-                    self.set_placeholder_text(v1,input_map[k1])
-                else:
-                    input_map[k1].setText('')
-                    input_map[k1].setPlaceholderText(str(v1))
-
-        def set_show_text(self,result):
-            for i, (res, diff) in enumerate(zip(result['result'], result['diff'])):
-                self.tableWidget.item(i, 2).setText(str(res['attack']))
-                self.tableWidget.item(i, 4).setText(str(res['intellect']))
-                self.tableWidget.item(i, 6).setText(str(res['multiplier']))
-                self._set_diff(i, 3, diff['attack'])
-                self._set_diff(i, 5, diff['intellect'])
-                self._set_diff(i, 7, diff['multiplier'])
-            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-            total_width = sum(self.tableWidget.columnWidth(i) for i in range(self.tableWidget.columnCount()))
-
-            if total_width <=self.tableWidget.width():
-                self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-                self.tableWidget.horizontalHeader().setSectionResizeMode(1,QHeaderView.ResizeToContents)
-                self.tableWidget.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
-
-        def set_config(self,names:list[str]):
-            self.config_combobox.clear()
-            for n in names:
-                self.config_combobox.addItem(n)
-        def _table(self):
+        def __init_table(self):
           #  self.tableWidget.setIconSize(QSize(24, 24))
-            self.tableWidget.resizeColumnsToContents()
+            self.tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
             self.tableWidget.setSelectionMode(QAbstractItemView.NoSelection)  # 禁止选中
             self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 禁止修改
             # self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 禁止拖动表头
-            self.tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
-            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-
-        # self.tableWidget.horizontalHeader().setStretchLastSection(True)
-        def _create_effect(self):
-            effect = QGraphicsDropShadowEffect()
-            effect.setBlurRadius(15)  # 范围
-            effect.setOffset(1, 1)  # 横纵,偏移量
-            effect.setColor(QColor("#c3c5c9"))  # 颜色
-            return effect
-        def _effect(self):
-            self.widget_5.setGraphicsEffect(self._create_effect())
-            self.widget_3.setGraphicsEffect(self._create_effect())
-            self.tableWidget.setGraphicsEffect(self._create_effect())
-        def _validator(self):
+           # self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        def __effect(self):
+            def create_effect():
+                effect = QGraphicsDropShadowEffect()
+                effect.setBlurRadius(15)  # 范围
+                effect.setOffset(1, 1)  # 横纵,偏移量
+                effect.setColor(QColor("#c3c5c9"))  # 颜色
+                return effect
+            self.widget_5.setGraphicsEffect(create_effect())
+            self.widget_3.setGraphicsEffect(create_effect())
+            self.tableWidget.setGraphicsEffect(create_effect())
+        def __validator(self):
+            # -
             self.buff_amount_out_map.setValidator(QIntValidator())
             self.buff_amount_enh.setValidator(QDoubleValidator())
             self.buff_intellect_out.setValidator(QIntValidator())
-            self.buff_lv_out.setValidator(QIntValidator())
             self.buff_intellect_in.setValidator(QIntValidator())
-            self.buff_lv_in.setValidator(QIntValidator())
-            self.ty_lv.setValidator(QIntValidator())
             self.ty_intellect.setValidator(QIntValidator())
-            self.ty3_lv.setValidator(QIntValidator())
+
             self.buff_amount_in_map.setValidator(QIntValidator())
             self.add_1.setValidator(QIntValidator())
             self.add_2.setValidator(QIntValidator())
@@ -363,13 +425,27 @@ class BuffUI(Ui_widget):
             self.bxy_percentage_ty.setValidator(PValidator())
             self.bxy_ehn.setValidator(QDoubleValidator())
             # -
-            self.lv1_value.setValidator(QIntValidator())
-            self.lv2_value.setValidator(QIntValidator())
-            self.lv3_value.setValidator(QIntValidator())
-            self.lv4_value.setValidator(QIntValidator())
-            self.lv5_value.setValidator(QIntValidator())
-            self.lv6_value.setValidator(QIntValidator())
-            self.lv7_value.setValidator(QIntValidator())
+
             # -
             self.c_attack.setValidator(QIntValidator())
             self.c_intellect.setValidator(QIntValidator())
+        def __set_table_text(self, row: int, col: int, v1, v2):
+            if (row, col) not in self.__hide_grids:
+                self.tableWidget.item(row, col).setText(str(v1))
+                self.__set_diff(row, col + 1, v2)
+        def __check(self):
+            if set(self.job_button.keys()) != set(JobID):
+                raise ValueError(f'self.job_button与JobName不一致')
+            _=InputData()
+            if set(self.input_map.keys()) != set(_.__dict__.keys()):
+                raise ValueError(f'self.input_map缺少或多出:{set(_.__dict__.keys())^set(self.input_map.keys())}')
+        # ---------------
+
+        def __window_ontop(self):
+            if bool(self.windowHandle().flags() & Qt.WindowStaysOnTopHint):
+                self.window_top(False)
+                self.button_top.setStyleSheet("")
+            else:
+                self.window_top(True)
+                self.button_top.setStyleSheet("background:rgb(212, 218, 230);")
+

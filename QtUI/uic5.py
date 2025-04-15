@@ -1393,4 +1393,3 @@ class Ui_widget(object):
         self.button_save_config.setText(_translate("widget", "保存当前配置"))
         self.button_as_config.setText(_translate("widget", "另存为"))
         self.button_base.setText(_translate("widget", "设为基础"))
-import images_rc
