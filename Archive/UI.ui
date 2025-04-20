@@ -235,7 +235,7 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../Archive/images.qrc">
+          <iconset resource="images.qrc">
            <normaloff>:/png/ba.png</normaloff>:/png/ba.png</iconset>
          </property>
          <property name="iconSize">
@@ -260,7 +260,7 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../Archive/images.qrc">
+          <iconset resource="images.qrc">
            <normaloff>:/png/ma.png</normaloff>:/png/ma.png</iconset>
          </property>
          <property name="iconSize">
@@ -294,7 +294,7 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../Archive/images.qrc">
+          <iconset resource="images.qrc">
            <normaloff>:/png/luo.png</normaloff>:/png/luo.png</iconset>
          </property>
          <property name="iconSize">
@@ -319,7 +319,7 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../Archive/images.qrc">
+          <iconset resource="images.qrc">
            <normaloff>:/png/gong.png</normaloff>:/png/gong.png</iconset>
          </property>
          <property name="iconSize">
@@ -395,7 +395,7 @@ padding-bottom:11px;
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../Archive/images.qrc">
+            <iconset resource="images.qrc">
              <normaloff>:/png/about.png</normaloff>:/png/about.png</iconset>
            </property>
           </widget>
@@ -415,7 +415,7 @@ padding-bottom:11px;
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../Archive/images.qrc">
+            <iconset resource="images.qrc">
              <normaloff>:/png/min.png</normaloff>:/png/min.png</iconset>
            </property>
           </widget>
@@ -429,15 +429,13 @@ padding-bottom:11px;
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">
-	background:rgb(212, 218, 230);
-</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../Archive/images.qrc">
+            <iconset resource="images.qrc">
              <normaloff>:/png/pin.png</normaloff>:/png/pin.png</iconset>
            </property>
           </widget>
@@ -457,7 +455,7 @@ padding-bottom:11px;
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../Archive/images.qrc">
+            <iconset resource="images.qrc">
              <normaloff>:/png/close.png</normaloff>:/png/close.png</iconset>
            </property>
           </widget>
@@ -594,7 +592,7 @@ QComboBox::drop-down
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../Archive/images.qrc">
+              <iconset resource="images.qrc">
                <normaloff>:/png/add.png</normaloff>:/png/add.png</iconset>
              </property>
              <property name="iconSize">
@@ -614,7 +612,7 @@ QComboBox::drop-down
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../Archive/images.qrc">
+              <iconset resource="images.qrc">
                <normaloff>:/png/del.png</normaloff>:/png/del.png</iconset>
              </property>
              <property name="iconSize">
@@ -893,7 +891,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                         <number>1</number>
                        </property>
                        <property name="text">
-                        <string>Buff(站街)</string>
+                        <string>Buff适用(站街)</string>
                        </property>
                        <property name="margin">
                         <number>0</number>
@@ -1005,14 +1003,14 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <string notr="true">color:rgb(129, 129, 129)</string>
                          </property>
                          <property name="text">
-                          <string>Buff(图内)</string>
+                          <string>Buff适用(图内)</string>
                          </property>
                         </widget>
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_2">
                          <property name="text">
-                          <string>推算&gt;</string>
+                          <string>属性推算&gt;</string>
                          </property>
                         </widget>
                        </item>
@@ -1157,7 +1155,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                         <string notr="true">color:rgb(129, 129, 129)</string>
                        </property>
                        <property name="text">
-                        <string>一觉属性</string>
+                        <string>一觉适用</string>
                        </property>
                       </widget>
                      </item>
@@ -1282,7 +1280,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                         <string notr="true">color:rgb(129, 129, 129)</string>
                        </property>
                        <property name="text">
-                        <string>三觉属性</string>
+                        <string>三觉适用</string>
                        </property>
                       </widget>
                      </item>
@@ -1491,19 +1489,6 @@ border-bottom:3px solid rgb(0, 159, 170);
                        </property>
                        <property name="text">
                         <string>百分比:每项用逗号隔开(护石1,护石2,护石3,避邪玉)</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_7">
-                       <property name="text">
-                        <string>注意:辟邪玉上的百分比词条,内部为加算,请填写一项(所有词条的和),不要每个词条都用逗号隔开.</string>
-                       </property>
-                       <property name="scaledContents">
-                        <bool>false</bool>
-                       </property>
-                       <property name="wordWrap">
-                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
@@ -2675,7 +2660,7 @@ QHeaderView::section {
   </widget>
  </widget>
  <resources>
-  <include location="../Archive/images.qrc"/>
+  <include location="images.qrc"/>
  </resources>
  <connections/>
 </ui>

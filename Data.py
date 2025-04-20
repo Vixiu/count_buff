@@ -4,11 +4,11 @@ from DataClass.SaveData import save,Data
 from DataClass.InputData import InputData
 from DataClass.Job import *
 
-save.add_default_config('ma',Data('默认配置1',InputData()))
-save.add_default_config('ma',Data('默认配置2',InputData()))
+save.add_default_config('ma',Data('默认配置',InputData()))
 save.add_default_config('ba',Data('默认配置',InputData()))
 save.add_default_config('luo',Data('默认配置',InputData()))
 save.add_default_config('gong',Data('默认配置',InputData()))
+save.load_config()
 # -------------------------------------------------------------
 # 职业数据
 # passive_skill,skill_form要按技能等级从小到大
@@ -20,8 +20,9 @@ ty1_public= {'lv': 50, 'xs': 750, 'xyz': (5250, 5000, 0.000025),'intellect': [43
 ty3_public={'lv':100,'bind1':1.08,'bind2':1.23,'growth':0.01}
 buff_public={'lv':35,'xs': 665,'xyz': (4350, 3500, 3.78880649805069e-05)}
 # passive_skill_15=lambda lv:
-# todo lv是否+1 ,
-passive_skill_50=lambda lv: 14 + lv // 2 * 23 + ((lv - 1) // 2) * 22
+# todo 公式计算有问题需要改为固定数据
+# 数据源 https://developers.neople.co.kr/contents/apiDocs/df
+passive_skill_50=lambda lv: 14 + (lv+1 )// 2 * 23 + (lv // 2) * 22
 passive_skill_75=lambda lv: 140 + lv * 10
 passive_skill_95=lambda lv: 150 + lv * 10
 #---------------------------------

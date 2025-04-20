@@ -2,7 +2,8 @@ from PyQt5.QtGui import QIntValidator, QValidator, QDoubleValidator, QBrush, QCo
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QApplication, QLineEdit, QListWidgetItem, QMessageBox, \
-    QAbstractItemView, QHeaderView, QTableWidgetItem, QLabel, QPushButton
+    QAbstractItemView, QHeaderView, QTableWidgetItem, QLabel, QPushButton, QDialogButtonBox, QFormLayout, QVBoxLayout, \
+    QDialog
 
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt, QCoreApplication, QSize
@@ -153,6 +154,52 @@ class RoundedWindow(QWidget):
             self.windowHandle().setFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
         self.repaint()
 
+class InputDialog(QDialog):
+    def __init__(self, parent,lv50_name,value):
+        super().__init__(parent)
+        self.setWindowTitle("进图推算")
+        # 去掉问号按钮
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
+
+        # 创建布局
+        layout = QVBoxLayout(self)
+        form_layout = QFormLayout()
+
+        # 设置标签靠右对齐
+        form_layout.setLabelAlignment(Qt.AlignRight)
+
+        # 添加输入框
+        self.input1 = QLineEdit(self)
+        self.input2 = QLineEdit(self)
+        self.input3 = QLineEdit(self)
+
+        # 设置默认值
+        self.input1.setText("80")
+        self.input2.setText("50")
+        self.input3.setText(str(value))
+        #
+        self.input1.setValidator(QIntValidator())
+        self.input2.setValidator(QIntValidator())
+        self.input3.setValidator(QIntValidator())
+        # 设置输入框标签
+        form_layout.addRow("公会Buff(训练教官):", self.input1)
+        form_layout.addRow("纹 章 四 维:", self.input2)
+        form_layout.addRow(f"Lv50 {lv50_name}(四维):", self.input3)
+
+        # 添加表单布局到主布局
+        layout.addLayout(form_layout)
+
+        # 添加按钮（只保留“确定”按钮）
+        self.button_box = QDialogButtonBox(QDialogButtonBox.Ok, self)
+        self.button_box.accepted.connect(self.accept)
+        layout.addWidget(self.button_box)
+
+    def get_inputs(self):
+        """返回用户输入的内容"""
+        try:
+            return int(self.input1.text())+int(self.input2.text())+int(self.input3.text())
+        except ValueError:
+            return 0
 class BuffUI(Ui_widget,RoundedWindow):
         def __init__(self):
             RoundedWindow.__init__(self)
@@ -301,23 +348,29 @@ class BuffUI(Ui_widget,RoundedWindow):
                 self.skill_map[i][1].show()
             self.__adjust_column_widths()
 
-        def set_config_names(self, names: list[str]):
+        def set_config_names(self, names: list[str],index=0):
             self.config_combobox.clear()
             self.config_combobox.addItems(names)
+            self.config_combobox.setCurrentIndex(index)
         def set_show_text(self,res:Result,diff:Result):
             for i, (res, diff) in enumerate(zip(res, diff)):
                 self.__set_table_text(i, 2, res.attack,diff.attack)
                 self.__set_table_text(i, 4, res.intellect, diff.intellect)
                 self.__set_table_text(i, 6, res.multiplier, diff.multiplier)
             self.__adjust_column_widths()
-
+        def show_input(self,lv50_name,value):
+            dialog = InputDialog(self,lv50_name,value)
+            if dialog.exec_() == QDialog.Accepted:
+                return True ,dialog.get_inputs()
+            else:
+                return False,0
         def show_about(self):
             html = (
                 """
                 <h3 id="-">使用及说明</h3>
                 <ol>
                 <li>使用前应穿上换装上的装备.</li>
-                <li><strong>Buff(进图)/一觉/三觉:</strong> 请填写实际多人组队进图的属性</li>
+                <li><strong>Buff(进图)/一觉/三觉:</strong> 请填写实际多人组队进图的属性,其余照填站街面板即可</li>
                 <li><strong>辟邪玉</strong> 固定三攻填写<font color=#FF7F50>身上所有固定三攻总和</font>,百分比三攻<font color=#FF7F50>每项请用逗号(,)隔开</font>,固定力智与百分比力智同理.</li>
                 <li><font color=#6495ED>辟邪玉上的百分比三攻与力智,内部为加算,请填写一项(所有词条的和),不要每个词条都用逗号隔开</font></li> 
                 <li>如果输入(+,-)号加数字,那么软件会根据基础数据进行加减计算.</li>  

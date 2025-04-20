@@ -18,7 +18,6 @@ class SaveData:
         self.__first_launch=False
         self.__config:dict[str,list[Data]]={n:[] for n in JobID}
         self.__property_map:dict[str,int]={k:len(v) for k,v in self.__config.items()}
-        self.__load_config()
     @property
     def last_record(self):
         return self.__record[self.__last_job]
@@ -31,7 +30,7 @@ class SaveData:
     def set_job(self,name):
         self.__last_job=name
 
-    def __load_config(self):
+    def load_config(self):
         try:
             with open(FilePath,'r') as f:
                 data=json.load(f)
@@ -40,8 +39,10 @@ class SaveData:
                     self.__config[k].append(
                         Data(item['name'],InputData(**item['data']))
                     )
-            self.__record=data['record']
-            self.__last_job=data['last_job']
+
+            self.__record={ k:v if 0 <= v < len(self.__config[k]) else 0
+                            for k,v in data['record'].items() if k in self.__config}
+            self.__last_job=data['last_job']  if data['last_job'] in self.__config else self.__last_job
         except :
             self.__first_launch=True
 
@@ -71,7 +72,8 @@ class SaveData:
             return False, '默认配置不可修改,请另存为!'
 
     def add_config(self,name,data:InputData):
-        self.__config[self.__last_job].append(Data(name,deepcopy(data)))
+
+        self.__config[self.__last_job].append(Data(name,deepcopy(data.get_data())))
         self.__record[self.__last_job]=len(self.__config[self.__last_job])-1
         self.__save_config()
 

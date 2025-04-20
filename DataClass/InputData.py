@@ -3,12 +3,12 @@ from dataclasses import dataclass,field
 class InputData:
     is_cp: bool = False
     c_attack: int = 3350
-    c_intellect: int = 2450
+    c_intellect: int = 24500
     # buff属性
     buff_intellect_in_map: int = 0
-    buff_lv_in_map: int = 1
+    buff_lv_in_map: int = 37
     buff_intellect_out_map: int = 0
-    buff_lv_out_map: int = 1
+    buff_lv_out_map: int = 37
     # 增益量
     buff_amount_in_map: int = 0
     buff_amount_out_map: int = 0
@@ -22,9 +22,9 @@ class InputData:
     bxy_percentage_intellect: tuple[float, ...] = field(default_factory=lambda: (0.0,))
     bxy_percentage_ty: tuple[float, ...] = field(default_factory=lambda: (0.0, 0.0))
     # 觉醒
-    ty_ty1_lv: int = 1
+    ty_ty1_lv: int = 41
     ty_intellect: int = 0
-    ty_ty3_lv: int = 1
+    ty_ty3_lv: int = 7
     ty_is_ty1: bool = True
     # 技能
     skill_0: int = 1
@@ -53,7 +53,8 @@ class InputData:
     def update(self,data:"InputData"):
             self.__dict__.update(data.__dict__)
 
-
+    def get_data(self):
+        return self
 '''
 @dataclass
 class BuffAmount:

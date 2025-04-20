@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable, Union
+from typing import Callable, Union, Optional
 
 
 @dataclass
@@ -76,3 +76,8 @@ class Job:
     passive_skill:tuple[Union[PassiveSkill, PassiveSkillInf], ...]
     total_buff:tuple[TotalBuff, ...]
 
+    def get_passive_skill(self,lv)-> Optional[tuple[int, Union[PassiveSkill, PassiveSkillInf]]]:
+        for i,item in enumerate(self.passive_skill):
+            if item.lv==lv:
+                return i,item
+        return None

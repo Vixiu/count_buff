@@ -1,7 +1,7 @@
 import copy
 from copy import deepcopy
 from DataClass.InputData import InputData
-from DataClass.Job import Job
+from DataClass.Job import Job, PassiveSkill
 from DataClass.Result import Result, Item, LvResult
 from PyQt5.QtWidgets import QLineEdit
 
@@ -88,7 +88,7 @@ class UIData(InputData):
                     self.__dict__[name] = float(value)
                 except ValueError:
                     pass
-            print(name,'实际值:',value,"赋值:",self.__dict__[name])
+            #print(name,'实际值:',value,"赋值:",self.__dict__[name])
 
             call_back()
         self.__input_map[name]=linedit
@@ -99,6 +99,10 @@ class UIData(InputData):
             self.__dict__[k]=v
             if k in self.__input_map:
                 self.__input_map[k].setText(str(v))
+
+    def  get_data(self):
+        return InputData(**{key:self.__dict__[key] for key in self.__backup})
+
     def __setattr__(self, key, value):
         super().__setattr__(key, value)
         if key in  self.__input_map:
@@ -127,7 +131,7 @@ class Buff:
         """
         multiplier = round(
             (1 + attack / self.__data.c_attack) * (1 + intellect / (self.__data.c_intellect + 250)) * self.__job_data.increase
-            , 2)
+            ,2)
         return Item(attack=attack, intellect=intellect, multiplier=multiplier)
 
     def __count_buff(self, intellect, buff_amount, lv:int) -> Item:
@@ -177,7 +181,9 @@ class Buff:
                 + self.__data.ty_ty3_lv * self.__job_data.ty3.growth)
                         )
         return self.__count_multiplier(0,ty1),self.__count_multiplier(0,ty3),
-
+    def get_passive_skill(self,lv)->tuple[PassiveSkill,int]:
+        index,skill=self.__job_data.get_passive_skill(lv)
+        return skill,get_lv_value(skill.data,self.__data.passive_skill(index))
 
     def init(self,data:InputData):
         self.__data=data
