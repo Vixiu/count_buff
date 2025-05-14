@@ -65,7 +65,7 @@ class SaveData:
             index=self.__record[job]
 
         if  index >=self.__property_map[job]:
-            self.__config[job][index].data = deepcopy(data)
+            self.__config[job][index].data = deepcopy(data.get_data())
             self.__save_config()
             return True, f'{self.__config[job][index].name} 已保存'
         else:
