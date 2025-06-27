@@ -1,3 +1,5 @@
+from typing import Callable
+import ast
 from PyQt5.QtGui import QIntValidator, QValidator, QDoubleValidator, QBrush, QColor, QFont, QPixmap
 
 from PyQt5.QtGui import QIcon
@@ -65,9 +67,14 @@ class PValidator(QValidator):
 class CpArm:
     def __init__(self,check_box:QCheckBox):
         self._check_box=check_box
+        self.__base_value =False
     @property
     def textEdited(self):
         return self
+    def placeholderText(self):
+        return self.__base_value
+    def text(self):
+        return self._check_box.isChecked()
 
     def connect(self,callback:callable):
         self._check_box.clicked.connect(lambda:callback(self._check_box.isChecked()))
@@ -75,22 +82,34 @@ class CpArm:
     def setText(self,bl:str):
         if bl:
             self._check_box.setChecked(bl=='True')
+        else:
+            self._check_box.setChecked(self.__base_value)
 
     def setPlaceholderText(self,bl):
-        self.setText(bl)
+        self.__base_value= bl=='True'
+        self._check_box.setChecked(self.__base_value)
 
 class Percentage:
     def __init__(self, linedit: QLineEdit):
         self._linedit = linedit
+        self.__base_value = []
 
     @property
     def textEdited(self):
         return self
+
+    def placeholderText(self):
+        return self.__base_value
+
+    def text(self):
+        return self._to_list()
+
     def _to_list(self):
         val = self._linedit.text()
         if val != '':
             return [float(i) for i in val.split(",") if i] if val else []
-        return val
+        return []
+
     def connect(self,callback):
         self._linedit.textEdited.connect(lambda :callback(self._to_list()))
 
@@ -98,15 +117,22 @@ class Percentage:
         self._linedit.setText(ls[1: -1].replace(" ", ""))
 
     def setPlaceholderText(self, ls):
+        self.__base_value=ast.literal_eval(ls)
         self._linedit.setPlaceholderText(ls[1: -1].replace(" ", ""))
 
 class TY3:
     def __init__(self, rb1:QRadioButton,rb2: QRadioButton):
         self.rb1,self.rb2=rb1,rb2
+        self.__base_value=True
 
     @property
     def textEdited(self):
         return self
+    def placeholderText(self):
+        return self.__base_value
+
+    def text(self):
+        return self.rb1.isChecked()
 
     def connect(self,callback):
         self.rb1.clicked.connect(lambda :callback(self.rb1.isChecked()))
@@ -116,10 +142,12 @@ class TY3:
         if bl:
             if bl=='True':
                 self.rb1.setChecked(True)
-            else:
+            elif bl=='False':
                 self.rb1.setChecked(False)
-
+        else:
+            self.rb1.setChecked(self.__base_value)
     def setPlaceholderText(self, bl):
+        self.__base_value=bl=='True'
         self.setText(bl)
 
 class RoundedWindow(QWidget):
@@ -182,6 +210,7 @@ class InputDialog(QDialog):
         self.input2.setValidator(QIntValidator())
         self.input3.setValidator(QIntValidator())
         # 设置输入框标签
+        form_layout.addRow(QLabel("11111111111111"))
         form_layout.addRow("公会Buff(训练教官):", self.input1)
         form_layout.addRow("纹 章 四 维:", self.input2)
         form_layout.addRow(f"Lv50 {lv50_name}(四维):", self.input3)
@@ -200,8 +229,29 @@ class InputDialog(QDialog):
             return int(self.input1.text())+int(self.input2.text())+int(self.input3.text())
         except ValueError:
             return 0
+
+def value_convert(value):
+    if value.isdigit():
+        return int(value)
+    try:
+        return float(value)
+    except ValueError:
+        return 0
+
+def linedit_convert(linedit:QLineEdit):
+    value=linedit.text()
+    if not isinstance(value, str):
+        return value
+    if value == '':
+        return value_convert(linedit.placeholderText())
+    # 如果以 '+' 或 '-' 开头，进行加减操作
+    if value[0] == '+' or value[0] == '-':
+        return value_convert(linedit.placeholderText())+value_convert(value[1:])
+    return value_convert(value)
+
+
 class BuffUI(Ui_widget,RoundedWindow):
-        def __init__(self):
+        def __init__(self,data:InputData):
             RoundedWindow.__init__(self)
             self.setupUi(self)
             self.button_min.clicked.connect(lambda: self.showMinimized())
@@ -209,28 +259,28 @@ class BuffUI(Ui_widget,RoundedWindow):
             self.button_about.clicked.connect(self.show_about)
             self.setWindowTitle(' 奶量计算器')
             self.setStyleSheet("color: rgb(0, 0, 0);\n")
-            self.setWindowIcon(QIcon(":/png/ico.png"))
+
             # - 以下需要手动绑定输入对象到变量
             # 左侧职业按钮
             self.job_button :dict[str,QPushButton]= {
                 'ma': self.ma_button,
                 'ba': self.ba_button,
                 'luo': self.luo_button,
-                'gong': self.gong_button
+                'gong': self.gong_button,
+                'qiang':self.qiang_button,
             }
             # 被动技能
-            self.skill_map:tuple[tuple[QLabel,QLineEdit],...]= (
-                (self.lv1_name, self.lv1_value),
-                (self.lv2_name, self.lv2_value),
-                (self.lv3_name, self.lv3_value),
-                (self.lv4_name, self.lv4_value),
-                (self.lv5_name, self.lv5_value),
-                (self.lv6_name, self.lv6_value),
-                (self.lv7_name, self.lv7_value),
+            self.passive_skill_map:tuple[tuple[QLabel,QLabel,QLineEdit],...]= (
+                (self.lv1_name, self.lv1_icon, self.lv1_value),
+                (self.lv2_name, self.lv2_icon, self.lv2_value),
+                (self.lv3_name, self.lv3_icon,self.lv3_value),
+                (self.lv4_name, self.lv4_icon,self.lv4_value),
+                (self.lv5_name, self.lv5_icon, self.lv5_value),
+                (self.lv6_name, self.lv6_icon,self.lv6_value),
+                (self.lv7_name, self.lv7_icon,self.lv7_value),
             )
             # 输入框与InputData对应
-            self.input_map:dict[str,object]={
-                "is_cp":CpArm(self.cp_arm),
+            self.input_map= {
                 "c_attack":self.c_attack,
                 "c_intellect":self.c_intellect,
                 # buff属性
@@ -258,9 +308,10 @@ class BuffUI(Ui_widget,RoundedWindow):
                 # 技能
             }
             self.input_map.update(
-                {f'skill_{i}':item[1] for i,item in enumerate(self.skill_map)}
+                {f'passive_skill_{i}':item[2] for i,item in enumerate(self.passive_skill_map)}
             )
-            # -
+
+            # 表格隐藏的文本
             self.hide_text='--'
             # 右键菜单
             # window.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -269,9 +320,33 @@ class BuffUI(Ui_widget,RoundedWindow):
             self.__validator()
            # self.__effect()
             self.__init_table()
-            self.__check()
+            self.__check(data)
 
-        def add_row(self, name, icon='',*show):
+        @property
+        def input_data(self)->InputData:
+            return InputData(**{k:linedit_convert(v)for k,v in self.input_map.items()})
+
+        def bing_input(self,func:Callable[[str,str],None]):
+            for key, qle in self.input_map.items():
+                qle.textEdited.connect(lambda _,q=qle, k=key: func(k, linedit_convert(q)))
+
+
+
+
+        def clear_input_text(self):
+            for item in self.input_map.values():
+                item.setText('')
+
+        def set_input_text(self,data:InputData):
+            for k,v in data:
+                self.input_map[k].setText(str(v))
+
+        def set_input_placeholder_text(self,data:InputData):
+            self.clear_input_text()
+            for k, v in data:
+                self.input_map[k].setPlaceholderText(str(v))
+
+        def add_row(self, name, img=None,*show):
             row = self.tableWidget.rowCount()
             self.tableWidget.insertRow(row)
             for col in range(self.tableWidget.columnCount()):
@@ -283,10 +358,9 @@ class BuffUI(Ui_widget,RoundedWindow):
                     pass
                 self.tableWidget.setItem(row, col, item)
 
-            if icon:
+            if img is not None :
                 label = QLabel()
-                pixmap = QPixmap(icon)
-                label.setPixmap(pixmap)
+                label.setPixmap(img)
                 label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
                 label.setContentsMargins(10, 0, 0, 0)
                 self.tableWidget.setCellWidget(row, 0, label)
@@ -303,10 +377,12 @@ class BuffUI(Ui_widget,RoundedWindow):
             self.add_3.setText('')
             self.input_offset.setText('')
 
-        def set_job(self, job:Job):
+        def set_job(self, job:Job,data:InputData,config_name:list[str],config_index:int):
             self.__hide_grids=set()
+            #
+            self.setWindowIcon(QIcon(job.img))
             # 切换至基础属性
-            self.tabWidget.setTabVisible(1, True)
+            self.tabWidget.setCurrentIndex(0)
             # 清除快捷计算的文本
             self.clear_quick_calc_text()
             # 属性设置
@@ -314,18 +390,20 @@ class BuffUI(Ui_widget,RoundedWindow):
             self.attribute_2.setText(job.attribute)
             self.attribute_3.setText(job.attribute)
             self.attribute_4.setText(job.attribute + '加减(+,-)')
+            self.increase.setText(f"属性增伤:{job.increase}")
             # 设置显示文本
             self.tableWidget.setRowCount(0) # 清除所有行
-            self.add_row(job.buff.name + '(站街)', job.buff.icon,True,True,False)
-            self.add_row(job.buff.name + '(进图)', job.buff.icon,)
+            self.add_row(job.buff.name + '(站街)', job.buff.img,True,True,False)
+            self.add_row(job.buff.name + '(进图)', job.buff.img,)
             for item in job.skill_form:
-                self.add_row(item.name, item.icon,*item.show)
-            self.add_row(job.ty1.name, job.ty1.icon,False,True,False)
-            self.add_row(job.ty3.name, job.ty3.icon,False,True,False)
+                self.add_row(item.name, item.img,*item.show)
+            self.add_row(job.ty1.name, job.ty1.img,False,True,False)
+            self.add_row(job.ty3.name, job.ty3.img,False,True,False)
             for item in job.total_buff:
-                self.add_row(item.name, item.icon)
+                self.add_row(item.name, item.img)
             # 设置左侧按钮
-            self.__clear_left_button_style()
+            for bt in self.job_button.values():
+                bt.setStyleSheet('')
             self.job_button[job.id].setStyleSheet('border:0px; border-radius: 0px;'
                                                 'padding-top:8px;'
                                                 'padding-bottom:8px;'
@@ -336,22 +414,28 @@ class BuffUI(Ui_widget,RoundedWindow):
             self.buff_lv_in.setValidator(LValidator(job.buff.max_lv))
             self.ty_lv.setValidator(LValidator(job.ty1.max_lv))
             self.ty3_lv.setValidator(LValidator(9999))
+
             # 被动技能设置
-            for l1,l2 in self.skill_map:
+            for l1,l2 ,l3 in self.passive_skill_map:
                 l1.hide()
                 l2.hide()
+                l3.hide()
 
             for i, item in enumerate(job.passive_skill):
-                self.skill_map[i][0].setText(f"Lv{item.lv} {item.name}:")
-                self.skill_map[i][1].setValidator(LValidator(item.max_lv))
-                self.skill_map[i][0].show()
-                self.skill_map[i][1].show()
+                self.passive_skill_map[i][0].setText(f"Lv{item.lv} {item.name}")
+                self.passive_skill_map[i][1].setPixmap(item.img)
+                self.passive_skill_map[i][2].setValidator(LValidator(item.max_lv))
+                self.passive_skill_map[i][0].show()
+                self.passive_skill_map[i][1].show()
+                self.passive_skill_map[i][2].show()
             self.__adjust_column_widths()
-
+            self.set_config_names(config_name,config_index)
+            self.set_input_placeholder_text(data)
         def set_config_names(self, names: list[str],index=0):
             self.config_combobox.clear()
             self.config_combobox.addItems(names)
             self.config_combobox.setCurrentIndex(index)
+
         def set_show_text(self,res:Result,diff:Result):
             for i, (res, diff) in enumerate(zip(res, diff)):
                 self.__set_table_text(i, 2, res.attack,diff.attack)
@@ -365,23 +449,40 @@ class BuffUI(Ui_widget,RoundedWindow):
             else:
                 return False,0
         def show_about(self):
+            msg_box = QMessageBox()
             html = (
-                """
-                <h3 id="-">使用及说明</h3>
+                f"""
+                <h3 id="usage">使用及说明</h3>
                 <ol>
-                <li>使用前应穿上换装上的装备.</li>
-                <li><strong>Buff(进图)/一觉/三觉:</strong> 请填写实际多人组队进图的属性,其余照填站街面板即可</li>
-                <li><strong>辟邪玉</strong> 固定三攻填写<font color=#FF7F50>身上所有固定三攻总和</font>,百分比三攻<font color=#FF7F50>每项请用逗号(,)隔开</font>,固定力智与百分比力智同理.</li>
-                <li><font color=#6495ED>辟邪玉上的百分比三攻与力智,内部为加算,请填写一项(所有词条的和),不要每个词条都用逗号隔开</font></li> 
-                <li>如果输入(+,-)号加数字,那么软件会根据基础数据进行加减计算.</li>  
-                <li>理论三攻误差再±1,力智误差±5,超出过多肯定是你填的不对!</li>
+                    <li>填写buff(站街)请确保穿戴好换装上的装备。</li>
+                    <li><strong>Buff（进图）/一觉/三觉：</strong> 请填写实际多人组队进图时的属性.</li>
+                    <li><strong>辟邪玉：</strong> 
+                        固定三攻/力智请填写<font color="#FF7F50">身上所有固定三攻的总和</font>；  
+                        百分比三攻/力智每项<font color="#FF7F50">使用逗号（,）隔开</font>；
+                    </li>
+                    <li><font color="#6495ED">辟邪玉上的百分比三攻/力智词条内部为加算，请填写一项（所有词条的总和），不要每项用逗号分隔。</font></li>
+                    <li><strong>增益量（图内）：</strong> 目前仅黄金乡套装的增益量在进图时生效。</li>
+                    <li>如果输入带有（+，-）号的数字，软件将以基准数据进行加减计算。</li>
+                    <li>理论三攻误差范围为±1，力智误差为±5。如果超出此范围，可能是输入数据有误！</li>
                 </ol>
+                <h4>当前版本：{Version}</h4>
+                <h4>如有Bug或建议，欢迎加入交流群反馈：
+                    <a href="https://qm.qq.com/cgi-bin/qm/qr?k=RsvjlH8mGFVAFRGL9CvhGnV5q4WDagvw&jump_from=webapi&authKey=/G2wLNZPUbLOO/nUj/faWQgVSGcad9SVjAuOIOlfxlJ2CWiAp9vGD6LxFFDZOkUB">
+                        134490967
+                    </a>
+                </h4>
+                <h4>软件免费且开源地址：
+                    <a href="https://github.com/Vixiu/count_buff">https://github.com/Vixiu/count_buff</a>
+                </h4>
                 """
-                f'<h4>当前版本:{Version}</h4>'
-                '<h4>Bug,意见反馈群:<a href="https://qm.qq.com/cgi-bin/qm/qr?k=RsvjlH8mGFVAFRGL9CvhGnV5q4WDagvw&jump_from=webapi&authKey=/G2wLNZPUbLOO/nUj/faWQgVSGcad9SVjAuOIOlfxlJ2CWiAp9vGD6LxFFDZOkUB">134490967</a></h4>'
-                '<h4>开源地址:<a href="https://github.com/Vixiu/count_buff">https://github.com/Vixiu/count_buff</a></h4>'
             )
-            QMessageBox.about(self, '奶量计算器', html)
+            msg_box.setWindowTitle('奶量计算器')
+            msg_box.setText(html)
+            msg_box.setTextInteractionFlags(Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard|
+                Qt.LinksAccessibleByMouse)  # 支持鼠标和键盘选择喵~
+            # 弹出消息框，等用户处理完再继续程序~
+            msg_box.exec_()
+
 
         def show_lv_window(self,result:LvResult):
             html = """
@@ -408,7 +509,6 @@ class BuffUI(Ui_widget,RoundedWindow):
                      f'<p style="font-size: 14px; margin-top: 12px;" ><b>四维共:{total},新的等级已应用到计算器内</></p>')
             QMessageBox.about(self, 'test', html)
 
-
         def __adjust_column_widths(self):
             #self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             horizontal=self.tableWidget.horizontalHeader()
@@ -434,11 +534,9 @@ class BuffUI(Ui_widget,RoundedWindow):
             elif value < 0:
                 item.setText(str(value))
                 item.setForeground(QBrush(QColor("red")))
-        def __clear_left_button_style(self):
-            self.luo_button.setStyleSheet('')
-            self.ba_button.setStyleSheet('')
-            self.ma_button.setStyleSheet('')
-            self.gong_button.setStyleSheet('')
+
+
+
         def __init_table(self):
           #  self.tableWidget.setIconSize(QSize(24, 24))
             self.tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -482,17 +580,22 @@ class BuffUI(Ui_widget,RoundedWindow):
             # -
             self.c_attack.setValidator(QIntValidator())
             self.c_intellect.setValidator(QIntValidator())
+
+
         def __set_table_text(self, row: int, col: int, v1, v2):
             if (row, col) not in self.__hide_grids:
                 self.tableWidget.item(row, col).setText(str(v1))
                 self.__set_diff(row, col + 1, v2)
-        def __check(self):
+        def __check(self,data:InputData):
             if set(self.job_button.keys()) != set(JobID):
                 raise ValueError(f'self.job_button与JobName不一致')
-            _=InputData()
-            if set(self.input_map.keys()) != set(_.__dict__.keys()):
-                raise ValueError(f'self.input_map缺少或多出:{set(_.__dict__.keys())^set(self.input_map.keys())}')
-        # ---------------
+
+            if set(self.input_map.keys()) != set(data.__dict__.keys()):
+                raise ValueError(f'错误:InputData与BuffUI.input_map不一致'
+                                 f'缺少:{set(data.__dict__.keys())-set(self.input_map.keys())}'
+                                 f'多出:{set(self.input_map.keys())-set(data.__dict__.keys())}')
+            for key, qle in self.input_map.items():
+                qle.setPlaceholderText(str(data.__dict__[key]))
 
         def __window_ontop(self):
             if bool(self.windowHandle().flags() & Qt.WindowStaysOnTopHint):

@@ -34,14 +34,18 @@ class SaveData:
         try:
             with open(FilePath,'r') as f:
                 data=json.load(f)
-            for k, v in data['data'].items():
-                for item in v:
+
+            for k, ls in data['data'].items():
+                for item in ls:
+
                     self.__config[k].append(
-                        Data(item['name'],InputData(**item['data']))
+                        Data(item['name'],InputData(
+                            **{k2:item['data'][k2] for k2 in InputData.__annotations__ if k2 in item['data']})
+                             )
                     )
 
-            self.__record={ k:v if 0 <= v < len(self.__config[k]) else 0
-                            for k,v in data['record'].items() if k in self.__config}
+            self.__record.update({ k:v if 0 <= v < len(self.__config[k]) else 0
+                            for k,v in data['record'].items() if k in self.__config})
             self.__last_job=data['last_job']  if data['last_job'] in self.__config else self.__last_job
         except :
             self.__first_launch=True
@@ -65,15 +69,14 @@ class SaveData:
             index=self.__record[job]
 
         if  index >=self.__property_map[job]:
-            self.__config[job][index].data = deepcopy(data.get_data())
+            self.__config[job][index].data = deepcopy(data)
             self.__save_config()
             return True, f'{self.__config[job][index].name} 已保存'
         else:
             return False, '默认配置不可修改,请另存为!'
 
     def add_config(self,name,data:InputData):
-
-        self.__config[self.__last_job].append(Data(name,deepcopy(data.get_data())))
+        self.__config[self.__last_job].append(Data(name,deepcopy(data)))
         self.__record[self.__last_job]=len(self.__config[self.__last_job])-1
         self.__save_config()
 
@@ -98,6 +101,7 @@ class SaveData:
 
     def rename(self,name:str,job_name:str=None,index:int=None):
         pass
+
     def get_data(self, job=None, index=None)->InputData:
         if job is None:
             job = self.__last_job

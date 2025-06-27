@@ -1,7 +1,9 @@
 from dataclasses import dataclass,field
+from typing import Generator, Any, Iterator
+
+
 @dataclass
 class InputData:
-    is_cp: bool = False
     c_attack: int = 3350
     c_intellect: int = 24500
     # buff属性
@@ -27,13 +29,13 @@ class InputData:
     ty_ty3_lv: int = 7
     ty_is_ty1: bool = True
     # 技能
-    skill_0: int = 1
-    skill_1: int = 1
-    skill_2: int = 1
-    skill_3: int = 1
-    skill_4: int = 1
-    skill_5: int = 1
-    skill_6: int = 1
+    passive_skill_0: int = 1
+    passive_skill_1: int = 1
+    passive_skill_2: int = 1
+    passive_skill_3: int = 1
+    passive_skill_4: int = 1
+    passive_skill_5: int = 1
+    passive_skill_6: int = 1
     @property
     def in_map_buff_amount(self) -> float:
         return (
@@ -44,17 +46,22 @@ class InputData:
     def out_map_buff_amount(self) -> float:
         return self.buff_amount_out_map * (1 + self.buff_amount_amp / 100)
 
-    def passive_skill(self, index)->int:
-        return self.__dict__[f'skill_{index}']
-    def set_passive_skill(self,index,value):
-        setattr(self,f'skill_{index}',value)
+    @property
+    def passive_skill(self):
+        return [self.__dict__[key] for key in self.__dict__ if key.startswith('passive_skill_')]
+    def set_passive_skill_lv(self,index,lv):
+        self.__dict__[f'passive_skill_{index}']=lv
 
-    def set_backup(self,is_skill=False):...
-    def update(self,data:"InputData"):
-            self.__dict__.update(data.__dict__)
+    def __setitem__(self, key, value):
+        if key not in self.__dict__:  # 只允许特定键
+            raise KeyError(f"键 '{key}' 不在InputData中!")
+        self.__dict__[key]=value
 
-    def get_data(self):
-        return self
+    def __iter__(self)-> Iterator[tuple[str, Any]]:
+        return iter(self.__dict__.items())
+
+
+
 '''
 @dataclass
 class BuffAmount:
@@ -93,3 +100,5 @@ class Skill:
     def __getitem__(self, item: int):
         return self.__dict__[f'k{item + 1}']
 '''
+
+

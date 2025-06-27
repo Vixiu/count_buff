@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1051</width>
+    <width>1050</width>
     <height>631</height>
    </rect>
   </property>
@@ -235,8 +235,8 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="images.qrc">
-           <normaloff>:/png/ba.png</normaloff>:/png/ba.png</iconset>
+          <iconset resource="png/images.qrc">
+           <normaloff>:/ba/av.png</normaloff>:/ba/av.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -260,8 +260,8 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="images.qrc">
-           <normaloff>:/png/ma.png</normaloff>:/png/ma.png</iconset>
+          <iconset resource="png/images.qrc">
+           <normaloff>:/ma/av.png</normaloff>:/ma/av.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -294,8 +294,8 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="images.qrc">
-           <normaloff>:/png/luo.png</normaloff>:/png/luo.png</iconset>
+          <iconset resource="png/images.qrc">
+           <normaloff>:/luo/av.png</normaloff>:/luo/av.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -319,8 +319,33 @@ padding-bottom:11px;
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="images.qrc">
-           <normaloff>:/png/gong.png</normaloff>:/png/gong.png</iconset>
+          <iconset resource="png/images.qrc">
+           <normaloff>:/gong/av.png</normaloff>:/gong/av.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="qiang_button">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="png/images.qrc">
+           <normaloff>:/qiang/av.png</normaloff>:/qiang/av.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -395,8 +420,8 @@ padding-bottom:11px;
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
-             <normaloff>:/png/about.png</normaloff>:/png/about.png</iconset>
+            <iconset resource="png/images.qrc">
+             <normaloff>:/icon/about.png</normaloff>:/icon/about.png</iconset>
            </property>
           </widget>
          </item>
@@ -415,8 +440,8 @@ padding-bottom:11px;
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
-             <normaloff>:/png/min.png</normaloff>:/png/min.png</iconset>
+            <iconset resource="png/images.qrc">
+             <normaloff>:/icon/min.png</normaloff>:/icon/min.png</iconset>
            </property>
           </widget>
          </item>
@@ -435,8 +460,8 @@ padding-bottom:11px;
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
-             <normaloff>:/png/pin.png</normaloff>:/png/pin.png</iconset>
+            <iconset resource="png/images.qrc">
+             <normaloff>:/icon/pin.png</normaloff>:/icon/pin.png</iconset>
            </property>
           </widget>
          </item>
@@ -455,8 +480,8 @@ padding-bottom:11px;
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
-             <normaloff>:/png/close.png</normaloff>:/png/close.png</iconset>
+            <iconset resource="png/images.qrc">
+             <normaloff>:/icon/close.png</normaloff>:/icon/close.png</iconset>
            </property>
           </widget>
          </item>
@@ -530,7 +555,7 @@ QComboBox::down-arrow
 {
 	width:16px;
 	height:16px;
-	border-image:url(:/png/down.png);
+	border-image:url(:/icon/down.png);
 }
 
 QComboBox::drop-down
@@ -592,8 +617,8 @@ QComboBox::drop-down
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
-               <normaloff>:/png/add.png</normaloff>:/png/add.png</iconset>
+              <iconset resource="png/images.qrc">
+               <normaloff>:/icon/add.png</normaloff>:/icon/add.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -612,8 +637,8 @@ QComboBox::drop-down
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="images.qrc">
-               <normaloff>:/png/del.png</normaloff>:/png/del.png</iconset>
+              <iconset resource="png/images.qrc">
+               <normaloff>:/icon/del.png</normaloff>:/icon/del.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -768,11 +793,27 @@ border-bottom:3px solid rgb(0, 159, 170);
                     </attribute>
                     <layout class="QVBoxLayout" name="verticalLayout">
                      <property name="spacing">
-                      <number>4</number>
+                      <number>6</number>
                      </property>
                      <property name="bottomMargin">
                       <number>8</number>
                      </property>
+                     <item>
+                      <widget class="QLabel" name="label_15">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color:rgb(129, 129, 129)</string>
+                       </property>
+                       <property name="text">
+                        <string>增益量(站街)</string>
+                       </property>
+                      </widget>
+                     </item>
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_7">
                        <property name="leftMargin">
@@ -848,7 +889,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                         <widget class="QLineEdit" name="buff_amount_enh">
                          <property name="minimumSize">
                           <size>
-                           <width>50</width>
+                           <width>40</width>
                            <height>0</height>
                           </size>
                          </property>
@@ -891,7 +932,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                         <number>1</number>
                        </property>
                        <property name="text">
-                        <string>Buff适用(站街)</string>
+                        <string>Buff(站街)</string>
                        </property>
                        <property name="margin">
                         <number>0</number>
@@ -950,7 +991,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>Lv:</string>
+                          <string>等级:</string>
                          </property>
                          <property name="textFormat">
                           <enum>Qt::AutoText</enum>
@@ -1003,7 +1044,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           <string notr="true">color:rgb(129, 129, 129)</string>
                          </property>
                          <property name="text">
-                          <string>Buff适用(图内)</string>
+                          <string>Buff(图内)</string>
                          </property>
                         </widget>
                        </item>
@@ -1099,7 +1140,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>Lv:</string>
+                          <string>等级:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1155,7 +1196,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                         <string notr="true">color:rgb(129, 129, 129)</string>
                        </property>
                        <property name="text">
-                        <string>一觉适用</string>
+                        <string>一觉(图内)</string>
                        </property>
                       </widget>
                      </item>
@@ -1229,7 +1270,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>Lv:</string>
+                          <string>等级:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1300,7 +1341,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>Lv:</string>
+                          <string>等级:</string>
                          </property>
                         </widget>
                        </item>
@@ -1412,7 +1453,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>进图额外增益量:</string>
+                          <string>增益量(图内):</string>
                          </property>
                         </widget>
                        </item>
@@ -1435,34 +1476,9 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </widget>
                        </item>
                        <item>
-                        <widget class="QCheckBox" name="cp_arm">
-                         <property name="enabled">
-                          <bool>true</bool>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">QCheckBox {
-  
-
-   }
-
-
-</string>
-                         </property>
+                        <widget class="QLabel" name="increase">
                          <property name="text">
-                          <string>失衡武器</string>
-                         </property>
-                         <property name="checked">
-                          <bool>false</bool>
-                         </property>
-                         <property name="autoExclusive">
-                          <bool>false</bool>
+                          <string>属性增伤:11.33</string>
                          </property>
                         </widget>
                        </item>
@@ -1477,18 +1493,15 @@ border-bottom:3px solid rgb(0, 159, 170);
                     <layout class="QVBoxLayout" name="verticalLayout_2">
                      <item>
                       <widget class="QLabel" name="label_20">
-                       <property name="text">
-                        <string>固定:请填写身上所有固定三攻(力智)的和</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_23">
                        <property name="styleSheet">
-                        <string notr="true"/>
+                        <string notr="true">color:rgb(129, 129, 129)</string>
                        </property>
                        <property name="text">
-                        <string>百分比:每项用逗号隔开(护石1,护石2,护石3,避邪玉)</string>
+                        <string>*固定:请填写身上所有固定三攻(力智)的和
+*百分比:每项用逗号隔开,避邪玉为单独一项</string>
+                       </property>
+                       <property name="scaledContents">
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -1598,7 +1611,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>百分比三攻</string>
+                          <string>百分比三攻:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1639,7 +1652,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>百分比力智</string>
+                          <string>百分比力智:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1665,19 +1678,6 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </widget>
                        </item>
                       </layout>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_9">
-                       <property name="styleSheet">
-                        <string notr="true">color:rgb(129, 129, 129)</string>
-                       </property>
-                       <property name="text">
-                        <string>护石力智不要忘了填写在上面</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                      </widget>
                      </item>
                      <item>
                       <widget class="QLabel" name="label_2">
@@ -1746,7 +1746,7 @@ border-bottom:3px solid rgb(0, 159, 170);
                           </font>
                          </property>
                          <property name="text">
-                          <string>百分比力智</string>
+                          <string>百分比力智:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -1777,10 +1777,12 @@ border-bottom:3px solid rgb(0, 159, 170);
                          <property name="font">
                           <font>
                            <pointsize>12</pointsize>
+                           <weight>75</weight>
+                           <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>增益量</string>
+                          <string>增益量:</string>
                          </property>
                         </widget>
                        </item>
@@ -1826,8 +1828,17 @@ border-bottom:3px solid rgb(0, 159, 170);
                      </property>
                      <item>
                       <widget class="QLabel" name="label_38">
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color:rgb(129, 129, 129)</string>
+                       </property>
                        <property name="text">
-                        <string>注意:切换配置带来的技能差距</string>
+                        <string>*点击应用会将当前属性设置为对应等级</string>
                        </property>
                        <property name="wordWrap">
                         <bool>true</bool>
@@ -1845,6 +1856,19 @@ border-bottom:3px solid rgb(0, 159, 170);
                          </property>
                          <property name="text">
                           <string>Lv15:启示:颂歌</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="lv1_icon">
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="pixmap">
+                          <pixmap>:/png/ba_buff.png</pixmap>
+                         </property>
+                         <property name="scaledContents">
+                          <bool>false</bool>
                          </property>
                         </widget>
                        </item>
@@ -1889,6 +1913,13 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </widget>
                        </item>
                        <item>
+                        <widget class="QLabel" name="lv2_icon">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
                         <widget class="QLineEdit" name="lv2_value">
                          <property name="font">
                           <font>
@@ -1918,6 +1949,13 @@ border-bottom:3px solid rgb(0, 159, 170);
                          </property>
                          <property name="text">
                           <string>Lv50:虔诚信念</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="lv3_icon">
+                         <property name="text">
+                          <string/>
                          </property>
                         </widget>
                        </item>
@@ -1962,6 +2000,13 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </widget>
                        </item>
                        <item>
+                        <widget class="QLabel" name="lv4_icon">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
                         <widget class="QLineEdit" name="lv4_value">
                          <property name="font">
                           <font>
@@ -1992,6 +2037,13 @@ border-bottom:3px solid rgb(0, 159, 170);
                          </property>
                          <property name="text">
                           <string>Lv95:圣天使之光</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="lv5_icon">
+                         <property name="text">
+                          <string/>
                          </property>
                         </widget>
                        </item>
@@ -2030,6 +2082,13 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </widget>
                        </item>
                        <item>
+                        <widget class="QLabel" name="lv6_icon">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
                         <widget class="QLineEdit" name="lv6_value">
                          <property name="font">
                           <font>
@@ -2064,6 +2123,13 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </widget>
                        </item>
                        <item>
+                        <widget class="QLabel" name="lv7_icon">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
                         <widget class="QLineEdit" name="lv7_value">
                          <property name="font">
                           <font>
@@ -2082,19 +2148,6 @@ border-bottom:3px solid rgb(0, 159, 170);
                         </widget>
                        </item>
                       </layout>
-                     </item>
-                     <item>
-                      <spacer name="verticalSpacer_3">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
                      </item>
                      <item>
                       <widget class="QPushButton" name="button_skill">
@@ -2120,6 +2173,19 @@ border-bottom:3px solid rgb(0, 159, 170);
                        </property>
                       </widget>
                      </item>
+                     <item>
+                      <spacer name="verticalSpacer_3">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
                     </layout>
                    </widget>
                    <widget class="QWidget" name="tab_2">
@@ -2127,6 +2193,16 @@ border-bottom:3px solid rgb(0, 159, 170);
                      <string>C模板</string>
                     </attribute>
                     <layout class="QVBoxLayout" name="verticalLayout_5">
+                     <item>
+                      <widget class="QLabel" name="label_4">
+                       <property name="styleSheet">
+                        <string notr="true">color:rgb(129, 129, 129)</string>
+                       </property>
+                       <property name="text">
+                        <string>*主C属性</string>
+                       </property>
+                      </widget>
+                     </item>
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_12">
                        <item>
@@ -2549,13 +2625,13 @@ QHeaderView::section {
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_26">
                <property name="topMargin">
-                <number>5</number>
+                <number>0</number>
                </property>
                <property name="rightMargin">
                 <number>15</number>
                </property>
                <property name="bottomMargin">
-                <number>15</number>
+                <number>0</number>
                </property>
                <item>
                 <spacer name="horizontalSpacer_5">
@@ -2571,79 +2647,95 @@ QHeaderView::section {
                 </spacer>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_10">
-                 <item>
-                  <widget class="QPushButton" name="button_save_config">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>保存当前配置</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="button_as_config">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>另存为</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <widget class="QPushButton" name="button_as_config">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>另存为新配置</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="button_save_config">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>保存当前数据</string>
+                 </property>
+                </widget>
                </item>
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_7">
                  <property name="spacing">
-                  <number>0</number>
+                  <number>6</number>
                  </property>
+                 <item>
+                  <widget class="QPushButton" name="button_reset">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>重置为基准</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="button_base">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>90</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>设为基准</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>false</bool>
+                   </property>
+                   <property name="autoDefault">
+                    <bool>false</bool>
+                   </property>
+                   <property name="default">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
-               </item>
-               <item>
-                <widget class="QPushButton" name="button_base">
-                 <property name="enabled">
-                  <bool>true</bool>
-                 </property>
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>90</width>
-                   <height>62</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>13</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>设为基础</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>false</bool>
-                 </property>
-                 <property name="autoDefault">
-                  <bool>false</bool>
-                 </property>
-                 <property name="default">
-                  <bool>false</bool>
-                 </property>
-                </widget>
                </item>
               </layout>
              </item>
@@ -2660,7 +2752,7 @@ QHeaderView::section {
   </widget>
  </widget>
  <resources>
-  <include location="images.qrc"/>
+  <include location="png/images.qrc"/>
  </resources>
  <connections/>
 </ui>
