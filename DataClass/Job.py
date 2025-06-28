@@ -46,7 +46,7 @@ class Buff:
         return min(len(self.attack),len(self.intellect))
 
     def get_attack(self,index:int):
-        return self.intellect[max(0, min(index-1, len(self.attack)-1))]
+        return self.attack[max(0, min(index-1, len(self.attack)-1))]
 
     def get_intellect(self,index:int):
         return self.intellect[max(0, min(index-1, len(self.intellect)-1))]

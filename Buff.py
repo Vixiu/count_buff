@@ -26,7 +26,7 @@ def count_buff(buff_amount, intellect:int,xs: int,xyz:tuple[int,int,float]):  # 
     return count
 
 
-class Buff2:
+class Buff:
     def __init__(self,job:Job):
         self.__data:InputData=InputData()
         self.__job:Job=job

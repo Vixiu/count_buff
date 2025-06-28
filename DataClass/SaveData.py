@@ -73,7 +73,7 @@ class SaveData:
             self.__save_config()
             return True, f'{self.__config[job][index].name} 已保存'
         else:
-            return False, '默认配置不可修改,请另存为!'
+            return False, '默认配置为后续添加模板预留,不可修改,请另存为!'
 
     def add_config(self,name,data:InputData):
         self.__config[self.__last_job].append(Data(name,deepcopy(data)))

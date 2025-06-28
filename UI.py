@@ -198,21 +198,17 @@ class InputDialog(QDialog):
 
         # 添加输入框
         self.input1 = QLineEdit(self)
-        self.input2 = QLineEdit(self)
         self.input3 = QLineEdit(self)
 
         # 设置默认值
         self.input1.setText("80")
-        self.input2.setText("50")
         self.input3.setText(str(value))
         #
         self.input1.setValidator(QIntValidator())
-        self.input2.setValidator(QIntValidator())
         self.input3.setValidator(QIntValidator())
         # 设置输入框标签
-        form_layout.addRow(QLabel("11111111111111"))
+        form_layout.addRow(QLabel("基于buff(站街)推算"))
         form_layout.addRow("公会Buff(训练教官):", self.input1)
-        form_layout.addRow("纹 章 四 维:", self.input2)
         form_layout.addRow(f"Lv50 {lv50_name}(四维):", self.input3)
 
         # 添加表单布局到主布局
@@ -226,7 +222,7 @@ class InputDialog(QDialog):
     def get_inputs(self):
         """返回用户输入的内容"""
         try:
-            return int(self.input1.text())+int(self.input2.text())+int(self.input3.text())
+            return int(self.input1.text())+int(self.input3.text())
         except ValueError:
             return 0
 
@@ -461,9 +457,9 @@ class BuffUI(Ui_widget,RoundedWindow):
                         百分比三攻/力智每项<font color="#FF7F50">使用逗号（,）隔开</font>；
                     </li>
                     <li><font color="#6495ED">辟邪玉上的百分比三攻/力智词条内部为加算，请填写一项（所有词条的总和），不要每项用逗号分隔。</font></li>
-                    <li><strong>增益量（图内）：</strong> 目前仅黄金乡套装的增益量在进图时生效。</li>
+                    <li><strong>增益量（图内）：</strong>图内生效的增益量,目前有:黄金乡套装的增益量 等。</li>
                     <li>如果输入带有（+，-）号的数字，软件将以基准数据进行加减计算。</li>
-                    <li>理论三攻误差范围为±1，力智误差为±5。如果超出此范围，可能是输入数据有误！</li>
+                    <li>理论三攻误差范围为±2,如果超出过多，可能是你填的不对！</li>
                 </ol>
                 <h4>当前版本：{Version}</h4>
                 <h4>如有Bug或建议，欢迎加入交流群反馈：
@@ -586,6 +582,7 @@ class BuffUI(Ui_widget,RoundedWindow):
             if (row, col) not in self.__hide_grids:
                 self.tableWidget.item(row, col).setText(str(v1))
                 self.__set_diff(row, col + 1, v2)
+
         def __check(self,data:InputData):
             if set(self.job_button.keys()) != set(JobID):
                 raise ValueError(f'self.job_button与JobName不一致')

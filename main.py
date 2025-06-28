@@ -6,7 +6,7 @@ from sys import argv
 from PyQt5.QtCore import QCoreApplication, Qt
 from PyQt5.QtTest import QTest
 from PyQt5.QtWidgets import QApplication, QMessageBox, QInputDialog
-from Buff import Buff2 as Buff
+from Buff import  Buff
 from DataClass.SaveData import save
 from DataClass.InputData import InputData
 from UI import  BuffUI
@@ -104,6 +104,9 @@ def speculation_clicked():
         val+=buff.data.buff_intellect_out_map
         buff.data.buff_intellect_in_map=val
         buff.data.ty_intellect=val
+        buff.data.buff_lv_in_map=buff.data.buff_lv_out_map
+
+        UI.buff_lv_in.setText(str(buff.data.buff_lv_out_map))
         UI.buff_intellect_in.setText(str(val))
         UI.ty_intellect.setText(str(val))
         UI.set_show_text(*buff())
