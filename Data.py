@@ -11,14 +11,10 @@ save.load_config()
 # -------------------------------------------------------------
 # 职业数据
 # passive_skill,skill_form要按技能等级从小到大
-
 JobData:dict[str,Job]={}
-# passive_skill_15=lambda lv:
-# todo 公式计算有问题需要改为固定数据
-# 数据源 https://developers.neople.co.kr/contents/apiDocs/df
-passive_skill_50=lambda lv: 14 + (lv+1 )// 2 * 23 + (lv // 2) * 22
-passive_skill_75=lambda lv: 140 + lv * 10
-passive_skill_95=lambda lv: 150 + lv * 10
+
+# 数据源 ->Archive/jobinfo.py
+
 #---------------------------------
 JobData['ma']=Job(
     id='ma',name='',attribute='智力',increase=1.141,
