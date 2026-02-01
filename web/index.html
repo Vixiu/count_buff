@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>奶量计算器（前端版）</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>奶量计算器（前端版）</h1>
+      <p>纯前端计算，无需后端服务。</p>
+    </div>
+    <div class="header-actions">
+      <button id="setBaseline" class="secondary">设为基准</button>
+      <button id="setSkillBaseline" class="secondary">设为被动基准</button>
+      <button id="resetData" class="ghost">重置</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>基础设置</h2>
+      <div class="form-grid">
+        <label>
+          职业
+          <select id="jobSelect"></select>
+        </label>
+        <label>
+          三攻常量
+          <input id="cAttack" type="number" />
+        </label>
+        <label>
+          四维常量
+          <input id="cIntellect" type="number" />
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Buff 数据</h2>
+      <div class="form-grid">
+        <label>
+          图内四维
+          <input id="buffIntellectIn" type="number" />
+        </label>
+        <label>
+          图内 Buff 等级
+          <input id="buffLvIn" type="number" />
+        </label>
+        <label>
+          图外四维
+          <input id="buffIntellectOut" type="number" />
+        </label>
+        <label>
+          图外 Buff 等级
+          <input id="buffLvOut" type="number" />
+        </label>
+      </div>
+      <div class="form-grid">
+        <label>
+          图内增益量
+          <input id="buffAmountIn" type="number" />
+        </label>
+        <label>
+          图外增益量
+          <input id="buffAmountOut" type="number" />
+        </label>
+        <label>
+          增益量放大(%)
+          <input id="buffAmountAmp" type="number" step="0.1" />
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>避邪玉 / 修正</h2>
+      <div class="form-grid">
+        <label>
+          增益量(%)
+          <input id="bxyAmp" type="number" step="0.1" />
+        </label>
+        <label>
+          固定三攻
+          <input id="bxyFixedAttack" type="number" />
+        </label>
+        <label>
+          固定四维
+          <input id="bxyFixedIntellect" type="number" />
+        </label>
+        <label>
+          固定太阳四维
+          <input id="bxyFixedTy" type="number" />
+        </label>
+      </div>
+      <div class="form-grid">
+        <label>
+          三攻百分比(逗号分隔)
+          <input id="bxyPercentageAttack" type="text" placeholder="0,0" />
+        </label>
+        <label>
+          四维百分比(逗号分隔)
+          <input id="bxyPercentageIntellect" type="text" placeholder="0,0" />
+        </label>
+        <label>
+          太阳百分比(逗号分隔)
+          <input id="bxyPercentageTy" type="text" placeholder="0,0" />
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>觉醒设置</h2>
+      <div class="form-grid">
+        <label>
+          一觉等级
+          <input id="ty1Lv" type="number" />
+        </label>
+        <label>
+          一觉四维
+          <input id="tyIntellect" type="number" />
+        </label>
+        <label>
+          三觉等级
+          <input id="ty3Lv" type="number" />
+        </label>
+      </div>
+      <div class="form-grid">
+        <label class="radio-group">
+          绑定类型
+          <span>
+            <input type="radio" name="tyBind" id="tyBind1" value="ty1" />
+            <label for="tyBind1">绑定一觉</label>
+          </span>
+          <span>
+            <input type="radio" name="tyBind" id="tyBind3" value="ty3" />
+            <label for="tyBind3">绑定三觉</label>
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>被动技能等级</h2>
+      <div id="passiveSkillContainer" class="form-grid"></div>
+    </section>
+
+    <section class="panel result-panel">
+      <h2>计算结果</h2>
+      <div class="result-note" id="baselineNote">尚未设置基准。</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th>三攻</th>
+              <th>四维</th>
+              <th>倍率</th>
+              <th>Δ三攻</th>
+              <th>Δ四维</th>
+              <th>Δ倍率</th>
+            </tr>
+          </thead>
+          <tbody id="resultBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
